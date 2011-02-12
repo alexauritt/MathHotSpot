@@ -1,0 +1,20 @@
+div.problem_group {
+	margin: 20px;
+}
+
+div.instructions {
+	margin-bottom: 30px;
+}
+
+div.problem {
+	float: left;
+	width: 200px;
+	height: 200px;
+}
+
+div.problem > math {
+
+}
+
+#first {
+}
