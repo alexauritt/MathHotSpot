@@ -1,5 +1,6 @@
 div.problem_group {
 	margin: 20px;
+	clear: both;
 }
 
 div.instructions {
@@ -12,9 +13,6 @@ div.problem {
 	height: 200px;
 }
 
-div.problem > math {
-
-}
-
-#first {
+span.math_text {
+	margin: 0px 5px 0px 5px;
 }
