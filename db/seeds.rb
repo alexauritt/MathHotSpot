@@ -5,3 +5,35 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+
+lessons = Lesson.create([{ :title => 'Diving Monomials', :chapter => 5, :section => 2}])
+
+instructions = Instructions.create([{ :description => "Simplify"}])
+
+MathProblem.create([
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 1,
+    :problem_markup => '<mfrac><mrow><mn>-4</mn><mi>x</mi><mi>y</mi></mrow><mrow><mn>10</mn><mi>x</mi></mrow></mfrac>'},
+
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 2,
+    :problem_markup => '<mfrac><mrow><msup><mi>c</mi><mn>7</mn></msup></mrow><mrow><msup><mi>c</mi><mn>4</mn></msup></mrow></mfrac>'},
+
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 2,
+    :problem_markup => '<mfrac><mrow><msup><mi>a</mi><mn>3</mn></msup></mrow><mrow><msup><mi>a</mi><mn>8</mn></msup></mrow></mfrac>'},
+
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 2,
+    :problem_markup => '<mfrac><mrow><msup><mi>b</mi><mn>5</mn></msup></mrow><mrow><msup><mi>b</mi><mn>5</mn></msup></mrow></mfrac>'},
+
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 3,
+    :problem_markup => '<mfrac><mrow><mn>12</mn><msup><mi>x</mi><mn>5</mn></msup></mrow><mrow><mn>-3</mn><msup><mi>x</mi><mn>3</mn></msup></mrow></mfrac>'},
+
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 4,
+    :problem_markup => '<mfrac><mrow><mi>m</mi><msup><mi>n</mi><mn>5</mn></msup></mrow><mrow><msup><mi>m</mi><mn>3</mn></msup><msup><mi>n</mi><mn>2</mn></msup></mrow></mfrac>'},
+
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 5,
+    :problem_markup => '<mfrac><mrow><msup><mfenced><mrow><mn>2</mn><mi>k</mi></mrow></mfenced><mn>5</mn></msup></mrow><mrow><msup><mfenced><mrow><mn>2</mn><mi>k</mi></mrow></mfenced><mn>3</mn></msup></mrow></mfrac>'},
+
+    { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 6,
+    :problem_markup => '<mfrac><mrow><mo>-</mo><mfenced><mrow><msup><mi>m</mi><mn>3</mn></msup><mi>n</mi></mrow></mfenced></mrow><mrow><msup><mfenced><mrow><mo>-</mo><mi>m</mi><mi>n</mi></mrow></mfenced><mn>3</mn></msup></mrow></mfrac>'}						
+		
+  ])
