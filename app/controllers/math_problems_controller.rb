@@ -1,0 +1,2 @@
+class MathProblemsController < ApplicationController
+end

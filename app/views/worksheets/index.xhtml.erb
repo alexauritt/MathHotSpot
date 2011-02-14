@@ -2,13 +2,7 @@
 	<div class="instructions">Simplify:</div>
 	
 	<% @math_problems.each_with_index do |math_problem, index| %>
-		<div class="problem">
-			<span class="problem_number"><%= index + 1 %>)</span>
-			<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
-				<%= display_mathml(math_problem) %>
-			</math>
-			<div class="problem_links"><%= link_to :replace, "http://www.google.com" %></div>
-		</div>	
+		<%= render :partial => "math_problems/math_problem", :locals => { :math_problem => math_problem, :problem_number => index + 1 } %>
 	<% end %>
 </div>
 
