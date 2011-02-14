@@ -1,0 +1,8 @@
+
+one:
+    problem_markup: MyText
+    math_problem_template_id: 1
+    
+two:
+    problem_markup: MyText
+    math_problem_template_id: 1

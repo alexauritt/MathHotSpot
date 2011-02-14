@@ -3,11 +3,9 @@
 one:
   lesson_id: 1
   instructions_id: 1
-  problem_markup: MyText
   difficulty: 1
 
 two:
   lesson_id: 1
   instructions_id: 1
-  problem_markup: MyText
   difficulty: 1
