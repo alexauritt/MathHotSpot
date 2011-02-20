@@ -46,6 +46,6 @@ MathProblem.create([
     :problem_markup => '<mfrac><mrow><mo>-</mo><mfenced><mrow><msup><mi>m</mi><mn>3</mn></msup><mi>n</mi></mrow></mfenced></mrow><mrow><msup><mfenced><mrow><mo>-</mo><mi>m</mi><mi>n</mi></mrow></mfenced><mn>3</mn></msup></mrow></mfrac>'}							
 ])
 
-worksheet = Worksheet.create()
+worksheet = Worksheet.create(:title => "My first worksheet")
 worksheet.math_problems << MathProblem.all
 worksheet.save

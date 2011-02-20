@@ -42,11 +42,14 @@ ActiveRecord::Schema.define(:version => 20110220144540) do
   end
 
   create_table "math_problems_worksheets", :id => false, :force => true do |t|
-    t.integer "math_problem_id"
-    t.integer "worksheet_id"
+    t.integer  "math_problem_id"
+    t.integer  "worksheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "worksheets", :force => true do |t|
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
