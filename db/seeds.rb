@@ -18,7 +18,7 @@ problem_templates = MathProblemTemplate.create([
   { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 4 },
   { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 5 },
   { :lesson_id => lessons.first, :instructions_id => instructions.first, :difficulty => 6 }    
-  ])
+])
 
 MathProblem.create([
     { :math_problem_template => problem_templates[0],
@@ -43,6 +43,9 @@ MathProblem.create([
     :problem_markup => '<mfrac><mrow><msup><mfenced><mrow><mn>2</mn><mi>k</mi></mrow></mfenced><mn>5</mn></msup></mrow><mrow><msup><mfenced><mrow><mn>2</mn><mi>k</mi></mrow></mfenced><mn>3</mn></msup></mrow></mfrac>'},
 
     { :math_problem_template => problem_templates[5],
-    :problem_markup => '<mfrac><mrow><mo>-</mo><mfenced><mrow><msup><mi>m</mi><mn>3</mn></msup><mi>n</mi></mrow></mfenced></mrow><mrow><msup><mfenced><mrow><mo>-</mo><mi>m</mi><mi>n</mi></mrow></mfenced><mn>3</mn></msup></mrow></mfrac>'}						
-		
-  ])
+    :problem_markup => '<mfrac><mrow><mo>-</mo><mfenced><mrow><msup><mi>m</mi><mn>3</mn></msup><mi>n</mi></mrow></mfenced></mrow><mrow><msup><mfenced><mrow><mo>-</mo><mi>m</mi><mi>n</mi></mrow></mfenced><mn>3</mn></msup></mrow></mfrac>'}							
+])
+
+worksheet = Worksheet.create()
+worksheet.math_problems << MathProblem.all
+worksheet.save
