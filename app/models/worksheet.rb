@@ -1,3 +1,4 @@
 class Worksheet < ActiveRecord::Base
-  has_and_belongs_to_many :math_problems
+  has_many :worksheet_problems
+  has_many :math_problems, :through => :worksheet_problems
 end

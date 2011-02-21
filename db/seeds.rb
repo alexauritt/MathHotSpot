@@ -68,5 +68,9 @@ MathProblem.create([
 ])
 
 worksheet = Worksheet.create(:title => "My first worksheet")
-worksheet.math_problems << MathProblem.find(1,3,4,6,8,10,12)
+problems_for_worksheet = MathProblem.find(1,3,4,6,8,10,12)
+problems_for_worksheet.each_with_index do |p, index|
+  worksheet.worksheet_problems << WorksheetProblem.new({:math_problem_id => p.id, :problem_number => index + 1 })
+end
+
 worksheet.save

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  worksheet_id: 1
+  math_problem_id: 1
+  problem_number: 1
+
+two:
+  worksheet_id: 1
+  math_problem_id: 1
+  problem_number: 1
