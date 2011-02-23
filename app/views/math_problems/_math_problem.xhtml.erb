@@ -3,5 +3,5 @@
 	<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
 		<%= display_mathml(math_problem) %>
 	</math>
-	<div class="problem_links"><%= button_to :replace, {:controller => "worksheets", :action => "update", :id => @worksheet.id, :math_problem_id => math_problem.id }, { :method => 'put' } %></div>
+	<div class="problem_links"><%= button_to :replace, {:controller => "worksheets", :action => "update", :id => @worksheet.id, :problem_number => problem_number }, { :method => 'put' } %></div>
 </div>

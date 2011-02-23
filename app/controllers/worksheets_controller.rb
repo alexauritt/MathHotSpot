@@ -12,12 +12,16 @@ class WorksheetsController < ApplicationController
 
   def update
     @worksheet = Worksheet.find(params[:id])
-    old_problem = MathProblem.find(params[:math_problem_id])
-    new_problem = MathProblemTemplate.find_replacement(old_problem)
-    @worksheet.math_problems.delete old_problem 
-    @worksheet.math_problems << new_problem
+    
+    if @worksheet.replace_problem(params[:problem_number].to_i)
+      flash[:notice] = "Problem successfully replaced."
+    else
+      flash[:notice] = @worksheet.error_for_failed_replace.to_s
+    end
+  
     @worksheet.save
     @math_problems = @worksheet.math_problems
+      
     render :template => "worksheets/show.xhtml.erb", :content_type => 'application/xhtml+xml'
   end
 end
