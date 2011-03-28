@@ -1,12 +1,12 @@
 class Worksheet < ActiveRecord::Base
-  include Errors
+  include MathHotSpotErrors
   has_many :worksheet_problems, :order => :problem_number
   has_many :math_problems, :through => :worksheet_problems
 
   def replace_problem(problem_number)
     
     if problem_number_missing_from_worksheet? problem_number
-      errors[:replace_failure] << WorksheetErrors::PROBLEM_NUMBER_MISSING_ERROR
+      errors[:replace_failure] << WorksheetErrors::Internal::PROBLEM_NUMBER_MISSING_ERROR
       return false
     else
       problem_to_replace = find_math_problem_number(problem_number)
@@ -16,11 +16,9 @@ class Worksheet < ActiveRecord::Base
         errors[:replace_failure] << WorksheetErrors::UNIQUE_PROBLEM_REPLACE_ERROR
       else 
         replace_math_problem_number(problem_number, new_problem)
-      end
-      
+      end 
       true
     end
-    
   end
   
   def error_for_failed_replace

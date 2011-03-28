@@ -1,4 +1,5 @@
 class MathProblemTemplate < ActiveRecord::Base
+  include MathHotSpotErrors
   belongs_to :lesson
   belongs_to :instructions
   has_many :math_problems
@@ -8,12 +9,10 @@ class MathProblemTemplate < ActiveRecord::Base
 
     if available_problems.empty?
       raise ActiveRecord::RecordNotFound
-      return nil
     end
     
     if (available_problems.count == 1)  # then problem is irreplaceable -- it's one of a kind
-      raise ActiveRecord::RecordNotFound
-      return availble_problems.first
+      raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR
     end
   
     if options[:exclude]
@@ -21,6 +20,9 @@ class MathProblemTemplate < ActiveRecord::Base
     end
         
     without_original = available_problems.delete_if {|problem| problem == math_problem}
+    
+    raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING if without_original.empty? 
+    
     without_original[rand(without_original.size)]
   end
 end

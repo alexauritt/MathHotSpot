@@ -2,7 +2,7 @@ require 'test_helper'
 require 'mocha'
 
 class WorksheetTest < ActiveSupport::TestCase
-  include Errors
+  include MathHotSpotErrors
   # Replace this with your real tests.
   
   def setup
@@ -14,7 +14,7 @@ class WorksheetTest < ActiveSupport::TestCase
     
     assert_equal false, @worksheet.replace_problem(3)
 
-    assert_worksheet_contains_error @worksheet, WorksheetErrors::PROBLEM_NUMBER_MISSING_ERROR
+    assert_worksheet_contains_error @worksheet, WorksheetErrors::Internal::PROBLEM_NUMBER_MISSING_ERROR
   end
   
   test "replace_problem suceeds if specified problem number found on worksheet" do
