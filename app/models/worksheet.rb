@@ -1,22 +1,19 @@
 class Worksheet < ActiveRecord::Base
+  include Errors
   has_many :worksheet_problems, :order => :problem_number
   has_many :math_problems, :through => :worksheet_problems
-
-  module Errors
-    PROBLEM_NUMBER_MISSING_ERROR = "Attempt to replace a problem number which is missing from the current worksheet."
-    UNIQUE_PROBLEM_REPLACE_ERROR = "Attempt to replace an irreplaceable math problem."
-  end
 
   def replace_problem(problem_number)
     
     if problem_number_missing_from_worksheet? problem_number
-      errors[:replace_failure] << Errors::PROBLEM_NUMBER_MISSING_ERROR
+      errors[:replace_failure] << WorksheetErrors::PROBLEM_NUMBER_MISSING_ERROR
       return false
     else
       problem_to_replace = find_math_problem_number(problem_number)
-      new_problem = MathProblemTemplate.find_replacement(problem_to_replace)
+      similar_problem_ids = ids_of_similar_problems_on_worksheet(problem_to_replace)
+      new_problem = MathProblemTemplate.find_replacement(problem_to_replace, { :exclude => similar_problem_ids })
       if new_problem == problem_to_replace
-        errors[:replace_failure] << Errors::UNIQUE_PROBLEM_REPLACE_ERROR
+        errors[:replace_failure] << WorksheetErrors::UNIQUE_PROBLEM_REPLACE_ERROR
       else 
         replace_math_problem_number(problem_number, new_problem)
       end
@@ -31,6 +28,11 @@ class Worksheet < ActiveRecord::Base
   end
   
   private
+    
+  def ids_of_similar_problems_on_worksheet(problem)
+    similar_problems = math_problems.select {|prob| ((prob.math_problem_template == problem.math_problem_template) && (prob != problem)) }
+    similar_problems.map {|prob| prob.id }
+  end
   
   def problem_number_missing_from_worksheet?(problem_number)
     problem_number > worksheet_problems.size

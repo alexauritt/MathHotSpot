@@ -1,11 +1,23 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  worksheet_id: 1
-  math_problem_id: 1
-  problem_number: 1
+monomial_worksheet_prob_01:
+    worksheet: monomial_worksheet_01
+    math_problem: simple_monomial_problem_01
+    problem_number: 1
 
-two:
-  worksheet_id: 1
-  math_problem_id: 1
-  problem_number: 1
+monomial_worksheet_prob_02:
+    worksheet: monomial_worksheet_01
+    math_problem: simple_monomial_problem_03
+    problem_number: 2
+
+monomial_worksheet_prob_03:
+    worksheet: monomial_worksheet_01
+    math_problem: simple_monomial_problem_04
+    problem_number: 3
+    
+monomial_worksheet_prob_04:
+    worksheet: monomial_worksheet_01
+    math_problem: medium_monomial_problem_01
+    problem_number: 4
+  
+ 

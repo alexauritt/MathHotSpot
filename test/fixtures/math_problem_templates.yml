@@ -1,11 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  lesson_id: 1
-  instructions_id: 1
-  difficulty: 1
+dividing_monomials_template_01:
+    lesson: dividing_monomials_lesson
+    instructions_id: 1
+    difficulty: 1
+    
+dividing_monomials_template_02:
+    lesson: dividing_monomials_lesson
+    instructions_id: 1
+    difficulty: 2
 
-two:
-  lesson_id: 1
-  instructions_id: 1
-  difficulty: 1
+dividing_monomials_template_03:
+    lesson: dividing_monomials_lesson
+    instructions_id: 1
+    difficulty: 3
+    
+
+

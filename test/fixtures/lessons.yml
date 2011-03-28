@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
-  chapter: 1
-  section: 1
+dividing_monomials_lesson:
+  title: "Dividing Monomials"
+  chapter: 5
+  section: 2
 
-two:
-  title: MyString
-  chapter: 1
-  section: 1
+monomial_factors_of_polynomials_lesson:
+  title: "Monomial Factors of Polynomials"
+  chapter: 5
+  section: 3
