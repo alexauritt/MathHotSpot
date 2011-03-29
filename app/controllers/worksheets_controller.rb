@@ -13,12 +13,10 @@ class WorksheetsController < ApplicationController
   def update
     @worksheet = Worksheet.find(params[:id])
     
-    unless @worksheet.replace_problem(params[:problem_number].to_i)
-      flash[:notice] = @worksheet.error_for_failed_replace.to_s
-    else
-      @worksheet.save      
-    end
-  
+    Rails.logger.info "Worksheet errors are: #{@worksheet.errors.size}"
+    
+    flash.now[:notice] = @worksheet.error_for_failed_replace.to_s unless @worksheet.replace_problem(params[:problem_number].to_i)
+    @worksheet.save
     @worksheet.reload
     @math_problems = @worksheet.math_problems 
     render :template => "worksheets/show.xhtml.erb", :content_type => 'application/xhtml+xml'

@@ -11,9 +11,8 @@ class MathProblemTemplate < ActiveRecord::Base
       raise ActiveRecord::RecordNotFound
     end
     
-    if (available_problems.count == 1)  # then problem is irreplaceable -- it's one of a kind
-      raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR
-    end
+      # then problem is irreplaceable -- it's one of a kind
+    raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR if (available_problems.count == 1)
   
     if options[:exclude]
       available_problems.reject! {|problem| options[:exclude].include? problem.id }
@@ -21,7 +20,9 @@ class MathProblemTemplate < ActiveRecord::Base
         
     without_original = available_problems.delete_if {|problem| problem == math_problem}
     
-    raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING if without_original.empty? 
+    if without_original.empty?
+      raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, "All of the similar problems are already on the worksheet!" 
+    end
     
     without_original[rand(without_original.size)]
   end

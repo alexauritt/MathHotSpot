@@ -10,11 +10,9 @@ class WorksheetTest < ActiveSupport::TestCase
   end
   
   test "replace_problem fails if specified problem number not found on worksheet" do
-    create_mock_worksheet_problems_for(@worksheet, { :count => 2 })
-    
+    create_mock_worksheet_problems_for(@worksheet, { :count => 2 })    
     assert_equal false, @worksheet.replace_problem(3)
-
-    assert_worksheet_contains_error @worksheet, WorksheetErrors::Internal::PROBLEM_NUMBER_MISSING_ERROR
+    assert_worksheet_contains_error @worksheet, ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR
   end
   
   test "replace_problem suceeds if specified problem number found on worksheet" do
@@ -31,7 +29,7 @@ class WorksheetTest < ActiveSupport::TestCase
     
     @worksheet.replace_problem 1
     
-    assert_worksheet_contains_error @worksheet, WorksheetErrors::UNIQUE_PROBLEM_REPLACE_ERROR
+    assert_worksheet_contains_error @worksheet, ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR
   end
   
   test "replace_problems actually replaces expected problem" do

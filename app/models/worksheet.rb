@@ -6,18 +6,26 @@ class Worksheet < ActiveRecord::Base
   def replace_problem(problem_number)
     
     if problem_number_missing_from_worksheet? problem_number
-      errors[:replace_failure] << WorksheetErrors::Internal::PROBLEM_NUMBER_MISSING_ERROR
+      errors[:replace_failure] << ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR
       return false
     else
-      problem_to_replace = find_math_problem_number(problem_number)
-      similar_problem_ids = ids_of_similar_problems_on_worksheet(problem_to_replace)
-      new_problem = MathProblemTemplate.find_replacement(problem_to_replace, { :exclude => similar_problem_ids })
-      if new_problem == problem_to_replace
-        errors[:replace_failure] << WorksheetErrors::UNIQUE_PROBLEM_REPLACE_ERROR
-      else 
-        replace_math_problem_number(problem_number, new_problem)
-      end 
-      true
+      begin
+        problem_to_replace = find_math_problem_number(problem_number)
+        similar_problem_ids = ids_of_similar_problems_on_worksheet(problem_to_replace)
+        new_problem = MathProblemTemplate.find_replacement(problem_to_replace, { :exclude => similar_problem_ids })
+        if new_problem == problem_to_replace
+          errors[:replace_failure] << ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR
+        else 
+          replace_math_problem_number(problem_number, new_problem)
+        end 
+        true
+      rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING => bam
+        errors[:replace_failure] << bam
+        false
+      rescue ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => boom
+        errors[:replace_failure] << boom
+        false
+      end
     end
   end
   
