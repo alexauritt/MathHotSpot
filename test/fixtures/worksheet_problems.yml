@@ -20,9 +20,14 @@ monomial_worksheet_prob_04:
     math_problem: medium_monomial_problem_01
     problem_number: 4
 
+monomial_worksheet_prob_05:
+    worksheet: monomial_worksheet_01
+    math_problem: medium_monomial_problem_02
+    problem_number: 5
+
 monomial_worksheet_unique_problem:
     worksheet: monomial_worksheet_01
     math_problem: unique_monomial_problem
-    problem_number: 5
+    problem_number: 6
   
  
