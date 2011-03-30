@@ -15,5 +15,9 @@ dividing_monomials_template_03:
     instructions_id: 1
     difficulty: 3
     
-
+unique_monomials_template:
+    lesson: dividing_monomials_lesson
+    instructions_id: 1
+    difficulty: 3
+  
 

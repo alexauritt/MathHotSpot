@@ -4,33 +4,26 @@ class Worksheet < ActiveRecord::Base
   has_many :math_problems, :through => :worksheet_problems
 
   def replace_problem(problem_number)
-    
-    if problem_number_missing_from_worksheet? problem_number
-      errors[:replace_failure] << ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR
-      return false
-    else
-      begin
-        problem_to_replace = find_math_problem_number(problem_number)
-        similar_problem_ids = ids_of_similar_problems_on_worksheet(problem_to_replace)
-        new_problem = MathProblemTemplate.find_replacement(problem_to_replace, { :exclude => similar_problem_ids })
-        if new_problem == problem_to_replace
-          errors[:replace_failure] << ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR
-        else 
-          replace_math_problem_number(problem_number, new_problem)
-        end 
-        true
-      rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING => bam
-        errors[:replace_failure] << bam
-        false
-      rescue ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => boom
-        errors[:replace_failure] << boom
-        false
-      end
+    begin
+      raise ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR if problem_number_missing_from_worksheet?(problem_number)
+      problem_to_replace = find_math_problem_number(problem_number)
+      similar_problem_ids = ids_of_similar_problems_on_worksheet(problem_to_replace)
+      new_problem = MathProblemTemplate.find_replacement(problem_to_replace, { :exclude => similar_problem_ids })
+      if new_problem == problem_to_replace
+        raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR
+      else 
+        replace_math_problem_number(problem_number, new_problem)
+      end 
+      true
+    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
+      Rails.logger.info "Error caught: #{bam}"
+      errors[:replace_failure] << bam
+      false
     end
   end
   
   def error_for_failed_replace
-    errors[:replace_failure].first || "Failed to replace the problem for unknown reason."
+    Message.display(errors[:replace_failure].first) || MathHotSpotErrors::Message::DEFAULT
   end
   
   private

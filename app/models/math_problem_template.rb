@@ -21,7 +21,7 @@ class MathProblemTemplate < ActiveRecord::Base
     without_original = available_problems.delete_if {|problem| problem == math_problem}
     
     if without_original.empty?
-      raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, "All of the similar problems are already on the worksheet!" 
+      raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING
     end
     
     without_original[rand(without_original.size)]
