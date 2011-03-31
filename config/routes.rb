@@ -1,4 +1,6 @@
 Mathhotspot::Application.routes.draw do
+  root :to => "worksheets#index"
+  
   resources :worksheets
   
   # The priority is based upon order of creation:

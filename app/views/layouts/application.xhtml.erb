@@ -7,6 +7,9 @@
 <head>
 	<meta charset="utf-8" />
   	<%= stylesheet_link_tag("worksheet") %>
+    <%= javascript_include_tag(:defaults) %>
+    <%= yield :head %>
+    
 </head>
 <body>
 	<% if flash[:notice] %>
