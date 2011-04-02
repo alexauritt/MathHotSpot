@@ -38,10 +38,10 @@ MHS.Routes = {
 
 
 $(function() {
-	// $('.replace_problem_form').submit(function() {
-	// 	var worksheet_id = MHS.Worksheet.Util.getWorksheetID();
-	// 	var problemNumber = $(this).attr('id').match(/\d+/)[0];
-	// 	$.ajax({ url: MHS.Routes.Worksheets.update(worksheet_id), type: "PUT", data: {'problem_number':problemNumber} });
-	// 	return false;
-	// });
+	$('.replace_problem_form').live('submit', function() {
+		var worksheet_id = MHS.Worksheet.Util.getWorksheetID();
+		var problemNumber = $(this).attr('id').match(/\d+/)[0];
+		$.ajax({ url: MHS.Routes.Worksheets.update(worksheet_id), type: "PUT", data: {'problem_number':problemNumber} });
+		return false;
+	});
 });

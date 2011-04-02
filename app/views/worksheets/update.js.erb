@@ -1,1 +1,4 @@
-alert("am trying to update the worksheet, from the server");
+$('div#problem_<%= @problem_number %>').replaceWith("<%= escape_javascript(
+	render(:partial => 'math_problems/math_problem.xhtml.erb', 
+		:locals => { :worksheet => @worksheet, :math_problem => @new_problem, 
+				:problem_number => @problem_number })) %>")
