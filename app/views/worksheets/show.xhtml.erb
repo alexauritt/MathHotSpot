@@ -2,11 +2,13 @@
   <%= javascript_include_tag "replace_problem" %>
 <% end %>
 
+<div class="worksheet" id="worksheet_<%= @worksheet.id %>">
+
 <div class="problem_group">
-	<div class="instructions">Simplify:</div>
+	<div class="instructions">Simplify.</div>
 	
 	<% @math_problems.each_with_index do |math_problem, index| %>
-		<%= render :partial => "math_problems/math_problem", :locals => { :math_problem => math_problem, :problem_number => index + 1 } %>
+		<%= render :partial => "math_problems/math_problem.xhtml.erb", :locals => { :worksheet => @worksheet, :math_problem => math_problem, :problem_number => index + 1 } %>
 	<% end %>
 </div>
 
@@ -54,4 +56,7 @@
 				</mrow>
 			</mfrac>						
 		</math>
-	</div></div>
+	</div>
+</div>
+
+</div>

@@ -16,7 +16,6 @@ class Worksheet < ActiveRecord::Base
       end 
       true
     rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
-      Rails.logger.info "Error caught: #{bam}"
       errors[:replace_failure] << bam
       false
     end

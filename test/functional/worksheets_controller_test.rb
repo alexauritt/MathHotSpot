@@ -2,12 +2,25 @@ require 'test_helper'
 
 class WorksheetsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
+  
+  test "update/replace changes div content of target problem" do
+    worksheet = worksheets(:monomial_worksheet_01)
+    get(:show, {:id => worksheet.id})
+
+
+    initial_state = css_select('div.worksheet div#problem_3')[0]
+    put(:update, {:id => worksheet.id, :problem_number => 3})
+    after_state = css_select('div.worksheet div#problem_3')[0]
+    
+    assert_not_equal initial_state, after_state, "Problem 3 did not change after replace call."
+  end
+  
   test "update/replace problem failure should display correct error msg if problem is unique" do
     worksheet = worksheets(:monomial_worksheet_01)
     unique_problem = worksheet_problems(:monomial_worksheet_unique_problem)
-
+  
     put(:update, {:id => worksheet.id, :problem_number => unique_problem.problem_number })
-
+  
     assert_response :success
     assert_not_nil assigns(:worksheet)
     assert_select 'p.notice', MathHotSpotErrors::Message::UNIQUE
@@ -16,19 +29,19 @@ class WorksheetsControllerTest < ActionController::TestCase
   test "update/replace error display for no remaining problems of given type" do
     worksheet = worksheets(:monomial_worksheet_01)
     second_problem_of_two_on_worksheet = worksheet_problems(:monomial_worksheet_prob_05)
-
+  
     put(:update, {:id => worksheet.id, :problem_number => second_problem_of_two_on_worksheet.problem_number })
-
+  
     assert_response :success
     assert_not_nil assigns(:worksheet)
     assert_select 'p.notice', MathHotSpotErrors::Message::NONE_REMAINING
   end
-
+  
   test "update/replace error display for request replacement of problem that doesn't exist" do
     worksheet = worksheets(:monomial_worksheet_01)
-
+  
     put(:update, {:id => worksheet.id, :problem_number => worksheet.worksheet_problems.size + 1 })
-
+  
     assert_response :success
     assert_not_nil assigns(:worksheet)
     assert_select 'p.notice', MathHotSpotErrors::Message::DEFAULT

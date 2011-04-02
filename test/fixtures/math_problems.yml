@@ -1,37 +1,37 @@
 
 simple_monomial_problem_01:
-    problem_markup: MyTextasfasdf
+    problem_markup: markup for problem 1
     math_problem_template: dividing_monomials_template_01
     
 simple_monomial_problem_02:
-    problem_markup: MyTextasdfasdf
-    math_problem_template_id: dividing_monomials_template_01
+    problem_markup: markup for problem 2
+    math_problem_template: dividing_monomials_template_01
 
 simple_monomial_problem_03:
-    problem_markup: MyTextasfasdf
+    problem_markup: markup for problem 3
     math_problem_template: dividing_monomials_template_01
 
 simple_monomial_problem_04:
-    problem_markup: MyTextasdfasdf
-    math_problem_template_id: dividing_monomials_template_01
+    problem_markup: markup for problem 4
+    math_problem_template: dividing_monomials_template_01
 
 medium_monomial_problem_01:
-    problem_markup: MyTextasdfasdf
+    problem_markup: markup for problem 5
     math_problem_template: dividing_monomials_template_02
     
 medium_monomial_problem_02:
-    problem_markup: MyTextasdfasdf
+    problem_markup: markup for problem 6
     math_problem_template: dividing_monomials_template_02
 
 difficult_monomial_problem_01:
-    problem_markup: MyTextasdfasdf
+    problem_markup: markup for problem 7
     math_problem_template: dividing_monomials_template_03
 
 difficult_monomial_problem_02:
-    problem_markup: MyTextgsdfgsdfg
+    problem_markup: markup for problem 8
     math_problem_template: dividing_monomials_template_03
     
 unique_monomial_problem:
-    problem_markup: This problem is one of a kind
+    problem_markup: markup for UNIQUE problem
     math_problem_template: unique_monomials_template
     
