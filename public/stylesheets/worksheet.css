@@ -13,6 +13,10 @@ div.worksheet_problem {
 	height: 200px;
 }
 
+div.worksheet_problem .error_display {
+  display: none;
+}
+
 span.math_text {
 	margin: 0px 5px 0px 5px;
 }

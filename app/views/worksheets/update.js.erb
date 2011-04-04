@@ -1,7 +1,14 @@
-var newMathDisplay = "<%= escape_javascript(render(
-  :partial => 'math_problems/problem_display.xhtml.erb',
-  :locals => { :math_problem => @new_problem })) %>";
+var problemTarget = $('div#problem_<%= @problem_number %>');
+var displayTarget = $('div.math_display', problemTarget);
 
-$('div#problem_<%= @problem_number %> div.math_display').replaceWith(newMathDisplay);
+<% unless (@success) %>
+  problemTarget.displayErrorMsg("<%= @error_msg %>");
+<% else %>
+  var newMathDisplay = "<%= escape_javascript(render(
+    :partial => 'math_problems/problem_display.xhtml.erb',
+    :locals => { :math_problem => @new_problem })) %>";
+
+  displayTarget.replaceWith(newMathDisplay);
+<% end %>
 
 $.throbberHide();

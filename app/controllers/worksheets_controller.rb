@@ -11,11 +11,15 @@ class WorksheetsController < ApplicationController
   end
 
   def update
+
     @worksheet = Worksheet.find(params[:id])
     @problem_number = params[:problem_number].to_i
-
-    flash.now[:notice] = @worksheet.error_for_failed_replace unless @worksheet.replace_problem(@problem_number)
-
+    @success = @worksheet.replace_problem(@problem_number)
+    unless @success
+      @error_msg = @worksheet.error_for_failed_replace
+      flash.now[:notice] = @error_msg
+    end
+    
     @worksheet.save
     @worksheet.reload
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem}

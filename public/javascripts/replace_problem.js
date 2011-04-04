@@ -27,7 +27,7 @@ MHS.Worksheet.ReplaceProblem = {
 MHS.Worksheet.Util = {
 	// problem: function(number) { return $('div.worksheet_problem#problem_' + number); },
 	// getNumberFromID: function(id) { return parseInt(id.match(/\d/)); },
-	getWorksheetID: function() { return parseInt($('div.worksheet').attr('id').match(/\d/)); }	
+	getWorksheetID: function() { return parseInt($('div.worksheet').attr('id').match(/\d/)); },
 }
 
 MHS.Routes = {
