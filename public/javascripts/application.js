@@ -3,11 +3,14 @@
 
 (function($) {
   $.fn.displayErrorMsg = function(msg) {
-    // var error = $('div.error_display', this);
+    var error = $('div.error_display', this);
+    $('div.problem_links', this).hide();
     $('div.error_display', this).html(msg).fadeIn(MHS.Worksheet.errorFadeInTime, this.hideErrorMsg);
   };
   $.fn.hideErrorMsg = function() {
-    $(this).delay(MHS.Worksheet.errorHideDelay).fadeOut();
+    $(this).delay(MHS.Worksheet.errorHideDelay).fadeOut('slow', function() {
+      $('div.problem_links', $(this).parent()).show();
+    });
   };
 })(jQuery);
 
