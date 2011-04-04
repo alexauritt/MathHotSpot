@@ -38,6 +38,7 @@ MHS.Routes = {
 
 
 $(function() {
+  $('.replace_problem_form').throbber('click', {'image':"/images/throbber.gif"} );
 	$('.replace_problem_form').live('submit', function() {
 		var worksheet_id = MHS.Worksheet.Util.getWorksheetID();
 		var problemNumber = $(this).attr('id').match(/\d+/)[0];

@@ -1,8 +1,6 @@
 <div class="worksheet_problem" id="problem_<%= problem_number %>">
 	<span class="problem_number"><%= problem_number %>)</span>
-	<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
-		<%= display_mathml(math_problem) %>
-	</math>
+	<%= render :partial => "math_problems/problem_display.xhtml.erb", :locals => { :math_problem => math_problem} %>
 	<div class="problem_links">
 	  <%= form_tag(worksheet_path(worksheet), :method => 'put', :class => "replace_problem_form", :id => "replace_problem_form_#{problem_number}") do -%>
 	  <input type="hidden" name="problem_number" value="<%= problem_number %>" />
