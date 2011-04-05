@@ -1,0 +1,12 @@
+div#container {
+  clear: both;
+}
+
+div.problem_id {
+  margin-bottom: 5px;
+}
+
+div.problem {
+  float: left;
+  margin: 20px;
+}

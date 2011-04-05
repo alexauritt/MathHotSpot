@@ -1,6 +1,7 @@
 Mathhotspot::Application.routes.draw do
   root :to => "worksheets#index"
-  
+
+  resources :math_problems, :only => [:index]
   resources :worksheets, :only => [:index, :show, :update] do
     resources :problems, :only => [:update]
   end
