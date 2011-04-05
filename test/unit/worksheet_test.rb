@@ -44,7 +44,7 @@ class WorksheetTest < ActiveSupport::TestCase
     worksheet_problems = @worksheet.worksheet_problems
     
     middle_math_problem = worksheet_problems[1].math_problem
-    replacement_problem = MathProblem.new(:problem_markup => "this is the replacement problem")
+    replacement_problem = MathProblem.new(:question_markup => "this is the replacement problem")
     
     MathProblemTemplate.expects(:find_replacement).with(middle_math_problem, {:exclude => []}).returns(replacement_problem)
     
@@ -117,7 +117,7 @@ class WorksheetTest < ActiveSupport::TestCase
   def create_mock_worksheet_problems_for(worksheet, options = { :count => 1 })
     options[:count].times do |i|
       worksheet_problem = WorksheetProblem.new(:problem_number => i+1)
-      worksheet_problem.math_problem = MathProblem.new(:problem_markup => "some markup goes here #{i}")
+      worksheet_problem.math_problem = MathProblem.new(:question_markup => "some markup goes here #{i}")
       worksheet.worksheet_problems << worksheet_problem
     end
   end
