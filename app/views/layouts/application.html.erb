@@ -4,7 +4,7 @@
   <title>Mathhotspot</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
-  <%= javascript_include_tag "/javascripts/mathjax/MathJax.js?config=MML_HTMLorMML-full" %>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/1.1-latest/MathJax.js?config=MML_HTMLorMML-full"></script>
   <%= javascript_include_tag("jquery.throbber.min.js") %>
   <%= csrf_meta_tag %>
   <%= yield :head %>
