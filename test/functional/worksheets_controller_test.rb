@@ -2,6 +2,10 @@ require 'test_helper'
 
 class WorksheetsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
+
+  def setup
+    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("foo:bar")    
+  end
   
   test "update/replace changes div content of target problem" do
     worksheet = worksheets(:monomial_worksheet_01)
