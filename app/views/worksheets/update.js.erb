@@ -11,4 +11,4 @@ var displayTarget = $('div.math_display', problemTarget);
 <% end %>
 
 $.throbberHide();
-MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+MathJax.Hub.Queue(["Typeset",MathJax.Hub,problemTarget.attr('id')]);
