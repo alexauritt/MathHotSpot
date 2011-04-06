@@ -5,10 +5,10 @@ var displayTarget = $('div.math_display', problemTarget);
   problemTarget.displayErrorMsg("<%= @error_msg %>");
 <% else %>
   var newMathDisplay = "<%= escape_javascript(render(
-    :partial => 'math_problems/problem_display.xhtml.erb',
+    :partial => 'math_problems/problem_display',
     :locals => { :math_problem => @new_problem })) %>";
-
   displayTarget.replaceWith(newMathDisplay);
 <% end %>
 
 $.throbberHide();
+MathJax.Hub.Queue(["Typeset",MathJax.Hub]);

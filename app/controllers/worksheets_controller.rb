@@ -1,17 +1,14 @@
 class WorksheetsController < ApplicationController
   def index
     @worksheets = Worksheet.all
-    render :template => "worksheets/index.xhtml.erb", :layout => "application.xhtml.erb", :content_type => 'application/xhtml+xml'
   end
   
   def show
     @worksheet = Worksheet.find(params[:id])
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem }
-    render :template => "worksheets/show.xhtml.erb", :layout => "application.xhtml.erb", :content_type => 'application/xhtml+xml'
   end
 
-  def update
-
+  def update    
     @worksheet = Worksheet.find(params[:id])
     @problem_number = params[:problem_number].to_i
     @success = @worksheet.replace_problem(@problem_number)
@@ -25,7 +22,7 @@ class WorksheetsController < ApplicationController
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem}
     @new_problem = @math_problems[@problem_number - 1]
     respond_to do |format|
-      format.html { render :template => "worksheets/show.xhtml.erb", :layout => "application.xhtml.erb", :content_type => 'application/xhtml+xml' }
+      format.html { render :template => "worksheets/show" }
       format.js
     end
   end
