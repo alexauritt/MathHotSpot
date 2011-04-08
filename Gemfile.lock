@@ -33,6 +33,7 @@ GEM
     configuration (1.2.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    haml (3.0.25)
     heroku (1.19.1)
       activesupport (>= 2.1.0)
       launchy (~> 0.3.2)
@@ -83,6 +84,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   heroku
   jquery-rails
   mocha
