@@ -4,13 +4,13 @@ require 'mocha'
 class MathProblemTest < ActiveSupport::TestCase
 
   def setup
+  end
+  
+  test "group_all_by_problem_template" do
     @first = MathProblem.new
     @second = MathProblem.new
     @third = MathProblem.new
     @fourth = MathProblem.new
-  end
-  
-  test "group_all_by_problem_template" do
     first_template = mock
     second_template = mock
     @first.stubs(:math_problem_template).returns(first_template)

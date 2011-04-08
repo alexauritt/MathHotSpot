@@ -3,10 +3,10 @@
 <% end %>
 
 <% @problem_groups.each do |group| %>
-  <div class="index_group_container">
+  <div class="<%= cycle('index_group_container_odd', 'index_group_container_even') %>">
+    <div class="problem_instruction"><%= group.first.instruction.description %></div>
     <% group.each do |problem| %>
       <div class="problem">
-        <div class="problem_id"><%= problem.id %></div>
         <%= render :partial => "problem_display", :locals => { :math_problem => problem } %>
       </div>
     <% end %>

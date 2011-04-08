@@ -1,10 +1,11 @@
 
-div.index_group_container {}
+div.index_group_container_even, div.index_group_container_odd {
   clear: both;
+  border-top: thin solid black;
 }
 
-div.problem_id {
-  margin-bottom: 5px;
+div.problem_instruction {
+  margin: 5px;
 }
 
 div.problem {
@@ -12,4 +13,5 @@ div.problem {
   margin: 20px;
   width: 80px;
 	height: 50px;
+	padding-bottom: 10px;
 }
