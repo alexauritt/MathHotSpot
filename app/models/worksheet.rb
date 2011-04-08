@@ -4,19 +4,9 @@ class Worksheet < ActiveRecord::Base
   has_many :math_problems, :through => :worksheet_problems
 
   def problem_groups
-    current_group = []
-    problem_groups = [current_group]
-    current_instruction = worksheet_problems.first.instruction
-    worksheet_problems.each do |prob|
-      if (prob.instruction == current_instruction)
-        current_group << prob
-      else
-        current_instruction = prob.instruction
-        current_group = [prob]
-        problem_groups << current_group
-      end
-    end
-    problem_groups
+    groups = []
+    worksheet_problems.chunk {|prob| prob.instruction }.each { |instruction, group| groups << group }
+    groups
   end
   
   def replace_problem(problem_number)

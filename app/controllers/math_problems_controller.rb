@@ -1,5 +1,5 @@
 class MathProblemsController < ApplicationController
   def index
-    @math_problems = MathProblem.all
-  end
+    @problem_groups = MathProblem.group_all_by_template
+  end  
 end

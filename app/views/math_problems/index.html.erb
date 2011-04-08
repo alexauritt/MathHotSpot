@@ -2,11 +2,14 @@
   <%= stylesheet_link_tag "admin/math_problems" %>
 <% end %>
 
-<div id="container">
-  <% @math_problems.each do |problem| %>
-    <div class="problem">
-      <div class="problem_id"><%= problem.id %></div>
-      <%= render :partial => "problem_display", :locals => { :math_problem => problem } %>
-    </div>
-  <% end %>
-</div>
+<% @problem_groups.each do |group| %>
+  <div class="index_group_container">
+    <% group.each do |problem| %>
+      <div class="problem">
+        <div class="problem_id"><%= problem.id %></div>
+        <%= render :partial => "problem_display", :locals => { :math_problem => problem } %>
+      </div>
+    <% end %>
+  </div>  
+<% end %>
+

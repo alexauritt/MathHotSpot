@@ -1,4 +1,5 @@
-div#container {
+
+div.index_group_container {}
   clear: both;
 }
 
