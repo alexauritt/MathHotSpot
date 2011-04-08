@@ -20,3 +20,7 @@ div.worksheet_problem .error_display {
 span.math_text {
 	margin: 0px 5px 0px 5px;
 }
+
+p.inline_math {
+  text-align: center;
+}

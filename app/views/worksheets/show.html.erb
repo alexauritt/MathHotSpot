@@ -3,60 +3,15 @@
 <% end %>
 
 <div class="worksheet" id="worksheet_<%= @worksheet.id %>">
-
-<div class="problem_group">
-	<div class="instructions">Simplify.</div>
-	
-	<% @math_problems.each_with_index do |math_problem, index| %>
-		<%= render :partial => "math_problems/math_problem", :locals => { :worksheet => @worksheet, :math_problem => math_problem, :problem_number => index + 1 } %>
-	<% end %>
-</div>
-
-<div class="problem_group">
-	<div class="instructions">Find the GCF of each pair of monomials:</div>
-	<div class="problem">
-		<span class="problem_number">9)</span>
-		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
-			<mrow><mn>72</mn><msup><mi>x</mi><mn>3</mn></msup><mi>y</mi><msup><mi>z</mi><mn>3</mn></msup></mrow>
-			<span class="math_text">and</span>
-			<mrow><mn>120</mn><msup><mi>x</mi><mn>2</mn></msup><msup><mi>z</mi><mn>5</mn></msup></mrow> 
-		</math>
-	</div>
-	<div class="problem">
-		<span class="problem_number">10)</span>
-		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
-			<mrow><mn>4</mn><msup><mi>p</mi><mn>2</mn></msup><mfenced><mrow><mi>p</mi><mo>-</mo><mn>1</mn></mrow></mfenced></mrow>
-			<span class="math_text">and</span>
-			<mrow><mn>6</mn><mi>p</mi><msup><mfenced><mrow><mi>p</mi><mo>+</mo><mn>1</mn></mrow></mfenced><mn>2</mn></msup></mrow>
-		</math>
-	</div>
-</div>
-
-<div class="problem_group">
-	<div class="instructions">Simplify. Assume that no denominator equals 0.</div>
-	<div class="problem">
-		<span class="problem_number">11)</span>
-		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
-			<mfrac>
-				<mrow><msup><mfenced><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></mfenced><mn>3</mn></msup></mrow>
-				<mrow><msup><mfenced><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></mfenced><mn>2</mn></msup></mrow>
-			</mfrac>						
-		</math>
-	</div>
-	<div class="problem">
-		<span class="problem_number">12)</span>
-		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
-			<mfrac>
-				<mrow>
-					<mfenced><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow></mfenced>
-					<mfenced><mrow><mi>x</mi><mo>-</mo><mi>y</mi></mrow></mfenced>
-				</mrow>
-				<mrow>
-					<msup><mfenced><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow></mfenced><mn>2</mn></msup>
-				</mrow>
-			</mfrac>						
-		</math>
-	</div>
-</div>
+<% current_index = 0 %>
+<% @worksheet.problem_groups.each do |group| %>
+  <div class="problem_group">
+  	<div class="instructions"><%= group.first.instruction.description %></div>
+  	<% group.each do |worksheet_problem| %>
+  		<%= render :partial => "math_problems/math_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1 } %>
+  		<% current_index += 1%>
+  	<% end %>  	
+  </div>
+<% end %>
 
 </div>

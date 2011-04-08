@@ -1,7 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  description: MyText
+simplify:
+  description: Simplify.
 
-two:
-  description: MyText
+gcf_monomials:
+  description: Find the GCF.
+
+simplify_no_zero_denom:
+  description: Simplify. Assume that no denominator equals 0.

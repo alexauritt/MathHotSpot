@@ -1,7 +1,7 @@
 class MathProblemTemplate < ActiveRecord::Base
   include MathHotSpotErrors
   belongs_to :lesson
-  belongs_to :instructions
+  belongs_to :instruction
   has_many :math_problems
   
   def self.find_replacement(math_problem, options = {})

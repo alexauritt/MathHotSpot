@@ -29,5 +29,23 @@ monomial_worksheet_unique_problem:
     worksheet: monomial_worksheet_01
     math_problem: unique_monomial_problem
     problem_number: 6
-  
- 
+    
+monomial_worksheet_gcf_problem:
+    worksheet: monomial_worksheet_01
+    math_problem: gcf_monomial_problem
+    problem_number: 7
+    
+monomial_simplify_no_zero_prob_01:
+    worksheet: monomial_worksheet_01
+    math_problem: monomial_simplify_no_zero_01
+    problem_number: 8
+    
+monomial_simplify_no_zero_prob_02:
+    worksheet: monomial_worksheet_01
+    math_problem: monomial_simplify_no_zero_02
+    problem_number: 9
+
+monomial_worksheet_prob_10:
+    worksheet: monomial_worksheet_01
+    math_problem: difficult_monomial_problem_01
+    problem_number: 10

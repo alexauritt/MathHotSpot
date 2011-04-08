@@ -1,46 +1,60 @@
 
 simple_monomial_problem_01:
-    question_markup: markup for problem 1
-    answer_markup: answer to problem 1
-    math_problem_template: dividing_monomials_template_01
+  question_markup: markup for problem 1
+  answer_markup: answer to problem 1
+  math_problem_template: dividing_monomials_template_01
     
 simple_monomial_problem_02:
-    question_markup: markup for problem 2
-    answer_markup: answer to problem 2
-    math_problem_template: dividing_monomials_template_01
+  question_markup: markup for problem 2
+  answer_markup: answer to problem 2
+  math_problem_template: dividing_monomials_template_01
 
 simple_monomial_problem_03:
-    question_markup: markup for problem 3
-    answer_markup: answer to problem 3
-    math_problem_template: dividing_monomials_template_01
+  question_markup: markup for problem 3
+  answer_markup: answer to problem 3
+  math_problem_template: dividing_monomials_template_01
 
 simple_monomial_problem_04:
-    question_markup: markup for problem 4
-    answer_markup: answer to problem 4
-    math_problem_template: dividing_monomials_template_01
+  question_markup: markup for problem 4
+  answer_markup: answer to problem 4
+  math_problem_template: dividing_monomials_template_01
 
 medium_monomial_problem_01:
-    question_markup: markup for problem 5
-    answer_markup: answer to problem 5
-    math_problem_template: dividing_monomials_template_02
+  question_markup: markup for problem 5
+  answer_markup: answer to problem 5
+  math_problem_template: dividing_monomials_template_02
     
 medium_monomial_problem_02:
-    question_markup: markup for problem 6
-    answer_markup: answer to problem 6
-    math_problem_template: dividing_monomials_template_02
+  question_markup: markup for problem 6
+  answer_markup: answer to problem 6
+  math_problem_template: dividing_monomials_template_02
 
 difficult_monomial_problem_01:
-    question_markup: markup for problem 7
-    answer_markup: answer to problem 7
-    math_problem_template: dividing_monomials_template_03
+  question_markup: markup for problem 7
+  answer_markup: answer to problem 7
+  math_problem_template: dividing_monomials_template_03
 
 difficult_monomial_problem_02:
-    question_markup: markup for problem 8
-    answer_markup: answer to problem 8
-    math_problem_template: dividing_monomials_template_03
+  question_markup: markup for problem 8
+  answer_markup: answer to problem 8
+  math_problem_template: dividing_monomials_template_03
     
 unique_monomial_problem:
-    question_markup: markup for UNIQUE problem
-    answer_markup: answer for UNIQUE problem    
-    math_problem_template: unique_monomials_template
+  question_markup: markup for UNIQUE problem
+  answer_markup: answer for UNIQUE problem    
+  math_problem_template: unique_monomials_template
+
+gcf_monomial_problem:
+  question_markup: markup for gcf problem
+  answer_markup: answer for gcf problem
+  math_problem_template: find_gcf_of_monomials_template
     
+monomial_simplify_no_zero_01:
+  question_markup: markup for simp no zero
+  answer_markup: answer for simp no zero
+  math_problem_template: simp_no_zero_template
+
+monomial_simplify_no_zero_02:
+  question_markup: markup for simp no zero second
+  answer_markup: answer for simp no zero second
+  math_problem_template: simp_no_zero_template

@@ -3,6 +3,22 @@ class Worksheet < ActiveRecord::Base
   has_many :worksheet_problems, :order => :problem_number
   has_many :math_problems, :through => :worksheet_problems
 
+  def problem_groups
+    current_group = []
+    problem_groups = [current_group]
+    current_instruction = worksheet_problems.first.instruction
+    worksheet_problems.each do |prob|
+      if (prob.instruction == current_instruction)
+        current_group << prob
+      else
+        current_instruction = prob.instruction
+        current_group = [prob]
+        problem_groups << current_group
+      end
+    end
+    problem_groups
+  end
+  
   def replace_problem(problem_number)
     begin
       raise ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR if problem_number_missing_from_worksheet?(problem_number)
