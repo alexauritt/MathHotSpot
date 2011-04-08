@@ -9,4 +9,6 @@ div.problem_id {
 div.problem {
   float: left;
   margin: 20px;
+  width: 80px;
+	height: 50px;
 }
