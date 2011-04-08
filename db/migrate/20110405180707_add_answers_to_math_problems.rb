@@ -1,6 +1,6 @@
 class AddAnswersToMathProblems < ActiveRecord::Migration
   def self.up
-    add_column :math_problems, :answer_markup, :string
+    add_column :math_problems, :answer_markup, :text
     rename_column :math_problems, :problem_markup, :question_markup
   end
 

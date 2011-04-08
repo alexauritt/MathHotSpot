@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20110407140232) do
     t.text     "question_markup"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "answer_markup"
+    t.text     "answer_markup"
   end
 
   create_table "worksheet_problems", :force => true do |t|
