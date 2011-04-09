@@ -22,8 +22,24 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal 2, groups.size
     assert_equal 3, groups.first.size
   end
+
+  test "rougue_problems" do
+    rougues = MathProblem.rougue_problems
+    assert_not_nil rougues
+    assert rougues.size != 0
+  end
+  
+  test "all problems are either rougue or grouped" do
+    rougues = MathProblem.rougue_problems
+    grouped = MathProblem.grouped_problems
+    assert_equal MathProblem.count, rougues.size + grouped.size
+  end
+  
+  test "display_mode? returns true (default) if no math_problem_template defined" do
+    assert MathProblem.new.display_mode?
+  end
   
   def stub_math_problem_order_to_return_sorted_list(ordered_problem_list)
-    MathProblem.stubs(:order).with("math_problem_template_id").returns(ordered_problem_list)
+    MathProblem.stubs(:grouped_problems).returns(ordered_problem_list)
   end  
 end

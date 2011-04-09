@@ -27,6 +27,7 @@ class MathProblemsController < ApplicationController
   end
   
   def rougue
+    @rougue_problems = MathProblem.rougue_problems
   end
     
 end

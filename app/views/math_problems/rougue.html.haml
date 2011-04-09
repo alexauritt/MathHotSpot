@@ -1,1 +1,10 @@
-Rougue will go here.
+- content_for :head do
+  = stylesheet_link_tag "admin/math_problems"
+
+%h2 Rougue Math Problems
+- @rougue_problems.each do |problem|
+  .problem_instruction
+    - if problem.instruction
+      = group.first.instruction.description
+  .problem
+    = render(:partial => "problem_display", :locals => { :math_problem => problem })
