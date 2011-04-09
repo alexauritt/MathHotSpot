@@ -1,7 +1,6 @@
 - content_for :head do
   = stylesheet_link_tag "admin/math_problems"
 
-= link_to :new, new_math_problem_path
 - @problem_groups.each do |group|
   .index_group_container_odd
     .problem_instruction 

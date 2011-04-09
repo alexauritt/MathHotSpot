@@ -21,5 +21,10 @@ class MathProblemsController < ApplicationController
   def new
     @math_problem = MathProblem.new
   end
+
+  def grouped
+  end
+  def rougue
+  end
     
 end
