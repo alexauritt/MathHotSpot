@@ -23,7 +23,9 @@ class MathProblemsController < ApplicationController
   end
 
   def grouped
+    @problem_groups = MathProblem.group_all_by_template
   end
+  
   def rougue
   end
     

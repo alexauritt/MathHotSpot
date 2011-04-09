@@ -29,4 +29,10 @@ class MathProblemsControllerTest < ActionController::TestCase
     end
     assert_redirected_to math_problem_path(assigns(:math_problem))
   end
+  
+  test "should get grouped" do
+    get :grouped
+    assert_response :success
+    assert_not_nil assigns(:problem_groups)    
+  end
 end
