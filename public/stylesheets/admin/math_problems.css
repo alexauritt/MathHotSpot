@@ -17,3 +17,7 @@ div.problem {
 	height: 50px;
 	padding-bottom: 10px;
 }
+
+div.problem_collection {
+  clear: both;
+}

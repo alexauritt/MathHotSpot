@@ -2,10 +2,5 @@
   %title Math Problems
   = stylesheet_link_tag "admin/math_problems"
 
-- @problem_groups.each do |group|
-  .index_group_container_odd
-    .problem_instruction 
-      = group.first.instruction.description
-    - group.each do |problem|
-      .problem
-        = render(:partial => "problem_display", :locals => { :math_problem => problem })
+= render(:partial => "grouped", :locals => {:problem_groups => @problem_groups})
+= render(:partial => 'rougue', :locals => {:rougues => @rougue_problems}) 
