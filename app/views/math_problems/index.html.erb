@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "admin/math_problems" %>
 <% end %>
-
+<%= link_to :new, new_math_problem_path %>
 <% @problem_groups.each do |group| %>
   <div class="<%= cycle('index_group_container_odd', 'index_group_container_even') %>">
     <div class="problem_instruction"><%= group.first.instruction.description %></div>
