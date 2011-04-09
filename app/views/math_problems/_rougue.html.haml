@@ -1,0 +1,7 @@
+%h2 Rougue Math Problems
+- rougues.each do |problem|
+  .problem_instruction
+    - if problem.instruction
+      = group.first.instruction.description
+  .problem
+    = render(:partial => "problem_display", :locals => { :math_problem => problem })
