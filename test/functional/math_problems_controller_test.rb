@@ -29,6 +29,12 @@ class MathProblemsControllerTest < ActionController::TestCase
     end
     assert_redirected_to math_problem_path(assigns(:math_problem))
   end
+
+  test "should destroy math problem" do
+    assert_difference('MathProblem.count', -1) do
+      delete :destroy, :id => @math_problem.to_param
+    end
+  end
   
   test "should get grouped" do
     get :grouped

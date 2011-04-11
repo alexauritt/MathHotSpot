@@ -3,7 +3,7 @@ Mathhotspot::Application.routes.draw do
   match 'math_problems/rougue' => 'math_problems#rougue'
   match 'math_problems/grouped' => 'math_problems#grouped'
   
-  resources :math_problems, :only => [:index, :show, :new, :create]
+  resources :math_problems, :only => [:index, :show, :new, :create, :destroy]
 
   resources :worksheets, :only => [:index, :show, :update] do
     resources :problems, :only => [:update]

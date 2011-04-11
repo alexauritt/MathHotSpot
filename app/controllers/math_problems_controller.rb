@@ -23,6 +23,12 @@ class MathProblemsController < ApplicationController
     @math_problem = MathProblem.new
   end
 
+  def destroy
+    @math_problem = MathProblem.find(params[:id])
+    @math_problem.destroy
+    redirect_to math_problems_url 
+  end
+
   def grouped
     @problem_groups = MathProblem.group_all_by_template
   end
