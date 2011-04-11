@@ -1,15 +1,18 @@
-.problem_collection
-  %h2 Rougue Math Problems
-  - rougues.each do |problem|
-    .rougue_problem
-      - if problem.instruction
-        .problem_instruction
-          = group.first.instruction.description
-      .problem_display
-        = render(:partial => "problem_display", :locals => { :math_problem => problem })
-      .markup
-        %p Markup
-        = problem.question_markup
-      .links
-        =link_to "Destroy", problem, :confirm => "Are you sure?", :method => :delete
-        =link_to "Edit", edit_math_problem_path(problem)
+-if rougues.length >= 1
+  .problem_collection
+    %h2 Rougue Math Problems
+    - rougues.each do |problem|
+      .rougue_problem
+        - if problem.instruction
+          .problem_instruction
+            = group.first.instruction.description
+        .problem_display
+          = render(:partial => "problem_display", :locals => { :math_problem => problem })
+        .markup
+          %p Markup
+          = problem.question_markup
+        .links
+          =link_to "Destroy", problem, :confirm => "Are you sure?", :method => :delete
+          =link_to "Edit", edit_math_problem_path(problem)
+-else
+  No rougue problems in the system at present.s
