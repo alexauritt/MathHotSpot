@@ -1,8 +1,12 @@
 .problem_collection
   %h2 Rougue Math Problems
   - rougues.each do |problem|
-    .problem_instruction
+    .rougue_problem
       - if problem.instruction
-        = group.first.instruction.description
-    .problem
-      = render(:partial => "problem_display", :locals => { :math_problem => problem })
+        .problem_instruction
+          = group.first.instruction.description
+      .problem_display
+        = render(:partial => "problem_display", :locals => { :math_problem => problem })
+      .markup
+        %p Markup
+        = problem.question_markup

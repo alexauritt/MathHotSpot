@@ -2,6 +2,9 @@
   %title Math Problem
   = stylesheet_link_tag "admin/math_problems"
 
+%p
+  %b Display:
+  =display_mathml(@math_problem)
 
 %p
   %b Question:
@@ -10,7 +13,6 @@
 %p
   %b Answer:
   =@math_problem.answer_markup
-
 
 =link_to 'Edit', math_problem_path(@math_problem) 
 =link_to 'Back', math_problems_path

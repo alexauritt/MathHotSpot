@@ -10,9 +10,9 @@ div.problem_instruction {
   margin: 5px;
 }
 
-div.problem {
+div.problem, div.rougue_problem {
   float: left;
-  margin: 20px;
+  margin: 40px;
   width: 80px;
 	height: 50px;
 	padding-bottom: 10px;
