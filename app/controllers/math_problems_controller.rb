@@ -23,6 +23,19 @@ class MathProblemsController < ApplicationController
     @math_problem = MathProblem.new
   end
 
+  def edit
+    @math_problem = MathProblem.find(params[:id])
+  end
+  
+  def update
+    @math_problem = MathProblem.find(params[:id])
+    if @math_problem.update_attributes(params[:math_problem])
+      redirect_to(@math_problem, :notice => 'Math problem successfully updated')
+    else
+      render :action => 'edit'
+    end
+  end
+
   def destroy
     @math_problem = MathProblem.find(params[:id])
     @math_problem.destroy

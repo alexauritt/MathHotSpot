@@ -35,6 +35,16 @@ class MathProblemsControllerTest < ActionController::TestCase
       delete :destroy, :id => @math_problem.to_param
     end
   end
+
+  test "should get edit" do
+    get :edit, :id => @math_problem.to_param
+    assert_response :success
+  end
+
+  test "should update math_problem" do
+    put :update, :id => @math_problem.to_param, :math_problem => @math_problem.attributes
+    assert_redirected_to math_problem_path(assigns(:math_problem))
+  end
   
   test "should get grouped" do
     get :grouped
