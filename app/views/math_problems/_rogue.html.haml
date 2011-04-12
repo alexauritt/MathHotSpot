@@ -1,8 +1,8 @@
--if rougues.length >= 1
+-if rogues.length >= 1
   .problem_collection
-    %h2 Rougue Math Problems
-    - rougues.each do |problem|
-      .rougue_problem
+    %h2 Rogue Math Problems
+    - rogues.each do |problem|
+      .rogue_problem
         - if problem.instruction
           .problem_instruction
             = group.first.instruction.description
@@ -16,4 +16,4 @@
           =link_to "Edit", edit_math_problem_path(problem)
 -else
   .problem_collection
-    %h2 No rougue problems in the system at present.
+    %h2 No rogue problems in the system at present.

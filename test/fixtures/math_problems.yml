@@ -59,6 +59,6 @@ monomial_simplify_no_zero_02:
   answer_markup: answer this for simp no zero second
   math_problem_template: simp_no_zero_template
 
-rouguer:
-  question_markup: I am a rougue problem
+roguer:
+  question_markup: I am a rogue problem
   

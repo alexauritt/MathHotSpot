@@ -8,7 +8,7 @@ class MathProblem < ActiveRecord::Base
     where("math_problem_template_id").order("math_problem_template_id")
   end
   
-  def self.rougue_problems
+  def self.rogue_problems
     where("math_problem_template_id" => nil)
   end
     

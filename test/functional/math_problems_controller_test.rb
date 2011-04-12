@@ -52,9 +52,9 @@ class MathProblemsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:problem_groups)    
   end
 
-  test "should get rougue" do
-    get :rougue
+  test "should get rogue" do
+    get :rogue
     assert_response :success
-    assert_not_nil assigns(:rougue_problems)    
+    assert_not_nil assigns(:rogue_problems)    
   end
 end

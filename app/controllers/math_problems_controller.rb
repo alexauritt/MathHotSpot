@@ -1,7 +1,7 @@
 class MathProblemsController < ApplicationController
   def index
     @problem_groups = MathProblem.group_all_by_template
-    @rougue_problems = MathProblem.rougue_problems
+    @rogue_problems = MathProblem.rogue_problems
   end
   
   def show
@@ -46,8 +46,8 @@ class MathProblemsController < ApplicationController
     @problem_groups = MathProblem.group_all_by_template
   end
   
-  def rougue
-    @rougue_problems = MathProblem.rougue_problems
+  def rogue
+    @rogue_problems = MathProblem.rogue_problems
   end
     
 end
