@@ -6,10 +6,9 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-
-lessons = Lesson.create([{ :title => 'Dividing Monomials', :chapter => 5, :section => 2}])
-
 subjects = Subject.create([{ :title => "Algebra I"}, { :title => "Geometry"}, { :title => "Algebra II" }, { :title => "Precalculus" }, { :title => "Calculus"} ])
+
+lessons = Lesson.create([{ :title => 'Dividing Monomials', :chapter => 5, :section => 2, :subject_id => subjects.first.id }])
 
 instructions = Instruction.create([
   { :description => "Simplify" }, 
