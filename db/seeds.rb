@@ -7,7 +7,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 
-lessons = Lesson.create([{ :title => 'Diving Monomials', :chapter => 5, :section => 2}])
+lessons = Lesson.create([{ :title => 'Dividing Monomials', :chapter => 5, :section => 2}])
 
 instructions = Instruction.create([
   { :description => "Simplify" }, 
