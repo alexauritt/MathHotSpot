@@ -7,9 +7,8 @@ class MathProblemsHelperTest < ActionView::TestCase
     @problem = MathProblem.new(:question_markup => @input_markup, :math_problem_template => @template)
   end
   
-  test "display_mathml wraps in display mode by default" do
-    expected_output = "<math mode='display'>#{@input_markup}</math>"    
-    assert_equal(expected_output, display_mathml(@problem))
+  test "display_mathml does not wraps math markup if display mode is true (default)" do
+    assert_equal(@problem.question_markup, display_mathml(@problem))
   end
   
   test "display_mathml wraps in p if display_mode is false" do

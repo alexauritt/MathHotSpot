@@ -26,7 +26,7 @@ class MathProblem < ActiveRecord::Base
   
   def strip_excess_tags
     question_markup.gsub!(/\n/,"")
-    question_markup.gsub!(/<\/?math[^>]*>|<\/?semantics>|<annotation.*annotation>/,"")
+    question_markup.gsub!(/<\/?semantics>|<annotation.*annotation>/,"")
     question_markup.gsub!(/>\s*</,"><")
     question_markup.strip!
   end

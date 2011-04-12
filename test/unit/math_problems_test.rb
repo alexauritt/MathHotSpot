@@ -41,7 +41,7 @@ class MathProblemTest < ActiveSupport::TestCase
   
   test "strip_excess_tags" do
     input_from_math_type = "<math display='block'><semantics><mrow>        <msqrt><mrow><msup><mi>a</mi>      <mn>2</mn></msup>      <mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow><annotation encoding='MathType-MTEF'>     MathType@MTEF@5@5@+=faaagaart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8FesqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9Gqpi0dc9adbaqaaeGaciGaaiaabeqaamaabaabaaGcbaWaaOaaaeaacaWGHbWaaWbaaSqabeaacaaIYaaaaOGaey4kaSIaamOyamaaCaaaleqabaGaaGOmaaaaaeqaaOGaey4kaSIaaGzaVpaalaaabaGaamOBaiaacgcaaeaacaWGYbGaaiyiamaabmaabaGaamOBaiabgkHiTiaadkhaaiaawIcacaGLPaaacaGGHaaaaaaa@3D6C@</annotation></semantics></math>"
-    all_striped_down = "<mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow>"
+    all_striped_down = "<math display='block'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
     problem = MathProblem.new(:question_markup => input_from_math_type)
     problem.send(:strip_excess_tags)
     
@@ -63,7 +63,7 @@ class MathProblemTest < ActiveSupport::TestCase
      </semantics>
     </math>
     "
-    all_striped_down = "<mrow><mfrac><mi>x</mi><mn>2</mn></mfrac></mrow>"
+    all_striped_down = "<math display='block'><mrow><mfrac><mi>x</mi><mn>2</mn></mfrac></mrow></math>"
     problem = MathProblem.new(:question_markup => input_from_math_type)
     problem.send(:strip_excess_tags)
     
