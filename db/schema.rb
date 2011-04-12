@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110407140232) do
+ActiveRecord::Schema.define(:version => 20110412143136) do
 
   create_table "instructions", :force => true do |t|
     t.text     "description"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20110407140232) do
     t.integer  "section"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "subject_id"
   end
 
   create_table "math_problem_templates", :force => true do |t|
@@ -41,6 +42,12 @@ ActiveRecord::Schema.define(:version => 20110407140232) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "answer_markup"
+  end
+
+  create_table "subjects", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "worksheet_problems", :force => true do |t|

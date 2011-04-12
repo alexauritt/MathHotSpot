@@ -9,6 +9,8 @@
 
 lessons = Lesson.create([{ :title => 'Dividing Monomials', :chapter => 5, :section => 2}])
 
+subjects = Subject.create([{ :title => "Algebra I"}, { :title => "Geometry"}, { :title => "Algebra II" }, { :title => "Precalculus" }, { :title => "Calculus"} ])
+
 instructions = Instruction.create([
   { :description => "Simplify" }, 
   { :description => "Find the GCF of each pair of monomials" },
