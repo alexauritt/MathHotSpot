@@ -7,7 +7,7 @@
           .problem_instruction
             = group.first.instruction.description
         .problem_display
-          = render(:partial => "problem_display", :locals => { :math_problem => problem })
+          = render(:partial => "math_problems/problem_display", :locals => { :math_problem => problem })
         .markup
           %p Markup
           = problem.question_markup

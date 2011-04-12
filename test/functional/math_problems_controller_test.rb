@@ -10,7 +10,6 @@ class MathProblemsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:problem_groups)
   end
   
   test "should show math problem" do
@@ -44,17 +43,5 @@ class MathProblemsControllerTest < ActionController::TestCase
   test "should update math_problem" do
     put :update, :id => @math_problem.to_param, :math_problem => @math_problem.attributes
     assert_redirected_to math_problem_path(assigns(:math_problem))
-  end
-  
-  test "should get grouped" do
-    get :grouped
-    assert_response :success
-    assert_not_nil assigns(:problem_groups)    
-  end
-
-  test "should get rogue" do
-    get :rogue
-    assert_response :success
-    assert_not_nil assigns(:rogue_problems)    
   end
 end

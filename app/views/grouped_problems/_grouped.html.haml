@@ -6,4 +6,4 @@
         = group.first.instruction.description
       - group.each do |problem|
         .problem
-          = render(:partial => "problem_display", :locals => { :math_problem => problem })
+          = render(:partial => "math_problems/problem_display", :locals => { :math_problem => problem })

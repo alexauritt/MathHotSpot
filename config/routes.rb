@@ -2,8 +2,7 @@ Mathhotspot::Application.routes.draw do
   
   resources :subjects, :lessons
 
-  match 'math_problems/rogue' => 'math_problems#rogue'
-  match 'math_problems/grouped' => 'math_problems#grouped'
+  resources :rogue_problems, :grouped_problems, :only => [:index]
   
   resources :math_problems
 
