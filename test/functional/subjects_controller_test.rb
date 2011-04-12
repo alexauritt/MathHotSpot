@@ -3,7 +3,7 @@ require 'test_helper'
 class SubjectsControllerTest < ActionController::TestCase
   setup do
     authenticate
-    @subject = subjects(:one)
+    @subject = subjects(:algebraI)
   end
 
   test "should get index" do

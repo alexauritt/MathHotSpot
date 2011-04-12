@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
+algebraI:
+  title: Algebra I
 
-two:
-  title: MyString
+geometry:
+  title: Geometry
