@@ -4,7 +4,7 @@ class WorksheetsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
 
   def setup
-    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("foo:bar")    
+    authenticate
   end
   
   test "update/replace changes div content of target problem" do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SubjectsControllerTest < ActionController::TestCase
   setup do
-    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("foo:bar")    
+    authenticate
     @subject = subjects(:one)
   end
 

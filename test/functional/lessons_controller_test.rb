@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LessonsControllerTest < ActionController::TestCase
   setup do
-    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("foo:bar")
+    authenticate
     @lesson = lessons(:dividing_monomials_lesson)
   end
 

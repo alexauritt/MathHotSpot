@@ -3,8 +3,8 @@ require 'test_helper'
 class MathProblemsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   def setup
+    authenticate
     @math_problem = math_problems(:simple_monomial_problem_01)
-    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("foo:bar")    
   end
 
   test "should get index" do
