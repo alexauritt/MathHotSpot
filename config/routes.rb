@@ -1,6 +1,6 @@
 Mathhotspot::Application.routes.draw do
   
-  resources :subjects
+  resources :subjects, :lessons
 
   match 'math_problems/rougue' => 'math_problems#rougue'
   match 'math_problems/grouped' => 'math_problems#grouped'
