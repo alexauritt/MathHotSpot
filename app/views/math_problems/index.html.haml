@@ -2,4 +2,12 @@
   %title Math Problems
   = stylesheet_link_tag "admin/math_problems"
 
-I will allow users to search for problems here.
+#container
+  #subject_list
+    - @subjects.each do |subject|
+      .subject
+        = subject.title
+        %ul.lesson_list
+          - subject.lessons.each do |lesson|
+            %li
+              =link_to lesson.title, subject_lesson_path(subject, lesson)

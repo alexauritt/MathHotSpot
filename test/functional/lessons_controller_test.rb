@@ -26,7 +26,7 @@ class LessonsControllerTest < ActionController::TestCase
   end
 
   test "should show lesson" do
-    get :show, :id => @lesson.to_param
+    get :show, {:subject_id => @lesson.subject.id, :id => @lesson.to_param }
     assert_response :success
   end
 
@@ -37,7 +37,8 @@ class LessonsControllerTest < ActionController::TestCase
 
   test "should update lesson" do
     put :update, :id => @lesson.to_param, :lesson => @lesson.attributes
-    assert_redirected_to lesson_path(assigns(:lesson))
+    lesson = assigns(:lesson)
+    assert_redirected_to subject_lesson_path(lesson.subject, lesson)
   end
 
   test "should destroy lesson" do

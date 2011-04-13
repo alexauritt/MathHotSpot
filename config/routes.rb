@@ -1,12 +1,16 @@
 Mathhotspot::Application.routes.draw do
   
   resources :subjects, :only => [:show, :index]
+  
+  resources :subjects do
+    resources :lessons, :only => [:show]
+  end
 
   namespace :admin do
     resources :subjects, :except => [:show]
   end
   
-  resources :lessons
+  resources :lessons, :except => [:show]
 
   resources :rogue_problems, :grouped_problems, :only => [:index]
   

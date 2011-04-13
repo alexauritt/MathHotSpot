@@ -60,7 +60,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.update_attributes(params[:lesson])
-        format.html { redirect_to(@lesson, :notice => 'Lesson was successfully updated.') }
+        format.html { redirect_to(subject_lesson_path(@lesson.subject, @lesson), :notice => 'Lesson was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
