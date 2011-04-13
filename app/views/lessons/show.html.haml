@@ -1,0 +1,24 @@
+- content_for :head do
+  %title
+    =title(@lesson)
+  = stylesheet_link_tag "lessons"
+
+#container
+  %h2
+    =@lesson.subject.title
+  %h3
+    =@lesson.title
+  #problem_list
+    -@lesson.math_problem_templates.each do |problem_template|
+      .problem_example
+        .problem_instruction
+          =problem_template.instruction.description
+        .problem_display
+          =display_mathml(problem_template.math_problems.first)
+        .problem_info
+          ="#{problem_template.math_problems.size} problems"
+
+
+
+
+

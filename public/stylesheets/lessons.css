@@ -1,0 +1,42 @@
+div.nav_bar {
+  margin-bottom: 10px;
+}
+
+div.problem_example {
+  float: left;
+  background-color: grey;
+  padding: 20px;
+  margin: 10px;
+}
+
+div.problem_instruction {
+  height: 40px;
+}
+
+div.problem_display {
+  height: 80px;
+}
+
+div.problem_info {
+  height: 25px;
+}
+
+
+/*div.problem_instruction {
+  margin: 5px;
+}
+*/
+div.example {
+  float: left;
+  margin: 40px;
+  width: 80px;
+	height: 50px;
+}
+
+div#container {
+  width: 100%;
+  clear: both;
+}
+
+
+/* End of Main Index Page */
