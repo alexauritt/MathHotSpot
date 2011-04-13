@@ -6,11 +6,12 @@ Mathhotspot::Application.routes.draw do
     resources :lessons, :only => [:show]
   end
 
+  match 'admin' => 'admin#index', :as => :admin
+
   namespace :admin do
     resources :subjects, :except => [:show]
+    resources :lessons, :except => [:show]
   end
-  
-  resources :lessons, :except => [:show]
 
   resources :rogue_problems, :grouped_problems, :only => [:index]
   
