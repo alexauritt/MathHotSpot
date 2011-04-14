@@ -15,7 +15,7 @@ class MathProblemTemplate < ActiveRecord::Base
     raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR if (available_problems.count == 1)
   
     if options[:exclude]
-      available_problems.reject! {|problem| options[:exclude].include? problem.id }
+      available_problems.reject! {|problem| options[:exclude].include? problem }
     end
         
     without_original = available_problems.delete_if {|problem| problem == math_problem}
@@ -26,4 +26,5 @@ class MathProblemTemplate < ActiveRecord::Base
     
     without_original[rand(without_original.size)]
   end
+
 end

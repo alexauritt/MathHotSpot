@@ -28,7 +28,7 @@ class MathProblemTemplateTest < ActiveSupport::TestCase
   
   test "find_replacement returns problem not being replaced and not exluded" do
     MathProblem.expects(:find_all_by_math_problem_template_id).with(@first_template.id).returns(@three_problems)
-    replacement = MathProblemTemplate.find_replacement(@first_problem, {:exclude => [@second_problem.id] })
+    replacement = MathProblemTemplate.find_replacement(@first_problem, {:exclude => [@second_problem] })
     assert_equal @third_problem, replacement
   end
 
@@ -42,7 +42,7 @@ class MathProblemTemplateTest < ActiveSupport::TestCase
   test "find_replacement raises if all available problems excluded" do
     MathProblem.expects(:find_all_by_math_problem_template_id).with(@first_template.id).returns([@first_problem, @second_problem])
     assert_raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING do
-      MathProblemTemplate.find_replacement(@first_problem, {:exclude => [@second_problem.id]})
+      MathProblemTemplate.find_replacement(@first_problem, {:exclude => [@second_problem]})
     end
   end
   
