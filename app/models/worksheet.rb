@@ -2,7 +2,7 @@ class Worksheet < ActiveRecord::Base
   include MathHotSpotErrors
   has_many :worksheet_problems, :order => :problem_number
   has_many :math_problems, :through => :worksheet_problems
-
+  
   def problem_groups
     groups = []
     worksheet_problems.chunk {|prob| prob.instruction }.each { |instruction, group| groups << group }
@@ -35,14 +35,9 @@ class Worksheet < ActiveRecord::Base
   private
     
   def similar_problems_on_worksheet(worksheet_problem)
-    worksheet_problems.select {|wp| (wp.math_problem_template == worksheet_problem.math_problem_template && wp != worksheet_problem) } || []
+    worksheet_problems.select {|wp| (wp.problem_type == worksheet_problem.problem_type && wp != worksheet_problem) } || []
   end    
-    
-  def ids_of_similar_problems_on_worksheet(problem)
-    similar_problems = math_problems.select {|prob| ((prob.math_problem_template == problem.math_problem_template) && (prob != problem)) }
-    similar_problems.map {|prob| prob.id }
-  end
-  
+
   def problem_number_missing_from_worksheet?(problem_number)
     problem_number > worksheet_problems.size
   end

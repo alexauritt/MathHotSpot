@@ -3,7 +3,6 @@ require 'mocha'
 
 class WorksheetTest < ActiveSupport::TestCase
   include MathHotSpotErrors
-  # Replace this with your real tests.
   
   def setup
     @worksheet = Worksheet.new
@@ -53,24 +52,16 @@ class WorksheetTest < ActiveSupport::TestCase
     worksheet = Worksheet.new
     template1 = mock
     template2 = mock
-    worksheet.worksheet_problems.build.stubs(:math_problem_template).returns(template1)
-    worksheet.worksheet_problems.build.stubs(:math_problem_template).returns(template1)
-    worksheet.worksheet_problems.build.stubs(:math_problem_template).returns(template2)
-    worksheet.worksheet_problems.build.stubs(:math_problem_template).returns(template1)
+    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template1)
+    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template1)
+    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template2)
+    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template1)
     prob1 = worksheet.worksheet_problems[0]
     prob2 = worksheet.worksheet_problems[1]
     prob3 = worksheet.worksheet_problems[2]
     prob4 = worksheet.worksheet_problems[3]
 
     assert_equal [prob2, prob4], worksheet.send(:similar_problems_on_worksheet, prob1)
-  end  
-
-  def set_same_template_for_every_problem_on_worksheet_except_number(problem_number)
-    template1, template2 = MathProblemTemplate.new, MathProblemTemplate.new
-    @worksheet.worksheet_problems.each_with_index do |wp, index|
-      template = (index == problem_number - 1) ? template1 : template2 
-      wp.stubs(:math_problem_template).returns(template)
-    end
   end
 
   test "replace_problem excludes similar problems on same worksheet" do
@@ -91,6 +82,14 @@ class WorksheetTest < ActiveSupport::TestCase
     instructions.uniq!
     instructions.size == 1
   end
+  
+  def set_same_template_for_every_problem_on_worksheet_except_number(problem_number)
+    template1, template2 = MathProblemTemplate.new, MathProblemTemplate.new
+    @worksheet.worksheet_problems.each_with_index do |wp, index|
+      template = (index == problem_number - 1) ? template1 : template2 
+      wp.stubs(:problem_type).returns(template)
+    end
+  end  
   
   def assert_worksheet_contains_error(worksheet, error)
     assert worksheet.errors[:replace_failure].include?(error), "Following error expected on worksheet: #{error}"

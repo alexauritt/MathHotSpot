@@ -11,6 +11,10 @@ class MathProblem < ActiveRecord::Base
   def self.rogue_problems
     where("math_problem_template_id" => nil)
   end
+
+  def problem_type
+    math_problem_template
+  end
     
   def display_mode?
     math_problem_template.nil? ? true: math_problem_template.display_mode
