@@ -18,7 +18,7 @@ Mathhotspot::Application.routes.draw do
   resources :math_problems
 
   resources :worksheets, :only => [:index, :show, :update] do
-    resources :problems, :only => [:update]
+    resources :worksheet_problems, :only => [:update]
   end
   
   # The priority is based upon order of creation:

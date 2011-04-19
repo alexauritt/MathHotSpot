@@ -33,22 +33,18 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal true, @worksheet.replace_problem(2)
   end
 
-  test "replace_problem_2" do
+  test "replace_problem_2 delegates replacement to worksheet problem and excludes similar problems on worksheet" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 4 })
     type1, type2 = mock, mock
     
-    @worksheet.worksheet_problems.first.stubs(:problem_type).returns(type1)
-    WorksheetProblem.any_instance.stubs(:problem_type).returns(type2)
-
-    
     worksheet_problems = @worksheet.worksheet_problems
-    new_problem = WorksheetProblem.new
-    
-    WorksheetProblemSwapper.expects(:find_replacement).with(worksheet_problems[1], :exclude => worksheet_problems[2..3]).returns(new_problem)
+    worksheet_problems.first.stubs(:problem_type).returns(type1)
+    WorksheetProblem.any_instance.stubs(:problem_type).returns(type2)
+    worksheet_problems[1].expects(:replace_math_problem).with({:exclude => worksheet_problems[2..3]}).returns(true)
 
     @worksheet.replace_problem_2 2
     
-    assert_equal new_problem, @worksheet.worksheet_problems[1]
+    # assert_equal new_problem, @worksheet.worksheet_problems[1]
   end
 
   test "replace_problems replaces expected problem" do

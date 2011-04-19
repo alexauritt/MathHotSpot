@@ -4,6 +4,9 @@ class MathProblem < ActiveRecord::Base
   has_one :instruction, :through => :math_problem_template
   before_validation :strip_excess_tags
   
+  # def self.find_replacement_for(math_problem, options = {})
+  # end
+  
   def self.grouped_problems
     where("math_problem_template_id").order("math_problem_template_id")
   end
