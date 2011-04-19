@@ -13,6 +13,7 @@ class WorksheetProblem < ActiveRecord::Base
   end
   
   def replace_math_problem(options = {:exclude => []})
-    self.math_problem = MathProblem.find_replacement_for(math_problem, options)
+    current_problem = self.math_problem
+    self.math_problem = current_problem.find_replacement(options)
   end
 end

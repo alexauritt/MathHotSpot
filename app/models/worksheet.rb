@@ -16,7 +16,9 @@ class Worksheet < ActiveRecord::Base
       similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
       target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
       true
-    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
+    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING,
+      ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, 
+      ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
       errors[:replace_failure] << bam
       false
     end

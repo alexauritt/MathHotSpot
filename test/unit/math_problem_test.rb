@@ -2,8 +2,15 @@ require 'test_helper'
 require 'mocha'
 
 class MathProblemTest < ActiveSupport::TestCase
-
+  include MathHotSpotErrors
+  
   def setup
+    @math_problem = MathProblem.new
+    @another_problem = MathProblem.new
+    @yet_another_problem = MathProblem.new
+    @three_problems = [@math_problem, @another_problem, @yet_another_problem]
+    @template = @math_problem.build_math_problem_template
+    @template.stubs(:id).returns(666)
   end
   
   test "group_all_by_problem_template" do
@@ -23,6 +30,40 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal 3, groups.first.size
   end
 
+  test "replace math problem returns different problem with same template" do
+    third_problem = MathProblem.new
+    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([@math_problem, @another_problem])
+    replacement = @math_problem.find_replacement
+    assert_equal(@another_problem, replacement)
+  end
+  
+  test "find_replacement raises if specified problem's template can not be found" do
+    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([])
+    assert_raise ActiveRecord::RecordNotFound do
+      @math_problem.find_replacement
+    end
+  end
+
+  test "find_replacement returns problem not being replaced and not exluded" do
+    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns(@three_problems)
+    replacement = @math_problem.find_replacement({:exclude => [@another_problem] })
+    assert_equal @yet_another_problem, replacement
+  end
+
+  test "find_replacement raises if problem is one of a kind" do
+    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([@math_problem])
+    assert_raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR do
+      @math_problem.find_replacement
+    end
+  end
+  
+  test "find_replacement raises if all available problems excluded" do
+    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([@math_problem, @another_problem])
+    assert_raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING do
+      @math_problem.find_replacement({:exclude => [@another_problem]})
+    end
+  end
+  
   test "rogue_problems" do
     rogues = MathProblem.rogue_problems
     assert_not_nil rogues

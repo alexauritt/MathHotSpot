@@ -43,8 +43,7 @@ class WorksheetTest < ActiveSupport::TestCase
     worksheet_problems[1].expects(:replace_math_problem).with({:exclude => worksheet_problems[2..3]}).returns(true)
 
     @worksheet.replace_problem_2 2
-    
-    # assert_equal new_problem, @worksheet.worksheet_problems[1]
+
   end
 
   test "replace_problems replaces expected problem" do
