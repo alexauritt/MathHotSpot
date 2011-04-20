@@ -14,6 +14,7 @@ class WorksheetProblem < ActiveRecord::Base
   
   def replace_math_problem(options = {:exclude => []})
     current_problem = self.math_problem
+    options[:exclude] = options[:exclude].map { |worksheet_problem| worksheet_problem.math_problem } || []
     self.math_problem = current_problem.find_replacement(options)
     save
   end

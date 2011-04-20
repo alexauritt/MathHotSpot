@@ -22,7 +22,6 @@ class Worksheet < ActiveRecord::Base
       errors[:replace_failure] << bam
       false
     end
-    
   end
   
   def replace_problem(problem_number)
@@ -50,6 +49,10 @@ class Worksheet < ActiveRecord::Base
     Message.display(errors[:replace_failure].first) || MathHotSpotErrors::Message::DEFAULT
   end
   
+  def problem(number)
+    worksheet_problems[number - 1]
+  end  
+  
   private
     
   def similar_problems_on_worksheet(worksheet_problem)
@@ -58,10 +61,6 @@ class Worksheet < ActiveRecord::Base
 
   def problem_number_missing_from_worksheet?(problem_number)
     problem_number > worksheet_problems.size
-  end
-  
-  def problem(number)
-    worksheet_problems[number - 1]
   end
   
   def find_math_problem_number(problem_number)
