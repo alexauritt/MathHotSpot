@@ -25,23 +25,35 @@ class WorksheetTest < ActiveSupport::TestCase
     problem_groups.uniq!
     assert_equal 10, problem_groups.size
   end
-  
-  test "replace_problem suceeds if specified problem number found on worksheet" do
-    create_mock_worksheet_problems_for(@worksheet, { :count => 2 })
-    MathProblemTemplate.stubs(:find_replacement)
 
-    assert_equal true, @worksheet.replace_problem(2)
+  test "replace_problem fails if bad problem number specified" do
+    create_mock_worksheet_problems_for(@worksheet, { :count => 2 })
+
+    assert_equal false, @worksheet.replace_problem(20)    
+  end
+  
+  test "replace_problem delegates replacement to worksheet problem and excludes similar problems on worksheet" do
+    create_mock_worksheet_problems_for(@worksheet, { :count => 4 })
+    type1, type2 = mock, mock
+    
+    worksheet_problems = @worksheet.worksheet_problems
+    worksheet_problems.first.stubs(:problem_type).returns(type1)
+    WorksheetProblem.any_instance.stubs(:problem_type).returns(type2)
+    worksheet_problems[1].expects(:replace_math_problem).with({:exclude => worksheet_problems[2..3]}).returns(true)
+
+    @worksheet.replace_problem 2
+
   end
 
-  test "replace_problems replaces expected problem" do
+  test "replace_problems_2 replaces expected problem" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 3 })
     
     worksheet_problems = @worksheet.worksheet_problems
     
     middle_math_problem = worksheet_problems[1].math_problem
     replacement_problem = MathProblem.new(:question_markup => "this is the replacement problem")
-    
-    MathProblemTemplate.expects(:find_replacement).returns(replacement_problem)
+
+    middle_math_problem.expects(:find_replacement).returns(replacement_problem)
     
     @worksheet.replace_problem 2
     
@@ -62,17 +74,6 @@ class WorksheetTest < ActiveSupport::TestCase
     prob4 = worksheet.worksheet_problems[3]
 
     assert_equal [prob2, prob4], worksheet.send(:similar_problems_on_worksheet, prob1)
-  end
-
-  test "replace_problem excludes similar problems on same worksheet" do
-    create_mock_worksheet_problems_for(@worksheet, {:count => 6})
-    set_same_template_for_every_problem_on_worksheet_except_number(5)
-    first_problem = @worksheet.worksheet_problems[0].math_problem
-    math_problems_similar_to_first = @worksheet.worksheet_problems[1..3].map {|wp| wp.math_problem }
-    math_problems_similar_to_first << @worksheet.worksheet_problems[5].math_problem
-    MathProblemTemplate.expects(:find_replacement).with(first_problem, :exclude => math_problems_similar_to_first)
-        
-    @worksheet.replace_problem 1
   end
 
   private

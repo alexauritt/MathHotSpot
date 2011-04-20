@@ -16,9 +16,7 @@ class WorksheetsController < ApplicationController
       @error_msg = @worksheet.error_for_failed_replace
       flash.now[:notice] = @error_msg
     end
-    
-    @worksheet.save
-    @worksheet.reload
+
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem}
     @new_problem = @math_problems[@problem_number - 1]
     respond_to do |format|

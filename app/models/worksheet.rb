@@ -12,17 +12,13 @@ class Worksheet < ActiveRecord::Base
   def replace_problem(problem_number)
     begin
       raise ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR if problem_number_missing_from_worksheet?(problem_number)
-      problem_to_replace = find_math_problem_number(problem_number)
-      similar_worksheet_problems = similar_problems_on_worksheet(problem problem_number)
-      math_problems_to_exclude = similar_worksheet_problems.map {|wp| wp.math_problem }
-      new_problem = MathProblemTemplate.find_replacement(problem_to_replace, { :exclude => math_problems_to_exclude })
-      if new_problem == problem_to_replace
-        raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR
-      else 
-        replace_math_problem_number(problem_number, new_problem)
-      end 
+      target_worksheet_problem = problem problem_number
+      similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
+      target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
       true
-    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
+    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING,
+      ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, 
+      ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
       errors[:replace_failure] << bam
       false
     end
@@ -32,6 +28,10 @@ class Worksheet < ActiveRecord::Base
     Message.display(errors[:replace_failure].first) || MathHotSpotErrors::Message::DEFAULT
   end
   
+  def problem(number)
+    worksheet_problems[number - 1]
+  end  
+  
   private
     
   def similar_problems_on_worksheet(worksheet_problem)
@@ -40,10 +40,6 @@ class Worksheet < ActiveRecord::Base
 
   def problem_number_missing_from_worksheet?(problem_number)
     problem_number > worksheet_problems.size
-  end
-  
-  def problem(number)
-    worksheet_problems[number - 1]
   end
   
   def find_math_problem_number(problem_number)
