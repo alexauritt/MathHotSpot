@@ -11,7 +11,7 @@ class WorksheetsController < ApplicationController
   def update    
     @worksheet = Worksheet.find(params[:id])
     @problem_number = params[:problem_number].to_i
-    @success = @worksheet.replace_problem_2(@problem_number)
+    @success = @worksheet.replace_problem(@problem_number)
     unless @success
       @error_msg = @worksheet.error_for_failed_replace
       flash.now[:notice] = @error_msg

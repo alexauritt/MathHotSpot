@@ -26,13 +26,13 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal 10, problem_groups.size
   end
 
-  test "replace_problem_2 fails if bad problem number specified" do
+  test "replace_problem fails if bad problem number specified" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 2 })
 
-    assert_equal false, @worksheet.replace_problem_2(20)    
+    assert_equal false, @worksheet.replace_problem(20)    
   end
   
-  test "replace_problem_2 delegates replacement to worksheet problem and excludes similar problems on worksheet" do
+  test "replace_problem delegates replacement to worksheet problem and excludes similar problems on worksheet" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 4 })
     type1, type2 = mock, mock
     
@@ -41,7 +41,7 @@ class WorksheetTest < ActiveSupport::TestCase
     WorksheetProblem.any_instance.stubs(:problem_type).returns(type2)
     worksheet_problems[1].expects(:replace_math_problem).with({:exclude => worksheet_problems[2..3]}).returns(true)
 
-    @worksheet.replace_problem_2 2
+    @worksheet.replace_problem 2
 
   end
 
@@ -55,7 +55,7 @@ class WorksheetTest < ActiveSupport::TestCase
 
     middle_math_problem.expects(:find_replacement).returns(replacement_problem)
     
-    @worksheet.replace_problem_2 2
+    @worksheet.replace_problem 2
     
     assert_equal replacement_problem, @worksheet.worksheet_problems[1].math_problem
   end
