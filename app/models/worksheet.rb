@@ -38,7 +38,9 @@ class Worksheet < ActiveRecord::Base
         replace_math_problem_number(problem_number, new_problem)
       end 
       true
-    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
+    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING, 
+      ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, 
+      ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
       errors[:replace_failure] << bam
       false
     end

@@ -61,9 +61,9 @@ class WorksheetsControllerTest < ActionController::TestCase
     put(:update, {:id => worksheet.id, :problem_number => problem_number})
     after_state = css_select("div.worksheet div#problem_#{problem_number}")[0]
     if (should_be_equal)
-      assert_equal initial_state, after_state, "Problem #{problem_number} did not change after replace call."
+      assert_equal initial_state, after_state, "Problem #{problem_number} change after replace call but should have remained unchanged."
     else
-      assert_not_equal initial_state, after_state, "Problem #{problem_number} change after replace call but should have remained unchanged."
+      assert_not_equal initial_state, after_state, "Problem #{problem_number} did not change after replace call."
     end
   end
 end
