@@ -5,7 +5,7 @@
       .rogue_problem
         - if problem.instruction
           .problem_instruction
-            = group.first.instruction.description
+            = problem.instruction.description
         .problem_display
           = render(:partial => "math_problems/problem_display", :locals => { :math_problem => problem })
         .markup

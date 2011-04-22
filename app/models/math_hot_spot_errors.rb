@@ -14,6 +14,8 @@ module MathHotSpotErrors
     NONE_REMAINING = "All problems already present on worksheet"
     DEFAULT = "An unknown error has occured"
     
+    NO_INSTRUCTIONS = "No instructions provided."
+    
     @message = {
       ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => UNIQUE,
       ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING => NONE_REMAINING,
@@ -23,5 +25,9 @@ module MathHotSpotErrors
     def self.display(error)
       @message[error.class]
     end
+  end
+  
+  class EmptyProblem
+    MARKUP = "No problem defined for this problem."
   end
 end

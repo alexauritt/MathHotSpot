@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+dividing_monomials_level_01:
+  math_problem_template: dividing_monomials_template
+  difficulty: 1
+    
+dividing_monomials_level_02:
+  math_problem_template: dividing_monomials_template
+  difficulty: 2
+
+dividing_monomials_level_03:
+  math_problem_template: dividing_monomials_template
+  difficulty: 3
+    
+unique_monomials_level:
+  math_problem_template: dividing_monomials_template
+  difficulty: 3
+    
+find_gcf_of_monomials_level:
+  math_problem_template: find_gcf_of_monomials_template
+  difficulty: 3
+  
+simp_no_zero_level:
+  math_problem_template: simp_no_zero_template
+  difficulty: 3
+  

@@ -6,7 +6,6 @@ module MathProblemsHelper
   end
   def problem_type_count(lesson)
     count = lesson.template_count
-    count > 1 ? "(#{lesson.template_count} problem types)" : "(Empty)" 
-    
+    count > 1 ? "(#{lesson.template_count} problem types)" : "(Empty)"     
   end
 end

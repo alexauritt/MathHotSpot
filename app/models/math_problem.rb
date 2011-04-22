@@ -2,34 +2,44 @@ class MathProblem < ActiveRecord::Base
   include MathHotSpotErrors
   
   has_many :worksheets, :through => :worksheet_problems
-  belongs_to :math_problem_template
-  has_one :instruction, :through => :math_problem_template
+  belongs_to :problem_level
+  
   before_validation :strip_excess_tags
   
+  DEFAULT_INSTRUCTION = Instruction.new(:description => MathHotSpotErrors::Message::NO_INSTRUCTIONS)
+  
   def self.grouped_problems
-    where("math_problem_template_id").order("math_problem_template_id")
+    where("problem_level_id").order("problem_level_id")
   end
   
   def self.rogue_problems
-    where("math_problem_template_id" => nil)
+    where("problem_level_id" => nil)
+  end
+  
+  def self.group_by_problem_type
+    groups = []
+    grouped_problems.chunk {|problem| problem.problem_level }.each {|level, group| groups << group }
+    groups
   end
 
   def problem_type
-    math_problem_template
+    self.problem_level
   end
     
   def display_mode?
-    math_problem_template.nil? ? true: math_problem_template.display_mode
+    problem_level.nil? ? true : problem_level.display_mode?
+  end
+  
+  def template
+    problem_level.math_problem_template
   end
 
-  def self.group_all_by_template()
-    @problem_groups = []
-    probs = grouped_problems.chunk {|prob| prob.math_problem_template }.each {|template, cur_group| @problem_groups << cur_group }
-    @problem_groups
+  def instruction
+    problem_level.nil? ? DEFAULT_INSTRUCTION : problem_level.instruction
   end
   
   def find_replacement(options = {})
-    available_problems = MathProblem.find_all_by_math_problem_template_id(self.math_problem_template.id)
+    available_problems = MathProblem.find_all_by_problem_level_id(self.problem_level.id)
 
     if available_problems.empty?
       raise ActiveRecord::RecordNotFound

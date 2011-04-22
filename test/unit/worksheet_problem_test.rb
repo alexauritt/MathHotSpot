@@ -5,12 +5,12 @@ class WorksheetProblemTest < ActiveSupport::TestCase
   def setup
     @worksheet_problem = WorksheetProblem.new
     @current_problem = @worksheet_problem.build_math_problem(:question_markup => "a question")
-    @current_problem.build_math_problem_template
-
+    @current_problem.build_problem_level
+    # @current_problem.build_math_problem_template
   end
 
-  test "problem_type returns instance of MathProblemTemplate" do
-    assert_instance_of MathProblemTemplate, @worksheet_problem.problem_type
+  test "problem_type returns instance of ProblemLevel" do
+    assert_instance_of ProblemLevel, @worksheet_problem.problem_type
   end
   
   test "problem_type returns UNDEFINED when appropriate" do

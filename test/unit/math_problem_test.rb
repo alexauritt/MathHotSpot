@@ -9,56 +9,50 @@ class MathProblemTest < ActiveSupport::TestCase
     @another_problem = MathProblem.new
     @yet_another_problem = MathProblem.new
     @three_problems = [@math_problem, @another_problem, @yet_another_problem]
-    @template = @math_problem.build_math_problem_template
+    @level = @math_problem.build_problem_level
+    @template = @level.build_math_problem_template
     @template.stubs(:id).returns(666)
   end
   
-  test "group_all_by_problem_template" do
-    @first = MathProblem.new
-    @second = MathProblem.new
-    @third = MathProblem.new
-    @fourth = MathProblem.new
-    first_template = mock
-    second_template = mock
-    @first.stubs(:math_problem_template).returns(first_template)
-    @second.stubs(:math_problem_template).returns(second_template)
-    @third.stubs(:math_problem_template).returns(first_template)
-    @fourth.stubs(:math_problem_template).returns(first_template)
-    stub_math_problem_order_to_return_sorted_list([@first, @third, @fourth, @second])
-    groups = MathProblem.group_all_by_template
-    assert_equal 2, groups.size
-    assert_equal 3, groups.first.size
+  test "template" do
+    assert_equal @template, @math_problem.template
   end
-
+  
+  test "group_by_problem_type returns number of groups equal number of levels of existent math problems" do
+    active_level_count = MathProblem.all.map {|prob| prob.problem_level }.uniq!.reject! {|elem| elem.nil? }.size    
+    groups = MathProblem.group_by_problem_type    
+    assert_equal active_level_count, groups.size
+  end
+  
   test "replace math problem returns different problem with same template" do
     third_problem = MathProblem.new
-    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([@math_problem, @another_problem])
+    MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem, @another_problem])
     replacement = @math_problem.find_replacement
     assert_equal(@another_problem, replacement)
   end
   
   test "find_replacement raises if specified problem's template can not be found" do
-    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([])
+    MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([])
     assert_raise ActiveRecord::RecordNotFound do
       @math_problem.find_replacement
     end
   end
 
   test "find_replacement returns problem not being replaced and not exluded" do
-    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns(@three_problems)
+    MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns(@three_problems)
     replacement = @math_problem.find_replacement({:exclude => [@another_problem] })
     assert_equal @yet_another_problem, replacement
   end
 
   test "find_replacement raises if problem is one of a kind" do
-    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([@math_problem])
+    MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem])
     assert_raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR do
       @math_problem.find_replacement
     end
   end
   
   test "find_replacement raises if all available problems excluded" do
-    MathProblem.expects(:find_all_by_math_problem_template_id).with(@template.id).returns([@math_problem, @another_problem])
+    MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem, @another_problem])
     assert_raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING do
       @math_problem.find_replacement({:exclude => [@another_problem]})
     end
@@ -76,7 +70,7 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal MathProblem.count, rogues.size + grouped.size
   end
   
-  test "display_mode? returns true (default) if no math_problem_template defined" do
+  test "display_mode? returns true (default) if no problem_level defined" do
     assert MathProblem.new.display_mode?
   end
   
@@ -109,6 +103,10 @@ class MathProblemTest < ActiveSupport::TestCase
     problem.send(:strip_excess_tags)
     
     assert_equal all_striped_down, problem.question_markup
+  end
+  
+  test "instruction when problem_level is nil returns default message" do
+    assert_equal MathProblem::DEFAULT_INSTRUCTION, MathProblem.new.instruction
   end
   
   private
