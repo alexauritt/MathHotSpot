@@ -4,6 +4,10 @@ class ProblemLevel < ActiveRecord::Base
   
   validates_presence_of :math_problem_template 
 
+  def problem_count
+    math_problems.size
+  end
+
   def demo_problem
     math_problems.first
   end

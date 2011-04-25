@@ -7,6 +7,7 @@ class ProblemLevelTest < ActiveSupport::TestCase
     @level.math_problems.build
     @template = @level.build_math_problem_template
   end
+  
   test "demo problem" do
     assert_instance_of MathProblem, @level.demo_problem
   end
@@ -22,5 +23,11 @@ class ProblemLevelTest < ActiveSupport::TestCase
   test "instruction" do
     @template.stubs(:instruction).returns(Instruction.new)
     assert_instance_of Instruction, @level.instruction
+  end
+  
+  test "problem_count" do
+    level = ProblemLevel.new
+    6.times { level.math_problems.build }
+    assert_equal 6, level.problem_count
   end
 end
