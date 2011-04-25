@@ -16,7 +16,10 @@
         .problem_display
           =display_mathml(problem_template.demo_problem)
         .problem_info
-          ="#{problem_template.math_problems.size} problems"
+          =level_count_msg problem_template
+          %br
+          =problem_count_msg problem_template
+
 
 
 

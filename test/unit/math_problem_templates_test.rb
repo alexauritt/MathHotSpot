@@ -8,6 +8,7 @@ class MathProblemTemplateTest < ActiveSupport::TestCase
   def setup
     @template = MathProblemTemplate.new
     @level = @template.problem_levels.build
+    @level2 = @template.problem_levels.build
   end
       
   test "use display mode by default" do
@@ -28,5 +29,17 @@ class MathProblemTemplateTest < ActiveSupport::TestCase
   test "demo_problem returns empty problem when template has no levels defined" do
     @template.demo_problem
   end
+  
+  test "problem_count" do
+    @level.stubs(:math_problems).returns([mock,mock])
+    @level2.stubs(:math_problems).returns([mock,mock,mock])
+    assert_equal 5, @template.problem_count
+  end
+  
+  test "level_count" do
+    assert_equal 2, @template.level_count
+  end
+  
+  
   
 end

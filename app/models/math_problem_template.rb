@@ -9,6 +9,18 @@ class MathProblemTemplate < ActiveRecord::Base
     level = problem_levels.first
     level.demo_problem
   end
+
+  def problem_count
+    total = 0
+    problem_levels.each do |level|
+      total += level.math_problems.size
+    end
+    total
+  end
+  
+  def level_count
+    problem_levels.size
+  end
   
   def self.find_replacement(math_problem, options = {})
     available_problems = MathProblem.find_all_by_math_problem_template_id(math_problem.math_problem_template.id)
