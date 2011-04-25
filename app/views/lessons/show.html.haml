@@ -16,7 +16,7 @@
         .problem_display
           =display_mathml(problem_template.demo_problem)
         .problem_info
-          =level_count_msg problem_template
+          =link_to level_count_msg(problem_template), math_problem_template_path(problem_template)
           %br
           =problem_count_msg problem_template
 

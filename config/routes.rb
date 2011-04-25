@@ -14,6 +14,8 @@ Mathhotspot::Application.routes.draw do
     resources :lessons, :except => [:show]
   end
 
+  resources :math_problem_templates, :only => [:show]
+
   resources :rogue_problems, :grouped_problems, :only => [:index]
   
   resources :math_problems
