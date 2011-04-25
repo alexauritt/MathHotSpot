@@ -16,7 +16,9 @@ Mathhotspot::Application.routes.draw do
 
   resources :math_problem_templates, :only => [:show]
 
-  resources :rogue_problems, :grouped_problems, :only => [:index]
+  resources :grouped_problems, :only => [:index]
+  
+  resources :rogue_problems, :only => [:index, :new]
   
   resources :math_problems
 

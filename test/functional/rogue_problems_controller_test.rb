@@ -12,4 +12,9 @@ class RogueProblemsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:rogue_problems)    
   end
 
+  test "should get new" do
+    get :new
+    assert_response :success
+  end
+
 end
