@@ -1,4 +1,5 @@
 Mathhotspot::Application.routes.draw do
+  resources :problem_levels, :only => [:show]
   
   resources :subjects, :only => [:show, :index]
   
