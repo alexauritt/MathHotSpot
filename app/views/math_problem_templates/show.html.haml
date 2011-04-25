@@ -9,5 +9,5 @@
     .problem_display
       =display_mathml(level.demo_problem)
     .problem_info
-      =problem_count_msg level
+      =link_to problem_count_msg(level), problem_level_path(level)
   

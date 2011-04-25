@@ -5,7 +5,7 @@
 
 #container
   %h2
-    =@lesson.subject.title
+    =link_to @lesson.subject.title, subject_path(@subject)
   %h3
     =@lesson.title
   #problem_list
