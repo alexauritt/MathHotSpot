@@ -1,6 +1,6 @@
 %h3 Math Problem Template
 
-=link_to "Back to Lesson", subject_lesson_path(@template.lesson.subject, @template.lesson)
+=link_to "Back to Lesson", lesson_path(@template.lesson)
 %br
 -@template.problem_levels.each do |level|
   .problem_example

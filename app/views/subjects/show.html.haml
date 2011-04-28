@@ -5,6 +5,6 @@
 
 %h3 Lessons  
 - @subject.lessons.each do |lesson|
-  = link_to lesson.title, subject_lesson_path(@subject, lesson)
+  = link_to lesson.title, lesson_path(lesson)
   %br
 

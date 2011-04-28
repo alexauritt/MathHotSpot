@@ -12,9 +12,8 @@ class MathProblemTemplatesController < ApplicationController
   def create
     @template = MathProblemTemplate.new(params[:math_problem_template])
     if @template.valid? && @template.save
-      redirect_to("/", :notice => 'Template was successfully created.')
+      redirect_to(lesson_url(@template.lesson), :notice => 'Template was successfully created.')
     else
-      Rails.logger.error "Error isy #{@template.errors}"
       render :action => "new"
     end
   end

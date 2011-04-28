@@ -11,5 +11,5 @@
         %ul.lesson_list
           - subject.lessons.each do |lesson|
             %li
-              =link_to lesson.title, subject_lesson_path(subject, lesson)
+              =link_to lesson.title, lesson_path(lesson)
               =problem_type_count(lesson)

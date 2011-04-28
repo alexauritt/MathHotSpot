@@ -17,7 +17,7 @@
     <td><%= lesson.chapter %></td>
     <td><%= lesson.section %></td>
     <td><%= lesson.subject.title %></td>
-    <td><%= link_to 'Show', subject_lesson_url(lesson.subject, lesson) %></td>
+    <td><%= link_to 'Show', lesson_url(lesson) %></td>
     <td><%= link_to 'Edit', edit_admin_lesson_url(lesson) %></td>
     <td><%= link_to 'Destroy', admin_lesson_url(lesson), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

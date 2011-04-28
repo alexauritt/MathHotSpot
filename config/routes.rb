@@ -7,11 +7,7 @@ Mathhotspot::Application.routes.draw do
   end
   
   resources :subjects, :only => [:show, :index]
-  
-  resources :subjects do
-    resources :lessons, :only => [:show]
-  end
-  
+    
   resources :lessons do
     resources :math_problem_templates, :only => [:new]
   end
