@@ -40,6 +40,25 @@ class MathProblemTemplateTest < ActiveSupport::TestCase
     assert_equal 2, @template.level_count
   end
   
+  test "new template created with nested problem level" do
+    params = {:math_problem_template => {:lesson_id => 8, :instruction_id => 10, 
+      :problem_levels_attributes => [{:difficulty => 10}]
+    }}
+    
+    assert_difference('MathProblemTemplate.count') do
+      assert MathProblemTemplate.create(params[:math_problem_template])
+    end
+    
+  end
   
+  test "new problem level created when nested in math problem template" do
+    params = {:math_problems_template => {:lesson_id => 8, :instruction_id => 10, 
+      :problem_levels_attributes => [{:difficulty => 10}]
+    }}
   
+    assert_difference('ProblemLevel.count') do
+      assert MathProblemTemplate.create(params[:math_problems_template]), @template.errors.to_s
+    end    
+  end
+
 end

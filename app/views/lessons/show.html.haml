@@ -8,6 +8,8 @@
     =link_to @lesson.subject.title, subject_path(@subject)
   %h3
     =@lesson.title
+  #add_new_problem_links
+    =link_to "Add New Problem/Template", new_lesson_math_problem_template_path(@lesson)
   #problem_list
     -@lesson.math_problem_templates.each do |problem_template|
       .problem_example

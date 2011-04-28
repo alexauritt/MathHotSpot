@@ -2,7 +2,9 @@ class ProblemLevel < ActiveRecord::Base
   belongs_to :math_problem_template
   has_many :math_problems
   
-  validates_presence_of :math_problem_template 
+  validates_presence_of :math_problem_template
+  
+  accepts_nested_attributes_for :math_problems
 
   def problem_count
     math_problems.size

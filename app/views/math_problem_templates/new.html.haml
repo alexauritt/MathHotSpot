@@ -1,0 +1,21 @@
+= form_for(@template) do |t|
+  = t.label :instruction_id, "Instruction"
+  = t.select(:instruction_id, Instruction.all.collect {|instruction| [instruction.description, instruction.id ]})
+  %br
+  = t.label :lesson_id, "Lesson"
+  = t.select(:lesson_id, Lesson.all.collect {|lesson| [lesson.title, lesson.id]})
+  %br
+  = t.fields_for :problem_levels do |level_builder|
+    = level_builder.label :difficulty
+    = level_builder.text_field :difficulty
+    %br
+    =level_builder.fields_for :math_problems do |problem_builder|
+      = problem_builder.label :question_markup
+      = problem_builder.text_area :question_markup
+      %br
+      = problem_builder.label :answer_markup
+      = problem_builder.text_area :answer_markup
+      %br
+  .actions
+    = t.submit
+  

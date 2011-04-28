@@ -1,30 +1,35 @@
 Mathhotspot::Application.routes.draw do
-  resources :problem_levels, :only => [:show]
-  
-  resources :subjects, :only => [:show, :index]
-  
-  resources :subjects do
-    resources :lessons, :only => [:show]
-  end
-
   match 'admin' => 'admin#index', :as => :admin
 
   namespace :admin do
     resources :subjects, :except => [:show]
     resources :lessons, :except => [:show]
   end
-
-  resources :math_problem_templates, :only => [:show]
-
-  resources :grouped_problems, :only => [:index]
   
-  resources :rogue_problems, :only => [:index, :new]
+  resources :subjects, :only => [:show, :index]
   
+  resources :subjects do
+    resources :lessons, :only => [:show]
+  end
+  
+  resources :lessons do
+    resources :math_problem_templates, :only => [:new]
+  end
+
   resources :math_problems
 
   resources :worksheets, :only => [:index, :show, :update] do
     resources :worksheet_problems, :only => [:update]
   end
+
+  resources :math_problem_templates, :only => [:show, :new, :create]
+
+  resources :problem_levels, :only => [:show]
+
+  resources :grouped_problems, :only => [:index]
+  
+  resources :rogue_problems, :only => [:index, :new]
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

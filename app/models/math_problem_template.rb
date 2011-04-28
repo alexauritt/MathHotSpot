@@ -4,6 +4,14 @@ class MathProblemTemplate < ActiveRecord::Base
   belongs_to :instruction
   has_many :problem_levels
   has_many :math_problems, :through => :problem_levels
+
+  accepts_nested_attributes_for :problem_levels
+  before_validation :initialize_problem_levels, :on => :create
+
+  # required if we want nested_attributes AND validation of this parent in problem_level
+  def initialize_problem_levels
+    problem_levels.each { |pl| pl.math_problem_template = self }
+  end  
   
   def demo_problem
     level = problem_levels.first

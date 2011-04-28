@@ -14,5 +14,27 @@ class MathProblemsHelperTest < ActionView::TestCase
     @problem.stubs(:display_mode?).returns(false)
     expected_output = "<p class='inline_math'>" + @input_markup + "</p>"
     assert_equal(expected_output, display_mathml(@problem))
-  end  
+  end
+  
+  test "problem_type_count should be zero" do
+    @lesson = Lesson.new
+    assert_equal "(Empty)", problem_type_count(@lesson)
+  end
+  
+  test "problem_type_count should be 1" do    
+    @lesson = Lesson.new
+    @lesson.math_problem_templates.build
+    
+    assert_equal "(1 problem type)", problem_type_count(@lesson)
+  end
+
+  test "problem_type_count should be 7" do
+    @lesson = Lesson.new
+    7.times { @lesson.math_problem_templates.build }
+    
+    assert_equal "(7 problem types)", problem_type_count(@lesson)
+  end
+  
+  
+  
 end
