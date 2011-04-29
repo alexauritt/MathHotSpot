@@ -10,6 +10,7 @@ Mathhotspot::Application.routes.draw do
     
   resources :lessons do
     resources :math_problem_templates, :only => [:new]
+    resources :instructions, :only => [:new, :create]
   end
 
   resources :math_problems
@@ -18,7 +19,7 @@ Mathhotspot::Application.routes.draw do
     resources :worksheet_problems, :only => [:update]
   end
 
-  resources :math_problem_templates, :only => [:show, :new, :create]
+  resources :math_problem_templates, :only => [:show, :create]
 
   resources :problem_levels, :only => [:show]
 

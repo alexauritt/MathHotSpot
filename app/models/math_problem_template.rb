@@ -6,6 +6,7 @@ class MathProblemTemplate < ActiveRecord::Base
   has_many :math_problems, :through => :problem_levels
 
   accepts_nested_attributes_for :problem_levels
+  accepts_nested_attributes_for :instruction
   before_validation :initialize_problem_levels, :on => :create
 
   # required if we want nested_attributes AND validation of this parent in problem_level
@@ -52,5 +53,5 @@ class MathProblemTemplate < ActiveRecord::Base
     
     without_original[rand(without_original.size)]
   end
-
+  
 end

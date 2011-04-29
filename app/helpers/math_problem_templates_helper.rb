@@ -8,4 +8,8 @@ module MathProblemTemplatesHelper
     count = template.problem_count
     count == 1 ? "1 Problem" : "#{count} Problems"
   end
+  
+  def instruction_choices
+    Instruction.order("created_at DESC").all.collect {|instruction| [instruction.description, instruction.id ]}
+  end
 end

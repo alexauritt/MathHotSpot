@@ -5,6 +5,7 @@ class MathProblemTemplatesController < ApplicationController
   
   def new
     @template = MathProblemTemplate.new
+    @template.build_instruction
     @template.lesson = Lesson.find(params[:lesson_id])
     level = @template.problem_levels.build
     level.math_problems.build

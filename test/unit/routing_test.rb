@@ -5,6 +5,16 @@ class RoutingTest < ActionController::TestCase
   test "math_problems routes" do
     assert_routing( { :path => "math_problems", :method => :get}, {:controller => "math_problems", :action => "index"})
   end
+  
+  test "lesson_instruction new" do
+    assert_routing( {:path => "lessons/32/instructions/new", :method => :get}, 
+      {:controller => "instructions", :action => "new", :lesson_id => '32'})
+  end
+  
+  test "lesson_instruction create" do
+    assert_routing( {:path => "lessons/32/instructions", :method => :post}, 
+      {:controller => "instructions", :action => "create", :lesson_id => '32'})    
+  end
 
   test "lesson create" do
     assert_routing( {:path => "/lessons", :method => :post}, {:controller => "lessons", :action => "create"})
