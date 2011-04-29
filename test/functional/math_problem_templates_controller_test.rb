@@ -14,9 +14,17 @@ class MathProblemTemplatesControllerTest < ActionController::TestCase
   
   test "new" do
     @template = template_with_lesson_level_and_problem
-    get :new
+    get :new, :lesson_id => @template.lesson.id
     assert_response :success
     assert_prompts_for_problem_question_and_answer
+  end
+
+  test "lesson_id specified in hidden field in new" do
+    template = MathProblemTemplate.new
+    lesson = lessons(:monomial_factors_of_polynomials_lesson)
+    template.lesson = lesson
+    get :new, :lesson_id => lesson.id
+    assert_select "input#math_problem_template_lesson_id[type=hidden][value=#{lesson.id}]"
   end
 
   test "create makes new template" do
@@ -47,17 +55,13 @@ class MathProblemTemplatesControllerTest < ActionController::TestCase
     end
     
     assert_redirected_to lesson_path(template.lesson)
-
   end
     
   private
 
   def nested_level_and_problem_attributes
-    { 
-      :problem_levels_attributes => [{:math_problems_attributes => 
-        [{:question_markup => 'some question', :answer_markup => 'some answer'}]
-      }]
-    }  
+    { :problem_levels_attributes => [{:math_problems_attributes => 
+        [{:question_markup => 'some question', :answer_markup => 'some answer'}]}]}  
   end
   
   def template_with_lesson_level_and_problem

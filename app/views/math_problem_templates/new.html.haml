@@ -1,9 +1,12 @@
+%h3
+  = "Create a new problem for Lesson: #{@template.lesson.title}"
+
 = form_for(@template) do |t|
   = t.label :instruction_id, "Instruction"
   = t.select(:instruction_id, Instruction.all.collect {|instruction| [instruction.description, instruction.id ]})
-  %br
-  = t.label :lesson_id, "Lesson"
-  = t.select(:lesson_id, Lesson.all.collect {|lesson| [lesson.title, lesson.id]})
+
+  = hidden_field_tag "math_problem_template[lesson_id]", @template.lesson.id
+  
   %br
   = t.fields_for :problem_levels do |level_builder|
     = level_builder.label :difficulty
