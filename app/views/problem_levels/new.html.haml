@@ -4,14 +4,7 @@
 = form_for(@problem_level) do |level|
   = hidden_field_tag "problem_level[math_problem_template_id]", @problem_level.math_problem_template.id
   %br
-  =level.fields_for :math_problems do |problem_builder|
-    = problem_builder.label :question_markup
-    = problem_builder.text_area :question_markup
-    %br
-    = problem_builder.label :answer_markup
-    = problem_builder.text_area :answer_markup
-    %br
-    
+  = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
   .actions
     = level.submit
 

@@ -1,0 +1,7 @@
+=builder.fields_for :math_problems do |problem_builder|
+  = problem_builder.label :question_markup
+  = problem_builder.text_area :question_markup
+  %br
+  = problem_builder.label :answer_markup
+  = problem_builder.text_area :answer_markup
+  %br
