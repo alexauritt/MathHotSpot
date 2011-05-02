@@ -2,6 +2,8 @@
 
 =link_to "Back to Lesson", lesson_path(@template.lesson)
 %br
+=link_to "Add New Level", new_math_problem_template_problem_level_path(@template)
+%br
 -@template.problem_levels.each do |level|
   .problem_example
     .difficulty_display

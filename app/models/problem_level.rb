@@ -1,6 +1,7 @@
 class ProblemLevel < ActiveRecord::Base
   belongs_to :math_problem_template
   has_many :math_problems
+  has_one :lesson, :through => :math_problem_template
   
   validates_presence_of :math_problem_template
   
@@ -21,4 +22,5 @@ class ProblemLevel < ActiveRecord::Base
   def instruction
     math_problem_template.instruction
   end
+  
 end

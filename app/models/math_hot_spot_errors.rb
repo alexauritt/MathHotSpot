@@ -15,6 +15,7 @@ module MathHotSpotErrors
     DEFAULT = "An unknown error has occured"
     
     NO_INSTRUCTIONS = "No instructions provided."
+    NO_DIFFICULTY_LEVEL = "No difficulty level specified."
     
     @message = {
       ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => UNIQUE,
