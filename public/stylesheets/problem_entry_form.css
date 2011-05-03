@@ -1,0 +1,7 @@
+div.new_problem_form {
+  clear: both;
+}
+
+div.new_problem_form div.problem_builder_field {
+  float: left;
+}

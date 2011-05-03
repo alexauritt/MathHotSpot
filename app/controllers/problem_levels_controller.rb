@@ -6,6 +6,7 @@ class ProblemLevelsController < ApplicationController
   
   def new
     @template = MathProblemTemplate.find(params[:math_problem_template_id])
+    @sibling_levels = @template.problem_levels
     @problem_level = ProblemLevel.new(:math_problem_template => @template)
     @problem_level.math_problems.build
   end

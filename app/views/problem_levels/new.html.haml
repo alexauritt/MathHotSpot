@@ -1,14 +1,27 @@
-%h3
-  = "Create a New Level"
+- content_for :head do
+  %title Problem Level
+  = stylesheet_link_tag "lessons"
+  = stylesheet_link_tag "problem_entry_form"
   
-#sibling_level_examples
-  These are the sibling levels
+.row#current_level_display
+  %h4 Current Levels:
+
+  - @sibling_levels.each do |sibling_level|
+    .problem_example
+      .difficulty_display
+        =display_difficulty sibling_level
+      .problem_display
+        =display_mathml(sibling_level.demo_problem)
+
+.row
+  %h2 Create a New Level:
 
 #new_level_form
   = form_for(@problem_level) do |level|
     = hidden_field_tag "problem_level[math_problem_template_id]", @problem_level.math_problem_template.id
-    %br
+    .row
     = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
-    .actions
-      = level.submit
+    .row
+      .actions
+        = level.submit
 
