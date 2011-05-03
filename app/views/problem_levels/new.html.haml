@@ -5,6 +5,8 @@
   
 .row#current_level_display
   %h4 Current Levels:
+  #instructions
+    = "#{@problem_level.instruction.description}"
 
   - @sibling_levels.each do |sibling_level|
     .problem_example
