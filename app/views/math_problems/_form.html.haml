@@ -9,16 +9,16 @@
           %li
             = msg
   = hidden_field_tag "math_problem[problem_level_id]", @math_problem.problem_level.id
+  .row
+    .field
+      = f.label :question_markup
+      %br
+      = f.text_area :question_markup
 
-  .field
-    = f.label :question_markup
-    %br
-    = f.text_area :question_markup
-
-  .field
-    = f.label :answer_markup
-    %br
-    = f.text_area :answer_markup
-
-  .actions
-    = f.submit
+    .field
+      = f.label :answer_markup
+      %br
+      = f.text_area :answer_markup
+  .row
+    .actions
+      = f.submit

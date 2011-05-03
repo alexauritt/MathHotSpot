@@ -7,7 +7,6 @@
   %h4 Current Levels:
   #instructions
     = "#{@problem_level.instruction.description}"
-
   - @sibling_levels.each do |sibling_level|
     .problem_example
       .difficulty_display
@@ -18,7 +17,7 @@
 .row
   %h2 Create a New Level:
 
-#new_level_form
+.row#new_level_form
   = form_for(@problem_level) do |level|
     = hidden_field_tag "problem_level[math_problem_template_id]", @problem_level.math_problem_template.id
     .row

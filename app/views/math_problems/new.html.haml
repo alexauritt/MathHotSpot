@@ -1,8 +1,20 @@
 - content_for :head do
   %title New Math Problem
+  = stylesheet_link_tag "lessons"
+  = stylesheet_link_tag "problem_entry_form"
 
-%h1 New Math Problem
+.row#current_level_display
+  %h4 Existing Problems:
+  #instructions
+    = "#{@math_problem.instruction.description}"
 
-=render 'form'
+  - @math_problem.siblings.each do |sibling_problem|
+    .problem_example
+      .problem_display
+        =display_mathml(sibling_problem)
+.row
+  %h1 New Math Problem
+  =render 'form'
 
+.row#links
 =link_to 'Back', math_problems_path

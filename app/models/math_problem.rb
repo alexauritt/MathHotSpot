@@ -38,6 +38,10 @@ class MathProblem < ActiveRecord::Base
     problem_level.nil? ? DEFAULT_INSTRUCTION : problem_level.instruction
   end
   
+  def siblings
+    problem_level.nil? ? [] : problem_level.math_problems.reject {|current| current == self}
+  end
+  
   def find_replacement(options = {})
     available_problems = MathProblem.find_all_by_problem_level_id(self.problem_level.id)
 

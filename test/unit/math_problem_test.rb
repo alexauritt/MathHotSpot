@@ -109,6 +109,17 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal MathProblem::DEFAULT_INSTRUCTION, MathProblem.new.instruction
   end
   
+  test "siblings" do
+    problem_level = ProblemLevel.new
+    4.times {problem_level.math_problems.build}
+    problem = problem_level.math_problems.build
+    problem.problem_level = problem_level
+    expected_siblings = problem_level.math_problems[0..3]
+    
+    assert_equal problem_level, problem.problem_level, "Looks as through level wasn't set"
+    assert_equal expected_siblings, problem.siblings
+  end
+  
   private
   def stub_math_problem_order_to_return_sorted_list(ordered_problem_list)
     MathProblem.stubs(:grouped_problems).returns(ordered_problem_list)
