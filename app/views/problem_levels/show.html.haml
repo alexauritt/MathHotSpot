@@ -6,7 +6,8 @@
   -@math_problems.each do |math_problem|
     .problem_example
       .problem_display
-        =display_mathml(math_problem)
+        =display_mathml_question(math_problem)
+        =display_mathml_answer(math_problem)
 
 .row
   =link_to "Back to template", math_problem_template_path(@problem_level.math_problem_template)

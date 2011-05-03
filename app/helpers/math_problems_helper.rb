@@ -1,9 +1,23 @@
 module MathProblemsHelper
-  def display_mathml(math_problem)
-    markup = math_problem.question_markup
-    start_tag, end_tag = "<p class='inline_math'>","</p>"
-    math_problem.display_mode? ? markup.html_safe : start_tag.concat(markup).concat(end_tag).html_safe
+  def display_mathml_question(math_problem)
+    display_mathml(math_problem, true)
   end
+
+  def display_mathml_answer(math_problem)
+    display_mathml(math_problem, false)
+  end
+  
+  def display_mathml(problem, display_question = true)
+    markup = display_question ? problem.question_markup : problem.answer_markup
+    text = display_question ? "question" : "answer"
+    unless markup.nil?
+      start_tag, end_tag = "<p class='inline_math'>","</p>"
+      problem.display_mode? ? markup.html_safe : start_tag.concat(markup).concat(end_tag).html_safe
+    else
+      "No #{text} specified. #{link_to 'Fix it', edit_math_problem_url(problem)}".html_safe
+    end
+  end
+  
   def problem_type_count(lesson)
     count = lesson.template_count
     count >= 1 ? problem_type_count_msg(lesson.template_count) : "(Empty)"     

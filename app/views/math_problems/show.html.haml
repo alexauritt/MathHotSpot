@@ -3,8 +3,11 @@
   = stylesheet_link_tag "admin/math_problems"
 
 %p
-  %b Display:
-  =display_mathml(@math_problem)
+  %b Question:
+  =display_mathml_question(@math_problem)
+  %b Answer:
+  =display_mathml_answer(@math_problem)
+
 
 %p
   %b Question:
