@@ -8,6 +8,7 @@
         - @math_problem.errors.full_messages.each do |msg|
           %li
             = msg
+  = hidden_field_tag "math_problem[problem_level_id]", @math_problem.problem_level.id
 
   .field
     = f.label :question_markup

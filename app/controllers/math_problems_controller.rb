@@ -20,6 +20,7 @@ class MathProblemsController < ApplicationController
   
   def new
     @math_problem = MathProblem.new
+    @math_problem.problem_level = ProblemLevel.find(params[:problem_level_id])
   end
 
   def edit

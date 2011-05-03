@@ -32,8 +32,13 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "/lessons", :method => :get}, {:controller => "lessons", :action => "index"})
   end
   
-  test "new_math_problem_template_problem_level" do
+  test "math_problem_template_problem_level new" do
     assert_routing( {:path => "/math_problem_templates/123/problem_levels/new", :method => :get}, {:controller => "problem_levels", :action => "new", :math_problem_template_id => "123"})
+  end
+  
+  test "problem_level_math_problem new" do
+    assert_routing( {:path => "/problem_levels/987/math_problems/new", :method => :get}, 
+      {:controller => "math_problems", :action => "new", :problem_level_id => "987"})    
   end
 
   test "problem_level create" do
