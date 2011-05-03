@@ -1,15 +1,22 @@
+- content_for :head do
+  %title Math Problem Template
+  = stylesheet_link_tag "lessons"
+
+
 %h3 Math Problem Template
 
-=link_to "Back to Lesson", lesson_path(@template.lesson)
-%br
-=link_to "Add New Level", new_math_problem_template_problem_level_path(@template)
-%br
--@template.problem_levels.each do |level|
-  .problem_example
-    .difficulty_display
-      =display_difficulty level
-    .problem_display
-      =display_mathml(level.demo_problem)
-    .problem_info
-      =link_to problem_count_msg(level), problem_level_path(level)
+.row
+  -@template.problem_levels.each do |level|
+    .problem_example
+      .difficulty_display
+        =display_difficulty level
+      .problem_display
+        =display_mathml(level.demo_problem)
+      .problem_info
+        =link_to problem_count_msg(level), problem_level_path(level)
+
+.row
+  =link_to "Back to Lesson", lesson_path(@template.lesson)
+  |
+  =link_to "Add New Level", new_math_problem_template_problem_level_path(@template)
   

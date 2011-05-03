@@ -1,8 +1,15 @@
-=link_to "Back to template", math_problem_template_path(@problem_level.math_problem_template)
-%br
-=link_to "Add New Problem to this Level", new_problem_level_math_problem_url(@problem_level)
-%br
--@math_problems.each do |math_problem|
-  .problem_example
-    .problem_display
-      =display_mathml(math_problem)
+- content_for :head do
+  %title Problem Level
+  = stylesheet_link_tag "lessons"
+
+.row
+  -@math_problems.each do |math_problem|
+    .problem_example
+      .problem_display
+        =display_mathml(math_problem)
+
+.row
+  =link_to "Back to template", math_problem_template_path(@problem_level.math_problem_template)
+  %br
+  =link_to "Add New Problem to this Level", new_problem_level_math_problem_url(@problem_level)
+  %br

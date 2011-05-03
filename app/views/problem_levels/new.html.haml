@@ -1,10 +1,14 @@
 %h3
   = "Create a New Level"
+  
+#sibling_level_examples
+  These are the sibling levels
 
-= form_for(@problem_level) do |level|
-  = hidden_field_tag "problem_level[math_problem_template_id]", @problem_level.math_problem_template.id
-  %br
-  = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
-  .actions
-    = level.submit
+#new_level_form
+  = form_for(@problem_level) do |level|
+    = hidden_field_tag "problem_level[math_problem_template_id]", @problem_level.math_problem_template.id
+    %br
+    = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
+    .actions
+      = level.submit
 

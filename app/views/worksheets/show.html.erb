@@ -1,6 +1,7 @@
 <% content_for :head do %>
   <title>Worksheet <%= @worksheet.id %></title>
   <%= javascript_include_tag "replace_problem" %>
+  <%= stylesheet_link_tag "worksheet" %>
 <% end %>
 
 <div class="worksheet" id="worksheet_<%= @worksheet.id %>">
