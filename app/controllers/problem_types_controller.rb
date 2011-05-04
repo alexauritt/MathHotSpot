@@ -14,7 +14,7 @@ class ProblemTypesController < ApplicationController
   def create
     @problem_type = ProblemType.new(params[:problem_type])
     if @problem_type.save
-      redirect_to(lesson_url(@problem_type.lesson), :notice => 'Template was successfully created.')
+      redirect_to(lesson_url(@problem_type.lesson), :notice => 'Problem Type was successfully created.')
     else
       render :action => "new"
     end

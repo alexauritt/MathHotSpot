@@ -14,7 +14,7 @@ class ProblemLevelsController < ApplicationController
   def create
     @problem_level = ProblemLevel.new(params[:problem_level])
     if @problem_level.save
-      redirect_to(problem_type_url(@problem_level.problem_type), :notice => 'Template was successfully created.')
+      redirect_to(problem_type_url(@problem_level.problem_type), :notice => 'Problem Type was successfully created.')
     else
       render :action => "new"
     end
