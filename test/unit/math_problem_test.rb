@@ -11,27 +11,22 @@ class MathProblemTest < ActiveSupport::TestCase
     @three_problems = [@math_problem, @another_problem, @yet_another_problem]
     @level = @math_problem.build_problem_level
     @problem_type = @level.build_problem_type
-    @problem_type.stubs(:id).returns(666)
   end
-  
-  test "template" do
-    assert_equal @problem_type, @math_problem.template
-  end
-  
-  test "group_by_problem_type returns number of groups equal number of levels of existent math problems" do
+    
+  test "group_by_problem_level returns number of groups equal number of levels of existent math problems" do
     active_level_count = MathProblem.all.map {|prob| prob.problem_level }.uniq!.reject! {|elem| elem.nil? }.size    
-    groups = MathProblem.group_by_problem_type    
+    groups = MathProblem.group_by_problem_level    
     assert_equal active_level_count, groups.size
   end
   
-  test "replace math problem returns different problem with same template" do
+  test "replace math problem returns different problem with same problem_type" do
     third_problem = MathProblem.new
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem, @another_problem])
     replacement = @math_problem.find_replacement
     assert_equal(@another_problem, replacement)
   end
   
-  test "find_replacement raises if specified problem's template can not be found" do
+  test "find_replacement raises if specified problem's problem_type can not be found" do
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([])
     assert_raise ActiveRecord::RecordNotFound do
       @math_problem.find_replacement

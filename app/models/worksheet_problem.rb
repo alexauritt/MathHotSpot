@@ -4,8 +4,8 @@ class WorksheetProblem < ActiveRecord::Base
   
   validates_presence_of :worksheet, :math_problem
 
-  def problem_type
-    math_problem.nil? ? nil : math_problem.problem_type
+  def problem_level
+    math_problem.nil? ? nil : math_problem.problem_level
   end
   
   def instruction

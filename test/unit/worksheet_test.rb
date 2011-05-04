@@ -34,18 +34,18 @@ class WorksheetTest < ActiveSupport::TestCase
   
   test "replace_problem delegates replacement to worksheet problem and excludes similar problems on worksheet" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 4 })
-    type1, type2 = mock, mock
+    level1, level2 = mock, mock
     
     worksheet_problems = @worksheet.worksheet_problems
-    worksheet_problems.first.stubs(:problem_type).returns(type1)
-    WorksheetProblem.any_instance.stubs(:problem_type).returns(type2)
+    worksheet_problems.first.stubs(:problem_level).returns(level1)
+    WorksheetProblem.any_instance.stubs(:problem_level).returns(level2)
     worksheet_problems[1].expects(:replace_math_problem).with({:exclude => worksheet_problems[2..3]}).returns(true)
 
     @worksheet.replace_problem 2
 
   end
 
-  test "replace_problems_2 replaces expected problem" do
+  test "replace_problem replaces expected problem" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 3 })
     
     worksheet_problems = @worksheet.worksheet_problems
@@ -64,10 +64,10 @@ class WorksheetTest < ActiveSupport::TestCase
     worksheet = Worksheet.new
     template1 = mock
     template2 = mock
-    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template1)
-    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template1)
-    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template2)
-    worksheet.worksheet_problems.build.stubs(:problem_type).returns(template1)
+    worksheet.worksheet_problems.build.stubs(:problem_level).returns(template1)
+    worksheet.worksheet_problems.build.stubs(:problem_level).returns(template1)
+    worksheet.worksheet_problems.build.stubs(:problem_level).returns(template2)
+    worksheet.worksheet_problems.build.stubs(:problem_level).returns(template1)
     prob1 = worksheet.worksheet_problems[0]
     prob2 = worksheet.worksheet_problems[1]
     prob3 = worksheet.worksheet_problems[2]
@@ -88,7 +88,7 @@ class WorksheetTest < ActiveSupport::TestCase
     template1, template2 = ProblemType.new, ProblemType.new
     @worksheet.worksheet_problems.each_with_index do |wp, index|
       template = (index == problem_number - 1) ? template1 : template2 
-      wp.stubs(:problem_type).returns(template)
+      wp.stubs(:problem_level).returns(template)
     end
   end  
   

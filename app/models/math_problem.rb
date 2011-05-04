@@ -3,6 +3,7 @@ class MathProblem < ActiveRecord::Base
   
   has_many :worksheets, :through => :worksheet_problems
   belongs_to :problem_level
+  has_one :problem_type, :through => :problem_level
   
   before_validation :strip_excess_tags
   
@@ -16,14 +17,10 @@ class MathProblem < ActiveRecord::Base
     where("problem_level_id" => nil)
   end
   
-  def self.group_by_problem_type
+  def self.group_by_problem_level
     groups = []
     grouped_problems.chunk {|problem| problem.problem_level }.each {|level, group| groups << group }
     groups
-  end
-
-  def problem_type
-    self.problem_level
   end
     
   def display_mode?

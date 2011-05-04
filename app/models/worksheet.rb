@@ -35,7 +35,7 @@ class Worksheet < ActiveRecord::Base
   private
     
   def similar_problems_on_worksheet(worksheet_problem)
-    worksheet_problems.select {|wp| (wp.problem_type == worksheet_problem.problem_type && wp != worksheet_problem) } || []
+    worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []
   end    
 
   def problem_number_missing_from_worksheet?(problem_number)

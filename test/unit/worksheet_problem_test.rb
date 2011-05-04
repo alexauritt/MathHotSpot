@@ -9,12 +9,12 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     # @current_problem.build_problem_type
   end
 
-  test "problem_type returns instance of ProblemLevel" do
-    assert_instance_of ProblemLevel, @worksheet_problem.problem_type
+  test "problem_level returns instance of ProblemLevel" do
+    assert_instance_of ProblemLevel, @worksheet_problem.problem_level
   end
   
-  test "problem_type returns UNDEFINED when appropriate" do
-    assert_nil WorksheetProblem.new.problem_type
+  test "problem_level returns UNDEFINED when appropriate" do
+    assert_nil WorksheetProblem.new.problem_level
   end
   
   test "replace_math_problem delegates to MathProblem" do
