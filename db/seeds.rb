@@ -16,22 +16,22 @@ instructions = Instruction.create([
   { :description => "Simplify. Assume that no denominator equals 0." }
 ])
 
-problem_templates = ProblemType.create([
+problem_types = ProblemType.create([
   { :lesson_id => lessons.first, :instruction => instructions.first},
   { :lesson_id => lessons.first, :instruction => instructions[1], :display_mode => false },
   { :lesson_id => lessons.first, :instruction => instructions[2] }
 ])
 
 problem_levels = ProblemLevel.create([
-  { :problem_type => problem_templates[0], :difficulty => 1 },
-  { :problem_type => problem_templates[0], :difficulty => 2 },
-  { :problem_type => problem_templates[0], :difficulty => 3 },
-  { :problem_type => problem_templates[0], :difficulty => 4 },
-  { :problem_type => problem_templates[0], :difficulty => 5 },
-  { :problem_type => problem_templates[0], :difficulty => 6 },
+  { :problem_type => problem_types[0], :difficulty => 1 },
+  { :problem_type => problem_types[0], :difficulty => 2 },
+  { :problem_type => problem_types[0], :difficulty => 3 },
+  { :problem_type => problem_types[0], :difficulty => 4 },
+  { :problem_type => problem_types[0], :difficulty => 5 },
+  { :problem_type => problem_types[0], :difficulty => 6 },
 
-  { :problem_type => problem_templates[1], :difficulty => 3},
-  { :problem_type => problem_templates[2], :difficulty => 3},  
+  { :problem_type => problem_types[1], :difficulty => 3},
+  { :problem_type => problem_types[2], :difficulty => 3},  
 ])
 
 MathProblem.create([

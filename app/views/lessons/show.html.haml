@@ -9,16 +9,16 @@
   %h3
     =@lesson.title
   .row#problem_list
-    -@lesson.problem_types.each do |problem_template|
+    -@lesson.problem_types.each do |problem_type|
       .problem_example
         .problem_instruction
-          =problem_template.instruction.description
+          =problem_type.instruction.description
         .problem_display
-          =display_mathml_question(problem_template.demo_problem)
+          =display_mathml_question(problem_type.demo_problem)
         .problem_info
-          =link_to level_count_msg(problem_template), problem_type_path(problem_template)
+          =link_to level_count_msg(problem_type), problem_type_path(problem_type)
           %br
-          =problem_count_msg problem_template
+          =problem_count_msg problem_type
   .row#add_new_problem_links
     =link_to "Add New Problem Type", new_lesson_problem_type_path(@lesson)
   

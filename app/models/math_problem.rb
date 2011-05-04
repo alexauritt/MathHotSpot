@@ -27,10 +27,6 @@ class MathProblem < ActiveRecord::Base
     problem_level.nil? ? true : problem_level.display_mode?
   end
   
-  def template
-    problem_level.problem_type
-  end
-
   def instruction
     problem_level.nil? ? DEFAULT_INSTRUCTION : problem_level.instruction
   end
