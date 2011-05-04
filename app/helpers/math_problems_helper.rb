@@ -14,7 +14,7 @@ module MathProblemsHelper
       start_tag, end_tag = "<p class='inline_math'>","</p>"
       problem.display_mode? ? markup.html_safe : start_tag.concat(markup).concat(end_tag).html_safe
     else
-      "No #{text} specified. #{link_to 'Fix it', edit_math_problem_url(problem)}".html_safe
+      "No #{text} specified."
     end
   end
   

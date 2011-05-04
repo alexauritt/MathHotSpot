@@ -1,5 +1,3 @@
-
-
 div.nav_bar {
   margin-bottom: 10px;
 }
@@ -8,11 +6,15 @@ div.row {
   clear: both;
 }
 
-div.problem_example {
+div.single_problem_display, div.problem_example {
   float: left;
   background-color: grey;
   padding: 20px;
   margin: 10px;
+}
+
+div.single_problem_display div.problem_links {
+  margin: 10px 0px 10px 0px;
 }
 
 div.problem_instruction {

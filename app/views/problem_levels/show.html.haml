@@ -9,10 +9,14 @@
   = "There are #{@math_problems.size} problems on this level:"
 .row
   -@math_problems.each do |math_problem|
-    .problem_example
-      .problem_display
+    .single_problem_display
+      .question_and_answer
+        Question:
         =display_mathml_question(math_problem)
+        Answer:
         =display_mathml_answer(math_problem)
+      .problem_links
+        =link_to 'Edit Problem', edit_math_problem_url(math_problem)
 
 .row
   =link_to "Back to template", math_problem_template_path(@problem_level.math_problem_template)
