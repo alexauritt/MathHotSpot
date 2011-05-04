@@ -1,10 +1,10 @@
 class Lesson < ActiveRecord::Base
   belongs_to :subject
-  has_many :math_problem_templates
+  has_many :problem_types
   
   validates_presence_of :subject
 
   def template_count
-    math_problem_templates.size
+    problem_types.size
   end
 end

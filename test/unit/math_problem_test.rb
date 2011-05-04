@@ -10,12 +10,12 @@ class MathProblemTest < ActiveSupport::TestCase
     @yet_another_problem = MathProblem.new
     @three_problems = [@math_problem, @another_problem, @yet_another_problem]
     @level = @math_problem.build_problem_level
-    @template = @level.build_math_problem_template
-    @template.stubs(:id).returns(666)
+    @problem_type = @level.build_problem_type
+    @problem_type.stubs(:id).returns(666)
   end
   
   test "template" do
-    assert_equal @template, @math_problem.template
+    assert_equal @problem_type, @math_problem.template
   end
   
   test "group_by_problem_type returns number of groups equal number of levels of existent math problems" do

@@ -85,7 +85,7 @@ class WorksheetTest < ActiveSupport::TestCase
   end
   
   def set_same_template_for_every_problem_on_worksheet_except_number(problem_number)
-    template1, template2 = MathProblemTemplate.new, MathProblemTemplate.new
+    template1, template2 = ProblemType.new, ProblemType.new
     @worksheet.worksheet_problems.each_with_index do |wp, index|
       template = (index == problem_number - 1) ? template1 : template2 
       wp.stubs(:problem_type).returns(template)
@@ -103,8 +103,8 @@ class WorksheetTest < ActiveSupport::TestCase
     end
   end
   
-  def new_worksheet_problem_of_type(math_problem_template, problem_number)
-    WorksheetProblem.new(:problem_number => problem_number, :math_problem => MathProblem.new(:id => problem_number, :math_problem_template => math_problem_template))
+  def new_worksheet_problem_of_type(problem_type, problem_number)
+    WorksheetProblem.new(:problem_number => problem_number, :math_problem => MathProblem.new(:id => problem_number, :problem_type => problem_type))
   end
   
 end

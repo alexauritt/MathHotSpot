@@ -19,7 +19,7 @@
 
 .row#new_level_form
   = form_for(@problem_level) do |level|
-    = hidden_field_tag "problem_level[math_problem_template_id]", @problem_level.math_problem_template.id
+    = hidden_field_tag "problem_level[problem_type_id]", @problem_level.problem_type.id
     .row
     = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
     .row

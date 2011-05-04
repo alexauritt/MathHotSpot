@@ -14,19 +14,19 @@ class ProblemLevelsControllerTest < ActionController::TestCase
   end
 
   test "should new" do
-    template = math_problem_templates(:dividing_monomials_template)
-    get :new, :math_problem_template_id => template.id
+    template = problem_types(:dividing_monomials_template)
+    get :new, :problem_type_id => template.id
     assert_response :success
     assert_prompts_for_problem_question_and_answer    
   end
     
   test "should create" do
-    template = math_problem_templates(:dividing_monomials_template)
-    problem_level = ProblemLevel.new(:math_problem_template => template)
+    template = problem_types(:dividing_monomials_template)
+    problem_level = ProblemLevel.new(:problem_type => template)
     assert_difference('ProblemLevel.count') do
       post :create, :problem_level => problem_level.attributes.merge(math_problem_attributes)
     end    
-    assert_redirected_to math_problem_template_path(template)
+    assert_redirected_to problem_type_path(template)
   end
   
   private

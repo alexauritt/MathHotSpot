@@ -8,7 +8,7 @@ class InstructionsController < ApplicationController
     @instruction = Instruction.new(params[:instruction])
     @lesson = Lesson.find(params[:lesson_id])
     if @instruction.save
-      redirect_to(new_lesson_math_problem_template_path(@lesson), :notice => 'Instruction was successfully created.') 
+      redirect_to(new_lesson_problem_type_path(@lesson), :notice => 'Instruction was successfully created.') 
     else
       render :action => "new", :notice => "There was an error."
     end

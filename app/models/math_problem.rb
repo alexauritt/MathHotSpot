@@ -31,7 +31,7 @@ class MathProblem < ActiveRecord::Base
   end
   
   def template
-    problem_level.math_problem_template
+    problem_level.problem_type
   end
 
   def instruction

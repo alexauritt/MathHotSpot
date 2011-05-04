@@ -5,7 +5,7 @@ class ProblemLevelTest < ActiveSupport::TestCase
   def setup
     @level = ProblemLevel.new
     @level.math_problems.build
-    @template = @level.build_math_problem_template
+    @problem_type = @level.build_problem_type
   end
   
   test "demo problem" do
@@ -21,7 +21,7 @@ class ProblemLevelTest < ActiveSupport::TestCase
   end
   
   test "instruction" do
-    @template.stubs(:instruction).returns(Instruction.new)
+    @problem_type.stubs(:instruction).returns(Instruction.new)
     assert_instance_of Instruction, @level.instruction
   end
   

@@ -1,9 +1,9 @@
 class ProblemLevel < ActiveRecord::Base
-  belongs_to :math_problem_template
+  belongs_to :problem_type
   has_many :math_problems
-  has_one :lesson, :through => :math_problem_template
+  has_one :lesson, :through => :problem_type
   
-  validates_presence_of :math_problem_template
+  validates_presence_of :problem_type
   
   accepts_nested_attributes_for :math_problems
 
@@ -16,11 +16,11 @@ class ProblemLevel < ActiveRecord::Base
   end
   
   def display_mode?
-    math_problem_template.nil? ? true : math_problem_template.display_mode?
+    problem_type.nil? ? true : problem_type.display_mode?
   end
 
   def instruction
-    math_problem_template.instruction
+    problem_type.instruction
   end
   
 end

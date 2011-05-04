@@ -10,7 +10,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson = Lesson.new
     num_instances = 4
     num_instances.times do
-      lesson.math_problem_templates << MathProblemTemplate.new
+      lesson.problem_types << ProblemType.new
     end
     
     assert_equal num_instances, lesson.template_count

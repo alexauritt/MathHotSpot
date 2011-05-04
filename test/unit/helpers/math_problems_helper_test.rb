@@ -28,14 +28,14 @@ class MathProblemsHelperTest < ActionView::TestCase
   
   test "problem_type_count should be 1" do    
     @lesson = Lesson.new
-    @lesson.math_problem_templates.build
+    @lesson.problem_types.build
     
     assert_equal "(1 problem type)", problem_type_count(@lesson)
   end
 
   test "problem_type_count should be 7" do
     @lesson = Lesson.new
-    7.times { @lesson.math_problem_templates.build }
+    7.times { @lesson.problem_types.build }
     
     assert_equal "(7 problem types)", problem_type_count(@lesson)
   end

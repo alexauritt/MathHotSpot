@@ -18,6 +18,6 @@ class InstructionsControllerTest < ActionController::TestCase
       post :create, :instruction => instruction.attributes, :lesson_id => @lesson.id
     end
 
-    assert_redirected_to new_lesson_math_problem_template_path(@lesson)
+    assert_redirected_to new_lesson_problem_type_path(@lesson)
   end
 end

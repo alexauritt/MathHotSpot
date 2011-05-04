@@ -16,22 +16,22 @@ instructions = Instruction.create([
   { :description => "Simplify. Assume that no denominator equals 0." }
 ])
 
-problem_templates = MathProblemTemplate.create([
+problem_templates = ProblemType.create([
   { :lesson_id => lessons.first, :instruction => instructions.first},
   { :lesson_id => lessons.first, :instruction => instructions[1], :display_mode => false },
   { :lesson_id => lessons.first, :instruction => instructions[2] }
 ])
 
 problem_levels = ProblemLevel.create([
-  { :math_problem_template => problem_templates[0], :difficulty => 1 },
-  { :math_problem_template => problem_templates[0], :difficulty => 2 },
-  { :math_problem_template => problem_templates[0], :difficulty => 3 },
-  { :math_problem_template => problem_templates[0], :difficulty => 4 },
-  { :math_problem_template => problem_templates[0], :difficulty => 5 },
-  { :math_problem_template => problem_templates[0], :difficulty => 6 },
+  { :problem_type => problem_templates[0], :difficulty => 1 },
+  { :problem_type => problem_templates[0], :difficulty => 2 },
+  { :problem_type => problem_templates[0], :difficulty => 3 },
+  { :problem_type => problem_templates[0], :difficulty => 4 },
+  { :problem_type => problem_templates[0], :difficulty => 5 },
+  { :problem_type => problem_templates[0], :difficulty => 6 },
 
-  { :math_problem_template => problem_templates[1], :difficulty => 3},
-  { :math_problem_template => problem_templates[2], :difficulty => 3},  
+  { :problem_type => problem_templates[1], :difficulty => 3},
+  { :problem_type => problem_templates[2], :difficulty => 3},  
 ])
 
 MathProblem.create([
@@ -80,7 +80,7 @@ MathProblem.create([
 
 #14  
   { :problem_level => problem_levels[6],
-  :question_markup => '<math><mrow><mn>72</mn><msup><mi>x</mi><mn>3</mn></msup><mi>y</mi><msup><mi>z</mi><mn>3</mn></msup></mrow></math><span class="math_problem_template">and</span><math><mrow><mn>120</mn><msup><mi>x</mi><mn>2</mn></msup><msup><mi>z</mi><mn>5</mn></msup></mrow></math>'},
+  :question_markup => '<math><mrow><mn>72</mn><msup><mi>x</mi><mn>3</mn></msup><mi>y</mi><msup><mi>z</mi><mn>3</mn></msup></mrow></math><span class="problem_type">and</span><math><mrow><mn>120</mn><msup><mi>x</mi><mn>2</mn></msup><msup><mi>z</mi><mn>5</mn></msup></mrow></math>'},
 
   { :problem_level => problem_levels[6],
   :question_markup => '<math><mrow><mn>4</mn><msup><mi>p</mi><mn>2</mn></msup><mfenced><mrow><mi>p</mi><mo>-</mo><mn>1</mn></mrow></mfenced></mrow></math><span class="math_text">and</span><math><mrow><mn>6</mn><mi>p</mi><msup><mfenced><mrow><mi>p</mi><mo>+</mo><mn>1</mn></mrow></mfenced><mn>2</mn></msup></mrow></math>'},
