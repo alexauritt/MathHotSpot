@@ -1,4 +1,9 @@
 %h1 Editing Math Problem
+%h3 Current Display:
+%b Question:
+=display_mathml_question(@math_problem)
+%b Answer:
+=display_mathml_answer(@math_problem)
 
 =render 'form'
 =link_to 'Show', @math_problem
