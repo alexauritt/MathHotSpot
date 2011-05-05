@@ -10,11 +10,11 @@ class MathProblem < ActiveRecord::Base
   DEFAULT_INSTRUCTION = Instruction.new(:description => MathHotSpotErrors::Message::NO_INSTRUCTIONS)
   
   def self.grouped_problems
-    where("problem_level_id").order("problem_level_id")
+    where("problem_level_id IS NOT NULL").order("problem_level_id")
   end
   
   def self.rogue_problems
-    where("problem_level_id" => nil)
+    where("problem_level_id IS NULL")
   end
   
   def self.group_by_problem_level
