@@ -16,6 +16,7 @@ test:
   encoding: unicode
   username: alexauritt
   password: foobar
+  min_messages: WARNING
 
 production:
   adapter: sqlite3
