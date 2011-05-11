@@ -7,6 +7,8 @@ Mathhotspot::Application.routes.draw do
   end
   
   resources :subjects, :only => [:show, :index]
+
+  resources :categories
     
   resources :lessons do
     resources :problem_types, :only => [:new]

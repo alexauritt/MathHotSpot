@@ -1,0 +1,9 @@
+%ul.category_list
+  - subject.categories.each do |category|
+    %li
+      ="#{category.title}"
+      %ul.lesson_list
+        - category.lessons.each do |lesson|
+          %li
+            =link_to lesson.title, lesson_path(lesson)
+            =problem_type_count(lesson)
