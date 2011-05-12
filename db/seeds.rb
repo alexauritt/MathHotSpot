@@ -8,7 +8,12 @@
 
 subjects = Subject.create([{ :title => "Algebra I"}, { :title => "Geometry"}, { :title => "Algebra II" }, { :title => "Precalculus" }, { :title => "Calculus"} ])
 
-lessons = Lesson.create([{ :title => 'Dividing Monomials', :chapter => 5, :section => 2, :subject_id => subjects.first.id }])
+subjects.each do |subject|
+  Category.create!({:title => subject.title.concat("_category"), :subject => subject})
+end
+
+lessons = Lesson.create([{ :title => 'Dividing Monomials', :chapter => 5, :section => 2, 
+  :category => Category.find_by_subject_id(Subject.find_by_title("Algebra I").id)}])
 
 instructions = Instruction.create([
   { :description => "Simplify" }, 

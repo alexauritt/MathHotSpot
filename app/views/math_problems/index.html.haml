@@ -8,8 +8,5 @@
     - @subjects.each do |subject|
       .subject
         = subject.title
-        %ul.lesson_list
-          - subject.lessons.each do |lesson|
-            %li
-              =link_to lesson.title, lesson_path(lesson)
-              =problem_type_count(lesson)
+        = render :partial => "categories/index_with_lessons", :locals => {:subject => subject}
+

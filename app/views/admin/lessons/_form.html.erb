@@ -24,8 +24,8 @@
     <%= f.text_field :section %>
   </div>
   <div class="field">
-    <%= f.label :subject %><br />
-    <%= f.select(:subject_id, Subject.all.collect {|subject| [subject.title, subject.id]}) %>
+    <%= f.label :category %><br />
+    <%= f.select(:category_id, Category.all.collect {|category| [category.title, category.id]}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

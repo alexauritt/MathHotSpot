@@ -3,8 +3,8 @@
 %h1
   = @subject.title
 
-%h3 Lessons  
-- @subject.lessons.each do |lesson|
-  = link_to lesson.title, lesson_path(lesson)
+%h3 Categories
+- @subject.categories.each do |category|
+  = link_to category.title, category_path(category)
   %br
 

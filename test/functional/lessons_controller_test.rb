@@ -7,7 +7,7 @@ class LessonsControllerTest < ActionController::TestCase
   end
 
   test "should show lesson" do
-    get :show, {:subject_id => @lesson.subject.id, :id => @lesson.to_param }
+    get :show, {:category_id => @lesson.category.id, :id => @lesson.to_param }
     assert_response :success
   end
 
