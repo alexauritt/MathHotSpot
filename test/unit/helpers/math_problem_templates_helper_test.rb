@@ -36,4 +36,12 @@ class ProblemTypesHelperTest < ActionView::TestCase
     assert_equal "0 Problems", problem_count_msg(@problem_type)
   end
   
+  test "display_tag_list with no tags" do
+    assert_equal "", display_tag_list(@problem_type)
+  end
+  
+  test "display tag list" do
+    @problem_type.tag_list = "Movies, Music, Coffee"
+    assert_equal "Tags: Movies, Music, Coffee", display_tag_list(@problem_type)
+  end
 end

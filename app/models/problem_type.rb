@@ -1,9 +1,12 @@
 class ProblemType < ActiveRecord::Base
   include MathHotSpotErrors
+  
   belongs_to :lesson
   belongs_to :instruction
   has_many :problem_levels
   has_many :math_problems, :through => :problem_levels
+
+  acts_as_taggable
 
   accepts_nested_attributes_for :problem_levels
   accepts_nested_attributes_for :instruction
