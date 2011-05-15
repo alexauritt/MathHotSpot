@@ -3,5 +3,4 @@ db/*.sqlite3
 log/*.log
 tmp/
 fixture_quick_ref.txt
-public/javascripts/mathjax/fonts/HTML-CSS/TeX/*/*
-public/javascript/mathjax/unpacked/*
+public/javascripts/math_jax
