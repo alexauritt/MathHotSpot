@@ -25,6 +25,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal @local_script_link, local_mathjax_link
   end
   
+  test "include mathjax uses cdn in production mode" do
+    ::Rails.env = "production"
+    assert_equal @cdn_script_link, include_mathjax
+  end
+  
   test "include_math_jax" do
     assert_equal @local_script_link, include_mathjax
   end
