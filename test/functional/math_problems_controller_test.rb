@@ -6,12 +6,6 @@ class MathProblemsControllerTest < ActionController::TestCase
     authenticate
     @math_problem = math_problems(:simple_monomial_problem_01)
   end
-
-  test "should get index" do
-    get :index
-    assert assigns(:subjects), "@subjects not assigned"
-    assert_response :success
-  end
   
   test "should show math problem" do
     get :show, :id => @math_problem.to_param

@@ -2,8 +2,8 @@ require 'test_helper'
 
 class RoutingTest < ActionController::TestCase
 
-  test "math_problems routes" do
-    assert_routing( { :path => "math_problems", :method => :get}, {:controller => "math_problems", :action => "index"})
+  test "menu index route" do
+    assert_routing( { :path => "menus", :method => :get}, {:controller => "menus", :action => "index"})
   end
   
   test "lesson_instruction new" do

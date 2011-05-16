@@ -8,6 +8,8 @@ Mathhotspot::Application.routes.draw do
     resources :lessons, :except => [:show]
   end
   
+  resources :menus, :only => [:index]
+  
   resources :subjects, :only => [:show, :index]
 
   resources :categories
@@ -17,7 +19,7 @@ Mathhotspot::Application.routes.draw do
     resources :instructions, :only => [:new, :create]
   end
 
-  resources :math_problems, :except => [:new]
+  resources :math_problems, :except => [:new, :index]
 
   resources :worksheets, :only => [:index, :show, :update] do
     resources :worksheet_problems, :only => [:update]

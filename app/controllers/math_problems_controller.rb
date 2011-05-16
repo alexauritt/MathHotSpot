@@ -1,9 +1,4 @@
-class MathProblemsController < ApplicationController
-  def index
-    @subjects = Subject.all
-    @tags = ProblemType.tag_counts_on(:tags)
-  end
-  
+class MathProblemsController < ApplicationController  
   def show
     @math_problem = MathProblem.find(params[:id])
   end
@@ -40,6 +35,6 @@ class MathProblemsController < ApplicationController
   def destroy
     @math_problem = MathProblem.find(params[:id])
     @math_problem.destroy
-    redirect_to math_problems_url 
+    redirect_to menus_url 
   end    
 end
