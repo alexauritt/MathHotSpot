@@ -8,6 +8,7 @@ gem 'rails', '3.0.4'
 gem 'pg'
 gem 'jquery-rails'
 gem 'haml'
+gem 'acts-as-taggable-on'
 gem 'mocha', :require => false
 gem 'heroku'
 

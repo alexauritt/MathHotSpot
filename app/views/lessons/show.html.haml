@@ -19,6 +19,8 @@
           =link_to level_count_msg(problem_type), problem_type_path(problem_type)
           %br
           =problem_count_msg problem_type
+          %br
+          =display_tag_list problem_type
   .row#add_new_problem_links
     =link_to "Add New Problem Type", new_lesson_problem_type_path(@lesson)
   
