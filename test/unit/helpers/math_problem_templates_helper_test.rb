@@ -42,6 +42,6 @@ class ProblemTypesHelperTest < ActionView::TestCase
   
   test "display tag list" do
     @problem_type.tag_list = "Movies, Music, Coffee"
-    assert_equal "Tags: Movies, Music, Coffee", display_tag_list(@problem_type)
+    assert_equal "Tags: <span class='tag'>Movies</span><span class='tag'>Music</span><span class='tag'>Coffee</span>", display_tag_list(@problem_type)
   end
 end

@@ -29,6 +29,11 @@ div.problem_info {
   height: 45px;
 }
 
+span.tag {
+  background-color: green;
+  margin: 3px;
+  padding: 1px 3px 1px 3px;
+}
 
 /*div.problem_instruction {
   margin: 5px;

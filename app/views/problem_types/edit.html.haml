@@ -14,7 +14,7 @@
   %br
   
   = t.label :tag_list, "Tag List"
-  = t.text_field :tag_list, :value => @problem_type.tag_list
+  = t.text_area(:tag_list, :value => @problem_type.tag_list, :rows => 5)
 
   .actions
     = t.submit

@@ -14,7 +14,7 @@ module ProblemTypesHelper
   end
   
   def display_tag_list(problem_type)
-    tag_list = problem_type.tag_list
-    tag_list.empty? ? "" : "Tags: ".concat(tag_list.to_s)
+    tag_list = problem_type.tag_list.map {|tag| "<span class='tag'>#{tag}</span>"}
+    tag_list.empty? ? "" : "Tags: ".concat(tag_list.join).html_safe
   end
 end
