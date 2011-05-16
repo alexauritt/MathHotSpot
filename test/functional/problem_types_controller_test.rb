@@ -18,6 +18,18 @@ class ProblemTypesControllerTest < ActionController::TestCase
     assert_response :success
     assert_prompts_for_problem_question_and_answer
   end
+  
+  test "edit" do
+    problem_type = ProblemType.first
+    get :edit, :id => problem_type.to_param
+    assert_response :success    
+  end
+  
+  test "update" do
+    problem_type = ProblemType.first    
+    put :update, :id => problem_type.to_param, :problem_type => problem_type.attributes
+    assert_redirected_to problem_type_path(assigns(:problem_type))    
+  end
 
   test "lesson_id specified in hidden field in new" do
     template = ProblemType.new

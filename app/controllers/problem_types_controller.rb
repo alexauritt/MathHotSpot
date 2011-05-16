@@ -19,4 +19,23 @@ class ProblemTypesController < ApplicationController
       render :action => "new"
     end
   end
+  
+  def edit
+    @problem_type = ProblemType.find(params[:id])
+  end
+  
+  def update
+    @problem_type = ProblemType.find(params[:id])
+
+    respond_to do |format|
+      if @problem_type.update_attributes(params[:problem_type])
+        format.html { redirect_to(@problem_type, :notice => 'Problem Type    was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @problem_type.errors, :status => :unprocessable_entity }
+      end
+    end    
+  end
+  
 end

@@ -5,7 +5,11 @@
 
 %h3 Problem Type
 .row
+  =link_to "Edit / Add or Delete Tags", edit_problem_type_url(@problem_type)
+.row
   = @problem_type.instruction.description
+.row
+  = display_tag_list @problem_type
 
 .row
   -@problem_type.problem_levels.each do |level|
