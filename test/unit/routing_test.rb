@@ -3,7 +3,11 @@ require 'test_helper'
 class RoutingTest < ActionController::TestCase
 
   test "menu index route" do
-    assert_routing( { :path => "menus", :method => :get}, {:controller => "menus", :action => "index"})
+    assert_routing( { :path => "menu", :method => :get}, {:controller => "menus", :action => "index"})
+  end
+  
+  test "tag menu route" do
+    assert_routing( { :path => "menu/a_math_problem_tag", :method => :get}, {:controller => "menus", :action => "tag_menu", :tag => "a_math_problem_tag"})
   end
   
   test "lesson_instruction new" do

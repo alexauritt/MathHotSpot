@@ -8,7 +8,13 @@ Mathhotspot::Application.routes.draw do
     resources :lessons, :except => [:show]
   end
   
-  resources :menus, :only => [:index]
+  
+  match 'menu' => 'menus#index', :as => :menu
+  match '/menu/:tag' => 'menus#tag_menu', :as => :tag_menu
+  
+  resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete] do
+    resources :menus, :only => [:show]
+  end
   
   resources :subjects, :only => [:show, :index]
 
