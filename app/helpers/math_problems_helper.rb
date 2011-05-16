@@ -1,4 +1,5 @@
 module MathProblemsHelper
+  
   def display_mathml_question(math_problem)
     display_mathml(math_problem, true)
   end

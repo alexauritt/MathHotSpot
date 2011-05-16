@@ -29,8 +29,18 @@ div#container {
 }
 
 div#subject_list {
-  width: 500px;
-  margin: auto;
+  float: left;
+  width: 45%;
+  margin-left: 10%;
 }
+div#tag_section {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 10%;
+}
+div#tag_section div#tag_list {
+  line-height: 1.5em;
+}
+
 
 /* End of Main Index Page */

@@ -1,4 +1,6 @@
 module ProblemTypesHelper
+  include ActsAsTaggableOn::TagsHelper
+
   def level_count_msg(problem_type)
     count = problem_type.level_count
     count == 1 ? "1 Level" : "#{count} Levels"

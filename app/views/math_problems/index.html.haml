@@ -4,9 +4,15 @@
 
 #container
   #subject_list
-    %h2 Subjects
+    %h2 Search by Subject
     - @subjects.each do |subject|
       .subject
         = subject.title
         = render :partial => "categories/index_with_lessons", :locals => {:subject => subject}
+  #tag_section
+    %h2 Search by Tags
+    #tag_list
+      - @tags.each do |tag|
+        %span.tag
+          =tag.name
 

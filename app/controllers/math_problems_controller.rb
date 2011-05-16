@@ -1,6 +1,7 @@
 class MathProblemsController < ApplicationController
   def index
     @subjects = Subject.all
+    @tags = ProblemType.tag_counts_on(:tags)
   end
   
   def show
