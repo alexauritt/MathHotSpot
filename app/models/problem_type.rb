@@ -3,13 +3,15 @@ class ProblemType < ActiveRecord::Base
   
   belongs_to :lesson
   belongs_to :instruction
-  has_many :problem_levels
+  
+  has_many :problem_levels, :dependent => :destroy
   has_many :math_problems, :through => :problem_levels
 
   acts_as_taggable
 
   accepts_nested_attributes_for :problem_levels
   accepts_nested_attributes_for :instruction
+
   before_validation :initialize_problem_levels, :on => :create
 
   # required if we want nested_attributes AND validation of this parent in problem_level
