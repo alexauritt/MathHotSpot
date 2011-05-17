@@ -15,8 +15,13 @@ class ProblemType < ActiveRecord::Base
   validates_presence_of :title, :permalink
   validates_uniqueness_of :title, :permalink, :case_sensitive => false
 
-  before_validation :generate_slug
+  before_validation :generate_slug, :if => :title
   before_validation :initialize_problem_levels, :on => :create
+
+
+  def to_param
+    "#{id}-#{permalink}"
+  end
 
   # required if we want nested_attributes AND validation of this parent in problem_level
   def initialize_problem_levels

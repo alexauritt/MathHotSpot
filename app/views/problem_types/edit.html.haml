@@ -5,7 +5,11 @@
     =display_mathml_question(@problem_type.demo_problem)
 
   = hidden_field_tag "problem_type[lesson_id]", @problem_type.lesson.id
-
+  
+  = t.label :title, "Title"
+  = t.text_field :title
+  %br
+  
   = t.label :instruction_id, "Instruction"
   = t.select(:instruction_id, instruction_choices)
   %br

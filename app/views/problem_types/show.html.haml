@@ -2,9 +2,12 @@
   %title Problem Type
   = stylesheet_link_tag "lessons"
 
-%h3 Problem Type
+%h3
+  = @problem_type.title
 .row
   =link_to "Edit / Add or Delete Tags", edit_problem_type_url(@problem_type)
+.row
+
 .row
   = @problem_type.instruction.description
 .row
