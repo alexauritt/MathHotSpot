@@ -13,7 +13,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
   end
   
   test "new" do
-    @problem_type = template_with_lesson_level_and_problem
+    @problem_type = problem_type_with_lesson_level_and_problem
     get :new, :lesson_id => @problem_type.lesson.id
     assert_response :success
     assert_prompts_for_problem_question_and_answer
@@ -39,18 +39,18 @@ class ProblemTypesControllerTest < ActionController::TestCase
     assert_select "input#problem_type_lesson_id[type=hidden][value=#{lesson.id}]"
   end
 
-  test "create makes new template" do
-    template = template_with_lesson_level_and_problem
+  test "create makes new problem_type" do
+    problem_type = problem_type_with_lesson_level_and_problem
 
     assert_difference('ProblemType.count') do
-      post :create, :problem_type => template.attributes
+      post :create, :problem_type => problem_type.attributes
     end
     
-    assert_redirected_to lesson_path(template.lesson)
+    assert_redirected_to lesson_path(problem_type.lesson)
   end
 
   test "create makes new problem_level" do
-    template = template_with_lesson_level_and_problem
+    template = problem_type_with_lesson_level_and_problem
     attributes = template.attributes.merge nested_level_and_problem_attributes
     assert_difference('ProblemLevel.count') do
       post :create, :problem_type => attributes
@@ -60,7 +60,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
   end
 
   test "create makes new math_problem" do
-    template = template_with_lesson_level_and_problem
+    template = problem_type_with_lesson_level_and_problem
     attributes = template.attributes.merge nested_level_and_problem_attributes
     assert_difference('MathProblem.count') do
       post :create, :problem_type => attributes
@@ -76,14 +76,14 @@ class ProblemTypesControllerTest < ActionController::TestCase
         [{:question_markup => 'some question', :answer_markup => 'some answer'}]}]}  
   end
   
-  def template_with_lesson_level_and_problem
+  def problem_type_with_lesson_level_and_problem
     current_lesson = lessons(:monomial_factors_of_polynomials_lesson)
-    template = ProblemType.new
-    template.lesson = current_lesson
-    level = template.problem_levels.build
+    problem_type = ProblemType.new(:title => "A new kind of problem!")
+    problem_type.lesson = current_lesson
+    level = problem_type.problem_levels.build
     problem = level.math_problems.build
     problem.question_markup = "some markup"
-    template
+    problem_type
   end
   
   def assert_prompts_for_problem_question_and_answer

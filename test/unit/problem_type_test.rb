@@ -41,7 +41,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
   end
   
   test "new template created with nested problem level" do
-    params = {:problem_type => {:lesson_id => 8, :instruction_id => 10, 
+    params = {:problem_type => {:title => "Best problem type ever created", :lesson_id => 8, :instruction_id => 10, 
       :problem_levels_attributes => [{:difficulty => 10}]
     }}
     
@@ -52,13 +52,40 @@ class ProblemTypeTest < ActiveSupport::TestCase
   end
   
   test "new problem level created when nested in math problem template" do
-    params = {:math_problems_template => {:lesson_id => 8, :instruction_id => 10, 
+    params = {:problem_type => {:title => "utterly fantastic problem type", :lesson_id => 8, :instruction_id => 10, 
       :problem_levels_attributes => [{:difficulty => 10}]
     }}
   
     assert_difference('ProblemLevel.count') do
-      assert ProblemType.create(params[:math_problems_template]), @problem_type.errors.to_s
+      assert ProblemType.create(params[:problem_type]), @problem_type.errors.to_s
     end    
+  end
+  
+  test "second problem invalid if names different but permalinks identical" do
+    first_title = "a nice title"
+    second_title = "a       nice title"
+    
+    assert_first_problem_saves_but_second_fails(first_title, second_title)
+  end
+
+  private
+  
+  def assert_first_problem_saves_but_second_fails(first_title, second_title)
+    title = first_title
+
+    params = {:problem_type => {:title => title, :lesson_id => 8, :instruction_id => 10, 
+      :problem_levels_attributes => [{:difficulty => 10}]
+    }}
+
+    assert_difference('ProblemType.count') do
+      assert ProblemType.create(params[:problem_type]), @problem_type.errors.to_s
+    end
+    
+    title = second_title
+    assert_no_difference('ProblemType.count') do
+      assert ProblemType.create(params[:problem_type]), @problem_type.errors.to_s
+    end
+    
   end
 
 end

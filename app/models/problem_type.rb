@@ -11,7 +11,11 @@ class ProblemType < ActiveRecord::Base
 
   accepts_nested_attributes_for :problem_levels
   accepts_nested_attributes_for :instruction
+  
+  validates_presence_of :title, :permalink
+  validates_uniqueness_of :title, :permalink, :case_sensitive => false
 
+  before_validation :generate_slug
   before_validation :initialize_problem_levels, :on => :create
 
   # required if we want nested_attributes AND validation of this parent in problem_level
@@ -57,6 +61,11 @@ class ProblemType < ActiveRecord::Base
     end
     
     without_original[rand(without_original.size)]
+  end
+  
+  private
+  def generate_slug
+    self.permalink = self.title.gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '-')
   end
   
 end
