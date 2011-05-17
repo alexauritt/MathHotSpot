@@ -48,6 +48,10 @@ class ProblemType < ActiveRecord::Base
   def level_count
     problem_levels.size
   end
+
+  def self.search(search)
+    self.where("title LIKE :search", :search => search )
+  end
   
   def self.find_replacement(math_problem, options = {})
     available_problems = MathProblem.find_all_by_problem_type_id(math_problem.problem_type.id)

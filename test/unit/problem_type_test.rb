@@ -67,6 +67,12 @@ class ProblemTypeTest < ActiveSupport::TestCase
     
     assert_first_problem_saves_but_second_fails(first_title, second_title)
   end
+  
+  test "search" do
+    results = ProblemType.search("Monomial Fraction Simplifcation Assume No Zero Denominator")
+    assert results.include?(problem_types(:simp_no_zero_problem_type))
+    assert_equal 1, results.length  
+  end
 
   private
   
