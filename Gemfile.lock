@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    ZenTest (4.5.0)
     abstract (1.0.0)
     actionmailer (3.0.4)
       actionpack (= 3.0.4)
@@ -30,6 +31,8 @@ GEM
     activesupport (3.0.4)
     acts-as-taggable-on (2.0.6)
     arel (2.0.8)
+    autotest-rails (4.1.0)
+      ZenTest
     builder (2.1.2)
     configuration (1.2.0)
     erubis (2.6.6)
@@ -86,6 +89,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  autotest-rails
   haml
   heroku
   jquery-rails

@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'acts-as-taggable-on'
 gem 'mocha', :require => false
+gem 'autotest-rails'
 gem 'heroku'
 
 # Use unicorn as the web server
