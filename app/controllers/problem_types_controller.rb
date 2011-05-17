@@ -1,6 +1,6 @@
 class ProblemTypesController < ApplicationController
   def show
-    @problem_type = ProblemType.find(params[:id])
+    @problem_type = ProblemType.find_by_permalink(params[:id])
   end
   
   def new
@@ -21,11 +21,11 @@ class ProblemTypesController < ApplicationController
   end
   
   def edit
-    @problem_type = ProblemType.find(params[:id])
+    @problem_type = ProblemType.find_by_permalink(params[:id])
   end
   
   def update
-    @problem_type = ProblemType.find(params[:id])
+    @problem_type = ProblemType.find_by_permalink(params[:id])
 
     respond_to do |format|
       if @problem_type.update_attributes(params[:problem_type])

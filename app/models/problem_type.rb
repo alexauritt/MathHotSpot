@@ -20,7 +20,11 @@ class ProblemType < ActiveRecord::Base
 
 
   def to_param
-    "#{id}-#{permalink}"
+    permalink
+  end
+  
+  def permalink
+    permalink ||= generate_slug
   end
 
   # required if we want nested_attributes AND validation of this parent in problem_level

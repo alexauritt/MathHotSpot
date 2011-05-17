@@ -2,17 +2,20 @@
 
 dividing_monomials_problem_type:
   title: Monomial Fraction Simplification
+  permalink: monomial-fraction-simplification
   lesson: dividing_monomials_lesson
   instruction: simplify
         
 find_gcf_of_monomials_problem_type:
   title: Find GCF of monomials
+  permalink: find-gcf-of-monomials
   lesson: dividing_monomials_lesson
   display_mode: false
   instruction: gcf_monomials
   
 simp_no_zero_problem_type:
   title: Monomial Fraction Simplifcation Assume No Zero Denominator
+  permalink: monomial-fraction-simplifcation-assume-no-zero-denominator
   lesson: dividing_monomials_lesson
   instruction: simplify_no_zero_denom
   

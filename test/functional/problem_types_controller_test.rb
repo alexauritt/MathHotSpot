@@ -8,7 +8,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
 
   test "show" do
     problem_type = problem_types(:dividing_monomials_problem_type)
-    get :show, :id => problem_type.id
+    get :show, :id => problem_type.permalink
     assert_response :success
   end
   
