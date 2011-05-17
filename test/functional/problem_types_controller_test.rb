@@ -7,8 +7,8 @@ class ProblemTypesControllerTest < ActionController::TestCase
   end
 
   test "show" do
-    template = problem_types(:dividing_monomials_template)
-    get :show, :id => template.id
+    problem_type = problem_types(:dividing_monomials_problem_type)
+    get :show, :id => problem_type.id
     assert_response :success
   end
   
@@ -32,9 +32,9 @@ class ProblemTypesControllerTest < ActionController::TestCase
   end
 
   test "lesson_id specified in hidden field in new" do
-    template = ProblemType.new
+    problem_type = ProblemType.new
     lesson = lessons(:monomial_factors_of_polynomials_lesson)
-    template.lesson = lesson
+    problem_type.lesson = lesson
     get :new, :lesson_id => lesson.id
     assert_select "input#problem_type_lesson_id[type=hidden][value=#{lesson.id}]"
   end
@@ -50,23 +50,23 @@ class ProblemTypesControllerTest < ActionController::TestCase
   end
 
   test "create makes new problem_level" do
-    template = problem_type_with_lesson_level_and_problem
-    attributes = template.attributes.merge nested_level_and_problem_attributes
+    problem_type = problem_type_with_lesson_level_and_problem
+    attributes = problem_type.attributes.merge nested_level_and_problem_attributes
     assert_difference('ProblemLevel.count') do
       post :create, :problem_type => attributes
     end
     
-    assert_redirected_to lesson_path(template.lesson)
+    assert_redirected_to lesson_path(problem_type.lesson)
   end
 
   test "create makes new math_problem" do
-    template = problem_type_with_lesson_level_and_problem
-    attributes = template.attributes.merge nested_level_and_problem_attributes
+    problem_type = problem_type_with_lesson_level_and_problem
+    attributes = problem_type.attributes.merge nested_level_and_problem_attributes
     assert_difference('MathProblem.count') do
       post :create, :problem_type => attributes
     end
     
-    assert_redirected_to lesson_path(template.lesson)
+    assert_redirected_to lesson_path(problem_type.lesson)
   end
     
   private

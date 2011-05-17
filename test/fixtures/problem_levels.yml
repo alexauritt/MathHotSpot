@@ -1,26 +1,26 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 dividing_monomials_level_01:
-  problem_type: dividing_monomials_template
+  problem_type: dividing_monomials_problem_type
   difficulty: 1
     
 dividing_monomials_level_02:
-  problem_type: dividing_monomials_template
+  problem_type: dividing_monomials_problem_type
   difficulty: 2
 
 dividing_monomials_level_03:
-  problem_type: dividing_monomials_template
+  problem_type: dividing_monomials_problem_type
   difficulty: 3
     
 unique_monomials_level:
-  problem_type: dividing_monomials_template
+  problem_type: dividing_monomials_problem_type
   difficulty: 3
     
 find_gcf_of_monomials_level:
-  problem_type: find_gcf_of_monomials_template
+  problem_type: find_gcf_of_monomials_problem_type
   difficulty: 3
   
 simp_no_zero_level:
-  problem_type: simp_no_zero_template
+  problem_type: simp_no_zero_problem_type
   difficulty: 3
   
