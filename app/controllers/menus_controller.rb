@@ -5,6 +5,7 @@ class MenusController < ApplicationController
   end
   
   def tag_menu
-    @problem_types = ProblemType.tagged_with(params[:tag])
+    @tag = params[:tag]
+    @problem_types = ProblemType.tagged_with(@tag)
   end
 end

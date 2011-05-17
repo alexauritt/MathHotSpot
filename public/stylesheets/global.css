@@ -3,3 +3,8 @@ span.tag {
   margin: 3px;
   padding: 1px;
 }
+
+div#tag_list a:link, div#tag_list a:visited {
+  text-decoration: none;
+  color: black;
+}

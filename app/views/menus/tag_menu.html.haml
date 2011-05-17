@@ -1,9 +1,10 @@
 - content_for :head do
-  %title Tag Menu
+  %title
+    =@tag
   = stylesheet_link_tag "lessons"
 
-
-%h2 This is the tag menu
+%h2
+  ="Problem Types tagged as #{@tag.capitalize}"
 
 .row#problem_list
   -@problem_types.each do |problem_type|
