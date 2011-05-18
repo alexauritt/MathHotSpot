@@ -50,7 +50,11 @@ class ProblemType < ActiveRecord::Base
   end
 
   def self.search(search)
-    self.where("title LIKE :search", :search => search )
+    if search
+      self.find(:all, :conditions => ['title LIKE ?', "%#{search}%"])
+    else
+      self.find(:all)
+    end
   end
   
   def self.find_replacement(math_problem, options = {})

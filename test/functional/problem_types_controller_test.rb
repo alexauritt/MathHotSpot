@@ -6,6 +6,17 @@ class ProblemTypesControllerTest < ActionController::TestCase
     authenticate
   end
 
+  test "index" do
+    get :index
+    assert_response :success
+  end
+  
+  test "index search" do
+    get :index, :search => "Monomial Fraction"
+    assert_response :success
+    assert assigns(:problem_types).include?(problem_types(:dividing_monomials_problem_type))
+  end
+
   test "show" do
     problem_type = problem_types(:dividing_monomials_problem_type)
     get :show, :id => problem_type.permalink

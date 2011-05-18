@@ -1,4 +1,9 @@
 class ProblemTypesController < ApplicationController
+
+  def index
+    @problem_types = ProblemType.search(params[:search])
+  end
+  
   def show
     @problem_type = ProblemType.find_by_permalink(params[:id])
   end
