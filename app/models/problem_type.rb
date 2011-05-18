@@ -51,7 +51,7 @@ class ProblemType < ActiveRecord::Base
 
   def self.search(search)
     if search
-      self.where("title LIKE ?", "%#{search}%") | self.tagged_with("%#{search}%")
+      self.where("lower(title) ILIKE ?", "%#{search}%") | self.tagged_with("%#{search}%")
     else
       self.find(:all)
     end

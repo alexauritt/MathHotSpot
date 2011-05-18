@@ -70,8 +70,20 @@ class ProblemTypeTest < ActiveSupport::TestCase
   
   test "search" do
     results = ProblemType.search("Monomial Fraction Simplifcation Assume No Zero Denominator")
-    assert results.include?(problem_types(:simp_no_zero_problem_type))
-    assert_equal 1, results.length  
+    assert results.include?(problem_types(:simp_no_zero_problem_type)), "Problem Type not found."
+    assert_equal 1, results.length, "Exactly one result expected in search, but #{results.length} item(s) found"
+  end
+  
+  test "search (title) is case insensitive" do
+    pt = ProblemType.create(:title => "Fraction Multiplication")
+    results = ProblemType.search("fraction MULTIPLicATIOn")
+    assert results.include?(pt), "Problem Type not found with case insensitive search (by title)"
+  end
+  
+  test "search (tags) is case insensitive" do
+    pt = ProblemType.create(:tag_list => "Candy, chocolate", :title => "Hershey Bar")
+    results = ProblemType.search("candy, Chocolate")
+    assert results.include?(pt)
   end
 
   private
