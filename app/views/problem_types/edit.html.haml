@@ -1,4 +1,4 @@
-= form_for(@problem_type) do |t|
+= simple_form_for(@problem_type) do |t|
   .problem_instruction
     =@problem_type.instruction.description
   .problem_display
@@ -10,8 +10,7 @@
   = t.text_field :title
   %br
   
-  = t.label :instruction_id, "Instruction"
-  = t.select(:instruction_id, instruction_choices)
+  = t.association :instruction
   %br
   
   = link_to "None of these will do... make new instructions", new_lesson_instruction_path(@problem_type.lesson)
