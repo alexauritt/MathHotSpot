@@ -18,6 +18,13 @@ class ProblemType < ActiveRecord::Base
   before_validation :generate_slug, :if => :title
   before_validation :initialize_problem_levels, :on => :create
 
+  def new_tag
+    nil
+  end
+
+  def new_tag=(tag)
+    self.tag_list.add tag
+  end
 
   def to_param
     permalink

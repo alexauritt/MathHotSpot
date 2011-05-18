@@ -17,7 +17,12 @@
   %br
   
   = t.association :tags, :as => :check_boxes, :collection => @problem_type.tags
-  
+  %br
   .actions
     = t.submit
-  
+    
+= simple_form_for(@problem_type) do |t|
+  =t.input :new_tag
+  .actions
+  = t.submit
+    
