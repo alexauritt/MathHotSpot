@@ -12,6 +12,7 @@ gem 'acts-as-taggable-on'
 gem 'mocha', :require => false
 gem 'autotest-rails'
 gem 'heroku'
+gem 'simple_form'
 
 # Use unicorn as the web server
 # gem 'unicorn'
