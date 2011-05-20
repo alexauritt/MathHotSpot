@@ -7,7 +7,7 @@
     = csrf_meta_tag
     = yield :head
   %body
-    = render :partial => "navigation"
+    = render :partial => "layouts/navigation"
     - if flash[:notice]
       %p.notice
         = flash[:notice]
