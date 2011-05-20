@@ -1,3 +1,7 @@
+- content_for :head do
+  = javascript_include_tag("problem_type_edit_autocomplete.js")
+  = stylesheet_link_tag("ui-lightness/jquery-ui-1.8.13.custom.css")
+
 = simple_form_for(@problem_type) do |t|
   .problem_instruction
     =@problem_type.instruction.description

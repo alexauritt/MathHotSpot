@@ -5,6 +5,9 @@ MHS.Worksheet.Util = {
 MHS.Routes = {
 	Worksheets: {
 		update: function(worksheet_id) { return '/worksheets/' + worksheet_id; }
+	},
+	Tags: {
+	  index: function() { return '/tags/'; }
 	}
 }
 

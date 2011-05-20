@@ -6,8 +6,7 @@ Mathhotspot::Application.routes.draw do
   namespace :admin do
     resources :subjects, :except => [:show]
     resources :lessons, :except => [:show]
-  end
-  
+  end  
   
   match 'menu' => 'menus#index', :as => :menu
   match '/menu/:tag' => 'menus#tag_menu', :as => :tag_menu
@@ -43,6 +42,7 @@ Mathhotspot::Application.routes.draw do
   
   resources :rogue_problems, :only => [:index, :new]
   
+  resources :tags, :only => [:index]
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
