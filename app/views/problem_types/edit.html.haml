@@ -26,7 +26,7 @@
     = t.submit "Remove Tags"
     
 = simple_form_for(@problem_type) do |t|
-  = t.input :new_tag, :label => "Add a Tag: "
+  = t.input :new_tag, {:label => "Add a Tag: "}
   
   .actions
     = t.submit "Add Tag"

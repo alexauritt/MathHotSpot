@@ -24,6 +24,6 @@ $(function(){
   			"Scheme"
   		];
   $("#problem_type_new_tag").autocomplete({
-        source: "/tags/"
+        source: "/problem_types/2/available_tags"
   });
 });

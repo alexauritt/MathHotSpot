@@ -32,6 +32,7 @@ Mathhotspot::Application.routes.draw do
   
   resources :problem_types, :except => [:new, :delete] do
     resources :problem_levels, :only => [:new]
+    resources :available_tags, :only => [:index]
   end
 
   resources :problem_levels, :only => [:show, :create] do
@@ -41,8 +42,6 @@ Mathhotspot::Application.routes.draw do
   resources :grouped_problems, :only => [:index]
   
   resources :rogue_problems, :only => [:index, :new]
-  
-  resources :tags, :only => [:index]
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
