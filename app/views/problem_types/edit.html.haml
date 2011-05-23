@@ -1,8 +1,11 @@
 - content_for :head do
+  %title= "Edit: #{@problem_type.title}" 
   = javascript_include_tag("problem_type_edit_autocomplete.js")
   = stylesheet_link_tag("ui-lightness/jquery-ui-1.8.13.custom.css")
 
+#info{ :data => {:problem_type_name => @problem_type.to_param}}
 = simple_form_for(@problem_type) do |t|
+
   .problem_instruction
     =@problem_type.instruction.description
   .problem_display

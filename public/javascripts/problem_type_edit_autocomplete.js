@@ -1,29 +1,7 @@
 $(function(){
-  var availableTags = [
-  			"ActionScript",
-  			"AppleScript",
-  			"Asp",
-  			"BASIC",
-  			"C",
-  			"C++",
-  			"Clojure",
-  			"COBOL",
-  			"ColdFusion",
-  			"Erlang",
-  			"Fortran",
-  			"Groovy",
-  			"Haskell",
-  			"Java",
-  			"JavaScript",
-  			"Lisp",
-  			"Perl",
-  			"PHP",
-  			"Python",
-  			"Ruby",
-  			"Scala",
-  			"Scheme"
-  		];
+  var problemID = $('#info').data("problem_type_name");
+  var availableProblemURL = "/problem_types/" + problemID + "/available_tags";
   $("#problem_type_new_tag").autocomplete({
-        source: "/problem_types/2/available_tags"
+        source: availableProblemURL
   });
 });
