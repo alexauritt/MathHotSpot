@@ -66,10 +66,14 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "/rogue_problems", :method => :get}, {:controller => "rogue_problems", :action => "index"})
   end
   
-  test "tag index" do
+  test "availble_tag index" do
     assert_routing( {:path => "/problem_types/algebra-fractions/available_tags", :method => :get}, 
       {:controller => "available_tags", :action => "index", :problem_type_id => "algebra-fractions"})
   end
-  
+
+  test "available_tag search" do
+    assert_routing( {:path => "/problem_types/algebra-fractions/available_tags/search", :method => :get}, 
+      {:controller => "available_tags", :action => "search", :problem_type_id => "algebra-fractions"})    
+  end
   
 end
