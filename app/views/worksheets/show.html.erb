@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <title>Worksheet <%= @worksheet.id %></title>
   <%= javascript_include_tag "replace_problem" %>
-  <%= stylesheet_link_tag "worksheet" %>
+  <%= stylesheet_link_tag "worksheet", {:media => "print, screen"} %>
   <%= stylesheet_link_tag "print/worksheet", {:media => "print" } %>
 <% end %>
 
