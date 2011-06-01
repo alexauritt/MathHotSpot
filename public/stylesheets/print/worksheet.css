@@ -1,4 +1,4 @@
-.nav_bar { display: none;}
+.nav_bar, .problem_links { display: none;}
 
 div.problem_group {
 	margin: 20px;
