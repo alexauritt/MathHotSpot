@@ -2,6 +2,7 @@
   <title>Worksheet <%= @worksheet.id %></title>
   <%= javascript_include_tag "replace_problem" %>
   <%= stylesheet_link_tag "worksheet" %>
+  <%= stylesheet_link_tag "print/worksheet", {:media => "print" }%>
 <% end %>
 
 <div class="worksheet" id="worksheet_<%= @worksheet.id %>">
