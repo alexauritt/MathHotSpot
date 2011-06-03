@@ -72,22 +72,31 @@ class MathProblemTest < ActiveSupport::TestCase
   test "strip_excess_tags" do
     input_from_math_type = "<math display='block'><semantics><mrow>        <msqrt><mrow><msup><mi>a</mi>      <mn>2</mn></msup>      <mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow><annotation encoding='MathType-MTEF'>     MathType@MTEF@5@5@+=faaagaart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8FesqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9Gqpi0dc9adbaqaaeGaciGaaiaabeqaamaabaabaaGcbaWaaOaaaeaacaWGHbWaaWbaaSqabeaacaaIYaaaaOGaey4kaSIaamOyamaaCaaaleqabaGaaGOmaaaaaeqaaOGaey4kaSIaaGzaVpaalaaabaGaamOBaiaacgcaaeaacaWGYbGaaiyiamaabmaabaGaamOBaiabgkHiTiaadkhaaiaawIcacaGLPaaacaGGHaaaaaaa@3D6C@</annotation></semantics></math>"
     all_striped_down = "<math display='block'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
-    problem = MathProblem.new(:question_markup => input_from_math_type)
+    problem = MathProblem.new(:question_markup => input_from_math_type, :answer_markup => 'some answer markup')
     problem.send(:strip_excess_tags)
     
     assert_equal all_striped_down, problem.question_markup
   end
   
-  test "removes mathml xmlns and adds display=block" do
+  test "removes mathml xmlns and adds display=block for question markup" do
     input_from_math_type = "<math xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
     all_striped_down = "<math display='block'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
-    problem = MathProblem.new(:question_markup => input_from_math_type)
+    problem = MathProblem.new(:question_markup => input_from_math_type, :answer_markup => input_from_math_type)
     problem.send(:replace_xmlns_with_display_block)
-    
+
     assert_equal all_striped_down, problem.question_markup
   end
-  
-  test "strip_excess_tags removes newlines" do
+
+  test "removes mathml xmlns from answer_markup and adds display=block" do
+    input_from_math_type = "<math xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
+    all_striped_down = "<math display='block'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
+    problem = MathProblem.new(:question_markup => "some question stuff here", :answer_markup => input_from_math_type)
+    problem.send(:replace_xmlns_with_display_block)
+
+    assert_equal all_striped_down, problem.answer_markup    
+  end
+    
+  test "strip_excess_tags removes newlines from question markup" do
     input_from_math_type = "<math display='block'>
      <semantics>
       <mrow>
@@ -103,11 +112,34 @@ class MathProblemTest < ActiveSupport::TestCase
     </math>
     "
     all_striped_down = "<math display='block'><mrow><mfrac><mi>x</mi><mn>2</mn></mfrac></mrow></math>"
-    problem = MathProblem.new(:question_markup => input_from_math_type)
+    problem = MathProblem.new(:question_markup => input_from_math_type, :answer_markup => 'some answer markup')
     problem.send(:strip_excess_tags)
     
     assert_equal all_striped_down, problem.question_markup
   end
+
+  test "strip_excess_tags removes newlines from answer markup" do
+    input_from_math_type = "<math display='block'>
+     <semantics>
+      <mrow>
+       <mfrac>
+        <mi>x</mi>
+        <mn>2</mn>
+       </mfrac>
+
+      </mrow>
+     <annotation encoding='MathType-MTEF'>
+     MathType@MTEF@5@5@+=faaagaart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepC0xbbL8FesqqrFfpeea0xe9Lq=Jc9vqaqpepm0xbba9pwe9Q8fs0=yqaqpepae9pg0FirpepeKkFr0xfr=xfr=xb9Gqpi0dc9adbaqaaeGaciGaaiaabeqaamaabaabaaGcbaWaaSaaaeaacaWG4baabaGaaGOmaaaaaaa@2FDB@</annotation>
+     </semantics>
+    </math>
+    "
+    all_striped_down = "<math display='block'><mrow><mfrac><mi>x</mi><mn>2</mn></mfrac></mrow></math>"
+    problem = MathProblem.new(:question_markup => "some question markup", :answer_markup => input_from_math_type)
+    problem.send(:strip_excess_tags)
+    
+    assert_equal all_striped_down, problem.answer_markup
+  end
+
   
   test "instruction when problem_level is nil returns default message" do
     assert_equal MathProblem::DEFAULT_INSTRUCTION, MathProblem.new.instruction

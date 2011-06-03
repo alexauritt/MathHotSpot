@@ -42,7 +42,7 @@ class MathProblem < ActiveRecord::Base
       raise ActiveRecord::RecordNotFound
     end
     
-      # then problem is irreplaceable -- it's one of a kind
+    # then problem is irreplaceable -- it's one of a kind
     raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR if (available_problems.count == 1)
   
     if options[:exclude]
@@ -61,14 +61,17 @@ class MathProblem < ActiveRecord::Base
   private
   
   def strip_excess_tags
-    question_markup.gsub!(/\n/,"")
-    question_markup.gsub!(/<\/?semantics>|<annotation.*annotation>/,"")
-    question_markup.gsub!(/>\s*</,"><")
-    question_markup.strip!
+    [question_markup, answer_markup].each do |markup|
+      markup.gsub!(/\n/,"")
+      markup.gsub!(/<\/?semantics>|<annotation.*annotation>/,"")
+      markup.gsub!(/>\s*</,"><")
+      markup.strip!
+    end
   end
   
   def replace_xmlns_with_display_block
     question_markup.gsub!(/xmlns='.+?'/,"display='block'")
+    answer_markup.gsub!(/xmlns='.+?'/,"display='block'")
   end
      
 end
