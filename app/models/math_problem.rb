@@ -5,7 +5,7 @@ class MathProblem < ActiveRecord::Base
   belongs_to :problem_level
   has_one :problem_type, :through => :problem_level
   
-  before_validation :strip_excess_tags
+  before_validation :strip_excess_tags, :replace_xmlns_with_display_block
   
   DEFAULT_INSTRUCTION = Instruction.new(:description => MathHotSpotErrors::Message::NO_INSTRUCTIONS)
   
@@ -65,6 +65,10 @@ class MathProblem < ActiveRecord::Base
     question_markup.gsub!(/<\/?semantics>|<annotation.*annotation>/,"")
     question_markup.gsub!(/>\s*</,"><")
     question_markup.strip!
+  end
+  
+  def replace_xmlns_with_display_block
+    question_markup.gsub!(/xmlns='.+?'/,"display='block'")
   end
      
 end

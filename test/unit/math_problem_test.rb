@@ -78,6 +78,15 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal all_striped_down, problem.question_markup
   end
   
+  test "removes mathml xmlns and adds display=block" do
+    input_from_math_type = "<math xmlns='http://www.w3.org/1998/Math/MathML'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
+    all_striped_down = "<math display='block'><mrow><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mtext>&#x200B;</mtext><mfrac><mrow><mi>n</mi><mo>!</mo></mrow><mrow><mi>r</mi><mo>!</mo><mrow><mo>(</mo><mrow><mi>n</mi><mo>&#x2212;</mo><mi>r</mi></mrow><mo>)</mo></mrow><mo>!</mo></mrow></mfrac></mrow></math>"
+    problem = MathProblem.new(:question_markup => input_from_math_type)
+    problem.send(:replace_xmlns_with_display_block)
+    
+    assert_equal all_striped_down, problem.question_markup
+  end
+  
   test "strip_excess_tags removes newlines" do
     input_from_math_type = "<math display='block'>
      <semantics>
