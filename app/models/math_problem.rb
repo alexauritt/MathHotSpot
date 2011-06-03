@@ -62,16 +62,22 @@ class MathProblem < ActiveRecord::Base
   
   def strip_excess_tags
     [question_markup, answer_markup].each do |markup|
-      markup.gsub!(/\n/,"")
-      markup.gsub!(/<\/?semantics>|<annotation.*annotation>/,"")
-      markup.gsub!(/>\s*</,"><")
-      markup.strip!
+      unless markup.nil?
+        markup.gsub!(/\n/,"")
+        markup.gsub!(/<\/?semantics>|<annotation.*annotation>/,"")
+        markup.gsub!(/>\s*</,"><")
+        markup.strip!
+      end
     end
   end
   
   def replace_xmlns_with_display_block
-    question_markup.gsub!(/xmlns='.+?'/,"display='block'")
-    answer_markup.gsub!(/xmlns='.+?'/,"display='block'")
+    if question_markup 
+      question_markup.gsub!(/xmlns='.+?'/,"display='block'")
+    end
+    if answer_markup
+      answer_markup.gsub!(/xmlns='.+?'/,"display='block'")
+    end
   end
      
 end

@@ -140,6 +140,14 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal all_striped_down, problem.answer_markup
   end
 
+  test "strip_excess_tags and replace_xmlns_with_display_block don't choke if answer_markup is nil" do
+    problem = MathProblem.new(:question_markup => "some question markup")
+
+    assert_nothing_raised do
+      problem.send(:strip_excess_tags)
+      problem.send(:replace_xmlns_with_display_block)
+    end
+  end
   
   test "instruction when problem_level is nil returns default message" do
     assert_equal MathProblem::DEFAULT_INSTRUCTION, MathProblem.new.instruction
