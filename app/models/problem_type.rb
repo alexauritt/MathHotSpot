@@ -4,7 +4,7 @@ class ProblemType < ActiveRecord::Base
   belongs_to :lesson
   belongs_to :instruction
   
-  has_many :problem_levels, :dependent => :destroy
+  has_many :problem_levels, :order => :difficulty, :dependent => :destroy
   has_many :math_problems, :through => :problem_levels
 
   acts_as_taggable
