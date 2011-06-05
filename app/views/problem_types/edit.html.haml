@@ -1,6 +1,7 @@
 - content_for :head do
   %title= "Edit: #{@problem_type.title}" 
   = javascript_include_tag("problem_type_edit_autocomplete.js")
+  = stylesheet_link_tag "lessons"
   = stylesheet_link_tag("ui-lightness/jquery-ui-1.8.13.custom.css")
 
 #info{ :data => {:problem_type_name => @problem_type.to_param}}
@@ -29,19 +30,23 @@
   .action
     = t.submit "Update Problem Type"
 
-.form_section#problem_level_list
-  Current Levels:
-  %br
-  -@problem_type.problem_levels.each do |level|
-    = simple_form_for(level, :url => problem_type_problem_level_path(@problem_type, level)) do |lev|
-      =lev.input :difficulty, :input_html => {:size => 3}, :label => "Level: "
-      = problem_count_msg(level)  
-      .actions
-        = lev.submit "Update"
-
 .form_section#add_tag
   = simple_form_for(@problem_type) do |t|
     = t.input :new_tag, {:label => "Add a Tag: "}
 
     .actions
       = t.submit "Add Tag"    
+
+.form_section#problem_level_list
+  Current Levels:
+  %br
+  -@problem_type.problem_levels.each do |level|
+    .problem_example
+      = simple_form_for(level, :url => problem_type_problem_level_path(@problem_type, level)) do |lev|
+        =lev.input :difficulty, :input_html => {:size => 3, :class => 'difficulty_display'}, :label => "Level: "
+        .problem_display
+          =display_mathml_question(level.demo_problem)
+        .problem_info
+          = problem_count_msg(level)  
+        .actions
+          = lev.submit "Update"
