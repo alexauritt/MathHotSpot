@@ -6,7 +6,7 @@ class ProblemLevel < ActiveRecord::Base
   has_one :lesson, :through => :problem_type
   
   validates_presence_of :problem_type
-  validates_uniqueness_of :difficulty, :scope => [:problem_type_id]
+  validates_uniqueness_of :level_number, :scope => [:problem_type_id]
   
   accepts_nested_attributes_for :math_problems, :reject_if => lambda { |a| a[:question_markup].blank? || a[:answer_markup].blank? }, :allow_destroy => true
 

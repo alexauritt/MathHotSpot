@@ -43,7 +43,7 @@
   -@problem_type.problem_levels.each do |level|
     .problem_example
       = simple_form_for(level, :url => problem_type_problem_level_path(@problem_type, level)) do |lev|
-        =lev.input :difficulty, :input_html => {:size => 3, :class => 'difficulty_display'}, :label => "Level: "
+        =lev.input :level_number, :input_html => {:size => 3, :class => 'level_number_display'}, :label => "Level: "
         .problem_display
           =display_mathml_question(level.demo_problem)
         .problem_info

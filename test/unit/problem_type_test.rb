@@ -42,7 +42,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
   
   test "new template created with nested problem level" do
     params = {:problem_type => {:title => "Best problem type ever created", :lesson_id => 8, :instruction_id => 10, 
-      :problem_levels_attributes => [{:difficulty => 10}]
+      :problem_levels_attributes => [{:level_number => 10}]
     }}
     
     assert_difference('ProblemType.count') do
@@ -53,7 +53,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
   
   test "new problem level created when nested in math problem template" do
     params = {:problem_type => {:title => "utterly fantastic problem type", :lesson_id => 8, :instruction_id => 10, 
-      :problem_levels_attributes => [{:difficulty => 10}]
+      :problem_levels_attributes => [{:level_number => 10}]
     }}
   
     assert_difference('ProblemLevel.count') do
@@ -92,7 +92,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
     title = first_title
 
     params = {:problem_type => {:title => title, :lesson_id => 8, :instruction_id => 10, 
-      :problem_levels_attributes => [{:difficulty => 10}]
+      :problem_levels_attributes => [{:level_number => 10}]
     }}
 
     assert_difference('ProblemType.count') do

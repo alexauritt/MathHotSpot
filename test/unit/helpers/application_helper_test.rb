@@ -7,14 +7,14 @@ class ApplicationHelperTest < ActionView::TestCase
     @local_script_link = "<script src=\"/javascripts/math_jax/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local.js\" type=\"text/javascript\"></script>"
   end
   
-  test "display_difficulty" do
-    level = ProblemLevel.new(:difficulty => 10)
-    assert_equal "Difficulty: 10", display_difficulty(level)
+  test "display_level_number" do
+    level = ProblemLevel.new(:level_number => 10)
+    assert_equal "Level: 10", display_level_number(level)
   end
   
-  test "display_difficulty blank if no difficulty set on level" do
+  test "display_level_number blank if no level_number set on level" do
     level = ProblemLevel.new
-    assert_equal MathHotSpotErrors::Message::NO_DIFFICULTY_LEVEL, display_difficulty(level)
+    assert_equal MathHotSpotErrors::Message::NO_LEVEL_NUMBER, display_level_number(level)
   end
   
   test "add CDN math link" do

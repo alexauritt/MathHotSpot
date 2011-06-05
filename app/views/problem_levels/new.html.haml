@@ -9,8 +9,8 @@
     = "#{@problem_level.instruction.description}"
   - @sibling_levels.each do |sibling_level|
     .problem_example
-      .difficulty_display
-        =display_difficulty sibling_level
+      .level_number_display
+        =display_level_number sibling_level
       .problem_display
         =display_mathml_question(sibling_level.demo_problem)
 
@@ -21,9 +21,9 @@
   = form_for(@problem_level) do |level|
     = hidden_field_tag "problem_level[problem_type_id]", @problem_level.problem_type.id
     .row
-      = level.label :difficulty
+      = level.label :level_number
       %br
-      = level.text_field :difficulty
+      = level.text_field :level_number
     .row
       = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
     .row

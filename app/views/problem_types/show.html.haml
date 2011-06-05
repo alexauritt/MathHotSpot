@@ -21,8 +21,8 @@
 .row
   -@problem_type.problem_levels.each do |level|
     .problem_example
-      .difficulty_display
-        =display_difficulty level
+      .level_number_display
+        =display_level_number level
       .problem_display
         =display_mathml_question(level.demo_problem)
       .problem_info

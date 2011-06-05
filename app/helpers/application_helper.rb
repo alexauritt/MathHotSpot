@@ -1,6 +1,6 @@
 module ApplicationHelper
-  def display_difficulty(level)
-    level.difficulty? ? "Difficulty: #{level.difficulty}" : MathHotSpotErrors::Message::NO_DIFFICULTY_LEVEL
+  def display_level_number(level)
+    level.level_number? ? "Level: #{level.level_number}" : MathHotSpotErrors::Message::NO_LEVEL_NUMBER
   end
   
   def include_mathjax

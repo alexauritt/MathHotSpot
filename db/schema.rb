@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517171058) do
+ActiveRecord::Schema.define(:version => 20110605141049) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20110517171058) do
 
   create_table "problem_levels", :force => true do |t|
     t.integer  "problem_type_id"
-    t.integer  "difficulty"
+    t.integer  "level_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
