@@ -7,15 +7,7 @@
 #info{ :data => {:problem_type_name => @problem_type.to_param}}
 = simple_form_for(@problem_type) do |t|
 
-  .form_section#sample_problem
-    Sample Problem:
-    .problem_instruction
-      =@problem_type.instruction.description
-    .problem_display
-      =display_mathml_question(@problem_type.demo_problem)
-
-      = hidden_field_tag "problem_type[lesson_id]", @problem_type.lesson.id
-  
+  = hidden_field_tag "problem_type[lesson_id]", @problem_type.lesson.id
   .form_section#title
     = t.label :title, "Title"
     = t.text_field :title
