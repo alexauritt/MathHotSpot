@@ -4,8 +4,13 @@
 
 %h3
   = @problem_type.title
+
+- if flash[:notice]
+  %p.notice
+    = flash[:notice]
+
 .row
-  =link_to "Edit / Add or Delete Tags", edit_problem_type_url(@problem_type)
+  =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(@problem_type)
 .row
 
 .row

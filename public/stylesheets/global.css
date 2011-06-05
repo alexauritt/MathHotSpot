@@ -8,3 +8,7 @@ div#tag_list a:link, div#tag_list a:visited {
   text-decoration: none;
   color: black;
 }
+
+.form_section {
+  margin: 15px 0px 15px 0px;
+}

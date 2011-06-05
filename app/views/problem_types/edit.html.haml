@@ -6,31 +6,42 @@
 #info{ :data => {:problem_type_name => @problem_type.to_param}}
 = simple_form_for(@problem_type) do |t|
 
-  .problem_instruction
-    =@problem_type.instruction.description
-  .problem_display
-    =display_mathml_question(@problem_type.demo_problem)
+  .form_section#sample_problem
+    Sample Problem:
+    .problem_instruction
+      =@problem_type.instruction.description
+    .problem_display
+      =display_mathml_question(@problem_type.demo_problem)
 
-  = hidden_field_tag "problem_type[lesson_id]", @problem_type.lesson.id
+      = hidden_field_tag "problem_type[lesson_id]", @problem_type.lesson.id
   
-  = t.label :title, "Title"
-  = t.text_field :title
-  %br
-  
-  = t.association :instruction
-  %br
-  
-  = link_to "None of these will do... make new instructions", new_lesson_instruction_path(@problem_type.lesson)
-  %br
-  
-  = t.association :tags, :as => :check_boxes, :collection => @problem_type.tags, :label => "Current Tags: "
-  %br
+  .form_section#title
+    = t.label :title, "Title"
+    = t.text_field :title
+    %br
+  .form_section#instruction
+    = t.association :instruction
+    = link_to "None of these will do... make new instructions", new_lesson_instruction_path(@problem_type.lesson)
+      
+  .form_section#edit_tag_list
+    = t.association :tags, :as => :check_boxes, :collection => @problem_type.tags, :label => "Current Tags: "
+    
   .action
-    = t.submit "Remove Tags"
-    
-= simple_form_for(@problem_type) do |t|
-  = t.input :new_tag, {:label => "Add a Tag: "}
-  
-  .actions
-    = t.submit "Add Tag"
-    
+    = t.submit "Update Problem Type"
+
+.form_section#problem_level_list
+  Current Levels:
+  %br
+  -@problem_type.problem_levels.each do |level|
+    = simple_form_for(level, :url => problem_type_problem_level_path(@problem_type, level)) do |lev|
+      =lev.input :difficulty, :input_html => {:size => 3}, :label => "Level: "
+      = problem_count_msg(level)  
+      .actions
+        = lev.submit "Update"
+
+.form_section#add_tag
+  = simple_form_for(@problem_type) do |t|
+    = t.input :new_tag, {:label => "Add a Tag: "}
+
+    .actions
+      = t.submit "Add Tag"    

@@ -21,7 +21,11 @@
   = form_for(@problem_level) do |level|
     = hidden_field_tag "problem_level[problem_type_id]", @problem_level.problem_type.id
     .row
-    = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
+      = level.label :difficulty
+      %br
+      = level.text_field :difficulty
+    .row
+      = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level})    
     .row
       .actions
         = level.submit

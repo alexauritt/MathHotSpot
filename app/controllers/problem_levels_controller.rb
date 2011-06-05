@@ -5,7 +5,7 @@ class ProblemLevelsController < ApplicationController
   end
   
   def new
-    @problem_type = ProblemType.find(params[:problem_type_id])
+    @problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
     @sibling_levels = @problem_type.problem_levels
     @problem_level = ProblemLevel.new(:problem_type => @problem_type)
     @problem_level.math_problems.build
@@ -18,5 +18,12 @@ class ProblemLevelsController < ApplicationController
     else
       render :action => "new"
     end
+  end
+  
+  def update
+    @problem_level = ProblemLevel.find(params[:id])
+    notice = @problem_level.update_attributes(params[:problem_level]) ? "Problem Level successfully updated." : "Unable to update Problem Level."
+    @problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
+    redirect_to(problem_type_url(@problem_type), :notice => notice)      
   end
 end

@@ -15,7 +15,7 @@ class ProblemLevelsControllerTest < ActionController::TestCase
 
   test "should new" do
     template = problem_types(:dividing_monomials_problem_type)
-    get :new, :problem_type_id => template.id
+    get :new, :problem_type_id => template.permalink
     assert_response :success
     assert_prompts_for_problem_question_and_answer    
   end
@@ -26,6 +26,15 @@ class ProblemLevelsControllerTest < ActionController::TestCase
     assert_difference('ProblemLevel.count') do
       post :create, :problem_level => problem_level.attributes.merge(math_problem_attributes)
     end    
+    assert_redirected_to problem_type_path(template)
+  end
+
+  test "should NOT create MathProblem if no math problem info included in form" do
+    template = problem_types(:dividing_monomials_problem_type)
+    problem_level = ProblemLevel.new(:problem_type => template)
+    assert_no_difference('MathProblem.count') do
+      post :create, :problem_level => problem_level.attributes
+    end
     assert_redirected_to problem_type_path(template)
   end
   

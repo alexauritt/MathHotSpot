@@ -31,7 +31,7 @@ Mathhotspot::Application.routes.draw do
   end
   
   resources :problem_types, :except => [:new, :delete] do
-    resources :problem_levels, :only => [:new]
+    resources :problem_levels, :only => [:new, :update]
     resources :available_tags, :only => [:index]
   end
   
