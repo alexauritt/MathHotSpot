@@ -31,13 +31,13 @@ Mathhotspot::Application.routes.draw do
   end
   
   resources :problem_types, :except => [:new, :delete] do
-    resources :problem_levels, :only => [:new, :update]
+    resources :problem_levels, :only => [:new, :update, :show]
     resources :available_tags, :only => [:index]
   end
   
   match '/problem_types/:problem_type_id/available_tags/search' => 'available_tags#search', :as => :available_tag_search
   
-  resources :problem_levels, :only => [:show, :create] do
+  resources :problem_levels, :only => [:create] do
     resources :math_problems, :only => [:new]
   end
 

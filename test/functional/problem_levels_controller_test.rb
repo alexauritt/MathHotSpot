@@ -9,7 +9,7 @@ class ProblemLevelsControllerTest < ActionController::TestCase
 
   test "should show" do
     @problem_level = problem_levels(:dividing_monomials_level_01)
-    get :show, :id => @problem_level.to_param
+    get :show, :problem_type_id => @problem_level.problem_type, :id => @problem_level.to_param
     assert_response :success
   end
 
