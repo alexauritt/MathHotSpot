@@ -25,21 +25,21 @@ Mathhotspot::Application.routes.draw do
   end
 
   resources :math_problems, :except => [:new, :index]
-
+  
   resources :worksheets, :only => [:index, :show, :update] do
     resources :worksheet_problems, :only => [:update]
   end
   
   resources :problem_types, :except => [:new, :delete] do
-    resources :problem_levels, :only => [:new, :update, :show]
+    resources :problem_levels, :only => [:new, :update, :show] do
+      resources :math_problems, :only => [:new]
+    end
     resources :available_tags, :only => [:index]
   end
   
   match '/problem_types/:problem_type_id/available_tags/search' => 'available_tags#search', :as => :available_tag_search
   
-  resources :problem_levels, :only => [:create] do
-    resources :math_problems, :only => [:new]
-  end
+  resources :problem_levels, :only => [:create]
 
   resources :grouped_problems, :only => [:index]
   

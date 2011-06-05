@@ -21,5 +21,5 @@
 .row
   =link_to "Back to Problem Type", problem_type_path(@problem_level.problem_type)
   %br
-  =link_to "Add New Problem to this Level", new_problem_level_math_problem_url(@problem_level)
+  =link_to "Add New Problem to this Level", new_problem_type_problem_level_math_problem_url(@problem_level.problem_type, @problem_level)
   %br

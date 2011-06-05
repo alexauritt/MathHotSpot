@@ -53,26 +53,27 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "problem_types/654", :method => :put}, {:controller => "problem_types", :action => 'update', :id => '654'})
   end
 
-#math_problems
-  test "problem_level_math_problem new" do
-    assert_routing( {:path => "/problem_levels/987/math_problems/new", :method => :get}, 
-      {:controller => "math_problems", :action => "new", :problem_level_id => "987"})    
-  end
-
 #problem_levels
   test "problem_level show" do
     assert_routing( {:path => "/problem_types/i-want-to-ride-my-bicycle/problem_levels/3", :method => :get},
       {:controller => "problem_levels", :action => "show", :problem_type_id => "i-want-to-ride-my-bicycle", :id => '3'})
   end
-  
+
   test "problem_level create" do
     assert_routing( {:path => "/problem_levels", :method => :post}, {:controller => "problem_levels", :action => "create"})
   end
-  
+
   test "problem_level update" do
     assert_routing( {:path => '/problem_types/a-prob-type/problem_levels/4', :method => :put},
       {:controller => "problem_levels", :action => "update", :problem_type_id => 'a-prob-type', :id => '4'})
   end
+
+#math_problems
+  test "problem_level_math_problem new" do
+    assert_routing( {:path => "/problem_types/cool-problem/problem_levels/4/math_problems/new", :method => :get}, 
+      {:controller => "math_problems", :action => "new", :problem_level_id => "4", :problem_type_id => 'cool-problem'})    
+  end
+
   
 #rogue_problems
   test "rogue_problems new" do 
