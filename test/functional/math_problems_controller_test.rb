@@ -15,6 +15,7 @@ class MathProblemsControllerTest < ActionController::TestCase
   test "should get new math problem for existing problem level" do
     level = problem_levels(:dividing_monomials_level_01)
     get :new, :problem_level_id => level.id, :problem_type_id => level.problem_type
+    assert_not_nil assigns(:problem_type)
     assert_response :success
   end
   
@@ -33,6 +34,7 @@ class MathProblemsControllerTest < ActionController::TestCase
 
   test "should get edit" do
     get :edit, :id => @math_problem.to_param
+    assert_not_nil assigns(:problem_type)
     assert_response :success
   end
 

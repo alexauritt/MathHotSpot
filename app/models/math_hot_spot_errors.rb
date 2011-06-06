@@ -17,6 +17,8 @@ module MathHotSpotErrors
     NO_INSTRUCTIONS = "No instructions provided."
     NO_LEVEL_NUMBER = "No level_number level specified."
     
+    NO_SAMPLE_MATH_PROBLEM_FOUND = "No Sample Math Problem was found"
+    
     @message = {
       ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => UNIQUE,
       ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING => NONE_REMAINING,

@@ -1,4 +1,8 @@
 %h1 Editing Math Problem
+#problem_type_info
+  Problem Type: 
+  =link_to @math_problem.problem_type.title, problem_type_url(@math_problem.problem_type)
+  
 %h3 Current Display:
 %b Question:
 =display_mathml_question(@math_problem)

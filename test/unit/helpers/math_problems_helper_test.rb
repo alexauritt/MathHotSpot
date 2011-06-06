@@ -21,6 +21,10 @@ class MathProblemsHelperTest < ActionView::TestCase
     assert_equal(expected_output, display_mathml_question(@problem))
   end
   
+  test "display_mathml_question displays default msg if it receives null math problem" do
+    assert_equal(MathHotSpotErrors::Message::NO_SAMPLE_MATH_PROBLEM_FOUND, display_mathml_question(nil))
+  end
+  
   test "problem_type_count should be zero" do
     @lesson = Lesson.new
     assert_equal "(Empty)", problem_type_count(@lesson)

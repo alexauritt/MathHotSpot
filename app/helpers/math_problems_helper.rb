@@ -9,13 +9,17 @@ module MathProblemsHelper
   end
   
   def display_mathml(problem, display_question = true)
-    markup = display_question ? problem.question_markup : problem.answer_markup
-    text = display_question ? "question" : "answer"
-    unless markup.nil?
-      start_tag, end_tag = "<p class='inline_math'>","</p>"
-      problem.display_mode? ? markup.html_safe : start_tag.concat(markup).concat(end_tag).html_safe
+    unless problem
+      MathHotSpotErrors::Message::NO_SAMPLE_MATH_PROBLEM_FOUND
     else
-      "No #{text} specified."
+      markup = display_question ? problem.question_markup : problem.answer_markup
+      text = display_question ? "question" : "answer"
+      unless markup.nil?
+        start_tag, end_tag = "<p class='inline_math'>","</p>"
+        problem.display_mode? ? markup.html_safe : start_tag.concat(markup).concat(end_tag).html_safe
+      else
+        "No #{text} specified."
+      end
     end
   end
   

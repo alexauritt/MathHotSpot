@@ -15,12 +15,14 @@ class MathProblemsController < ApplicationController
   end
   
   def new
-    @math_problem = MathProblem.new
-    @math_problem.problem_level = ProblemLevel.find(params[:problem_level_id])
+    problem_level = ProblemLevel.find(params[:problem_level_id])
+    @math_problem = MathProblem.new(:problem_level => problem_level)
+    @problem_type = problem_level.problem_type
   end
 
   def edit
     @math_problem = MathProblem.find(params[:id])
+    @problem_type = @math_problem.problem_type
   end
   
   def update
