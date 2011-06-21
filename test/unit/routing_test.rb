@@ -60,7 +60,8 @@ class RoutingTest < ActionController::TestCase
   end
 
   test "problem_level create" do
-    assert_routing( {:path => "/problem_levels", :method => :post}, {:controller => "problem_levels", :action => "create"})
+    assert_routing( {:path => "/problem_levels", :method => :post}, 
+      {:controller => "problem_levels", :action => "create"})
   end
 
   test "problem_level update" do
@@ -68,6 +69,11 @@ class RoutingTest < ActionController::TestCase
       {:controller => "problem_levels", :action => "update", :problem_type_id => 'a-prob-type', :id => '4'})
   end
 
+  test "problem_level delete" do
+    assert_routing( {:path => "/problem_types/some-prob-type/problem_levels/8", :method => :delete}, 
+      {:controller => "problem_levels", :action => "destroy", :problem_type_id => 'some-prob-type', :id => '8'})
+  end
+  
 #math_problems
   test "problem_level_math_problem new" do
     assert_routing( {:path => "/problem_types/cool-problem/problem_levels/4/math_problems/new", :method => :get}, 

@@ -55,6 +55,17 @@ class ProblemType < ActiveRecord::Base
   def level_count
     problem_levels.size
   end
+  
+  def lowest_available_level_number
+    level_numbers = problem_levels.map {|level| level.level_number}
+    level_numbers.sort!
+    level_count.times do |cur|
+      unless level_numbers[cur] == (cur + 1) 
+        return (cur + 1)
+      end
+    end
+    level_count + 1
+  end
 
   def self.search(search)
     if search

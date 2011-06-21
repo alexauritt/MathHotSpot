@@ -19,6 +19,8 @@ module MathHotSpotErrors
     
     NO_SAMPLE_MATH_PROBLEM_FOUND = "No Sample Math Problem was found"
     
+    NO_LEVEL_DELETE = "Unable to delete level. (Perhaps the level was not empty.)"
+    NO_LEVEL_CREATE = 'Unable to create Problem Level. Does that level number already exist?'
     @message = {
       ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => UNIQUE,
       ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING => NONE_REMAINING,

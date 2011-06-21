@@ -5,10 +5,6 @@
 %h3
   = @problem_type.title
 
-- if flash[:notice]
-  %p.notice
-    = flash[:notice]
-
 .row
   =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(@problem_type)
 .row
@@ -26,7 +22,9 @@
       .problem_display
         =display_mathml_question(level.demo_problem)
       .problem_info
-        =link_to problem_count_msg(level), problem_type_problem_level_path(@problem_type, level)
+        =link_to problem_count_msg(level), problem_type_problem_level_path(@problem_type.permalink, level.level_number)
+        %br
+        =delete_level(level)
 
 .row
   =link_to "Back to Lesson", lesson_path(@problem_type.lesson)

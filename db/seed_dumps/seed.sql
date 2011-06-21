@@ -64,7 +64,7 @@ ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
 -- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: alexauritt
 --
 
-SELECT pg_catalog.setval('categories_id_seq', 3, false);
+SELECT pg_catalog.setval('categories_id_seq', 1, false);
 
 
 --
@@ -120,8 +120,7 @@ CREATE TABLE lessons (
     section integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    subject_id integer,
-    category_id integer
+    subject_id integer
 );
 
 
@@ -493,8 +492,6 @@ ALTER TABLE worksheets ALTER COLUMN id SET DEFAULT nextval('worksheets_id_seq'::
 --
 
 COPY categories (id, title, subject_id, created_at, updated_at) FROM stdin;
-1	Polynomials	1	2011-05-12 14:15:13.017631	2011-05-12 14:16:07.033299
-2	Probability and Counting	4	2011-05-12 14:15:13.051083	2011-05-12 14:16:19.138069
 \.
 
 
@@ -514,9 +511,9 @@ COPY instructions (id, description, created_at, updated_at) FROM stdin;
 -- Data for Name: lessons; Type: TABLE DATA; Schema: public; Owner: alexauritt
 --
 
-COPY lessons (id, title, chapter, section, created_at, updated_at, subject_id, category_id) FROM stdin;
-1	Dividing Monomials	5	2	2011-05-03 19:10:31.353717	2011-05-12 14:15:13.041214	1	1
-2	Permutations and Combinations	13	2	2011-05-04 16:26:08.070815	2011-05-12 14:15:13.053015	4	2
+COPY lessons (id, title, chapter, section, created_at, updated_at, subject_id) FROM stdin;
+1	Dividing Monomials	5	2	2011-05-03 19:10:31.353717	2011-05-03 19:10:31.353717	1
+2	Permutations and Combinations	13	2	2011-05-04 16:26:08.070815	2011-05-04 16:26:08.070815	4
 \.
 
 
@@ -599,7 +596,6 @@ COPY schema_migrations (version) FROM stdin;
 20110412143136
 20110420144012
 20110504025954
-20110504122003
 \.
 
 

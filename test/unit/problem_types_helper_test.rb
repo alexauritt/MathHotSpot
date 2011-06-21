@@ -44,4 +44,18 @@ class ProblemTypesHelperTest < ActionView::TestCase
     @problem_type.tag_list = "Movies, Music, Coffee"
     assert_equal "Tags: <span class='tag'>Movies</span><span class='tag'>Music</span><span class='tag'>Coffee</span>", display_tag_list(@problem_type)
   end
+  
+  test "delete level returns nothing if level has math problems" do
+    level = ProblemLevel.new(:level_number => '23')
+    level.build_problem_type(:title => "abra")
+    level.math_problems.build(:question_markup => "some markup", :answer_markup => "some answer")
+    assert_equal "", delete_level(level)
+  end
+  
+  test "delete level returns delete link if level is empty" do
+    level = ProblemLevel.new(:level_number => '17')
+    level.build_problem_type(:title => 'my prob type')
+    destroy_link = link_to('Delete Level', '/problem_types/my-prob-type/problem_levels/17', :confirm => 'Are you sure?', :method => :delete)
+    assert_equal destroy_link, delete_level(level)
+  end  
 end

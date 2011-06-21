@@ -83,7 +83,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
   private
 
   def nested_level_and_problem_attributes
-    { :problem_levels_attributes => [{:math_problems_attributes => 
+    { :problem_levels_attributes => [{:level_number => 666, :math_problems_attributes => 
         [{:question_markup => 'some question', :answer_markup => 'some answer'}]}]}  
   end
   
@@ -92,8 +92,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
     problem_type = ProblemType.new(:title => "A new kind of problem!")
     problem_type.lesson = current_lesson
     level = problem_type.problem_levels.build
-    problem = level.math_problems.build
-    problem.question_markup = "some markup"
+    problem = level.math_problems.build(:question_markup => 'a question', :answer_markup => 'an answer')
     problem_type
   end
   

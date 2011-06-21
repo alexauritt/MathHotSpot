@@ -30,4 +30,15 @@ class ProblemLevelTest < ActiveSupport::TestCase
     6.times { level.math_problems.build }
     assert_equal 6, level.problem_count
   end
+  
+  test "destory fails if level has math problem children" do
+    level = ProblemLevel.new
+    level.math_problems.build(:question_markup => 'some markup', :answer_markup => 'an answer')
+    assert_equal false, level.destroy
+  end
+  
+  test "destroy succeeds if no math problem children" do
+    level = ProblemLevel.new
+    assert level.destroy    
+  end
 end

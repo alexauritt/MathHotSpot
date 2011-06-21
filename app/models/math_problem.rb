@@ -4,7 +4,8 @@ class MathProblem < ActiveRecord::Base
   has_many :worksheets, :through => :worksheet_problems
   belongs_to :problem_level
   has_one :problem_type, :through => :problem_level
-  
+
+  validates_presence_of :question_markup, :answer_markup
   before_validation :strip_excess_tags, :replace_xmlns_with_display_block
   
   DEFAULT_INSTRUCTION = Instruction.new(:description => MathHotSpotErrors::Message::NO_INSTRUCTIONS)

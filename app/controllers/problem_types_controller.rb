@@ -34,7 +34,7 @@ class ProblemTypesController < ApplicationController
 
     respond_to do |format|
       if @problem_type.update_attributes(params[:problem_type])
-        format.html { redirect_to(@problem_type, :notice => 'Problem Type    was successfully updated.') }
+        format.html { redirect_to(@problem_type, :notice => 'Problem Type was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

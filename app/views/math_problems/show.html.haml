@@ -19,4 +19,4 @@
 
 =link_to 'Edit', edit_math_problem_path(@math_problem)
 | 
-=link_to 'Back to Level', problem_type_problem_level_url(@math_problem.problem_type, @math_problem.problem_level)
+=link_to 'Back to Level', problem_type_problem_level_url(@math_problem.problem_type.permalink, @math_problem.problem_level.level_number)

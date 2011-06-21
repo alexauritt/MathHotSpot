@@ -39,6 +39,35 @@ class ProblemTypeTest < ActiveSupport::TestCase
   test "level_count" do
     assert_equal 2, @problem_type.level_count
   end
+    
+  test "lowest_available_level_number" do
+    prob_type = ProblemType.new
+    [1,2,3,4,7].each do |level_number|
+      prob_type.problem_levels.build(:level_number => level_number)
+    end
+    assert_equal 5, prob_type.lowest_available_level_number
+  end
+
+  test "lowest_available_level_number take 2" do
+    prob_type = ProblemType.new
+    [2,33].each do |level_number|
+      prob_type.problem_levels.build(:level_number => level_number)
+    end
+    assert_equal 1, prob_type.lowest_available_level_number
+  end
+  
+  test "lowest_available_level_number take 3" do
+    prob_type = ProblemType.new
+    [1,2,3,4,5].each do |level_number|
+      prob_type.problem_levels.build(:level_number => level_number)
+    end
+    assert_equal 6, prob_type.lowest_available_level_number
+  end
+  
+  test "lowest_available_level_number with no current levels" do
+    prob_type = ProblemType.new
+    assert_equal 1, prob_type.lowest_available_level_number
+  end
   
   test "new template created with nested problem level" do
     params = {:problem_type => {:title => "Best problem type ever created", :lesson_id => 8, :instruction_id => 10, 

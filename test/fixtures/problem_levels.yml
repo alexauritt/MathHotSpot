@@ -11,10 +11,14 @@ dividing_monomials_level_02:
 dividing_monomials_level_03:
   problem_type: dividing_monomials_problem_type
   level_number: 3
+
+empty_level:
+  problem_type: dividing_monomials_problem_type
+  level_number: 4
     
 unique_monomials_level:
   problem_type: dividing_monomials_problem_type
-  level_number: 3
+  level_number: 5
     
 find_gcf_of_monomials_level:
   problem_type: find_gcf_of_monomials_problem_type

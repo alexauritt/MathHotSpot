@@ -1,1 +1,1 @@
-`psql mathpick_development < db/seed_dumps/seed.sql`
+`psql -Upostgres mathpick_development < db/seed_dumps/seed.sql`

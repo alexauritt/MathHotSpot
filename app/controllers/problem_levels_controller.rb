@@ -1,6 +1,7 @@
 class ProblemLevelsController < ApplicationController
   def show
-    @problem_level = ProblemLevel.find(params[:id])
+    problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
+    @problem_level = ProblemLevel.find_by_level_number_and_problem_type_id(params[:id], problem_type.id)
     @math_problems = @problem_level.math_problems
   end
   
@@ -14,9 +15,9 @@ class ProblemLevelsController < ApplicationController
   def create
     @problem_level = ProblemLevel.new(params[:problem_level])
     if @problem_level.save
-      redirect_to(problem_type_url(@problem_level.problem_type), :notice => 'Problem Type was successfully created.')
+      redirect_to(problem_type_url(@problem_level.problem_type), :notice => 'Problem Level was successfully created.')
     else
-      render :action => "new"
+      redirect_to(problem_type_url(@problem_level.problem_type.permalink), :notice => MathHotSpotErrors::Message::NO_LEVEL_CREATE)
     end
   end
   
@@ -26,4 +27,12 @@ class ProblemLevelsController < ApplicationController
     @problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
     redirect_to(problem_type_url(@problem_type), :notice => notice)      
   end
+
+  def destroy
+    problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
+    @problem_level = ProblemLevel.find_by_level_number_and_problem_type_id(params[:id], problem_type.id)
+    @problem_level.destroy
+    redirect_to problem_type_url(problem_type)
+  end    
+
 end
