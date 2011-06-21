@@ -2,6 +2,8 @@
 #problem_type_info
   Problem Type: 
   =link_to @math_problem.problem_type.title, problem_type_url(@math_problem.problem_type)
+
+=link_to('Delete this Problem', math_problem_url(@math_problem), :confirm => 'Are you sure?', :method => :delete)
   
 %h3 Current Display:
 %b Question:
@@ -10,6 +12,7 @@
 =display_mathml_answer(@math_problem)
 
 =render 'form'
+
 =link_to 'Show', @math_problem
 |
 =link_to 'Menu', menu_url
