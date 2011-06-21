@@ -15,9 +15,9 @@ class MathProblemsController < ApplicationController
   end
   
   def new
-    problem_level = ProblemLevel.find(params[:problem_level_id])
+    @problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
+    problem_level = ProblemLevel.find_by_level_number_and_problem_type_id(params[:problem_level_id], @problem_type.id)
     @math_problem = MathProblem.new(:problem_level => problem_level)
-    @problem_type = problem_level.problem_type
   end
 
   def edit
