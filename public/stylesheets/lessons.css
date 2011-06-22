@@ -4,6 +4,7 @@ div.nav_bar {
 
 div.row {
   clear: both;
+  margin: 10 0 10 0;
 }
 
 div.single_problem_display, div.problem_example {

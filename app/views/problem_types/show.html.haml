@@ -9,22 +9,15 @@
   =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(@problem_type)
 .row
 
-.row
-  = @problem_type.instruction.description
-.row
+.row#instructions
+  Instructions:
+  = @problem_type.instruction_text
+
+.row#tags
   = display_tag_list @problem_type
 
-.row
-  -@problem_type.problem_levels.each do |level|
-    .problem_example
-      .level_number_display
-        =display_level_number level
-      .problem_display
-        =display_mathml_question(level.demo_problem)
-      .problem_info
-        =link_to problem_count_msg(level), problem_type_problem_level_url(@problem_type, level)
-        %br
-        =delete_level(level)
+.row#level_examples
+  =render(:partial => 'level_examples', :locals => {:levels => @problem_type.problem_levels })
 
 .row
   =link_to "Back to Lesson", lesson_path(@problem_type.lesson)

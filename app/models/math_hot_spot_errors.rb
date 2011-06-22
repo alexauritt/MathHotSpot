@@ -22,7 +22,7 @@ module MathHotSpotErrors
     NO_LEVEL_DELETE = "Unable to delete level. (Perhaps the level was not empty.)"
     NO_LEVEL_CREATE = 'Unable to create Problem Level. Does that level number already exist?'
     
-    NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE = "No math problem defined for this problem type. Please add some math problems!"
+    NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE = "No math problems are defined for this problem type. Please add some math problems!"
     NO_INSTRUCTIONS_SPECIFIED = "No instructions specified."
     
     @message = {

@@ -57,5 +57,9 @@ class ProblemTypesHelperTest < ActionView::TestCase
     level.build_problem_type(:title => 'my prob type')
     destroy_link = link_to('Delete Level', '/problem_types/my-prob-type/problem_levels/17', :confirm => 'Are you sure?', :method => :delete)
     assert_equal destroy_link, delete_level(level)
-  end  
+  end
+  
+  test "empty_problem_type_message" do
+    assert_equal MathHotSpotErrors::Message::NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE, empty_problem_type_message
+  end
 end
