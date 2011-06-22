@@ -21,6 +21,6 @@ module ProblemTypesHelper
   end
   
   def delete_level(level)
-    level.math_problems.empty? ? link_to('Delete Level', problem_type_problem_level_path(level.problem_type.permalink, level.level_number), :confirm => 'Are you sure?', :method => :delete) : ""
+    level.math_problems.empty? ? link_to('Delete Level', problem_type_problem_level_path(level.problem_type, level), :confirm => 'Are you sure?', :method => :delete) : ""
   end
 end

@@ -22,12 +22,12 @@
       .problem_display
         =display_mathml_question(level.demo_problem)
       .problem_info
-        =link_to problem_count_msg(level), problem_type_problem_level_path(@problem_type.permalink, level.level_number)
+        =link_to problem_count_msg(level), problem_type_problem_level_url(@problem_type, level)
         %br
         =delete_level(level)
 
 .row
   =link_to "Back to Lesson", lesson_path(@problem_type.lesson)
   |
-  =link_to "Add New Level", new_problem_type_problem_level_path(@problem_type)
+  =link_to "Add New Level", new_problem_type_problem_level_url(@problem_type)
   
