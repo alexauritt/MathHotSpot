@@ -21,6 +21,10 @@ module MathHotSpotErrors
     
     NO_LEVEL_DELETE = "Unable to delete level. (Perhaps the level was not empty.)"
     NO_LEVEL_CREATE = 'Unable to create Problem Level. Does that level number already exist?'
+    
+    NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE = "No math problem defined for this problem type. Please add some math problems!"
+    NO_INSTRUCTIONS_SPECIFIED = "No instructions specified."
+    
     @message = {
       ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => UNIQUE,
       ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING => NONE_REMAINING,
@@ -34,13 +38,16 @@ module MathHotSpotErrors
   
   class EmptyProblem
     def self.question_markup
-      "No math problem defined for this problem type. Please add some math problems!"
+      MathHotSpotErrors::Message::NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE
     end
     def self.answer_markup
       ""
     end
     def self.display_mode?
       false
+    end
+    def self.instruction_text
+      MathHotSpotErrors::Message::NO_INSTRUCTIONS_SPECIFIED
     end
   end
 end

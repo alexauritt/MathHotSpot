@@ -66,6 +66,10 @@ class ProblemType < ActiveRecord::Base
     end
     level_count + 1
   end
+  
+  def instruction_text
+    instruction.description
+  end
 
   def self.search(search)
     if search

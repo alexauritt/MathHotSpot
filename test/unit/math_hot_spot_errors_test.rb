@@ -18,4 +18,8 @@ class MathHotSpotErrorsTest < ActionView::TestCase
   test "EmptyProblem display_mode returns false" do
     assert !MathHotSpotErrors::EmptyProblem.display_mode?
   end
+  
+  test "Empty Problem instruction_text returns expected message" do
+    assert_equal MathHotSpotErrors::Message::NO_INSTRUCTIONS_SPECIFIED, MathHotSpotErrors::EmptyProblem.instruction_text
+  end
 end

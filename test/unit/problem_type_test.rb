@@ -6,9 +6,15 @@ class ProblemTypeTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   
   def setup
-    @problem_type = ProblemType.new
+    @problem_type = ProblemType.new(:instruction => Instruction.new)
     @level = @problem_type.problem_levels.build
     @level2 = @problem_type.problem_levels.build
+  end
+
+  test "instruction_text" do
+    instruction_text = "do this thing"
+    Instruction.any_instance.expects(:description).returns(instruction_text)
+    assert_equal instruction_text, @problem_type.instruction_text
   end
       
   test "use display mode by default" do
@@ -136,7 +142,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
   test "empty_problem returns math problems with blank string as answer markup" do
     assert_equal "", ProblemType.empty_problem.answer_markup
   end
-
+  
   private
   
   def assert_first_problem_saves_but_second_fails(first_title, second_title)
