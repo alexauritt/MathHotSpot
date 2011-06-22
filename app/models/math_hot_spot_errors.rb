@@ -33,6 +33,14 @@ module MathHotSpotErrors
   end
   
   class EmptyProblem
-    MARKUP = "No problem defined for this problem."
+    def self.question_markup
+      "No math problem defined for this problem type. Please add some math problems!"
+    end
+    def self.answer_markup
+      ""
+    end
+    def self.display_mode?
+      false
+    end
   end
 end

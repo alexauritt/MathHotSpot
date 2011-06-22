@@ -18,6 +18,10 @@ class ProblemLevel < ActiveRecord::Base
     math_problems.size
   end
 
+  def empty?
+    math_problems.size == 0
+  end
+
   def demo_problem
     math_problems.first
   end

@@ -21,13 +21,31 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert_equal false, mpt.display_mode
   end
   
-  test "demo problem" do
-    @level.stubs(:demo_problem).returns(MathProblem.new)
-    assert_instance_of MathProblem, @problem_type.demo_problem
+  test "demo_problem delegates to first problem_level.demo_problem if possible" do
+    demo_math_prob = mock
+    @level.expects(:empty?).returns(false)
+    @level.expects(:demo_problem).returns(demo_math_prob)
+    assert_equal demo_math_prob, @problem_type.demo_problem
   end
   
-  test "demo_problem returns empty problem when template has no levels defined" do
-    @problem_type.demo_problem
+  test "demo_problem returns a problem from second level if first level has no math problems" do
+    empty_problem = MathHotSpotErrors::EmptyProblem
+    @level.expects(:empty?).returns(true)
+    @level2.expects(:empty?).returns(false)
+    @level2.expects(:demo_problem).returns(empty_problem)
+    assert_equal empty_problem, @problem_type.demo_problem
+  end
+  
+  test "demo_problem returns empty math problem if all levels are empty" do
+    empty_problem = ProblemType.empty_problem
+    @level.expects(:empty?).returns(true)
+    @level2.expects(:empty?).returns(true)
+    assert_equal empty_problem, @problem_type.demo_problem
+  end
+  
+  test "demo_problem returns empty math problem if problem type has no levels" do
+    empty_problem_type = ProblemType.new
+    assert_equal MathHotSpotErrors::EmptyProblem, empty_problem_type.demo_problem
   end
   
   test "problem_count" do
@@ -113,6 +131,10 @@ class ProblemTypeTest < ActiveSupport::TestCase
     pt = ProblemType.create(:tag_list => "Candy, chocolate", :title => "Hershey Bar")
     results = ProblemType.search("candy, Chocolate")
     assert results.include?(pt)
+  end
+    
+  test "empty_problem returns math problems with blank string as answer markup" do
+    assert_equal "", ProblemType.empty_problem.answer_markup
   end
 
   private

@@ -40,8 +40,8 @@ class ProblemType < ActiveRecord::Base
   end  
   
   def demo_problem
-    level = problem_levels.first
-    level.demo_problem
+    non_empty_level = problem_levels.detect {|level| !level.empty? }
+    non_empty_level.nil? ? MathHotSpotErrors::EmptyProblem : non_empty_level.demo_problem
   end
 
   def problem_count
@@ -96,6 +96,10 @@ class ProblemType < ActiveRecord::Base
     end
     
     without_original[rand(without_original.size)]
+  end
+  
+  def self.empty_problem
+    MathHotSpotErrors::EmptyProblem
   end
   
   private

@@ -41,4 +41,15 @@ class ProblemLevelTest < ActiveSupport::TestCase
     level = ProblemLevel.new
     assert level.destroy    
   end
+  
+  test "empty?" do
+    level = ProblemLevel.new
+    assert level.empty?
+  end
+  
+  test "empty? false if math_problems present" do
+    level = ProblemLevel.new
+    level.math_problems.build
+    assert !level.empty?
+  end
 end
