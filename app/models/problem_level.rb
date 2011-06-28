@@ -10,7 +10,7 @@ class ProblemLevel < ActiveRecord::Base
   
   accepts_nested_attributes_for :math_problems, :reject_if => lambda { |a| a[:question_markup].blank? || a[:answer_markup].blank? }, :allow_destroy => true
 
-  before_destroy :math_problems_empty?
+  before_destroy :empty?
   
   def to_param
     level_number.to_s
@@ -21,7 +21,7 @@ class ProblemLevel < ActiveRecord::Base
   end
 
   def empty?
-    math_problems.size == 0
+    math_problems.empty?
   end
 
   def demo_problem
@@ -34,10 +34,6 @@ class ProblemLevel < ActiveRecord::Base
 
   def instruction
     problem_type.instruction
-  end
-  
-  def math_problems_empty?
-    math_problems.blank?
   end
 
 end
