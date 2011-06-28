@@ -143,6 +143,24 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert_equal "", ProblemType.empty_problem.answer_markup
   end
   
+  test "destory fails if problem type has existing levels" do
+    assert_equal false, @problem_type.destroy, "Can't destroy this problem type -- It has LEVELS!"
+  end
+  
+  test "destroy succeeds if no levels exists" do
+    problem_type = ProblemType.new
+    assert problem_type.destroy, "ProblemType with no levels successfully destroyed"
+  end
+  
+  test "empty?" do
+    problem_type = ProblemType.new
+    assert problem_type.empty?
+  end
+  
+  test "empty? false if levels present" do
+    assert_equal false, @problem_type.empty?
+  end  
+  
   private
   
   def assert_first_problem_saves_but_second_fails(first_title, second_title)

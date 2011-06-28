@@ -4,7 +4,7 @@ class ProblemType < ActiveRecord::Base
   belongs_to :lesson
   belongs_to :instruction
   
-  has_many :problem_levels, :order => :level_number, :dependent => :destroy
+  has_many :problem_levels, :order => :level_number
   has_many :math_problems, :through => :problem_levels
 
   acts_as_taggable
@@ -17,6 +17,12 @@ class ProblemType < ActiveRecord::Base
 
   before_validation :generate_slug, :if => :title
   before_validation :initialize_problem_levels, :on => :create
+  
+  before_destroy :empty?
+
+  def empty?
+    problem_levels.empty?
+  end
 
   def new_tag
     nil
