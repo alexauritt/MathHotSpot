@@ -2,7 +2,7 @@ class ProblemLevel < ActiveRecord::Base
 
   belongs_to :problem_type
 
-  has_many :math_problems, :dependent => :destroy
+  has_many :math_problems
   has_one :lesson, :through => :problem_type
   
   validates_presence_of :problem_type, :level_number
@@ -10,6 +10,8 @@ class ProblemLevel < ActiveRecord::Base
   
   accepts_nested_attributes_for :math_problems, :reject_if => lambda { |a| a[:question_markup].blank? || a[:answer_markup].blank? }, :allow_destroy => true
 
+  before_destroy :math_problems_empty?
+  
   def to_param
     level_number.to_s
   end
@@ -33,9 +35,9 @@ class ProblemLevel < ActiveRecord::Base
   def instruction
     problem_type.instruction
   end
-
-  def destroy
-    math_problems.blank? ? super : false
-  end
   
+  def math_problems_empty?
+    math_problems.blank?
+  end
+
 end
