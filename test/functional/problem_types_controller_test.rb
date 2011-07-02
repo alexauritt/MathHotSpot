@@ -49,6 +49,28 @@ class ProblemTypesControllerTest < ActionController::TestCase
     get :new, :lesson_id => lesson.id
     assert_select "input#problem_type_lesson_id[type=hidden][value=#{lesson.id}]"
   end
+  
+  test "create makes new empty problem_type even if level information is incomplete" do
+    problem_type = problem_type_with_lesson_and_incomplete_level
+    attributes = problem_type.attributes.merge nested_incomplete_level_attributes
+    message = "New ProblemType was not successfully create - probably do to improper formatting of nested ProblemLevel"
+    assert_difference('ProblemType.count', 1, message) do
+      post :create, :problem_type => attributes
+    end
+    
+    assert_redirected_to lesson_path(problem_type.lesson)
+
+  end
+  
+  test "does NOT create level if level info incomplete" do
+    problem_type = problem_type_with_lesson_and_incomplete_level
+    
+    assert_no_difference('ProblemLevel.count') do
+      post :create, :problem_type => problem_type.attributes
+    end
+    
+    assert_redirected_to lesson_path(problem_type.lesson)
+  end
 
   test "create makes new problem_type with lesson, level, and problem" do
     problem_type = problem_type_with_lesson_level_and_problem
@@ -85,6 +107,15 @@ class ProblemTypesControllerTest < ActionController::TestCase
   def nested_level_and_problem_attributes
     { :problem_levels_attributes => [{:level_number => 666, :math_problems_attributes => 
         [{:question_markup => 'some question', :answer_markup => 'some answer'}]}]}  
+  end
+  
+  def nested_incomplete_level_attributes
+    { :problem_levels_attributes => [{}]}
+  end
+  
+  def problem_type_with_lesson_and_incomplete_level
+    current_lesson = lessons(:monomial_factors_of_polynomials_lesson)
+    problem_type = ProblemType.new(:title => 'brand new lesson', :lesson => current_lesson)
   end
   
   def problem_type_with_lesson_level_and_problem

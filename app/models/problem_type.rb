@@ -9,7 +9,8 @@ class ProblemType < ActiveRecord::Base
 
   acts_as_taggable
 
-  accepts_nested_attributes_for :problem_levels
+  # accepts_nested_attributes_for :problem_levels  
+  accepts_nested_attributes_for :problem_levels, :reject_if => lambda { |level| level[:level_number].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :instruction
   
   validates_presence_of :title, :permalink
