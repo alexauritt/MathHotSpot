@@ -4,7 +4,7 @@ class RoutingTest < ActionController::TestCase
 
 # menus
   test "menu index route" do
-    assert_routing( { :path => "menu", :method => :get}, {:controller => "menus", :action => "index"})
+    assert_routing( { :path => "/", :method => :get}, {:controller => "menus", :action => "index"})
   end
   
   test "tag menu route" do

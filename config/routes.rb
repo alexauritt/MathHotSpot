@@ -1,5 +1,7 @@
 Mathhotspot::Application.routes.draw do
   
+  devise_for :users
+
   root :to => "menus#index"
   
   resources :categories
@@ -11,7 +13,7 @@ Mathhotspot::Application.routes.draw do
     resources :lessons, :except => [:show]
   end  
   
-  match 'menu' => 'menus#index', :as => :menu
+  # match 'menu' => 'menus#index', :as => :menu
   match '/menu/:tag' => 'menus#tag_menu', :as => :tag_menu
   
   resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete] do

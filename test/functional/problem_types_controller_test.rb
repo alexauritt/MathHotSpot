@@ -50,7 +50,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
       delete :destroy, :id => problem_type.to_param
     end
 
-    assert_redirected_to menu_path
+    assert_redirected_to root_path
   end
   
   test "delete fails if problem type is not empty" do
@@ -61,7 +61,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
       delete :destroy, :id => problem_type.to_param
     end
 
-    assert_redirected_to menu_path
+    assert_redirected_to root_path
   end
 
   test "lesson_id specified in hidden field in new" do

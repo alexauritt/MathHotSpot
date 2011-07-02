@@ -37,6 +37,6 @@ class MathProblemsController < ApplicationController
   def destroy
     @math_problem = MathProblem.find(params[:id])
     @math_problem.destroy
-    redirect_to menu_url 
+    redirect_to root_url 
   end    
 end

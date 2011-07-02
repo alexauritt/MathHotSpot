@@ -46,7 +46,7 @@ class ProblemTypesController < ApplicationController
   def destroy
     problem_type = ProblemType.find_by_permalink(params[:id])
     problem_type.destroy
-    redirect_to menu_url
+    redirect_to root_url
   end
   
 end
