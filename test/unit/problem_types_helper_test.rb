@@ -59,6 +59,17 @@ class ProblemTypesHelperTest < ActionView::TestCase
     assert_equal destroy_link, delete_level(level)
   end
   
+  test "delete_problem_type_link returns nothing if problem type has levels" do
+    @problem_type.problem_levels.build
+    assert_equal "", delete_problem_type_link_if_empty(@problem_type)
+  end
+  
+  test "delete_problem_type_link returns link if problem type is empty" do
+    @problem_type.title = "wkrp"
+    destroy_link = link_to('Delete Problem Type', '/problem_types/wkrp', :confirm => 'Are you sure?', :method => :delete)
+    assert_equal destroy_link, delete_problem_type_link_if_empty(@problem_type)
+  end
+  
   test "empty_problem_type_message" do
     assert_equal MathHotSpotErrors::Message::NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE, empty_problem_type_message
   end
