@@ -14,6 +14,7 @@ class ProblemLevelsController < ApplicationController
   
   def create
     @problem_level = ProblemLevel.new(params[:problem_level])
+    @problem_level.problem_type.problem_levels.build  # ahhh! ick! required to prevent problem_type from being 'blank' when we are creating first level. unclear why this is the case.
     if @problem_level.save
       redirect_to(problem_type_url(@problem_level.problem_type), :notice => 'Problem Level was successfully created.')
     else

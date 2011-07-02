@@ -64,6 +64,17 @@ class ProblemLevelsControllerTest < ActionController::TestCase
     
     assert_redirected_to problem_type_url(@problem_level.problem_type.permalink)
   end
+  
+  test "should create new level for existing problem type in database that has no problem levels" do
+    problem_type = problem_types(:empty_problem_type)
+    problem_level = ProblemLevel.new(:problem_type => problem_type, :level_number => problem_type.lowest_available_level_number)
+    assert problem_type.problem_levels.empty?, "This Problem Type (fixture) should have no levels or problems at the start"
+    
+    assert_difference('ProblemLevel.count') do
+      post :create, :problem_type_id => problem_type.permalink, :problem_level => problem_level.attributes.merge(math_problem_attributes)
+    end
+    assert_redirected_to problem_type_path(problem_type)    
+  end
 
   
   private

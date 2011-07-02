@@ -50,7 +50,7 @@ class ProblemTypesControllerTest < ActionController::TestCase
     assert_select "input#problem_type_lesson_id[type=hidden][value=#{lesson.id}]"
   end
 
-  test "create makes new problem_type" do
+  test "create makes new problem_type with lesson, level, and problem" do
     problem_type = problem_type_with_lesson_level_and_problem
 
     assert_difference('ProblemType.count') do
