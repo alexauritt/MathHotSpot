@@ -1,4 +1,7 @@
 Mathhotspot::Application.routes.draw do
+  
+  root :to => "menus#index"
+  
   resources :categories
 
   match 'admin' => 'admin#index', :as => :admin

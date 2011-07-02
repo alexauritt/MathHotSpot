@@ -13,6 +13,7 @@ gem 'mocha', :require => false
 gem 'autotest-rails'
 gem 'heroku'
 gem 'simple_form'
+gem 'devise'
 
 # Use unicorn as the web server
 # gem 'unicorn'
