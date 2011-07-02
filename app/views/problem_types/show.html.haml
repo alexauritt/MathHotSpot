@@ -19,6 +19,8 @@
 .row#level_examples
   =render(:partial => 'level_examples', :locals => {:levels => @problem_type.problem_levels })
 
+=delete_problem_type_link_if_empty(@problem_type)
+
 .row
   =link_to "Back to Lesson", lesson_path(@problem_type.lesson)
   |

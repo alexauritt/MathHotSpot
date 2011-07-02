@@ -66,7 +66,7 @@ class ProblemTypesHelperTest < ActionView::TestCase
   
   test "delete_problem_type_link returns link if problem type is empty" do
     @problem_type.title = "wkrp"
-    destroy_link = link_to('Delete Problem Type', '/problem_types/wkrp', :confirm => 'Are you sure?', :method => :delete)
+    destroy_link = render(:partial => 'problem_types/delete_problem_type', :locals => {:type => @problem_type})
     assert_equal destroy_link, delete_problem_type_link_if_empty(@problem_type)
   end
   

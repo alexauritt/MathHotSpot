@@ -21,6 +21,6 @@ simp_no_zero_problem_type:
   
 empty_problem_type:
   title: Problem Type That Has No Levels
-  permalink: problem_type_that_has_no_levels
+  permalink: problem-type-that-has-no-levels
   lesson: dividing_monomials_lesson
   instruction: simplify_no_zero_denom 

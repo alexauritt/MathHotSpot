@@ -41,6 +41,28 @@ class ProblemTypesControllerTest < ActionController::TestCase
     put :update, :id => problem_type.to_param, :problem_type => problem_type.attributes
     assert_redirected_to problem_type_path(assigns(:problem_type))    
   end
+  
+  test "delete empty problem type" do
+    problem_type = problem_types(:empty_problem_type)
+    
+    assert problem_type.empty?
+    assert_difference('ProblemType.count', -1) do
+      delete :destroy, :id => problem_type.to_param
+    end
+
+    assert_redirected_to menu_path
+  end
+  
+  test "delete fails if problem type is not empty" do
+    problem_type = problem_types(:dividing_monomials_problem_type)
+    
+    assert !problem_type.empty?
+    assert_no_difference('ProblemType.count') do
+      delete :destroy, :id => problem_type.to_param
+    end
+
+    assert_redirected_to menu_path
+  end
 
   test "lesson_id specified in hidden field in new" do
     problem_type = ProblemType.new
@@ -101,8 +123,35 @@ class ProblemTypesControllerTest < ActionController::TestCase
     
     assert_redirected_to lesson_path(problem_type.lesson)
   end
+  
+  test "should show delete link if problem type has no math problems" do
+    problem_type = stubbed_empty_problem_type
+    
+    get :show, :id => problem_type.permalink
+
+    assert_select ".row#delete_problem_type", "Delete Problem Type"
+    assert_response :success
+  end
+  
+  test "should NOT show delete link if problem type has problem levels" do
+    problem_type = stubbed_empty_problem_type
+    level = problem_type.problem_levels.build(:level_number => 3)
+    level.problem_type = problem_type
+
+    get :show, :id => problem_type.permalink
+
+    assert_select ".row#delete_problem_type", false
+    assert_response :success
+  end
     
   private
+  
+  def stubbed_empty_problem_type
+    problem_type = ProblemType.new(:title => "goo goo", :permalink => 'goo-goo')
+    problem_type.stubs(:instruction_text).returns("Do the damn problem!")
+    ProblemType.stubs(:find_by_permalink).with('goo-goo').returns(problem_type)
+    problem_type
+  end
 
   def nested_level_and_problem_attributes
     { :problem_levels_attributes => [{:level_number => 666, :math_problems_attributes => 

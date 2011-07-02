@@ -25,7 +25,7 @@ module ProblemTypesHelper
   end
 
   def delete_problem_type_link_if_empty(type)
-    type.problem_levels.empty? ? link_to('Delete Problem Type', problem_type_path(type), :confirm => "Are you sure?", :method => :delete) : ""
+    type.problem_levels.empty? ? render(:partial => "problem_types/delete_problem_type", :locals => {:type => type}) : ""
   end
 
   def empty_problem_type_message
