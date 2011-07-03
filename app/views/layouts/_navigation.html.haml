@@ -1,3 +1,6 @@
-.nav_bar
-  = link_to :menu, root_url
-  = link_to :home, "/"
+.nav
+  #nav_bar
+    = link_to :menu, root_url | 
+  #user_login
+    = display_email_if_signed_in
+    = user_login_or_logout_link

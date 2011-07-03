@@ -12,3 +12,15 @@ div#tag_list a:link, div#tag_list a:visited {
 .form_section {
   margin: 15px 0px 15px 0px;
 }
+
+.nav {
+  clear: both;
+}
+
+.nav #nav_bar {
+  float: left;
+}
+
+.nav #user_login {
+  text-align: right;
+}

@@ -1,10 +1,20 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
-  
+    
   def setup
     @cdn_script_link = "<script src=\"http://cdn.mathjax.org/mathjax/1.1-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\" type=\"text/javascript\"></script>"
     @local_script_link = "<script src=\"/javascripts/math_jax/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local.js\" type=\"text/javascript\"></script>"
+  end
+
+  test "user_login_or_logout_link returns Sign In if no one is logged in" do
+    stubs(:user_signed_in?).returns(false)
+    assert_equal link_to("Sign In", new_user_session_url), user_login_or_logout_link
+  end
+  
+  test "user_login_or_logout_link returns Sign Out link if user currently logged in" do
+    stubs(:user_signed_in?).returns(true)
+    assert_equal link_to('Sign Out', destroy_user_session_url, :method => :delete), user_login_or_logout_link
   end
   
   test "display_level_number" do

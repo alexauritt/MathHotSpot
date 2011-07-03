@@ -1,4 +1,13 @@
 module ApplicationHelper
+
+  def user_login_or_logout_link
+    user_signed_in? ? link_to("Sign Out", destroy_user_session_url, :method => :delete) : link_to("Sign In", new_user_session_url)
+  end
+  
+  def display_email_if_signed_in
+    user_signed_in? ? current_user.email.concat(" | ") : ""
+  end
+  
   def display_level_number(level)
     level.level_number? ? "Level: #{level.level_number}" : MathHotSpotErrors::Message::NO_LEVEL_NUMBER
   end
