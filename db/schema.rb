@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110702215214) do
+ActiveRecord::Schema.define(:version => 20110703161223) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20110702215214) do
     t.boolean  "display_mode",   :default => true
     t.string   "title"
     t.string   "permalink"
+    t.integer  "owner_id"
   end
 
   create_table "subjects", :force => true do |t|
