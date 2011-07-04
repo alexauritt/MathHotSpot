@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
   has_many :problem_types, :foreign_key => "owner_id"
+  has_many :lessons, :foreign_key => "owner_id"
 end
