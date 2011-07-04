@@ -6,7 +6,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   
   def setup
-    @problem_type = ProblemType.new(:instruction => Instruction.new)
+    @problem_type = ProblemType.new(:instruction => Instruction.new, :owner => users(:testuser))
     @level = @problem_type.problem_levels.build
     @level2 = @problem_type.problem_levels.build
   end
@@ -93,8 +93,8 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert_equal 1, prob_type.lowest_available_level_number
   end
   
-  test "new template created with nested problem level" do
-    params = {:problem_type => {:title => "Best problem type ever created", :lesson_id => 8, :instruction_id => 10, 
+  test "new problem type created with nested problem level" do
+    params = {:problem_type => {:title => "Best problem type ever created", :owner => users(:testuser), :lesson_id => 8, :instruction_id => 10, 
       :problem_levels_attributes => [{:level_number => 10}]
     }}
     
@@ -105,7 +105,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
   end
   
   test "new problem level created when nested in math problem template" do
-    params = {:problem_type => {:title => "utterly fantastic problem type", :lesson_id => 8, :instruction_id => 10, 
+    params = {:problem_type => {:title => "utterly fantastic problem type", :owner => users(:testuser), :lesson_id => 8, :instruction_id => 10, 
       :problem_levels_attributes => [{:level_number => 10}]
     }}
   
@@ -128,13 +128,13 @@ class ProblemTypeTest < ActiveSupport::TestCase
   end
   
   test "search (title) is case insensitive" do
-    pt = ProblemType.create(:title => "Fraction Multiplication")
+    pt = ProblemType.create(:title => "Fraction Multiplication", :owner => users(:testuser))
     results = ProblemType.search("fraction MULTIPLicATIOn")
     assert results.include?(pt), "Problem Type not found with case insensitive search (by title)"
   end
   
   test "search (tags) is case insensitive" do
-    pt = ProblemType.create(:tag_list => "Candy, chocolate", :title => "Hershey Bar")
+    pt = ProblemType.create(:tag_list => "Candy, chocolate", :owner => users(:testuser), :title => "Hershey Bar")
     results = ProblemType.search("candy, Chocolate")
     assert results.include?(pt)
   end
@@ -166,7 +166,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
   def assert_first_problem_saves_but_second_fails(first_title, second_title)
     title = first_title
 
-    params = {:problem_type => {:title => title, :lesson_id => 8, :instruction_id => 10, 
+    params = {:problem_type => {:title => title, :owner => users(:testuser), :lesson_id => 8, :instruction_id => 10, 
       :problem_levels_attributes => [{:level_number => 10}]
     }}
 

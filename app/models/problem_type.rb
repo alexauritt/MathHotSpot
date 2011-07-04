@@ -14,7 +14,7 @@ class ProblemType < ActiveRecord::Base
   accepts_nested_attributes_for :problem_levels, :reject_if => lambda { |level| level[:level_number].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :instruction
   
-  validates_presence_of :title, :permalink
+  validates_presence_of :title, :permalink, :owner
   validates_uniqueness_of :title, :permalink, :case_sensitive => false
 
   before_validation :generate_slug, :if => :title
