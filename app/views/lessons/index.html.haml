@@ -1,0 +1,6 @@
+%h2 My Lessons
+
+.lessons
+- @lessons.each do |lesson|
+  .lesson
+    =link_to lesson.title, lesson_url(lesson)

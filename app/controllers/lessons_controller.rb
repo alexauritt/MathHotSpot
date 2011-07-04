@@ -10,5 +10,9 @@ class LessonsController < ApplicationController
       format.xml  { render :xml => @lesson }
     end
   end
+  
+  def index
+    @lessons = Lesson.find_all_by_owner_id(current_user.id) 
+  end
 
 end
