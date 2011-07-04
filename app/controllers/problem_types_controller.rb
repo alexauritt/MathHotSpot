@@ -17,7 +17,7 @@ class ProblemTypesController < ApplicationController
   end
   
   def create
-    @problem_type = ProblemType.new(params[:problem_type])
+    @problem_type = ProblemType.new(params[:problem_type].merge({:owner => current_user }))
     if @problem_type.save
       redirect_to(lesson_url(@problem_type.lesson), :notice => 'Problem Type was successfully created.')
     else
