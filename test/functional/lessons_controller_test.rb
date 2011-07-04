@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class LessonsControllerTest < ActionController::TestCase
+class LessonsControllerTest < AuthenticatingControllerTestCase
   setup do
-    authenticate
     @lesson = lessons(:dividing_monomials_lesson)
   end
 

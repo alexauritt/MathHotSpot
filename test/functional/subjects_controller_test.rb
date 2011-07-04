@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class SubjectsControllerTest < ActionController::TestCase
-  setup do
-    authenticate
+class SubjectsControllerTest < AuthenticatingControllerTestCase
+  setup do    
     @subject = subjects(:algebraI)
   end
 

@@ -1,10 +1,9 @@
 require 'test_helper'
 
-class ProblemLevelsControllerTest < ActionController::TestCase
+class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
   # Replace this with your real tests.
 
   def setup
-    authenticate
   end
 
   test "should show" do

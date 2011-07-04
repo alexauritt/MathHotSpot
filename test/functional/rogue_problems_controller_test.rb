@@ -1,9 +1,8 @@
 require 'test_helper'
 
-class RogueProblemsControllerTest < ActionController::TestCase
+class RogueProblemsControllerTest < AuthenticatingControllerTestCase
   # Replace this with your real tests.
   def setup
-    authenticate
   end
 
   test "should get index" do

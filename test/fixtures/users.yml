@@ -9,5 +9,10 @@
 #
 #two: {}
 #  column: value
+
+testuser:
+  email: testuser@testuse.com
+  
 joe:
   email: joe@blow.com
+  # password: markus

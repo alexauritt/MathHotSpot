@@ -1,4 +1,5 @@
 class InstructionsController < ApplicationController
+  
   def new
     @lesson = Lesson.find(params[:lesson_id])
     @instruction = Instruction.new

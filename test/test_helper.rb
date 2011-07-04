@@ -9,12 +9,15 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  def authenticate
-    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("foo:bar")        
-  end
   # Add more helper methods to be used by all tests here...
 end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+end
+
+class AuthenticatingControllerTestCase < ActionController::TestCase
+  setup do
+    sign_in users(:testuser)
+  end  
 end

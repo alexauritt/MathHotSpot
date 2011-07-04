@@ -1,9 +1,8 @@
 require 'test_helper'
 
-class MathProblemsControllerTest < ActionController::TestCase
+class MathProblemsControllerTest < AuthenticatingControllerTestCase
   # Replace this with your real tests.
   def setup
-    authenticate
     @math_problem = math_problems(:simple_monomial_problem_01)
   end
     

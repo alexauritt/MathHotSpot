@@ -1,10 +1,9 @@
 require 'test_helper'
 
-class WorksheetsControllerTest < ActionController::TestCase
+class WorksheetsControllerTest < AuthenticatingControllerTestCase
   # Replace this with your real tests.
 
   def setup
-    authenticate
   end
   
   test "update/replace changes div content of target problem" do

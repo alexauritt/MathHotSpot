@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class CategoriesControllerTest < ActionController::TestCase
+class CategoriesControllerTest < AuthenticatingControllerTestCase
   setup do
-    authenticate
     @category = categories(:polynomials)
   end
 

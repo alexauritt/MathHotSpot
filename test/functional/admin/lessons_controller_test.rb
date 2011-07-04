@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class Admin::LessonsControllerTest < ActionController::TestCase
-  def setup
-    authenticate
+class Admin::LessonsControllerTest < AuthenticatingControllerTestCase
+  def setup    
     @lesson = lessons(:dividing_monomials_lesson)
   end
 

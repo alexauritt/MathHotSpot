@@ -1,9 +1,8 @@
 require 'test_helper'
 
-class ProblemTypesControllerTest < ActionController::TestCase
+class ProblemTypesControllerTest < AuthenticatingControllerTestCase
   # Replace this with your real tests.
-  def setup
-    authenticate
+  def setup    
   end
 
   test "index" do
