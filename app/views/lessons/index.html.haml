@@ -1,6 +1,12 @@
-%h2 My Lessons
+
 
 .lessons
-- @lessons.each do |lesson|
-  .lesson
-    =link_to lesson.title, lesson_url(lesson)
+  %h2 My Lessons
+  - @lessons.each do |lesson|
+    .lesson
+      =link_to lesson.title, lesson_url(lesson)
+    
+.worksheets
+  %h2 My Worksheets
+  .worksheets
+    Coming Soon!
