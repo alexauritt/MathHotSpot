@@ -8,4 +8,8 @@ class Category < ActiveRecord::Base
   def empty?
     problem_types.empty?
   end
+  
+  def title_with_subject
+    "#{subject.title} -- #{title}"
+  end
 end

@@ -23,8 +23,8 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
   end
   
   test "new" do
-    @problem_type = problem_type_with_lesson_level_and_problem
-    get :new, :lesson_id => @problem_type.lesson.id
+    @problem_type = problem_type_with_category_level_and_problem
+    get :new
     assert_response :success
     assert_prompts_for_problem_question_and_answer
   end
@@ -63,68 +63,60 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     assert_redirected_to root_path
   end
 
-  test "lesson_id specified in hidden field in new" do
-    problem_type = ProblemType.new
-    lesson = lessons(:monomial_factors_of_polynomials_lesson)
-    problem_type.lesson = lesson
-    get :new, :lesson_id => lesson.id
-    assert_select "input#problem_type_lesson_id[type=hidden][value=#{lesson.id}]"
-  end
-  
   test "create makes new empty problem_type even if level information is incomplete" do
-    problem_type = problem_type_with_lesson_and_incomplete_level
+    problem_type = problem_type_with_category_and_incomplete_level
     attributes = problem_type.attributes.merge nested_incomplete_level_attributes
     message = "New ProblemType was not successfully create - probably do to improper formatting of nested ProblemLevel"
     assert_difference('ProblemType.count', 1, message) do
       post :create, :problem_type => attributes
     end
     
-    assert_redirected_to lesson_path(problem_type.lesson)
+    assert_redirected_to problem_type_path(problem_type)
 
   end
   
   test "does NOT create level if level info incomplete" do
-    problem_type = problem_type_with_lesson_and_incomplete_level
+    problem_type = problem_type_with_category_and_incomplete_level
     
     assert_no_difference('ProblemLevel.count') do
       post :create, :problem_type => problem_type.attributes
     end
     
-    assert_redirected_to lesson_path(problem_type.lesson)
+    assert_redirected_to problem_type_url(problem_type)
   end
 
   test "create makes new problem_type with lesson, level, and problem" do
-    problem_type = problem_type_with_lesson_level_and_problem
+    problem_type = problem_type_with_category_level_and_problem
 
     assert_difference('ProblemType.count') do
       post :create, :problem_type => problem_type.attributes
     end
     
-    assert_redirected_to lesson_path(problem_type.lesson)
+    assert_redirected_to problem_type_path(problem_type)
   end
 
   test "create makes new problem_level" do
-    problem_type = problem_type_with_lesson_level_and_problem
+    problem_type = problem_type_with_category_level_and_problem
     attributes = problem_type.attributes.merge nested_level_and_problem_attributes
     assert_difference('ProblemLevel.count') do
       post :create, :problem_type => attributes
     end
     
-    assert_redirected_to lesson_path(problem_type.lesson)
+    assert_redirected_to problem_type_path(problem_type)
   end
 
   test "create makes new math_problem" do
-    problem_type = problem_type_with_lesson_level_and_problem
+    problem_type = problem_type_with_category_level_and_problem
     attributes = problem_type.attributes.merge nested_level_and_problem_attributes
     assert_difference('MathProblem.count') do
       post :create, :problem_type => attributes
     end
     
-    assert_redirected_to lesson_path(problem_type.lesson)
+    assert_redirected_to problem_type_path(problem_type)
   end
   
   test "newly created problemtype has current user as owner" do
-    post :create, :problem_type => problem_type_with_lesson_and_incomplete_level.attributes
+    post :create, :problem_type => problem_type_with_category_and_incomplete_level.attributes
     assert_equal users(:testuser), assigns(:problem_type).owner
   end
   
@@ -166,15 +158,14 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     { :problem_levels_attributes => [{}]}
   end
   
-  def problem_type_with_lesson_and_incomplete_level
-    current_lesson = lessons(:monomial_factors_of_polynomials_lesson)
-    problem_type = ProblemType.new(:title => 'brand new lesson', :lesson => current_lesson)
+  def problem_type_with_category_and_incomplete_level
+    category = categories(:polynomials)
+    problem_type = ProblemType.new(:title => 'brand new lesson', :category => category)
   end
   
-  def problem_type_with_lesson_level_and_problem
-    current_lesson = lessons(:monomial_factors_of_polynomials_lesson)
-    problem_type = ProblemType.new(:title => "A new kind of problem!")
-    problem_type.lesson = current_lesson
+  def problem_type_with_category_level_and_problem
+    category = categories(:polynomials)
+    problem_type = ProblemType.new(:title => "A new kind of problem!", :category => category)
     level = problem_type.problem_levels.build
     problem = level.math_problems.build(:question_markup => 'a question', :answer_markup => 'an answer')
     problem_type

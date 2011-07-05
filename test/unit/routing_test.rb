@@ -12,15 +12,14 @@ class RoutingTest < ActionController::TestCase
   end
 
 #instructions
-  test "lesson_instruction new" do
-    assert_routing( {:path => "lessons/32/instructions/new", :method => :get}, 
-      {:controller => "instructions", :action => "new", :lesson_id => '32'})
+  test "instructions new" do
+    assert_routing( {:path => "instructions/new", :method => :get}, {:controller => "instructions", :action => "new"})
   end
   
-  test "lesson_instruction create" do
-    assert_routing( {:path => "lessons/32/instructions", :method => :post}, 
-      {:controller => "instructions", :action => "create", :lesson_id => '32'})    
+  test "instruction create" do
+    assert_routing( {:path => "instructions", :method => :post}, {:controller => "instructions", :action => "create"})    
   end
+  
 
 #lessons
   test "lesson create" do
@@ -40,6 +39,11 @@ class RoutingTest < ActionController::TestCase
   end
   
 #problem_types
+
+  test "problem_type new" do
+    assert_routing( {:path => "/problem_types/new", :method => :get}, {:controller => "problem_types", :action => "new"})
+  end
+  
   test "problem_type index" do
     assert_routing( {:path => "/problem_types", :method => :get}, {:controller => "problem_types", :action => "index"})
   end
@@ -80,6 +84,9 @@ class RoutingTest < ActionController::TestCase
       {:controller => "math_problems", :action => "new", :problem_level_id => "4", :problem_type_id => 'cool-problem'})    
   end
 
+  test "show category" do
+    assert_routing( {:path => "/categories/3", :method => :get}, {:controller => 'categories', :action => 'show', :id => '3'})
+  end
   
 #rogue_problems
   test "rogue_problems new" do 

@@ -73,4 +73,20 @@ class ProblemTypesHelperTest < ActionView::TestCase
   test "empty_problem_type_message" do
     assert_equal MathHotSpotErrors::Message::NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE, empty_problem_type_message
   end
+  
+  test "category choices" do
+    algebra = Subject.new(:title => 'Algebra')
+    geometry = Subject.new(:title => 'Geometry')
+    fractions = Category.new(:title => "Fractions", :subject => algebra)
+    hexagons = Category.new(:title => "Hexagons and Other Fun Stuff", :subject => geometry)
+    graphing = Category.new(:title => "Graphing", :subject => algebra)
+    categories = [fractions, graphing, hexagons]
+    Category.stubs(:order).with('subject_id').returns(categories)
+    Category.any_instance.stubs(:id).returns(47)
+
+    expected_options = [['Algebra -- Fractions', 47], ['Algebra -- Graphing' ,47], ['Geometry -- Hexagons and Other Fun Stuff', 47]]
+    assert_equal expected_options, category_choices
+  end
+  
+  
 end

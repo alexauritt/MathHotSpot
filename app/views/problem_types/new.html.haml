@@ -1,17 +1,20 @@
 %h3
-  = "Create a new problem for Lesson: #{@problem_type.lesson.title}"
+  = "Create A New Problem Type"
 
 = form_for(@problem_type) do |t|
-  = hidden_field_tag "problem_type[lesson_id]", @problem_type.lesson.id
+
+  = t.label :category_id, "Category"
+  = t.select(:category_id, category_choices)
+  %br
 
   = t.label :title, "Title"
   = t.text_field :title
   %br
 
   = t.label :instruction_id, "Instruction"
-  = t.select(:instruction_id, instruction_choices)
+  = t.select :instruction_id, instruction_choices
   %br
-  = link_to "None of these will do... make new instructions", new_lesson_instruction_path(@problem_type.lesson)
+  = link_to "None of these will do... make new instructions", new_instructions_path
   %br
 
   = t.fields_for :problem_levels do |level_builder|

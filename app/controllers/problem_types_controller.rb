@@ -11,7 +11,6 @@ class ProblemTypesController < ApplicationController
   def new
     @problem_type = ProblemType.new
     @problem_type.build_instruction
-    @problem_type.lesson = Lesson.find(params[:lesson_id])
     level = @problem_type.problem_levels.build
     level.math_problems.build
   end
@@ -19,7 +18,7 @@ class ProblemTypesController < ApplicationController
   def create
     @problem_type = ProblemType.new(params[:problem_type].merge({:owner => current_user }))
     if @problem_type.save
-      redirect_to(lesson_url(@problem_type.lesson), :notice => 'Problem Type was successfully created.')
+      redirect_to(problem_type_path(@problem_type), :notice => 'Problem Type was successfully created.')
     else
       render :action => "new"
     end

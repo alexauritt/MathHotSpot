@@ -10,6 +10,11 @@ module ProblemTypesHelper
     count = problem_type.problem_count
     count == 1 ? "1 Problem" : "#{count} Problems"
   end
+
+  def category_choices
+    cats = Category.order("subject_id")
+    cats.collect {|category| [category.title_with_subject, category.id]}
+  end
   
   def instruction_choices
     Instruction.order("created_at DESC").all.collect {|instruction| [instruction.description, instruction.id ]}

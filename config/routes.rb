@@ -5,6 +5,8 @@ Mathhotspot::Application.routes.draw do
   root :to => "menus#index"
   
   resources :categories
+  
+  resource :instructions
 
   match 'admin' => 'admin#index', :as => :admin
 
@@ -22,10 +24,7 @@ Mathhotspot::Application.routes.draw do
   
   resources :subjects, :only => [:show, :index]
     
-  resources :lessons do
-    resources :problem_types, :only => [:new]
-    resources :instructions, :only => [:new, :create]
-  end
+  resources :lessons
 
   resources :math_problems, :except => [:new, :index]
   
@@ -33,7 +32,7 @@ Mathhotspot::Application.routes.draw do
     resources :worksheet_problems, :only => [:update]
   end
   
-  resources :problem_types, :except => [:new, :delete] do
+  resources :problem_types, :except => [:delete] do
     resources :problem_levels, :except => [:create] do
       resources :math_problems, :only => [:new]
     end

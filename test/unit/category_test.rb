@@ -20,6 +20,19 @@ class CategoryTest < ActiveSupport::TestCase
     category.problem_types.build(:title => "A problem type", :owner => users(:testuser))
     assert_equal false, category.destroy
   end
+
+  test "title_with_subject" do
+    category = Category.new(:title => "Fun With Napkins!")
+    category.build_subject(:title => "Science")
+    assert_equal "Science -- Fun With Napkins!", category.title_with_subject
+  end
   
+  test "calling title_with_subject twice should return the same value each time" do
+    # regression test -- there was a bug in Category#title_with_subject
+    category = Category.new(:title => "Fun With Napkins!")
+    category.build_subject(:title => "Science")
+    assert_equal "Science -- Fun With Napkins!", category.title_with_subject
+    assert_equal "Science -- Fun With Napkins!", category.title_with_subject
+  end
   
 end
