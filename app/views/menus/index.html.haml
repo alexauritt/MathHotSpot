@@ -9,6 +9,14 @@
       .subject
         = subject.title
         = render :partial => "categories/index_with_lessons", :locals => {:subject => subject}
+
+  #lessons-and-worksheets
+    %h2 
+      =link_to "My Lessons and Worksheets", lessons_path
+  #new_problem
+    %h2
+      =link_to "Create a New Problem Type", new_problem_type_path
+
   #tag_section
     %h2 Search by Tags
     #tag_list
@@ -21,7 +29,3 @@
         = submit_tag "Search", :name => nil
         %br
         Search by Title or Tag Name (e.g. Fractions, Monomials)
-        
-  #lessons-and-worksheets
-    %h2 
-      =link_to "My Lessons and Worksheets", lessons_path
