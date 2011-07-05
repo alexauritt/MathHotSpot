@@ -3,6 +3,7 @@ class ProblemType < ActiveRecord::Base
   
   belongs_to :lesson
   belongs_to :instruction
+  belongs_to :category
   belongs_to :owner, :class_name => "User"
   
   has_many :problem_levels, :order => :level_number
