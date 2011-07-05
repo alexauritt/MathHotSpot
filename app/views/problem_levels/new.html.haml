@@ -17,6 +17,9 @@
 .row
   %h2 Create a New Level:
 
+.row
+  = mathml_generator_link
+
 .row#new_level_form
   = form_for(@problem_level) do |level|
     = hidden_field_tag "problem_level[problem_type_id]", @problem_level.problem_type.id

@@ -14,7 +14,7 @@ en:
   devise:
     failure:
       already_authenticated: 'You are already signed in.'
-      unauthenticated: 'Please sign in. If you do not yet have an account, please bear with us. The rabbit is still a bit shy.'
+      unauthenticated: 'Please sign in. If you do not yet have an account, please bear with us. We're still a bit shy.'
       unconfirmed: 'You have to confirm your account before continuing.'
       locked: 'Your account is locked.'
       invalid: 'Invalid email or password.'
