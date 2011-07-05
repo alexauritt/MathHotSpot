@@ -41,8 +41,9 @@ class CategoriesControllerTest < AuthenticatingControllerTestCase
   end
 
   test "should destroy category" do
+    category = categories(:empty_category)
     assert_difference('Category.count', -1) do
-      delete :destroy, :id => @category.to_param
+      delete :destroy, :id => category.to_param
     end
 
     assert_redirected_to categories_path

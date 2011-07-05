@@ -7,3 +7,7 @@ polynomials:
 two:
   title: another categoruy
   subject: algebraI
+
+empty_category:
+  title: I will be destroyed
+  subject: algebraI
