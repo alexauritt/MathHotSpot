@@ -2,6 +2,8 @@ class Category < ActiveRecord::Base
   belongs_to :subject
   has_many :problem_types
   has_many :lessons
+
+  validates_presence_of :title
   
   before_destroy :empty?
   

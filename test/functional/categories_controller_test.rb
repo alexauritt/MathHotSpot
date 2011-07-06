@@ -17,7 +17,7 @@ class CategoriesControllerTest < AuthenticatingControllerTestCase
   end
 
   test "should create category" do
-    cat = Category.new
+    cat = Category.new(:title => "I am a new Category!")
     assert_difference('Category.count') do
       post :create, :category => cat.attributes
     end
