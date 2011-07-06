@@ -7,6 +7,10 @@ div.row {
   margin: 10 0 10 0;
 }
 
+div.column {
+  float: left;
+}
+
 div.single_problem_display, div.problem_example {
   float: left;
   background-color: grey;
@@ -46,5 +50,15 @@ div#container {
   clear: both;
 }
 
+.dashboard-list li {
+  margin-left: 1em;
+}
+.new-item {
+  margin-left: 2em;
+}
+
+.column#lessons-column, .column#worksheets-column, .column#problem-types-column {
+  width: 30%;
+}
 
 /* End of Main Index Page */
