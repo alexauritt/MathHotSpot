@@ -6,6 +6,8 @@
   = t.label :category_id, "Category"
   = t.select(:category_id, category_choices)
   %br
+  = link_to "Create a new Category", new_category_url
+  %br
 
   = t.label :title, "Title"
   = t.text_field :title
@@ -14,7 +16,7 @@
   = t.label :instruction_id, "Instruction"
   = t.select :instruction_id, instruction_choices
   %br
-  = link_to "None of these will do... make new instructions", new_instructions_path
+  = link_to "Make new Instructions", new_instructions_path
   %br
   = mathml_generator_link
 
