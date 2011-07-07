@@ -4,6 +4,7 @@ class CategoryTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   def setup
     @category = Category.new
+    @sample_title = "Fun With Napkins!"
   end
   
   test "empty? returns true when categories have problem_types" do
@@ -22,17 +23,22 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "title_with_subject" do
-    category = Category.new(:title => "Fun With Napkins!")
+    category = Category.new(:title => @sample_title)
     category.build_subject(:title => "Science")
     assert_equal "Science -- Fun With Napkins!", category.title_with_subject
   end
   
   test "calling title_with_subject twice should return the same value each time" do
     # regression test -- there was a bug in Category#title_with_subject
-    category = Category.new(:title => "Fun With Napkins!")
+    category = Category.new(:title => @sample_title)
     category.build_subject(:title => "Science")
     assert_equal "Science -- Fun With Napkins!", category.title_with_subject
     assert_equal "Science -- Fun With Napkins!", category.title_with_subject
+  end
+  
+  test "title_with_subject just returns title when subject is nil" do
+    category = Category.new(:title => @sample_title)
+    assert_equal @sample_title, category.title_with_subject
   end
   
 end

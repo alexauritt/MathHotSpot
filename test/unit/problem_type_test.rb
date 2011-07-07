@@ -170,6 +170,14 @@ class ProblemTypeTest < ActiveSupport::TestCase
   test "empty? false if levels present" do
     assert_equal false, @problem_type.empty?
   end  
+
+  test "category_with_subject delegates to category" do
+    problem_type = ProblemType.new
+    problem_type.build_category
+    expected_subject_string = "A Subject: A title"
+    problem_type.category.expects(:title_with_subject).returns(expected_subject_string)
+    assert_equal expected_subject_string, problem_type.category_with_subject
+  end
   
   private
   

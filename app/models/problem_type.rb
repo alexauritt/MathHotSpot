@@ -15,8 +15,10 @@ class ProblemType < ActiveRecord::Base
   accepts_nested_attributes_for :problem_levels, :reject_if => lambda { |level| level[:level_number].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :instruction
   
-  validates_presence_of :title, :permalink, :owner, :category
+  validates_presence_of :title, :permalink, :category_id, :owner_id
   validates_uniqueness_of :title, :permalink, :case_sensitive => false
+  
+  validates_associated :category, :instruction, :owner
 
   before_validation :generate_slug, :if => :title
   before_validation :initialize_problem_levels, :on => :create
@@ -74,6 +76,10 @@ class ProblemType < ActiveRecord::Base
       end
     end
     level_count + 1
+  end
+
+  def category_with_subject
+    category.title_with_subject
   end
   
   def instruction_text

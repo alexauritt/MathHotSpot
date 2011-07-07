@@ -12,6 +12,6 @@ class Category < ActiveRecord::Base
   end
   
   def title_with_subject
-    "#{subject.title} -- #{title}"
+    subject.nil? ? title : "#{subject.title} -- #{title}"
   end
 end

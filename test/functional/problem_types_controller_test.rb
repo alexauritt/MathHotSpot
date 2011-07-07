@@ -143,7 +143,7 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
   private
   
   def stubbed_empty_problem_type
-    problem_type = ProblemType.new(:title => "goo goo", :permalink => 'goo-goo')
+    problem_type = ProblemType.new(:title => "goo goo", :permalink => 'goo-goo', :category => Category.new)
     problem_type.stubs(:instruction_text).returns("Do the damn problem!")
     ProblemType.stubs(:find_by_permalink).with('goo-goo').returns(problem_type)
     problem_type
