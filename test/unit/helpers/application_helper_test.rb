@@ -44,4 +44,19 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal @local_script_link, include_mathjax
   end
 
+  test "problem_count_msg multiple" do
+    @problem_type.stubs(:problem_count).returns(7)
+    assert_equal "7 Problems", problem_count_msg(@problem_type)
+  end
+  
+  test "problem_count_msg singular" do
+    @problem_type.stubs(:problem_count).returns(1)
+    assert_equal "1 Problem", problem_count_msg(@problem_type)
+  end
+  
+  test "problem_count_msg zip" do
+    @problem_type.stubs(:problem_count).returns(0)
+    assert_equal "0 Problems", problem_count_msg(@problem_type)
+  end
+
 end

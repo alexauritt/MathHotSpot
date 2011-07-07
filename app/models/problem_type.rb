@@ -1,10 +1,11 @@
 class ProblemType < ActiveRecord::Base
   include MathHotSpotErrors
   
-  belongs_to :lesson
   belongs_to :instruction
   belongs_to :category
   belongs_to :owner, :class_name => "User"
+
+  belongs_to :lesson # not going to last...
   
   has_many :problem_levels, :order => :level_number
   has_many :math_problems, :through => :problem_levels
@@ -14,7 +15,7 @@ class ProblemType < ActiveRecord::Base
   accepts_nested_attributes_for :problem_levels, :reject_if => lambda { |level| level[:level_number].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :instruction
   
-  validates_presence_of :title, :permalink, :owner
+  validates_presence_of :title, :permalink, :owner, :category
   validates_uniqueness_of :title, :permalink, :case_sensitive => false
 
   before_validation :generate_slug, :if => :title
@@ -76,7 +77,7 @@ class ProblemType < ActiveRecord::Base
   end
   
   def instruction_text
-    instruction.description
+    instruction.nil? ? MathHotSpotErrors::Message::NO_INSTRUCTIONS : instruction.description
   end
 
   def self.search(search)

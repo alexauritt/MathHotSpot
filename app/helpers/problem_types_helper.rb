@@ -6,11 +6,6 @@ module ProblemTypesHelper
     count == 1 ? "1 Level" : "#{count} Levels"
   end
 
-  def problem_count_msg(problem_type)
-    count = problem_type.problem_count
-    count == 1 ? "1 Problem" : "#{count} Problems"
-  end
-
   def category_choices
     cats = Category.order("subject_id")
     cats.collect {|category| [category.title_with_subject, category.id]}

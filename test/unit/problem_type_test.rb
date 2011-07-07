@@ -6,15 +6,21 @@ class ProblemTypeTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   
   def setup
-    @problem_type = ProblemType.new(:instruction => Instruction.new, :owner => users(:testuser))
+    @standard_problem_type_params = { :owner_id => users(:testuser).id, 
+      :category_id => categories(:polynomials).id, :title => 'This is a Problem Type'}
+    @problem_type = ProblemType.new(@standard_problem_type_params)
     @level = @problem_type.problem_levels.build
     @level2 = @problem_type.problem_levels.build
   end
 
-  test "instruction_text" do
+  test "instruction_text delegates to associated instruction instance" do
     instruction_text = "do this thing"
-    Instruction.any_instance.expects(:description).returns(instruction_text)
+    @problem_type.build_instruction(:description => instruction_text)
     assert_equal instruction_text, @problem_type.instruction_text
+  end
+  
+  test "instruction_text returns error msg if instruction not defined" do
+    assert_equal MathHotSpotErrors::Message::NO_INSTRUCTIONS, ProblemType.new.instruction_text
   end
       
   test "use display mode by default" do
@@ -94,7 +100,8 @@ class ProblemTypeTest < ActiveSupport::TestCase
   end
   
   test "new problem type created with nested problem level" do
-    params = {:problem_type => {:title => "Best problem type ever created", :owner => users(:testuser), :lesson_id => 8, :instruction_id => 10, 
+    params = {:problem_type => {:title => "Best problem type ever created", :owner => users(:testuser), 
+      :category => categories(:polynomials), 
       :problem_levels_attributes => [{:level_number => 10}]
     }}
     
@@ -105,8 +112,8 @@ class ProblemTypeTest < ActiveSupport::TestCase
   end
   
   test "new problem level created when nested in math problem template" do
-    params = {:problem_type => {:title => "utterly fantastic problem type", :owner => users(:testuser), :lesson_id => 8, :instruction_id => 10, 
-      :problem_levels_attributes => [{:level_number => 10}]
+    params = {:problem_type => {:title => "utterly fantastic problem type", :owner => users(:testuser), 
+      :category => categories(:polynomials),  :problem_levels_attributes => [{:level_number => 10}]
     }}
   
     assert_difference('ProblemLevel.count') do
@@ -118,7 +125,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
     first_title = "a nice title"
     second_title = "a       nice title"
     
-    assert_first_problem_saves_but_second_fails(first_title, second_title)
+    assert_problem_created_with_first_title_but_second_fails(first_title, second_title)
   end
   
   test "search" do
@@ -128,13 +135,16 @@ class ProblemTypeTest < ActiveSupport::TestCase
   end
   
   test "search (title) is case insensitive" do
-    pt = ProblemType.create(:title => "Fraction Multiplication", :owner => users(:testuser))
+    pt = ProblemType.create(:title => "Fraction Multiplication", :owner => users(:testuser), 
+      :category => categories(:polynomials))
     results = ProblemType.search("fraction MULTIPLicATIOn")
     assert results.include?(pt), "Problem Type not found with case insensitive search (by title)"
   end
   
   test "search (tags) is case insensitive" do
-    pt = ProblemType.create(:tag_list => "Candy, chocolate", :owner => users(:testuser), :title => "Hershey Bar")
+    params = @standard_problem_type_params.merge({:tag_list => "Candy, chocolate"})
+    # puts "new params are #{params}"
+    pt = ProblemType.create(params)
     results = ProblemType.search("candy, Chocolate")
     assert results.include?(pt)
   end
@@ -163,10 +173,11 @@ class ProblemTypeTest < ActiveSupport::TestCase
   
   private
   
-  def assert_first_problem_saves_but_second_fails(first_title, second_title)
+  def assert_problem_created_with_first_title_but_second_fails(first_title, second_title)
     title = first_title
 
-    params = {:problem_type => {:title => title, :owner => users(:testuser), :lesson_id => 8, :instruction_id => 10, 
+    params = {:problem_type => {:title => title, :owner => users(:testuser), 
+      :category => categories(:polynomials), :instruction => instructions(:simplify), 
       :problem_levels_attributes => [{:level_number => 10}]
     }}
 

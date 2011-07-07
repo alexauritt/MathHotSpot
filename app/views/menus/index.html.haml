@@ -4,11 +4,11 @@
 
 #container
   #subject_list
-    %h2 Search by Subject
+    %h2 ProblemTypes by Subject/Category
     - @subjects.each do |subject|
       .subject
         = subject.title
-        = render :partial => "categories/index_with_lessons", :locals => {:subject => subject}
+        = render :partial => "categories/index_with_problem_types", :locals => {:subject => subject}
 
   #lessons-and-worksheets
     %h2 

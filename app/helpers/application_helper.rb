@@ -27,4 +27,9 @@ module ApplicationHelper
   def mathml_generator_link
     link_to "Help! I need a MathML Generator", "http://www.mathmlcentral.com/Tools/ToMathML.jsp", :target => "_blank"
   end
+  
+  def problem_count_msg(problem_type)
+    count = problem_type.problem_count
+    count == 1 ? "1 Problem" : "#{count} Problems"
+  end  
 end

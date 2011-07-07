@@ -5,7 +5,7 @@
 
 #container
   %h2
-    =link_to @lesson.subject.title, subject_path(@subject)
+    =link_to @lesson.subject.title, subject_path(@lesson.subject)
   %h3
     =@lesson.title
   .row#problem_list
@@ -25,7 +25,7 @@
           %br
           =display_tag_list problem_type
   .row#add_new_problem_links
-    =link_to "Add New Problem Type", new_problem_type_path
+    =link_to "Create New Problem Type", new_problem_type_path
   
 
 
