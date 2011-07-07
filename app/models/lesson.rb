@@ -4,7 +4,7 @@ class Lesson < ActiveRecord::Base
   has_one :subject, :through => :category
   has_many :problem_types
   
-  validates_presence_of :owner, :title
+  validates_presence_of :owner_id, :title
 
   def template_count
     problem_types.size
