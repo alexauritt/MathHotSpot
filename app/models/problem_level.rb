@@ -2,7 +2,7 @@ class ProblemLevel < ActiveRecord::Base
 
   belongs_to :problem_type
 
-  has_many :math_problems
+  has_many :math_problems, :inverse_of => :problem_level
   has_one :lesson, :through => :problem_type
   
   validates_presence_of :problem_type, :level_number

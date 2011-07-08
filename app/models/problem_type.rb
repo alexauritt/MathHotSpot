@@ -7,7 +7,7 @@ class ProblemType < ActiveRecord::Base
 
   belongs_to :lesson # not going to last...
   
-  has_many :problem_levels, :order => :level_number
+  has_many :problem_levels, :inverse_of => :problem_type, :order => :level_number
   has_many :math_problems, :through => :problem_levels
 
   acts_as_taggable
@@ -21,7 +21,6 @@ class ProblemType < ActiveRecord::Base
   validates_associated :category, :instruction, :owner
 
   before_validation :generate_slug, :if => :title
-  before_validation :initialize_problem_levels, :on => :create
   
   before_destroy :empty?
 
@@ -45,11 +44,6 @@ class ProblemType < ActiveRecord::Base
     permalink ||= generate_slug
   end
 
-  # required if we want nested_attributes AND validation of this parent in problem_level
-  def initialize_problem_levels
-    problem_levels.each { |pl| pl.problem_type = self }
-  end  
-  
   def demo_problem
     non_empty_level = problem_levels.detect {|level| !level.empty? }
     non_empty_level.nil? ? MathHotSpotErrors::EmptyProblem : non_empty_level.demo_problem
