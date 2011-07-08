@@ -5,7 +5,7 @@ class ProblemType < ActiveRecord::Base
   belongs_to :category
   belongs_to :owner, :class_name => "User"
 
-  belongs_to :lesson # not going to last...
+  has_and_belongs_to_many :lessons
   
   has_many :problem_levels, :inverse_of => :problem_type, :order => :level_number
   has_many :math_problems, :through => :problem_levels

@@ -17,7 +17,7 @@
     %br
   .form_section#instruction
     = t.association :instruction
-    = link_to "None of these will do... make new instructions", new_instructions_path(@problem_type.lesson)
+    = link_to "None of these will do... make new instructions", new_instructions_path
     
   .form_section#edit_tag_list
     = t.association :tags, :as => :check_boxes, :collection => @problem_type.tags, :label => "Current Tags: "
