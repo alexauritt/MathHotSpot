@@ -13,7 +13,7 @@
       .problem_display
         =display_mathml_question(sibling_problem)
 .row
-  = mathml_generator_link
+  = render :partial => "math_problems/markup_generator_links"
   
 .row
   %h1 New Math Problem

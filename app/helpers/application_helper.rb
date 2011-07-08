@@ -23,11 +23,15 @@ module ApplicationHelper
   def local_mathjax_link
     javascript_include_tag("math_jax/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local")
   end
+
+  def latex_generator_link
+    link_to "Help! I need a LaTeX Generator", "http://www.codecogs.com/latex/eqneditor.php", :target => "_blank"
+  end
   
   def mathml_generator_link
     link_to "Help! I need a MathML Generator", "http://www.mathmlcentral.com/Tools/ToMathML.jsp", :target => "_blank"
   end
-  
+    
   def problem_count_msg(problem_type)
     count = problem_type.problem_count
     count == 1 ? "1 Problem" : "#{count} Problems"

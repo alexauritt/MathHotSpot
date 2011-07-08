@@ -3,30 +3,37 @@
 
 = form_for(@problem_type) do |t|
 
-  = t.label :category_id, "Category"
-  = t.select(:category_id, category_choices)
-  %br
-  = link_to "Create a new Category", new_category_url
-  %br
+  %p
+    = t.label :category_id, "Category"
+    = t.select(:category_id, category_choices)
+    %br
+    = link_to "Create a new Category", new_category_url
+    %br
 
-  = t.label :title, "Title"
-  = t.text_field :title
-  %br
+  %p
+    = t.label :title, "Title"
+    = t.text_field :title
+    %br
 
-  = t.label :instruction_id, "Instruction"
-  = t.select :instruction_id, instruction_choices
-  %br
-  = link_to "Make new Instructions", new_instructions_path
-  %br
-  = mathml_generator_link
-
-  = t.fields_for :problem_levels do |level_builder|
-    .row
-      = level_builder.label :level_number
-      %br
-      = level_builder.text_field :level_number
+  %p
+    = t.label :instruction_id, "Instruction"
+    = t.select :instruction_id, instruction_choices
+    %br
   
-    = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level_builder})
+    = link_to "Make new Instructions", new_instructions_path
+    %br
+  
+  %p
+    = render :partial => "math_problems/markup_generator_links"
+
+  %p
+    = t.fields_for :problem_levels do |level_builder|
+      .row
+        = level_builder.label :level_number
+        %br
+        = level_builder.text_field :level_number
+  
+      = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level_builder})
 
   .actions
     = t.submit
