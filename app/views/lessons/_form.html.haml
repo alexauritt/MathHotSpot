@@ -1,4 +1,4 @@
-= form_for(@lesson) do |f|
+= simple_form_for(@lesson) do |f|
   - if @lesson.errors.any?
     #error_explanation
       %h2
@@ -8,17 +8,15 @@
           #li
             = msg
   .field
-    = f.label :title
-    %br
-    = f.text_field :title
+    = f.input :title
   .field
-    = f.label :category
-    %br
-    = f.select(:category_id, Category.all.collect {|category| [category.title, category.id]})
+    = f.association :subject
+  .field
+    = f.association :category
     %br
     = link_to "Create a new Category", new_category_url
-    %br
-    
+  .field
+    = f.association :problem_types, :as => :check_boxes
     
   .actions
     = f.submit

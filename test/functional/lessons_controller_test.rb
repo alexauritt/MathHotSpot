@@ -28,7 +28,7 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
       post :create, :lesson => simple_lesson.attributes
     end
 
-    assert_redirected_to lessons_url
+    assert_redirected_to my_lessons_url
   end
   
   test "create should set current_user as owner of new lesson" do
@@ -41,10 +41,14 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     lesson = assigns(:lesson)
     assert_redirected_to lesson_path(lesson)
   end
-  
-  
+    
   test "edit" do
     get :edit, :id => @lesson.to_param
+    assert_response :success
+  end
+
+  test "index" do
+    get :index
     assert_response :success
   end
 
@@ -56,8 +60,6 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
   # end
   # 
   # test "should not have access to edit page for lessons that don't belong to you" do
-  # end
-  # test "index" do
   # end
   # test "destroy" do
   # end
