@@ -8,16 +8,6 @@
 
 .row#problem_list
   -@problem_types.each do |problem_type|
-    .problem_example
-      .problem_instruction
-        =problem_type.instruction.description
-      .problem_display
-        =display_mathml_question(problem_type.demo_problem)
-      .problem_info
-        =link_to level_count_msg(problem_type), problem_type_path(problem_type)
-        %br
-        =problem_count_msg problem_type
-        %br
-        =display_tag_list problem_type
+    =render :partial => "problem_types/short", :locals => {:problem_type => problem_type }
 
 
