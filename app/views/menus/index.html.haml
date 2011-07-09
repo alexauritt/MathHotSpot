@@ -10,9 +10,9 @@
         = subject.title
         = render :partial => "categories/index_with_problem_types", :locals => {:subject => subject}
 
-  #lessons-and-worksheets
+  #dashboard
     %h2 
-      =link_to "My Lessons and Worksheets", lessons_path
+      =link_to "My Dashboard", dashboard_path
   #new_problem
     %h2
       =link_to "Create a New Problem Type", new_problem_type_path

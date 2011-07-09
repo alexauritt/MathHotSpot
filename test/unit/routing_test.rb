@@ -2,6 +2,11 @@ require 'test_helper'
 
 class RoutingTest < ActionController::TestCase
 
+#dashboard
+  test "dashboard route" do
+    assert_routing( { :path => '/dashboard', :method => :get}, { :controller => 'dashboards', :action => 'show' })
+  end
+
 # menus
   test "menu index route" do
     assert_routing( { :path => "/", :method => :get}, {:controller => "menus", :action => "index"})
@@ -36,6 +41,11 @@ class RoutingTest < ActionController::TestCase
 
   test "lesson index" do
     assert_routing( {:path => "/lessons", :method => :get}, {:controller => "lessons", :action => "index"})
+  end
+
+#mylessons
+  test "my lessons route" do
+    assert_routing( { :path => '/my_lessons', :method => :get}, { :controller => 'my_lessons', :action => 'index' })
   end
   
 #problem_types
