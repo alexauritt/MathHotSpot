@@ -6,7 +6,6 @@ class InstructionsController < ApplicationController
   
   def create
     @instruction = Instruction.new(params[:instruction])
-    @lesson = Lesson.find(params[:lesson_id])
     if @instruction.save
       redirect_to(new_problem_type_path, :notice => 'Instruction was successfully created.') 
     else

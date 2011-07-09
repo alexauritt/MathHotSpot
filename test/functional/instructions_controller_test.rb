@@ -15,7 +15,7 @@ class InstructionsControllerTest < AuthenticatingControllerTestCase
     instruction = Instruction.new
     instruction.description = "Do that thing you're supposed to do."
     assert_difference('Instruction.count') do
-      post :create, :instruction => instruction.attributes, :lesson_id => @lesson.id
+      post :create, :instruction => instruction.attributes
     end
 
     assert_redirected_to new_problem_type_path
