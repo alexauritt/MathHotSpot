@@ -29,8 +29,10 @@ class Admin::SubjectsControllerTest < AuthenticatingControllerTestCase
   end
 
   test "should destroy subject as admin" do
+    new_subject = Subject.create(:title => "A Very Short Lived Subject")
+
     assert_difference('Subject.count', -1) do
-      delete :destroy, :id => @subject.to_param
+      delete :destroy, :id => new_subject.to_param
     end
 
     assert_redirected_to admin_subjects_path
