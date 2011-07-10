@@ -1,4 +1,6 @@
 class Category < ActiveRecord::Base
+  include Topicable
+  
   belongs_to :subject
   has_many :problem_types
   has_many :lessons

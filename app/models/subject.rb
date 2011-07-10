@@ -1,4 +1,6 @@
 class Subject < ActiveRecord::Base
+  include Topicable
+  
   has_many :categories
   has_many :lessons
   
@@ -9,9 +11,5 @@ class Subject < ActiveRecord::Base
   def empty?
     lessons.empty? && categories.empty?
   end
-  
-  def name
-    title
-  end
-  
+    
 end
