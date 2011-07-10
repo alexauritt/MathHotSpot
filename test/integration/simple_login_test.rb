@@ -3,10 +3,6 @@ require 'integration_test_helper'
 
 class SimpleLoginTest < ActionDispatch::IntegrationTest
 
-  def setup
-    User.create(:email => "jim@jimbo.com", :password => "secret")
-  end
-  
   # Replace this with your real tests.
   test "prompts for login" do
     visit(root_path)
@@ -14,6 +10,8 @@ class SimpleLoginTest < ActionDispatch::IntegrationTest
   end
   
   test "logins in successfully" do
+    user = Factory.create(:user)
+    
     visit(root_path)
     fill_in 'user_email', :with => 'jim@jimbo.com'
     fill_in 'user_password', :with => 'secret'
