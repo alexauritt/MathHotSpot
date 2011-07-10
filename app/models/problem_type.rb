@@ -73,7 +73,7 @@ class ProblemType < ActiveRecord::Base
   end
 
   def category_with_subject
-    category.title_with_subject
+    category.name
   end
   
   def instruction_text

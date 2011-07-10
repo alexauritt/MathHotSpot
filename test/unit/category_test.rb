@@ -22,23 +22,23 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal false, category.destroy
   end
 
-  test "title_with_subject" do
+  test "name" do
     category = Category.new(:title => @sample_title)
     category.build_subject(:title => "Science")
-    assert_equal "Science -- Fun With Napkins!", category.title_with_subject
+    assert_equal "Science -- Fun With Napkins!", category.name
   end
   
-  test "calling title_with_subject twice should return the same value each time" do
-    # regression test -- there was a bug in Category#title_with_subject
+  test "calling name twice should return the same value each time" do
+    # regression test -- there was a bug in Category#name
     category = Category.new(:title => @sample_title)
     category.build_subject(:title => "Science")
-    assert_equal "Science -- Fun With Napkins!", category.title_with_subject
-    assert_equal "Science -- Fun With Napkins!", category.title_with_subject
+    assert_equal "Science -- Fun With Napkins!", category.name
+    assert_equal "Science -- Fun With Napkins!", category.name
   end
   
-  test "title_with_subject just returns title when subject is nil" do
+  test "name just returns title when subject is nil" do
     category = Category.new(:title => @sample_title)
-    assert_equal @sample_title, category.title_with_subject
+    assert_equal @sample_title, category.name
   end
   
 end

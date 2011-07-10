@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
     problem_types.empty?
   end
   
-  def title_with_subject
+  def name
     subject.nil? ? title : "#{subject.title} -- #{title}"
   end
 end

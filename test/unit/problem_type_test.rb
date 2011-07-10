@@ -175,7 +175,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
     problem_type = ProblemType.new
     problem_type.build_category
     expected_subject_string = "A Subject: A title"
-    problem_type.category.expects(:title_with_subject).returns(expected_subject_string)
+    problem_type.category.expects(:name).returns(expected_subject_string)
     assert_equal expected_subject_string, problem_type.category_with_subject
   end
   

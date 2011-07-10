@@ -8,7 +8,7 @@ module ProblemTypesHelper
 
   def category_choices
     cats = Category.order("subject_id")
-    cats.collect {|category| [category.title_with_subject, category.id]}
+    cats.collect {|category| [category.name, category.id]}
   end
   
   def instruction_choices
