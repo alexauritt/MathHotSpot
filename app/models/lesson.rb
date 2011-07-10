@@ -13,7 +13,7 @@ class Lesson < ActiveRecord::Base
     problem_types.size
   end
   
-  def subject_title
+  def topic_name
     subject.nil? ? '' : subject.title
   end
 end

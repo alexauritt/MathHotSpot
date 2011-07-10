@@ -20,15 +20,15 @@ class LessonTest < ActiveSupport::TestCase
     assert_equal num_instances, lesson.template_count
   end
   
-  test "subject_title returns empty string if no subject is specified" do
-    assert_equal "", Lesson.new.subject_title
+  test "topic_name returns empty string if no subject is specified" do
+    assert_equal "", Lesson.new.topic_name
   end
   
-  test "subject_title delegates to subject if present" do
+  test "topic_name delegates to subject if present" do
     the_title = "asdfasdf"
     @lesson.subject = Subject.new
     @lesson.subject.expects(:title).returns(the_title)
-    assert_equal the_title, @lesson.subject_title
+    assert_equal the_title, @lesson.topic_name
   end
 
 end
