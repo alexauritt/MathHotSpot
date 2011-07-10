@@ -5,7 +5,6 @@ dividing_monomials_lesson:
   chapter: 5
   section: 2
   topic: categories(:polynomials)
-  category: polynomials
   owner: testuser
 
 monomial_factors_of_polynomials_lesson:
@@ -13,5 +12,4 @@ monomial_factors_of_polynomials_lesson:
   chapter: 5
   section: 3
   topic: categories(:polynomials)
-  category: polynomials
   owner: testuser

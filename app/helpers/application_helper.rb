@@ -36,4 +36,8 @@ module ApplicationHelper
     count = problem_type.problem_count
     count == 1 ? "1 Problem" : "#{count} Problems"
   end  
+
+  def all_topics
+    Subject.all + Category.all
+  end
 end

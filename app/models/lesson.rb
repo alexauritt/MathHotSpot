@@ -3,8 +3,6 @@ class Lesson < ActiveRecord::Base
   has_and_belongs_to_many :problem_types
 
   belongs_to :topic, :polymorphic => true
-
-  belongs_to :category
   belongs_to :subject
 
   accepts_nested_attributes_for :problem_types, :reject_if => lambda { |problem_type| problem_type[:title].blank?}, :allow_destroy => true

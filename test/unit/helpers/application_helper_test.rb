@@ -58,5 +58,15 @@ class ApplicationHelperTest < ActionView::TestCase
     @problem_type.stubs(:problem_count).returns(0)
     assert_equal "0 Problems", problem_count_msg(@problem_type)
   end
+  
+  test "all_topics" do
+    subject_list = 3.times.collect { Subject.new }
+    category_list = 4.times.collect { Category.new }
+    combo = subject_list + category_list
+    Subject.expects(:all).returns(subject_list)
+    Category.expects(:all).returns(category_list)
+    
+    assert_equal combo, all_topics
+  end
 
 end
