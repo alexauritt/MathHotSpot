@@ -17,6 +17,7 @@ class ActionController::TestCase
 end
 
 class AuthenticatingControllerTestCase < ActionController::TestCase
+  include Devise::TestHelpers
   setup do
     sign_in users(:testuser)
   end  
