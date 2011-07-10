@@ -171,12 +171,12 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert_equal false, @problem_type.empty?
   end  
 
-  test "category_with_subject delegates to category" do
+  test "topic_name delegates to category" do
     problem_type = ProblemType.new
     problem_type.build_category
     expected_subject_string = "A Subject: A title"
     problem_type.category.expects(:name).returns(expected_subject_string)
-    assert_equal expected_subject_string, problem_type.category_with_subject
+    assert_equal expected_subject_string, problem_type.topic_name
   end
   
   private

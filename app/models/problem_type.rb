@@ -72,7 +72,7 @@ class ProblemType < ActiveRecord::Base
     level_count + 1
   end
 
-  def category_with_subject
+  def topic_name
     category.name
   end
   
