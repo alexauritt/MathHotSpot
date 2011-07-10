@@ -3,7 +3,8 @@ class Category < ActiveRecord::Base
   
   belongs_to :subject
   has_many :problem_types
-  has_many :lessons
+
+  has_many :lessons, :as => :topic
 
   validates_presence_of :title
   
