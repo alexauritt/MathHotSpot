@@ -51,18 +51,25 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     get :index
     assert_response :success
   end
+  
+  test "destroy" do
+    assert_difference('Lesson.count', -1) do
+      delete :destroy, :id => @lesson.to_param
+    end
+    assert_redirected_to dashboard_path
+  end
 
+  # these comes later, once we've implemented authorization
   # test "should fail to update lesson owned by different user" do
   #   not_your_lesson = lessons(:joe_lesson)
   #   put :update, :id => not_your_lesson, :lesson => not_your_lesson.attributes
   #   assert_redirected_to lesson_path(not_your_lesson)
   #   assert_select 'p.notice', MathHotSpotErrors::Message::NOT_YOUR_LESSON
   # end
-  # 
   # test "should not have access to edit page for lessons that don't belong to you" do
   # end
-  # test "destroy" do
-  # end
+  
+
 
   private
   def simple_lesson

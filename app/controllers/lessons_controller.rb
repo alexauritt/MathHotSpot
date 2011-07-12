@@ -46,4 +46,10 @@ class LessonsController < ApplicationController
     @lesson = Lesson.find(params[:id])
   end
 
+  def destroy
+     @lesson = Lesson.find(params[:id])
+     @lesson.destroy
+    redirect_to dashboard_path
+  end
+
 end
