@@ -2,7 +2,7 @@ class Subject < ActiveRecord::Base
   include Topicable
   
   has_many :categories
-  has_many :lessons, :as => :topic
+  has_many :lessons
   
   validates_presence_of :title
     

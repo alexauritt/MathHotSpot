@@ -9,16 +9,11 @@ gem 'pg'
 gem 'jquery-rails'
 gem 'haml'
 gem 'acts-as-taggable-on'
+gem 'mocha', :require => false
+gem 'autotest-rails'
 gem 'heroku'
 gem 'simple_form'
 gem 'devise'
-
-group :development, :test do
-  gem 'capybara'
-  gem 'mocha', :require => false
-  gem 'autotest-rails'
-  gem 'factory_girl_rails'
-end
 
 # Use unicorn as the web server
 # gem 'unicorn'

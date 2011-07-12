@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, @lesson]) do |f| %>
+<%= form_for([:admin, @lesson]) do |f| %>
   <% if @lesson.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
@@ -12,16 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.input :title %>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.input :chapter %>
+    <%= f.label :chapter %><br />
+    <%= f.text_field :chapter %>
   </div>
   <div class="field">
-    <%= f.input :section %>
+    <%= f.label :section %><br />
+    <%= f.text_field :section %>
   </div>
   <div class="field">
-    <%= f.association :topic, :collection => all_topics %>
+    <%= f.label :category %><br />
+    <%= f.select(:category_id, Category.all.collect {|category| [category.title, category.id]}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

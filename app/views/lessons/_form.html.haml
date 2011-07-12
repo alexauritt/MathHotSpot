@@ -10,9 +10,11 @@
   .field
     = f.input :title
   .field
-    = f.association :topic, :collection => all_topics
+    = f.association :subject
+  .field
+    = f.association :category
     %br
-    = link_to "Create a new Topic", new_category_url
+    = link_to "Create a new Category", new_category_url
   .field
     = f.association :problem_types, :as => :check_boxes
     

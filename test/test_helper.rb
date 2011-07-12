@@ -1,8 +1,6 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
-require File.dirname(__FILE__) + "/factories"
 require 'rails/test_help'
-
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -19,7 +17,6 @@ class ActionController::TestCase
 end
 
 class AuthenticatingControllerTestCase < ActionController::TestCase
-  include Devise::TestHelpers
   setup do
     sign_in users(:testuser)
   end  

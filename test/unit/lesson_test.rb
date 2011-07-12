@@ -24,11 +24,10 @@ class LessonTest < ActiveSupport::TestCase
     assert_equal "", Lesson.new.topic_name
   end
   
-  test "topic_name delegates to topic if present" do
+  test "topic_name delegates to subject if present" do
     the_title = "asdfasdf"
-    new_subject = Subject.new(:title => the_title)
-    @lesson.topic = new_subject
-    new_subject.expects(:title).returns(the_title)
+    @lesson.subject = Subject.new
+    @lesson.subject.expects(:title).returns(the_title)
     assert_equal the_title, @lesson.topic_name
   end
 

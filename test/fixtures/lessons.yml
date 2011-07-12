@@ -4,10 +4,12 @@ dividing_monomials_lesson:
   title: "Dividing Monomials"
   chapter: 5
   section: 2
+  category: polynomials
   owner: testuser
 
 monomial_factors_of_polynomials_lesson:
   title: "Monomial Factors of Polynomials"
   chapter: 5
   section: 3
+  category: polynomials
   owner: testuser
