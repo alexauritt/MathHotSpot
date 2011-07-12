@@ -8,22 +8,18 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
   end
 
   test "Create a vanilla Algebra Lesson" do
-  
     lesson_name = 'My First Lesson'
     
     click_link('My Dashboard')
     click_link('Create a new Lesson')
 
-    assert_equal new_lesson_path, current_path
+    assert_current_path new_lesson_path
 
     fill_in 'Title', :with => lesson_name
     click_button('Create Lesson')
     
-    assert_equal my_lessons_path, current_path
-    
-    within('#my-lessons li') do
-      assert page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
-    end    
+    assert_current_path my_lessons_path    
+    assert_lesson_displayed(lesson_name)    
   end
 
   # test "Create a generic Algebra Lesson and set the category" do
@@ -61,6 +57,16 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', :with => user.email
     fill_in 'user_password', :with => user.password
     click_button('Sign in')    
+  end
+  
+  def assert_current_path(path)
+    assert_equal path, current_path
+  end
+  
+  def assert_lesson_displayed(lesson_name)
+    within('#my-lessons li') do
+      assert page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
+    end    
   end
        
 end

@@ -1,13 +1,14 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.0.9'
+gem 'rack'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
 gem 'jquery-rails'
-gem 'haml'
+gem 'haml', '3.1.2'
 gem 'acts-as-taggable-on'
 gem 'heroku'
 gem 'simple_form'
