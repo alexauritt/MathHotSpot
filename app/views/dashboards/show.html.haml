@@ -3,15 +3,7 @@
 
 .row
   .column#lessons-column
-    %h2 My Lessons
-    .dashboard-list#lessons
-      %ul
-        - @lessons.each do |lesson|
-          %li.lesson
-            =link_to lesson.title, lesson_url(lesson)
-      .new-item
-        =link_to "Create a new Lesson", new_lesson_url
-    
+    = render :partial => 'my_lessons/my_lesson_list', :locals => { :lessons => @lessons }    
   .column#worksheets-column
     %h2 My Worksheets
     .dashboard-list#worksheets
