@@ -1,1 +1,3 @@
-Do your search!
+=render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_lesson }  
+=render :partial => "subjects/problem_type_list_by_subject_and_category", :locals => { :subjects => @subjects }  
+=render :partial => "tags/problem_type_search_by_tags", :locals => { :tags => @tags }

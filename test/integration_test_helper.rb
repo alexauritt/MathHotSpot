@@ -23,6 +23,12 @@ module ActionController
     end
     
     module Lessony
+      def assert_current_lesson_displayed(lesson_name)
+        within('#current-lesson') do
+          assert page.has_content?(lesson_name), "Current Lesson title not displayed"
+        end
+      end
+      
       def assert_lesson_displayed(lesson_name)
         within("#my-lessons ul") do
           assert page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
@@ -33,7 +39,15 @@ module ActionController
         within("#my-lessons ul") do
           assert !page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
         end        
-      end      
+      end
+    end
+    
+    module ProblemTypeSearchy
+      def assert_problem_type_search_forms_displayed
+        within('#subject-list') do
+          assert page.has_content?('ProblemTypes by Subject/Category'), "Can't find search by Subject/Category form"
+        end
+      end
     end
   end
 end
