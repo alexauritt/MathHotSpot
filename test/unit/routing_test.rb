@@ -25,7 +25,6 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "instructions", :method => :post}, {:controller => "instructions", :action => "create"})    
   end
   
-
 #lessons
   test "lesson create" do
     assert_routing( {:path => "/lessons", :method => :post}, {:controller => "lessons", :action => "create"})
@@ -116,6 +115,14 @@ class RoutingTest < ActionController::TestCase
   test "available_tag search" do
     assert_routing( {:path => "/problem_types/algebra-fractions/available_tags/search", :method => :get}, 
       {:controller => "available_tags", :action => "search", :problem_type_id => "algebra-fractions"})    
+  end
+  
+#problem type searches
+  # for lessons
+  test "lesson problem type search show results" do
+    assert_routing( {:path => "/lessons/cool-lesson/problem_type_search/this-is-what-i-am-searching-for", :method => :get},
+      {:controller => "lessons_problem_type_search", :action => "show", 
+        :lesson_id => "cool-lesson", :query_string => "this-is-what-i-am-searching-for"})
   end
   
 end

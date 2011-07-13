@@ -19,6 +19,8 @@ Mathhotspot::Application.routes.draw do
   match '/dashboard' => 'dashboards#show', :as => :dashboard
   match '/my_lessons' => 'my_lessons#index', :as => :my_lessons
   match '/menu/:tag' => 'menus#tag_menu', :as => :tag_menu
+  match '/lessons/:lesson_id/problem_type_search/:query_string' => 'lessons_problem_type_search#show',
+    :as => :lessons_problem_type_search
   
   resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete] do
     resources :menus, :only => [:show]

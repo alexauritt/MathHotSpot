@@ -1,0 +1,2 @@
+class LessonsProblemTypeSearchController < ApplicationController
+end
