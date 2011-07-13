@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'integration_test_helper'
 
-class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest  
+class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
 
   def setup
     create_user_and_sign_in
@@ -21,7 +21,7 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
     assert_current_path my_lessons_path    
     assert_lesson_displayed(lesson_name)    
   end
-  
+
   # test "Create a generic Algebra Lesson and set the category" do
   # 
   #   @subject = Factory.create(:subject)
