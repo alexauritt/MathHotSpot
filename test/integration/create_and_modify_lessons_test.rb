@@ -2,6 +2,9 @@ require 'test_helper'
 require 'integration_test_helper'
 
 class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
+  include ActionController::IntegrationTest::Authenticatable
+  include ActionController::IntegrationTest::IntegrationTestHelpers
+  include ActionController::IntegrationTest::Lessony
 
   setup do
     DatabaseCleaner.start
@@ -71,30 +74,5 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
   #     assert page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
   #   end    
   # end
-  
-  private
-  
-  def sign_in_as(user)
-    visit(root_path)
-    fill_in 'user_email', :with => user.email
-    fill_in 'user_password', :with => user.password
-    click_button('Sign in')        
-  end
-    
-  def assert_current_path(path)
-    assert_equal path, current_path
-  end
-  
-  def assert_lesson_displayed(lesson_name)
-    within("#my-lessons ul") do
-      assert page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
-    end    
-  end
-  
-  def assert_lesson_not_displayed(lesson_name)
-    within("#my-lessons ul") do
-      assert !page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
-    end        
-  end
-       
+         
 end
