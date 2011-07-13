@@ -4,6 +4,10 @@ Factory.define :user do |u|
   u.password  'secret'
 end
 
+Factory.define :user_with_lesson, :parent => :user do |user|
+  user.after_create { |u| Factory(:lesson, :owner => u) }
+end
+
 Factory.define :subject do |s|
   s.title "Algebra"
 end
@@ -11,4 +15,8 @@ end
 Factory.define :category do |c|
   c.title "Polynomials"
   c.subject {|s| s.association(:subject) }
+end
+
+Factory.define :lesson do |l|
+  l.title "Triangle Area Lesson"
 end

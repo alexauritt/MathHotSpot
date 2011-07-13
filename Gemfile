@@ -19,6 +19,7 @@ group :development, :test do
   gem 'mocha', :require => false
   gem 'autotest-rails'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
 end
 
 # Use unicorn as the web server
