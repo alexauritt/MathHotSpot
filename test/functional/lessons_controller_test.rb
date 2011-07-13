@@ -56,7 +56,7 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     assert_difference('Lesson.count', -1) do
       delete :destroy, :id => @lesson.to_param
     end
-    assert_redirected_to dashboard_path
+    assert_redirected_to my_lessons_path
   end
 
   # these comes later, once we've implemented authorization

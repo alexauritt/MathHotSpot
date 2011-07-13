@@ -24,9 +24,22 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
     assert_lesson_displayed(lesson_name)    
   end
   
-  # test "delete a pre-existing lesson" do
-  #   flunk
-  # end
+  test "delete a pre-existing lesson" do
+    lesson_to_delete = @user.lessons.first
+    dead_lesson_title = lesson_to_delete.title
+    click_link('My Dashboard')
+
+    within('#my-lessons') do
+      click_link(lesson_to_delete.title)
+    end    
+    assert_current_path lesson_path(lesson_to_delete)
+    
+    click_link('Edit')
+    click_link('Delete Lesson')
+    
+    assert_current_path my_lessons_path
+    assert_lesson_not_displayed(dead_lesson_title)
+  end
   
   teardown do
     DatabaseCleaner.clean
@@ -76,6 +89,12 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
     within("#my-lessons ul") do
       assert page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
     end    
+  end
+  
+  def assert_lesson_not_displayed(lesson_name)
+    within("#my-lessons ul") do
+      assert !page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
+    end        
   end
        
 end

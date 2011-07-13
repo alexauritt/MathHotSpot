@@ -1,2 +1,3 @@
 %h2 Edit Lesson
 = render 'form'
+= link_to 'Delete Lesson', lesson_url(@lesson), :confirm => 'Are you sure?', :method => :delete
