@@ -26,7 +26,9 @@
           %br
           =display_tag_list problem_type
   .row#add_new_problem_links
-    =link_to "Create New Problem Type", new_problem_type_path
+    =link_to "Create new Problem Type", new_problem_type_path
+    |
+    =link_to "Find a Problem Type for this Lesson", new_lessons_problem_type_search_path(@lesson)
   
 
 

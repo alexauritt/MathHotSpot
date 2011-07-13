@@ -125,4 +125,10 @@ class RoutingTest < ActionController::TestCase
         :lesson_id => "cool-lesson", :query_string => "this-is-what-i-am-searching-for"})
   end
   
+  test "new lesson problem type search" do
+    assert_routing( {:path => "/lessons/cool-lesson/problem_type_search", :method => :get},
+      {:controller => "lessons_problem_type_search", :action => "new", 
+        :lesson_id => "cool-lesson"})    
+  end
+  
 end
