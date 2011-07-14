@@ -1,14 +1,15 @@
 - content_for :head do
+  = stylesheet_link_tag "dashboard"
   = stylesheet_link_tag "lessons"
 
-.row
+#dashboard-main-row
   .column#lessons-column
     = render :partial => 'my_lessons/my_lesson_list', :locals => { :lessons => @lessons }    
   .column#worksheets-column
     %h2 My Worksheets
     .dashboard-list#worksheets
       Coming Soon!
-    
+  
   .column#problem-types-column
     %h2 My Problem Types
     .dashboard-list#problem-types

@@ -13,14 +13,32 @@ div#tag_list a:link, div#tag_list a:visited {
   margin: 15px 0px 15px 0px;
 }
 
-.nav {
+#navigation-header {
   clear: both;
 }
 
-.nav #nav_bar {
+#navigation-header #nav_bar {
   float: left;
 }
 
-.nav #user_login {
+#navigation-header #user_login {
   text-align: right;
+}
+
+#main-content {
+  overflow: auto;
+  clear: both;
+  margin: 10px;
+  padding: 5px;
+  border-top: solid black;
+}
+
+#footer {
+  clear: both;
+
+  text-align: right;
+  margin: 10px;
+  padding: 5px;
+  border-top: solid black;
+  
 }

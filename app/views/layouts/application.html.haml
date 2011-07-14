@@ -8,10 +8,7 @@
     = yield :head
   %body
     = render :partial => "layouts/navigation"
-    - if flash[:notice]
-      %p.notice
-        = flash[:notice]
-    - if flash[:alert]
-      %p.alert
-        = flash[:alert]
-    = yield
+    = render :partial => "layouts/flash_notice"
+    #main-content
+      = yield
+    = render :partial => "layouts/footer"

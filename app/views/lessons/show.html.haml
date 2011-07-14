@@ -4,31 +4,32 @@
   = stylesheet_link_tag "lessons"
 
 #container
-  %h2
-    =link_to @lesson.topic_name, subject_path(@lesson.subject)
-  %h3
-    =@lesson.title
-    =link_to "Edit", edit_lesson_path(@lesson)    
-  .row#problem_list
-    -@problem_types.each do |problem_type|
-      .problem_example
-        .problem_type_title
-          =link_to problem_type.title, problem_type_url(problem_type)
-        .problem_instruction
-          Instructions: 
-          =problem_type.instruction_text
-        .problem_display
-          =display_mathml_question(problem_type.demo_problem)
-        .problem_info
-          =level_count_msg(problem_type)
-          %br
-          =problem_count_msg problem_type
-          %br
-          =display_tag_list problem_type
-  .row#add_new_problem_links
-    =link_to "Create new Problem Type", new_problem_type_path
-    |
-    =link_to "Find a Problem Type for this Lesson", new_lessons_problem_type_search_path(@lesson)
+  .lessons.long
+    %h2
+      =link_to @lesson.topic_name, subject_path(@lesson.subject)
+    %h3
+      =@lesson.title
+      =link_to "Edit", edit_lesson_path(@lesson)    
+    .row#problem_list
+      -@problem_types.each do |problem_type|
+        .problem_example
+          .problem_type_title
+            =link_to problem_type.title, problem_type_url(problem_type)
+          .problem_instruction
+            Instructions: 
+            =problem_type.instruction_text
+          .problem_display
+            =display_mathml_question(problem_type.demo_problem)
+          .problem_info
+            =level_count_msg(problem_type)
+            %br
+            =problem_count_msg problem_type
+            %br
+            =display_tag_list problem_type
+    .row#add_new_problem_links
+      =link_to "Create new Problem Type", new_problem_type_path
+      |
+      =link_to "Find a Problem Type for this Lesson", new_lessons_problem_type_search_path(@lesson)
   
 
 

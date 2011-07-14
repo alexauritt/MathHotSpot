@@ -1,10 +1,11 @@
+
 div.nav_bar {
   margin-bottom: 10px;
 }
 
 div.row {
   clear: both;
-  margin: 10 0 10 0;
+  margin: 10px 0px 10px 0px;
 }
 
 div.column {
@@ -51,9 +52,6 @@ div#container {
   clear: both;
 }
 
-.dashboard-list li {
-  margin-left: 1em;
-}
 .new-item {
   margin-left: 2em;
 }
@@ -61,5 +59,3 @@ div#container {
 .column#lessons-column, .column#worksheets-column, .column#problem-types-column {
   width: 30%;
 }
-
-/* End of Main Index Page */
