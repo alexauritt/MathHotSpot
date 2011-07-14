@@ -1,7 +1,8 @@
-#flash-notice
-  - if flash[:notice]
-    %p.notice
+- if flash[:notice]
+  .notice#flash-notice
+    .flash-message
       = flash[:notice]
-  - if flash[:alert]
-    %p.alert
+- if flash[:alert]
+  .alert#flash-alert
+    .flash-message
       = flash[:alert]

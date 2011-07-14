@@ -14,7 +14,11 @@ div#tag_list a:link, div#tag_list a:visited {
 }
 
 #navigation-header {
+  overflow: auto;
   clear: both;
+  margin: 10px;
+  padding-bottom: 5px;
+  border-bottom: solid black;
 }
 
 #navigation-header #nav_bar {
@@ -25,12 +29,18 @@ div#tag_list a:link, div#tag_list a:visited {
   text-align: right;
 }
 
+#flash-alert, #flash-notice {
+  background-color: red;
+  padding: 5px;
+  margin: 10px 10px 0px 10px;
+  overflow: auto;
+}
+
 #main-content {
   overflow: auto;
   clear: both;
   margin: 10px;
-  padding: 5px;
-  border-top: solid black;
+  padding: 5px 0px 5px 0px;
 }
 
 #footer {

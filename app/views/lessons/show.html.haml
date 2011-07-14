@@ -5,11 +5,10 @@
 
 #container
   .lessons.long
-    %h2
-      =link_to @lesson.topic_name, subject_path(@lesson.subject)
-    %h3
-      =@lesson.title
-      =link_to "Edit", edit_lesson_path(@lesson)    
+    #lesson-header
+      #lesson-title
+        =@lesson.title
+        ="(#{@lesson.topic_name})"
     .row#problem_list
       -@problem_types.each do |problem_type|
         .problem_example
@@ -27,6 +26,8 @@
             %br
             =display_tag_list problem_type
     .row#add_new_problem_links
+      =link_to "Edit this Lesson", edit_lesson_path(@lesson)    
+      |
       =link_to "Create new Problem Type", new_problem_type_path
       |
       =link_to "Find a Problem Type for this Lesson", new_lessons_problem_type_search_path(@lesson)

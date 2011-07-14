@@ -57,5 +57,14 @@ div#container {
 }
 
 .column#lessons-column, .column#worksheets-column, .column#problem-types-column {
-  width: 30%;
+  width: 33%;
+}
+
+#lesson-title {
+  font-size: 1.5em;
+  margin-bottom: .5em;
+}
+
+#edit-lesson-link {
+  float: right;
 }
