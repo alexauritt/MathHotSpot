@@ -12,15 +12,11 @@ div.column {
   float: left;
 }
 
-div.single_problem_display, div.problem_example, div.problem-type-short, div.problem-type-regular {
+div.problem_example, div.problem-type-short, div.problem-type-regular {
   float: left;
   background-color: grey;
   padding: 20px;
   margin: 10px;
-}
-
-div.single_problem_display div.problem_links {
-  margin: 10px 0px 10px 0px;
 }
 
 div.problem_instruction {

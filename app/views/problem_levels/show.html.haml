@@ -1,6 +1,6 @@
 - content_for :head do
   %title Problem Level
-  = stylesheet_link_tag "lessons"
+  = stylesheet_link_tag "math_display"
 
 .row
   = @problem_level.instruction.description
@@ -8,7 +8,7 @@
   = "There are #{@math_problems.size} problems on this level:"
 .row
   -@math_problems.each do |math_problem|
-    .single_problem_display
+    .math-display
       .question_and_answer
         Question:
         =display_mathml_question(math_problem)

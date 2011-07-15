@@ -1,17 +1,16 @@
 - content_for :head do
   %title New Math Problem
-  = stylesheet_link_tag "lessons"
+  = stylesheet_link_tag "lessons, math_item"
   = stylesheet_link_tag "problem_entry_form"
 
 .row#current_level_display
   %h4 Existing Problems:
   #instructions
     = "#{@math_problem.instruction.description}"
-
-  - @math_problem.siblings.each do |sibling_problem|
-    .problem_example
-      .problem_display
-        =display_mathml_question(sibling_problem)
+    - @math_problem.siblings.each do |sibling_problem|
+      .math-display
+        .problem_display
+          =display_mathml_question(sibling_problem)
 .row
   = render :partial => "math_problems/markup_generator_links"
   
