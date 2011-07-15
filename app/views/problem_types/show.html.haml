@@ -1,6 +1,6 @@
 - content_for :head do
   %title Problem Type
-  = stylesheet_link_tag "lessons"
+  = stylesheet_link_tag "math_display"
 
 %h3
   = @problem_type.topic_name
@@ -17,7 +17,7 @@
 .row#tags
   = display_tag_list @problem_type
 
-.row#level_examples
+.math-display-row
   =render(:partial => 'level_examples', :locals => {:levels => @problem_type.problem_levels })
 
 =delete_problem_type_link_if_empty(@problem_type)

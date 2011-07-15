@@ -1,21 +1,23 @@
 - content_for :head do
   %title Problem Level
-  = stylesheet_link_tag "math_display"
+  = stylesheet_link_tag "math_display", "lessons"
 
 .row
   = @problem_level.instruction.description
 .row
   = "There are #{@math_problems.size} problems on this level:"
-.row
+.math-display-row
   -@math_problems.each do |math_problem|
     .math-display
-      .question_and_answer
-        Question:
-        =display_mathml_question(math_problem)
-        Answer:
-        =display_mathml_answer(math_problem)
-      .problem_links
-        =link_to 'Edit Problem', edit_math_problem_url(math_problem)
+      .math-problem
+        .math-problem-full
+          .question_and_answer
+            Question:
+            =display_mathml_question(math_problem)
+            Answer:
+            =display_mathml_answer(math_problem)
+          .problem_links
+            =link_to 'Edit Problem', edit_math_problem_url(math_problem)
 
 .row
   =link_to "Back to Problem Type", problem_type_path(@problem_level.problem_type)

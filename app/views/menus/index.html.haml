@@ -1,8 +1,7 @@
 - content_for :head do
   %title Math Problems Menu
-  = stylesheet_link_tag "menu"
-  = stylesheet_link_tag "admin/math_problems"
-
+  = stylesheet_link_tag "menu", "math_display", "admin/math_problems"
+  
 =render :partial => "subjects/problem_type_list_by_subject_and_category", :locals => {:subjects => @subjects }
 
 .menu-links#my-dashboard

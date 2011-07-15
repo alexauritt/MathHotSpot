@@ -1,14 +1,16 @@
 - content_for :head do
   %title
     =@tag
-  = stylesheet_link_tag "lessons"
+  = stylesheet_link_tag "lessons", "math_display"
 
 %h2
   ="Problem Types tagged as #{@tag.capitalize}"
 
-.row#problem_list
+.math-display-row
   -@problem_types.each do |problem_type|
-    .problem-type-regular
-      =render :partial => "problem_types/problem_type", :locals => {:problem_type => problem_type }
+    .math-display
+      .problem-type
+        .problem-type-regular
+          =render :partial => "problem_types/problem_type", :locals => {:problem_type => problem_type }
 
 

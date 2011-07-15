@@ -1,45 +1,9 @@
-
 div.nav_bar {
   margin-bottom: 10px;
 }
 
-div.row {
-  clear: both;
-  margin: 10px 0px 10px 0px;
-}
-
 div.column {
   float: left;
-}
-
-div.problem_example, div.problem-type-short, div.problem-type-regular {
-  float: left;
-  background-color: grey;
-  padding: 20px;
-  margin: 10px;
-}
-
-div.problem_instruction {
-  height: 40px;
-}
-
-div.problem_display {
-  height: 80px;
-}
-
-#problem_type_title, .problem_display {
-  max-width: 300px;
-}
-
-div.problem_info {
-  min-height: 45px;
-}
-
-div.example {
-  float: left;
-  margin: 40px;
-  width: 80px;
-	height: 50px;
 }
 
 div#container {

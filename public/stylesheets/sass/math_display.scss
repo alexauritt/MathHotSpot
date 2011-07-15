@@ -1,0 +1,30 @@
+$math-display-color: grey;
+
+div.math-display {
+  float: left;
+  background-color: $math-display-color;
+  padding: 20px;
+  margin: 10px;
+}
+
+div.problem_instruction {
+  height: 40px;
+}
+
+div.problem_display {
+  height: 80px;
+}
+
+#problem_type_title, .problem_display {
+  max-width: 300px;
+}
+
+div.problem_info {
+  min-height: 45px;
+}
+
+.math-display-row {
+  overflow: auto;
+  clear: both;
+  margin: 10px 0px 10px 0px;
+}
