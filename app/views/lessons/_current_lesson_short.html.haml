@@ -1,3 +1,4 @@
-#current-lesson.lessons.short
-  =render :partial => "lessons/lesson_header", :locals => { :lesson => current_lesson }
-  =render :partial => "lessons/problem_list_short", :locals => { :problem_types => current_lesson.problem_types }
+.lessons.short
+  .problem-type-list
+    Currently in this Lesson:
+    =render :partial => "lessons/problem_list_short", :locals => { :problem_types => current_lesson.problem_types }
