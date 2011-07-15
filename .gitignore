@@ -4,4 +4,6 @@ log/*.log
 tmp/
 fixture_quick_ref.txt
 public/javascripts/math_jax
+public/stylesheets/*.css
+.sass-cache
 doc/git_heroku_command_ref.txt
