@@ -1,5 +1,4 @@
 -problem_types.each do |problem_type|
   .math-display
-    .problem-type
-      .problem-type-short
-        =render :partial => "problem_types/problem_type", :locals => { :problem_type => problem_type }
+    .problem-type-short
+      =render :partial => "problem_types/problem_type", :locals => { :problem_type => problem_type }

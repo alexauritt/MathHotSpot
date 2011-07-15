@@ -9,12 +9,12 @@
           %li
             = msg
   = hidden_field_tag "math_problem[problem_level_id]", @math_problem.problem_level.id
-  .row#level
+  #level
     = f.association :problem_level, :label => "Level: ", :collection => @problem_type.problem_levels, :label_method => :level_number, :include_blank => false, :confirm => "Are you sure?"
-
-  .row#question_markup
-    = f.input :question_markup, :as => :text
-  .row#answer_markup
-    = f.input :answer_markup, :as => :text 
+  #math-markup-input-fields
+    #question_markup
+      = f.input :question_markup, :as => :text
+    #answer_markup
+      = f.input :answer_markup, :as => :text 
   .actions
     = f.submit

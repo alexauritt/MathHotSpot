@@ -1,7 +1,13 @@
-#dashboard-main-row {
-  background-color: blue;
-}
-
 .dashboard-list li {
   margin-left: 1em;
+}
+
+#dashboard {
+  overflow: auto;
+  clear: both;
+}
+
+#my-lessons, #my-worksheets, #my-problem-types {
+  float: left;
+  width: 33%;
 }

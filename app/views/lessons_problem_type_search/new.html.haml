@@ -1,7 +1,7 @@
 - content_for :head do
   %title
     = "Find Problem Types for #{@current_lesson.title}"
-  = stylesheet_link_tag "lessons", "math_display"
+  = stylesheet_link_tag "lessons", "problem_type", "math_display"
 
 =render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_lesson }  
 =render :partial => "subjects/problem_type_list_by_subject_and_category", :locals => { :subjects => @subjects }  

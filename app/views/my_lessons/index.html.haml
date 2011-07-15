@@ -1,4 +1,6 @@
 - content_for :head do
   = stylesheet_link_tag "lessons"
 
-= render :partial => 'my_lesson_list', :locals => { :lessons => @lessons }
+#my-lessons
+  %h2 My Lessons
+  = render :partial => 'my_lesson_list', :locals => { :lessons => @lessons }

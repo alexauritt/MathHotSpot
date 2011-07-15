@@ -1,0 +1,16 @@
+.math-display {
+  .problem-type-short {
+    #problem_type_title {
+      max-width: 100px;
+      text-align: center;
+    }
+    
+    .problem_instruction, .problem_info {
+      display: none;
+    }
+
+    .problem_display {
+      height: auto;
+    }
+  }  
+}

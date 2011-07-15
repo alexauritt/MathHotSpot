@@ -1,10 +1,16 @@
 $math-display-color: grey;
 
-div.math-display {
+.math-display-row {
+  overflow: auto;
+  clear: both;
+  margin: 10px 0px 10px 0px;
+}
+
+.math-display {
   float: left;
   background-color: $math-display-color;
   padding: 20px;
-  margin: 10px;
+  margin: 10px;  
 }
 
 div.problem_instruction {
@@ -21,10 +27,4 @@ div.problem_display {
 
 div.problem_info {
   min-height: 45px;
-}
-
-.math-display-row {
-  overflow: auto;
-  clear: both;
-  margin: 10px 0px 10px 0px;
 }

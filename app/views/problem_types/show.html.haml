@@ -6,15 +6,14 @@
   = @problem_type.topic_name
   = @problem_type.title
 
-.row
+#edit-problem-type
   =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(@problem_type)
-.row
 
-.row#instructions
+#instructions
   Instructions:
   = @problem_type.instruction_text
 
-.row#tags
+#tags
   = display_tag_list @problem_type
 
 .math-display-row
@@ -22,8 +21,7 @@
 
 =delete_problem_type_link_if_empty(@problem_type)
 
-.row
-
+#other-links
   =link_to "My Lessons", my_lessons_path
   |
   =link_to "Add New Level", new_problem_type_problem_level_url(@problem_type)

@@ -2,15 +2,15 @@
   = stylesheet_link_tag "dashboard"
   = stylesheet_link_tag "lessons"
 
-#dashboard-main-row
-  .column#lessons-column
+#dashboard
+  #my-lessons
+    %h2 My Lessons
     = render :partial => 'my_lessons/my_lesson_list', :locals => { :lessons => @lessons }    
-  .column#worksheets-column
+  #my-worksheets
     %h2 My Worksheets
     .dashboard-list#worksheets
       Coming Soon!
-  
-  .column#problem-types-column
+  #my-problem-types
     %h2 My Problem Types
     .dashboard-list#problem-types
       %ul
