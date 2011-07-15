@@ -5,10 +5,7 @@
 
 #container
   .lessons.long
-    #lesson-header
-      #lesson-title
-        =@lesson.title
-        ="(#{@lesson.topic_name})"
+    =render :partial => "lesson_header", :locals => { :lesson => @lesson }
     .row#problem_list
       -@problem_types.each do |problem_type|
         .problem_example

@@ -1,0 +1,14 @@
+#problem_type_title
+  =link_to problem_type.title, problem_type_path(problem_type)
+.problem_instruction
+  =problem_type.instruction.description
+.problem_display
+  =display_mathml_question(problem_type.demo_problem)
+.problem_info
+  =level_count_msg(problem_type)
+  %br
+  =problem_count_msg problem_type
+  %br
+  =display_tag_list problem_type
+
+

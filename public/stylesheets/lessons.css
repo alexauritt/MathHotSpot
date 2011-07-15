@@ -12,16 +12,11 @@ div.column {
   float: left;
 }
 
-div.single_problem_display, div.problem_example, div.problem_type_short {
+div.single_problem_display, div.problem_example, div.problem-type-short, div.problem-type-regular {
   float: left;
   background-color: grey;
   padding: 20px;
   margin: 10px;
-}
-
-div#problem_type_title {
-  font-size: 1.5em;
-  height: 40px;
 }
 
 div.single_problem_display div.problem_links {
@@ -36,8 +31,12 @@ div.problem_display {
   height: 80px;
 }
 
+#problem_type_title, .problem_display {
+  max-width: 300px;
+}
+
 div.problem_info {
-  height: 45px;
+  min-height: 45px;
 }
 
 div.example {
@@ -67,4 +66,10 @@ div#container {
 
 #edit-lesson-link {
   float: right;
+}
+
+#current-lesson {
+  overflow: auto;
+  margin-bottom: 10px;
+  border-bottom: solid black;
 }
