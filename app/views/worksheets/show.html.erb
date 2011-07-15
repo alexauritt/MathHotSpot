@@ -11,7 +11,7 @@
   <div class="problem_group">
   	<div class="instructions"><%= group.first.instruction.description %></div>
   	<% group.each do |worksheet_problem| %>
-  		<%= render :partial => "math_problems/math_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1 } %>
+  		<%= render :partial => "worksheet_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1 } %>
   		<% current_index += 1%>
   	<% end %>  	
   </div>
