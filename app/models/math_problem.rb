@@ -9,14 +9,10 @@ class MathProblem < ActiveRecord::Base
   before_validation :strip_excess_tags, :replace_xmlns_with_display_block
   
   DEFAULT_INSTRUCTION = Instruction.new(:description => MathHotSpotErrors::Message::NO_INSTRUCTIONS)
-  
-  def self.grouped_problems
-    where("problem_level_id IS NOT NULL").order("problem_level_id")
-  end
-    
+      
   def self.group_by_problem_level
     groups = []
-    grouped_problems.chunk {|problem| problem.problem_level }.each {|level, group| groups << group }
+    MathProblem.all.chunk {|problem| problem.problem_level }.each {|level, group| groups << group }
     groups
   end
     
