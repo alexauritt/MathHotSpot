@@ -1,9 +1,0 @@
-.problem_collection
-  %h2 Grouped Math Problems
-  - problem_groups.each do |group|
-    .index_group_container_odd
-      .problem_instruction 
-        = group.first.instruction.description
-      - group.each do |problem|
-        .problem
-          = render(:partial => "math_problems/problem_display", :locals => { :math_problem => problem })
