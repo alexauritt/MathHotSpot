@@ -19,7 +19,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
   
     assert_response :success
     assert_not_nil assigns(:worksheet)
-    assert_select 'p.notice', MathHotSpotErrors::Message::UNIQUE
+    assert_select 'div.notice', MathHotSpotErrors::Message::UNIQUE
   end
   
   test "update/replace error display for no remaining problems of given type" do
@@ -30,7 +30,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
 
     assert_response :success
     assert_not_nil assigns(:worksheet)
-    assert_select 'p.notice', MathHotSpotErrors::Message::NONE_REMAINING
+    assert_select 'div.notice', MathHotSpotErrors::Message::NONE_REMAINING
   end
   
   test "update/replace error display for request replacement of problem that doesn't exist" do
@@ -41,7 +41,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
   
     assert_response :success
     assert_not_nil assigns(:worksheet)
-    assert_select 'p.notice', MathHotSpotErrors::Message::DEFAULT
+    assert_select 'div.notice', MathHotSpotErrors::Message::DEFAULT
   end
   
   private

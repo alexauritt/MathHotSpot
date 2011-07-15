@@ -10,7 +10,7 @@ div.problem_instruction {
   margin: 5px;
 }
 
-div.problem, div.rogue_problem {
+div.problem {
   float: left;
   margin: 40px;
   width: 80px;

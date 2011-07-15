@@ -97,15 +97,6 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "/categories/3", :method => :get}, {:controller => 'categories', :action => 'show', :id => '3'})
   end
   
-#rogue_problems
-  test "rogue_problems new" do 
-    assert_routing( {:path => "/rogue_problems/new", :method => :get}, {:controller => "rogue_problems", :action => "new"})
-  end
-    
-  test "rogue_problems index" do 
-    assert_routing( {:path => "/rogue_problems", :method => :get}, {:controller => "rogue_problems", :action => "index"})
-  end
-  
 #available_tags
   test "availble_tag index" do
     assert_routing( {:path => "/problem_types/algebra-fractions/available_tags", :method => :get}, 

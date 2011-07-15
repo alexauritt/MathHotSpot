@@ -40,8 +40,6 @@ Mathhotspot::Application.routes.draw do
   
   resources :grouped_problems, :only => [:index]
   
-  resources :rogue_problems, :only => [:index, :new]
-
   match '/dashboard' => 'dashboards#show', :as => :dashboard
   match '/my_lessons' => 'my_lessons#index', :as => :my_lessons
   match '/menu/:tag' => 'menus#tag_menu', :as => :tag_menu

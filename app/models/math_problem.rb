@@ -13,11 +13,7 @@ class MathProblem < ActiveRecord::Base
   def self.grouped_problems
     where("problem_level_id IS NOT NULL").order("problem_level_id")
   end
-  
-  def self.rogue_problems
-    where("problem_level_id IS NULL")
-  end
-  
+    
   def self.group_by_problem_level
     groups = []
     grouped_problems.chunk {|problem| problem.problem_level }.each {|level, group| groups << group }

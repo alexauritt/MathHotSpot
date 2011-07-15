@@ -1,4 +1,3 @@
-
 simple_monomial_problem_01:
   question_markup: markup for problem 1
   answer_markup: answer to problem 1
@@ -58,7 +57,4 @@ monomial_simplify_no_zero_02:
   question_markup: markup for simp no zero second
   answer_markup: answer this for simp no zero second
   problem_level: simp_no_zero_level
-
-roguer:
-  question_markup: I am a rogue problem
   

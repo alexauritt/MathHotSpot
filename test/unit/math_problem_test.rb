@@ -14,9 +14,11 @@ class MathProblemTest < ActiveSupport::TestCase
   end
     
   test "group_by_problem_level returns number of groups equal number of levels of existent math problems" do
-    active_level_count = MathProblem.all.map {|prob| prob.problem_level }.uniq!.reject! {|elem| elem.nil? }.size    
+    all_levels = MathProblem.all.map { |prob| prob.problem_level }
+    all_levels.uniq!
+    active_levels = all_levels.uniq.reject { |level| level.empty? }
     groups = MathProblem.group_by_problem_level    
-    assert_equal active_level_count, groups.size
+    assert_equal active_levels.size, groups.size
   end
   
   test "replace math problem returns different problem with same problem_type" do
@@ -52,19 +54,7 @@ class MathProblemTest < ActiveSupport::TestCase
       @math_problem.find_replacement({:exclude => [@another_problem]})
     end
   end
-  
-  test "rogue_problems" do
-    rogues = MathProblem.rogue_problems
-    assert_not_nil rogues
-    assert rogues.size != 0
-  end
-  
-  test "all problems are either rogue or grouped" do
-    rogues = MathProblem.rogue_problems
-    grouped = MathProblem.grouped_problems
-    assert_equal MathProblem.count, rogues.size + grouped.size
-  end
-  
+      
   test "display_mode? returns true (default) if no problem_level defined" do
     assert MathProblem.new.display_mode?
   end
