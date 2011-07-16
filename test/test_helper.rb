@@ -19,5 +19,9 @@ end
 class AuthenticatingControllerTestCase < ActionController::TestCase
   setup do
     sign_in users(:testuser)
-  end  
+  end
+  
+  def authenticated_session_with(hash)
+    session.merge(hash)
+  end
 end
