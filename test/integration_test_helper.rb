@@ -24,7 +24,7 @@ module ActionController
     
     module Lessony
       def assert_current_lesson_displayed(lesson_name)
-        within('#current-lesson') do
+        within('#lesson-title') do
           assert page.has_content?(lesson_name), "Current Lesson title not displayed"
         end
       end
