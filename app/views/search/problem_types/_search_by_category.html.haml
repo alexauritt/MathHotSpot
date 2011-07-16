@@ -1,0 +1,6 @@
+#subject-list
+  %h2 ProblemTypes by Subject/Category
+  - subjects.each do |subject|
+    .subject
+      = subject.title
+      = render :partial => "categories/index_with_problem_types", :locals => {:subject => subject}

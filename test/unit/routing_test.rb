@@ -108,7 +108,13 @@ class RoutingTest < ActionController::TestCase
       {:controller => "available_tags", :action => "search", :problem_type_id => "algebra-fractions"})    
   end
   
+#searches
 #problem type searches
+
+  test "problem type search" do
+    assert_routing( {:path => "search/problem_types", :method => :get}, {:controller => "search/problem_types", :action => 'index'} )
+  end
+
   # for lessons
   test "lesson problem type search show results" do
     assert_routing( {:path => "/lessons/cool-lesson/problem_type_search/this-is-what-i-am-searching-for", :method => :get},
