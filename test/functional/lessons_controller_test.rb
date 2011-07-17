@@ -18,6 +18,18 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     assert_select "p.inline_math", MathHotSpotErrors::Message::NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE
   end
   
+  test "show should set lesson as current_lesson in session" do
+    lesson = Factory.build(:lesson, :id => 56757)
+    Lesson.stubs(:find).with(anything).returns(lesson)
+    
+    assert_nil session[:current_lesson_id]
+    
+    get :show, :id => lesson
+    
+    assert_equal lesson.id, session[:current_lesson_id]
+    assert_response :success
+  end
+  
   test "new" do
     get :new
     assert_response :success

@@ -1,4 +1,3 @@
 #lesson-header
   #lesson-title
-    ="Lesson: #{lesson.title}"
-    ="(#{lesson.topic_name})"
+    =link_to "Lesson: #{lesson.title}", lesson_path(lesson)

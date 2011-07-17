@@ -1,12 +1,13 @@
-#tag_section
-  %h2 Search by Tags
-  #tag_list
-    - tags.each do |tag|
-      =link_to "<span class='tag'>#{tag.name}</span>".html_safe, {:controller => "/menus", :action => "tag_menu", :tag => "#{tag.name.downcase}"}
-#menu
-  = form_tag problem_types_url, :method => 'get' do
-    %p
-      = text_field_tag :search, params[:search]
-      = submit_tag "Search", :name => nil
-      %br
-      Search by Title or Tag Name (e.g. Fractions, Monomials)
+#problem-type-search-tags
+  #tag_section
+    %h2 Search by Tags
+    #tag_list
+      - tags.each do |tag|
+        =link_to "<span class='tag'>#{tag.name}</span>".html_safe, {:controller => "/menus", :action => "tag_menu", :tag => "#{tag.name.downcase}"}
+  #menu
+    = form_tag problem_types_url, :method => 'get' do
+      %p
+        = text_field_tag :search, params[:search]
+        = submit_tag "Search", :name => nil
+        %br
+        Search by Title or Tag Name (e.g. Fractions, Monomials)

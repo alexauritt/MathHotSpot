@@ -1,3 +1,7 @@
+- content_for :head do
+  %title Problem Type Search
+  =stylesheet_link_tag "lessons", "problem_type", "math_display", "problem_type_search", "tags"
+
 =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_lesson }
 
 #current-lesson-problem-type-search

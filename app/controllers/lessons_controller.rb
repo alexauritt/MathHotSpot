@@ -5,6 +5,7 @@ class LessonsController < ApplicationController
   def show
     @lesson = Lesson.find(params[:id])
     @problem_types = @lesson.problem_types
+    session[:current_lesson_id] = @lesson.id
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @lesson }

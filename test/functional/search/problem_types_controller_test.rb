@@ -15,12 +15,10 @@ class Search::ProblemTypesControllerTest < AuthenticatingControllerTestCase
   
   test "view displays current lesson when valid current_lesson_id is set in session" do
 
-    lesson = Factory.build(:lesson)
-    @controller.stubs(:lesson_path).with(lesson).returns("userpathofsomesort")
-
+    lesson = Factory.build(:lesson, :id => 234234)
     Lesson.expects(:find).with(anything).returns(lesson)
 
-    get :index, {}, authenticated_session_with({'current_lesson_id' => 234})
+    get :index, {}, authenticated_session_with({'current_lesson_id' => lesson.id})
 
     assert_response :success
     assert_equal lesson, assigns(:current_lesson), "Current lesson not found as expected"
