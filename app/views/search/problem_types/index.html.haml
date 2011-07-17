@@ -1,3 +1,5 @@
-#problem-type-search
-  = render :partial => "search_by_category", :locals => { :subjects => @subjects }
-  = render :partial => "search_by_tag", :locals => { :tags => @tags }
+- content_for :head do
+  %title Worksheets
+  =stylesheet_link_tag "menu", "math_display", "layout", "tags" 
+
+= render :partial => "problem_type_search", :locals => { :subjects => @subjects, :tags => @tags}

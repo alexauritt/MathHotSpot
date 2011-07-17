@@ -2,7 +2,7 @@
   %h2 Search by Tags
   #tag_list
     - tags.each do |tag|
-      =link_to "<span class='tag'>#{tag.name}</span>".html_safe, {:controller => "menus", :action => "tag_menu", :tag => "#{tag.name.downcase}"}
+      =link_to "<span class='tag'>#{tag.name}</span>".html_safe, {:controller => "/menus", :action => "tag_menu", :tag => "#{tag.name.downcase}"}
 #menu
   = form_tag problem_types_url, :method => 'get' do
     %p
