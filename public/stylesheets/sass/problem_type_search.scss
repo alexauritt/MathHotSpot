@@ -9,7 +9,14 @@
     margin-right: 10px;
   }
   
-  #problem-type-search-categories, problem-type-search-tags {
+  #problem-type-search-categories {
+    margin-left: 10px;
+    float: left;
+  }  
+}
+
+#problem-type-search {
+  #problem-type-search-categories {
     margin-left: 10px;
     float: left;
   }  
