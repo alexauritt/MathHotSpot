@@ -31,7 +31,6 @@ class Search::ProblemTypesControllerTest < AuthenticatingControllerTestCase
     get_index_with_invalid_current_lesson_id_in_session!
   
     assert_response :success
-
     assert_problem_type_search_displayed_in_view
     assert_current_lesson_displayed_in_view false
   end
@@ -40,19 +39,10 @@ class Search::ProblemTypesControllerTest < AuthenticatingControllerTestCase
     assert_nothing_raised do
       get_index_with_invalid_current_lesson_id_in_session!
     end
-    invalid_id = 234234
-    
-    Lesson.expects(:find).with(invalid_id).raises(ActiveRecord::RecordNotFound)
-    assert_nothing_raised do
-      get :index, {}, authenticated_session_with({'current_lesson_id' => invalid_id})
-    end    
   end
   
   test "index clears current_lesson_id in session when said id is invalid" do
-    invalid_id = 234234
-    Lesson.expects(:find).with(invalid_id).raises(ActiveRecord::RecordNotFound)
-    get :index, {}, authenticated_session_with({'current_lesson_id' => invalid_id})
-  
+    get_index_with_invalid_current_lesson_id_in_session!
     assert_nil session[:current_lesson_id]
   end
   
