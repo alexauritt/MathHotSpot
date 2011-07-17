@@ -8,8 +8,7 @@ class RoutingTest < ActionController::TestCase
     assert_routing( { :path => '/dashboard', :method => :get}, { :controller => 'dashboards', :action => 'show' })
   end
 
-# menus
-  
+# menus  
   test "tag menu route" do
     assert_routing( { :path => "menu/a_math_problem_tag", :method => :get}, {:controller => "menus", :action => "tag_menu", :tag => "a_math_problem_tag"})
   end
@@ -111,19 +110,6 @@ class RoutingTest < ActionController::TestCase
 
   test "problem type search" do
     assert_routing( {:path => "search/problem_types", :method => :get}, {:controller => "search/problem_types", :action => 'index'} )
-  end
-
-  # for lessons
-  test "lesson problem type search show results" do
-    assert_routing( {:path => "/lessons/cool-lesson/problem_type_search/this-is-what-i-am-searching-for", :method => :get},
-      {:controller => "lessons_problem_type_search", :action => "show", 
-        :lesson_id => "cool-lesson", :query_string => "this-is-what-i-am-searching-for"})
-  end
-  
-  test "new lesson problem type search" do
-    assert_routing( {:path => "/lessons/cool-lesson/problem_type_search", :method => :get},
-      {:controller => "lessons_problem_type_search", :action => "new", 
-        :lesson_id => "cool-lesson"})    
   end
   
 end

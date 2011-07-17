@@ -45,10 +45,6 @@ Mathhotspot::Application.routes.draw do
   match '/dashboard' => 'dashboards#show', :as => :dashboard
   match '/my_lessons' => 'my_lessons#index', :as => :my_lessons
   match '/menu/:tag' => 'menus#tag_menu', :as => :tag_menu
-  match '/lessons/:lesson_id/problem_type_search/:query_string' => 'lessons_problem_type_search#show',
-    :as => :lessons_problem_type_search
-  match '/lessons/:lesson_id/problem_type_search/' => 'lessons_problem_type_search#new',
-    :as => :new_lessons_problem_type_search
   match '/problem_types/:problem_type_id/available_tags/search' => 'available_tags#search', :as => :available_tag_search
     
 
