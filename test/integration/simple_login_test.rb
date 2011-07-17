@@ -3,6 +3,8 @@ require 'integration_test_helper'
 
 class SimpleLoginTest < ActionDispatch::IntegrationTest
 
+  include ActionController::IntegrationTest::ProblemTypeSearchy
+
   # Replace this with your real tests.
   test "prompts for login" do
     visit(root_path)
@@ -19,9 +21,7 @@ class SimpleLoginTest < ActionDispatch::IntegrationTest
   
     assert_equal root_path, current_path
 
-    find_link('My Dashboard')
-    find_link('Create a New Problem Type')
-    page.has_content?('Search by Tags')
+    assert_problem_type_search_forms_displayed
     
   end
 end

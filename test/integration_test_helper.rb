@@ -46,6 +46,7 @@ module ActionController
       def assert_problem_type_search_forms_displayed
         within('#problem-type-search') do
           assert page.has_content?('ProblemTypes by Subject/Category'), "Can't find search by Subject/Category form"
+          assert page.has_content?('Search by Tags')
         end
       end
     end

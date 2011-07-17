@@ -2,15 +2,13 @@ require 'test_helper'
 
 class RoutingTest < ActionController::TestCase
 
+
 #dashboard
   test "dashboard route" do
     assert_routing( { :path => '/dashboard', :method => :get}, { :controller => 'dashboards', :action => 'show' })
   end
 
 # menus
-  test "menu index route" do
-    assert_routing( { :path => "/", :method => :get}, {:controller => "menus", :action => "index"})
-  end
   
   test "tag menu route" do
     assert_routing( { :path => "menu/a_math_problem_tag", :method => :get}, {:controller => "menus", :action => "tag_menu", :tag => "a_math_problem_tag"})
