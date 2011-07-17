@@ -30,7 +30,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(params[:lesson].merge({:owner => current_user }))
     if @lesson.save
       session[:current_lesson_id] = @lesson.id
-      redirect_to(my_lessons_path, :notice => 'Lesson was successfully created.')
+      redirect_to(lesson_path(@lesson), :notice => 'Lesson was successfully created.')
     else
       redirect_to new_lesson_path
     end

@@ -23,8 +23,7 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
     fill_in 'Title', :with => lesson_name
     click_button('Create Lesson')
     
-    assert_current_path my_lessons_path
-    assert_lesson_displayed(lesson_name)    
+    assert_current_path newly_created_lesson_path_with_name(lesson_name)
   end
   
   test "delete a pre-existing lesson" do
@@ -42,6 +41,12 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
     
     assert_current_path my_lessons_path
     assert_lesson_not_displayed(dead_lesson_title)
+  end
+
+  private
+  def newly_created_lesson_path_with_name(lesson_name)
+    new_lesson = Lesson.find_by_title(lesson_name)
+    lesson_path(new_lesson)
   end
   
   teardown do

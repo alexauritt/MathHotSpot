@@ -45,24 +45,13 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     assert_difference('Lesson.count') do
       post :create, :lesson => simple_lesson.attributes
     end
-
-    assert_redirected_to my_lessons_url
   end
   
   test "create should set current_user as owner of new lesson" do
     post :create, :lesson => simple_lesson.attributes
     assert_equal @current_user, assigns(:lesson).owner
   end
-  
-  test "get rid of simple lesson and use factory girl" do
-    pending "clean up these tests..."
-  end
-  
-  test "create should redirect where we want it to" do
-    post :create, :lesson => @lesson.attributes
-    assert_redirected_to my_lessons_path, "expected successful lesson creation to redirect to My Lessons"
-  end
-  
+    
   test "create should set new lesson as current lesson in session" do
     post :create, :lesson => @lesson.attributes
     assert_equal Lesson.find_by_title(@lesson.title).id, session[:current_lesson_id]
