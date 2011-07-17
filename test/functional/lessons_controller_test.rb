@@ -7,11 +7,12 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     @lesson = Factory.build(:lesson)
   end
 
-  test "should show lesson" do
-    get :show, {:category_id => @old_lesson.category.id, :id => @old_lesson.to_param }
-    assert_response :success
+  test "should show lesson (stubbed)" do
+    @lesson = stub_db_to_return_lesson!
+    get :show, {:id => @lesson.id }
+    assert_response :success    
   end
-  
+    
   test "should display empty problem type message if lesson contains a problem type with no levels" do
     Lesson.any_instance.stubs(:problem_types).returns([ProblemType.new(:permalink => "empty-problem-type", :title => "Empty Problem Type", :instruction => Instruction.new(:description => "blah blah"))])
     get :show, {:category_id => @old_lesson.category.id, :id => @old_lesson.to_param }
@@ -43,12 +44,12 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
 
   test "should create lesson" do
     assert_difference('Lesson.count') do
-      post :create, :lesson => simple_lesson.attributes
+      post :create, :lesson => Factory.attributes_for(:lesson)
     end
   end
   
   test "create should set current_user as owner of new lesson" do
-    post :create, :lesson => simple_lesson.attributes
+    post :create, :lesson => Factory.attributes_for(:lesson)
     assert_equal @current_user, assigns(:lesson).owner
   end
     
@@ -81,8 +82,12 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
   end
 
   private
-  def simple_lesson
-    Lesson.new(:title => 'a very simple lesson')
+
+  def stub_db_to_return_lesson!
+    fake_id = 234234
+    lesson = Factory.build(:lesson, :id => fake_id)
+    Lesson.stubs(:find).with(fake_id).returns(lesson)    
+    lesson
   end
 
 end
