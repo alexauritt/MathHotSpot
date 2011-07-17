@@ -9,8 +9,6 @@
             = msg
   .field
     = f.input :title
-    %br
-    = link_to "Create a new Category", new_category_url
   .field
     = f.association :problem_types, :as => :check_boxes
     

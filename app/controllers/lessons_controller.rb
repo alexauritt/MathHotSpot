@@ -22,12 +22,14 @@ class LessonsController < ApplicationController
   end
   
   def new
+    session[:current_lesson_id] = nil
     @lesson = Lesson.new
   end
 
   def create
     @lesson = Lesson.new(params[:lesson].merge({:owner => current_user }))
     if @lesson.save
+      session[:current_lesson_id] = @lesson.id
       redirect_to(my_lessons_path, :notice => 'Lesson was successfully created.')
     else
       redirect_to new_lesson_path

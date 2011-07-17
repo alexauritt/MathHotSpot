@@ -3,17 +3,18 @@ require 'test_helper'
 class LessonsControllerTest < AuthenticatingControllerTestCase
   setup do
     @current_user = users(:testuser)
-    @lesson = lessons(:dividing_monomials_lesson)
+    @old_lesson = lessons(:dividing_monomials_lesson)
+    @lesson = Factory.build(:lesson)
   end
 
   test "should show lesson" do
-    get :show, {:category_id => @lesson.category.id, :id => @lesson.to_param }
+    get :show, {:category_id => @old_lesson.category.id, :id => @old_lesson.to_param }
     assert_response :success
   end
   
   test "should display empty problem type message if lesson contains a problem type with no levels" do
     Lesson.any_instance.stubs(:problem_types).returns([ProblemType.new(:permalink => "empty-problem-type", :title => "Empty Problem Type", :instruction => Instruction.new(:description => "blah blah"))])
-    get :show, {:category_id => @lesson.category.id, :id => @lesson.to_param }
+    get :show, {:category_id => @old_lesson.category.id, :id => @old_lesson.to_param }
     assert_response :success
     assert_select "p.inline_math", MathHotSpotErrors::Message::NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE
   end
@@ -34,6 +35,11 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     get :new
     assert_response :success
   end
+  
+  test "new clears current_lesson_id from session" do
+    get :new, nil, authenticated_session_with({'current_lesson_id' => 234234})
+    assert_nil session[:current_lesson_id]
+  end
 
   test "should create lesson" do
     assert_difference('Lesson.count') do
@@ -48,14 +54,28 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
     assert_equal @current_user, assigns(:lesson).owner
   end
   
+  test "get rid of simple lesson and use factory girl" do
+    pending "clean up these tests..."
+  end
+  
+  test "create should redirect where we want it to" do
+    post :create, :lesson => @lesson.attributes
+    assert_redirected_to my_lessons_path, "expected successful lesson creation to redirect to My Lessons"
+  end
+  
+  test "create should set new lesson as current lesson in session" do
+    post :create, :lesson => @lesson.attributes
+    assert_equal Lesson.find_by_title(@lesson.title).id, session[:current_lesson_id]
+  end
+  
   test "should update lesson" do
-    put :update, :id => @lesson.to_param, :lesson => @lesson.attributes
+    put :update, :id => @old_lesson.to_param, :lesson => @old_lesson.attributes
     lesson = assigns(:lesson)
     assert_redirected_to lesson_path(lesson)
   end
     
   test "edit" do
-    get :edit, :id => @lesson.to_param
+    get :edit, :id => @old_lesson.to_param
     assert_response :success
   end
 
@@ -66,22 +86,10 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
   
   test "destroy" do
     assert_difference('Lesson.count', -1) do
-      delete :destroy, :id => @lesson.to_param
+      delete :destroy, :id => @old_lesson.to_param
     end
     assert_redirected_to my_lessons_path
   end
-
-  # these comes later, once we've implemented authorization
-  # test "should fail to update lesson owned by different user" do
-  #   not_your_lesson = lessons(:joe_lesson)
-  #   put :update, :id => not_your_lesson, :lesson => not_your_lesson.attributes
-  #   assert_redirected_to lesson_path(not_your_lesson)
-  #   assert_select 'p.notice', MathHotSpotErrors::Message::NOT_YOUR_LESSON
-  # end
-  # test "should not have access to edit page for lessons that don't belong to you" do
-  # end
-  
-
 
   private
   def simple_lesson
