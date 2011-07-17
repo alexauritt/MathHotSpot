@@ -1,6 +1,6 @@
 #problem-type-search-tags
   #tag_section
-    %h2 Search by Tags
+    .search-section-title Search by Tags
     #tag_list
       - tags.each do |tag|
         =link_to "<span class='tag'>#{tag.name}</span>".html_safe, {:controller => "/menus", :action => "tag_menu", :tag => "#{tag.name.downcase}"}
