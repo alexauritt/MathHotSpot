@@ -31,11 +31,11 @@ class LessonTest < ActiveSupport::TestCase
     assert_equal the_title, @lesson.topic_name
   end
   
-  test "add_problem_type" do
+  test "new_problem_type" do
     lesson = lessons(:dividing_monomials_lesson)
     problem_type = problem_types(:simp_no_zero_problem_type)
     assert_difference('lesson.problem_types.count') do
-      lesson.add_problem_type(problem_type)
+      lesson.new_problem_type = problem_type
     end    
   end
 

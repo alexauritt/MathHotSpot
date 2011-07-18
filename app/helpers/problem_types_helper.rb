@@ -24,8 +24,15 @@ module ProblemTypesHelper
     level.math_problems.empty? ? link_to('Delete Level', problem_type_problem_level_path(level.problem_type, level), :confirm => 'Are you sure?', :method => :delete) : ""
   end
 
-  def add_to_current_lesson_link_if_applicable
-    render :partial => "problem_types/add_problem_type_to_current_lesson" if session[:current_lesson_id]
+  def add_to_current_lesson_link_if_applicable(problem_type)
+    if session[:current_lesson_id]
+      begin
+        current_lesson = Lesson.find(session[:current_lesson_id])
+        render(:partial => "problem_types/add_problem_type_to_current_lesson", :locals => {:problem_type => problem_type, :lesson => current_lesson})
+      rescue ActiveRecord::RecordNotFound
+        session[:current_lesson_id] = nil
+      end
+    end
   end
 
   def delete_problem_type_link_if_empty(type)

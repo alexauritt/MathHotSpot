@@ -8,9 +8,15 @@ class Lesson < ActiveRecord::Base
   accepts_nested_attributes_for :problem_types, :reject_if => lambda { |problem_type| problem_type[:title].blank?}, :allow_destroy => true
   
   validates_presence_of :owner_id, :title
+  
+  def new_problem_type
+  end
 
-  def add_problem_type(problem_type)
-    problem_types << problem_type
+  def new_problem_type=(problem_type_id)
+    begin
+      problem_types << ProblemType.find(problem_type_id)
+    rescue ActiveRecord::RecordNotFound
+    end
   end
 
   def template_count

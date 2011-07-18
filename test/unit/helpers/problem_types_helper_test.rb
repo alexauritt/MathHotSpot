@@ -4,6 +4,8 @@ class ProblemTypesHelperTest < ActionView::TestCase
   
   def setup
     @problem_type = ProblemType.new
+    @fixture_problem_type = problem_types(:simp_no_zero_problem_type)
+    @lesson = lessons(:monomial_factors_of_polynomials_lesson)
   end
   
   test "level_count_msg multiple" do
@@ -74,13 +76,14 @@ class ProblemTypesHelperTest < ActionView::TestCase
   end
   
   test "add_to_current_lesson_link_if_applicable renders partial if current lesson set in session" do
-    session[:current_lesson_id] = 3
-    partial = render :partial => "problem_types/add_problem_type_to_current_lesson"
-    assert_equal partial, add_to_current_lesson_link_if_applicable
+    session[:current_lesson_id] = @lesson.id
+    partial = render :partial => "problem_types/add_problem_type_to_current_lesson", :locals => {:lesson => @lesson, :problem_type => @problem_type}
+
+    assert_equal partial, add_to_current_lesson_link_if_applicable(@problem_type)
   end
   
   test "add_to_current_lesson_link_if_applicable returns nil if current lesson is NOT set in session" do
-    assert_nil add_to_current_lesson_link_if_applicable
+    assert_nil add_to_current_lesson_link_if_applicable(@problem_type)
   end
 
   
