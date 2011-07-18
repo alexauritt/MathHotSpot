@@ -9,6 +9,10 @@ class Lesson < ActiveRecord::Base
   
   validates_presence_of :owner_id, :title
 
+  def add_problem_type(problem_type)
+    problem_types << problem_type
+  end
+
   def template_count
     problem_types.size
   end
