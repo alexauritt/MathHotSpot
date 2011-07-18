@@ -17,6 +17,3 @@
     =render(:partial => 'level_examples', :locals => {:levels => problem_type.problem_levels })
 
   =delete_problem_type_link_if_empty(problem_type)
-
-  #other-links
-    =link_to "Add New Level", new_problem_type_problem_level_url(problem_type)

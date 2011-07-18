@@ -1,13 +1,12 @@
 - content_for :head do
   %title= "Edit: #{@problem_type.title}" 
   = javascript_include_tag("problem_type_edit_autocomplete.js")
-  = stylesheet_link_tag "lessons"
+  = stylesheet_link_tag "math_display", "problem_type"
   = stylesheet_link_tag("ui-lightness/jquery-ui-1.8.13.custom.css")
 
 #info{ :data => {:problem_type_name => @problem_type.to_param}}
 
 = simple_form_for(@problem_type) do |t|
-
   .form_section#category
     = t.association :category
     %br
@@ -18,10 +17,10 @@
   .form_section#instruction
     = t.association :instruction
     = link_to "None of these will do... make new instructions", new_instructions_path
-    
+  
   .form_section#edit_tag_list
     = t.association :tags, :as => :check_boxes, :collection => @problem_type.tags, :label => "Current Tags: "
-  
+
   .action
     = t.submit "Update Problem Type"
 
@@ -36,7 +35,7 @@
   Current Levels:
   %br
   -@problem_type.problem_levels.each do |level|
-    .problem_example
+    .math-display.problem_example
       = simple_form_for(level, :url => problem_type_problem_level_url(@problem_type, level)) do |lev|
         =lev.input :level_number, :input_html => {:size => 3, :class => 'level_number_display'}, :label => "Level: "
         .problem_display
@@ -45,3 +44,7 @@
           = problem_count_msg(level)  
         .actions
           = lev.submit "Update"
+
+#add-new-level-link  
+  =link_to "Add New Level", new_problem_type_problem_level_url(@problem_type)
+  
