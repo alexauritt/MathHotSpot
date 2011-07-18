@@ -25,5 +25,5 @@ Factory.define :problem_type do |pt|
   pt.title "Polynomial Fraction Division"
   pt.permalink "polynomial-fraction-division"
   pt.category {|c| c.association(:category) }
-  pt.owner { |o| o.association(:owner) }
+  pt.owner { |o| o.association(:user) }
 end

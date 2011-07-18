@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Search::ProblemTypesControllerTest < AuthenticatingControllerTestCase
-  # Replace this with your real tests.
       
   test "index without current_lesson set in session returns simple problem type search" do
     get :index
@@ -47,14 +46,6 @@ class Search::ProblemTypesControllerTest < AuthenticatingControllerTestCase
   end
   
   private  
-  def assert_current_lesson_displayed_in_view(present = true)
-    assert_select '#lesson-header', present, "This page should NOT contain a #lesson-header"
-    assert_select '#current-lesson-short', present, "This page should NOT contain a #current-lesson-short"
-  end
-  
-  def assert_problem_type_search_displayed_in_view(present = true)
-    assert_select '#problem-type-search', present
-  end
 
   def get_index_with_invalid_current_lesson_id_in_session!
     invalid_id = 234234

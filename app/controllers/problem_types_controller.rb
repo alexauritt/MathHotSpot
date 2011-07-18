@@ -5,7 +5,13 @@ class ProblemTypesController < ApplicationController
   end
   
   def show
+    begin
+      @current_lesson = session[:current_lesson_id] ? Lesson.find(session[:current_lesson_id]) : nil
+    rescue ActiveRecord::RecordNotFound
+      session[:current_lesson_id] = nil
+    end
     @problem_type = ProblemType.find_by_permalink(params[:id])
+    render "show_with_current_lesson" if @current_lesson
   end
   
   def new

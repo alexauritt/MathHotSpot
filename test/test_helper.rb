@@ -9,7 +9,15 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def assert_current_lesson_displayed_in_view(present = true)
+    assert_select '#lesson-header', present, "Presence of #lesson-header expected to be #{present}"
+    assert_select '#current-lesson-short', present, "Presence of #current-lesson expected to be #{present}"
+  end
+
+  def assert_problem_type_search_displayed_in_view(present = true)
+    assert_select '#problem-type-search', present
+  end
+
 end
 
 class ActionController::TestCase

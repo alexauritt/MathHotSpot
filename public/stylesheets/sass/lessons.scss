@@ -15,9 +15,15 @@ div#container {
   margin-left: 2em;
 }
 
-#lesson-title {
-  font-size: 1.5em;
-  margin-bottom: .5em;
+#lesson-header {
+  #current-lesson {
+    font-size: 1.5em;
+    margin-bottom: .5em;
+  }
+  #lesson-title {
+    font-size: 1.5em;
+    margin-bottom: .5em;    
+  }
 }
 
 #edit-lesson-link {

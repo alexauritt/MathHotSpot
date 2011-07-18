@@ -1,10 +1,12 @@
 require 'test_helper'
 
 class ProblemTypesControllerTest < AuthenticatingControllerTestCase
-  # Replace this with your real tests.
-  def setup    
+  
+  setup do
+    @problem_type = Factory.build(:problem_type)
+    @lesson = Factory.build(:lesson)
   end
-
+  
   test "index" do
     get :index
     assert_response :success
@@ -22,6 +24,16 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     assert_response :success
   end
   
+  test "show should display current lesson and problem type if current_lesson specified in session" do
+    lesson, problem_type = stub_db_to_return_lesson_and_problem_type!
+    get(:show, {:id => @problem_type.permalink}, authenticated_session_with({'current_lesson_id' => lesson.id}))
+      
+    assert_equal lesson.id, session[:current_lesson_id]
+    assert_response :success
+    
+    assert_current_lesson_displayed_in_view
+  end
+    
   test "new" do
     @problem_type = problem_type_with_category_level_and_problem
     get :new
@@ -141,6 +153,13 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
   end
     
   private
+  
+  def stub_db_to_return_lesson_and_problem_type!
+    @lesson.stubs(:id).returns(234234)
+    Lesson.stubs(:find).with(234234).returns(@lesson)
+    ProblemType.stubs(:find_by_permalink).with(@problem_type.permalink).returns(@problem_type)
+    [@lesson, @problem_type]
+  end
   
   def stubbed_empty_problem_type
     problem_type = ProblemType.new(:title => "goo goo", :permalink => 'goo-goo', :category => Category.new)

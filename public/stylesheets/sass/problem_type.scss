@@ -14,3 +14,23 @@
     }
   }  
 }
+
+#current-lesson-problem-type {
+  overflow: auto;
+  .current-lesson-wrapper {
+    float: left;
+    width: 15%;
+    border-right: solid black;
+    padding-right: 0.2em;
+    margin-right: 1.3em;
+    
+    
+  }
+  #problem-type-display {
+    float: left;
+    #problem-type-title {
+      font-size: 1.5em;
+      margin-bottom: .5em;    
+    }
+  }  
+}
