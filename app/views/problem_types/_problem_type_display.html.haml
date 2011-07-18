@@ -2,9 +2,8 @@
   #problem-type-title
     = problem_type.topic_name
     = problem_type.title
-
-  #edit-problem-type
-    =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(problem_type)
+    
+  = add_to_current_lesson_link_if_applicable
 
   #instructions
     Instructions:
@@ -15,5 +14,8 @@
 
   .math-display-row
     =render(:partial => 'level_examples', :locals => {:levels => problem_type.problem_levels })
+
+  #edit-problem-type
+    =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(problem_type)
 
   =delete_problem_type_link_if_empty(problem_type)

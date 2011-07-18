@@ -28,6 +28,10 @@ class LessonsAndProblemTypesTest < ActionDispatch::IntegrationTest
     assert_problem_type_search_forms_displayed
   end
   
+  test "add problem type to lesson" do
+    pending "to do"
+  end
+  
   teardown do
     DatabaseCleaner.clean
   end

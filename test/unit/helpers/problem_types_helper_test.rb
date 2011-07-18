@@ -73,5 +73,15 @@ class ProblemTypesHelperTest < ActionView::TestCase
     assert_equal expected_options, category_choices
   end
   
+  test "add_to_current_lesson_link_if_applicable renders partial if current lesson set in session" do
+    session[:current_lesson_id] = 3
+    partial = render :partial => "problem_types/add_problem_type_to_current_lesson"
+    assert_equal partial, add_to_current_lesson_link_if_applicable
+  end
+  
+  test "add_to_current_lesson_link_if_applicable returns nil if current lesson is NOT set in session" do
+    assert_nil add_to_current_lesson_link_if_applicable
+  end
+
   
 end
