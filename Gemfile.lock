@@ -138,6 +138,6 @@ DEPENDENCIES
   pg
   rack
   rails (= 3.0.9)
-  rake (~> 0.8.7)
+  rake
   sass
   simple_form

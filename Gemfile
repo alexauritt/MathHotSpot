@@ -6,7 +6,7 @@ gem 'rack'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'rake', '~> 0.8.7'
+gem 'rake'
 gem 'pg'
 gem 'jquery-rails'
 gem 'haml', '3.1.2'
