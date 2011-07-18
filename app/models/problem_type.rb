@@ -28,11 +28,11 @@ class ProblemType < ActiveRecord::Base
     problem_levels.empty?
   end
 
-  def new_tag
+  def add_tag
     nil
   end
 
-  def new_tag=(tag)
+  def add_tag=(tag)
     self.tag_list.add tag
   end
 
