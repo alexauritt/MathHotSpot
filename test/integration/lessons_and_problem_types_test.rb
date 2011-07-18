@@ -29,7 +29,23 @@ class LessonsAndProblemTypesTest < ActionDispatch::IntegrationTest
   end
   
   test "add problem type to lesson" do
-    pending "to do"
+    different_problem_type = Factory.create(:problem_type, :title => "Exponents of Imaginary Numbers", :owner => @user)
+    assert_problem_type_displayed_in_lesson_view(different_problem_type, false)
+    
+    visit lesson_path(@lesson)
+    
+    click_link("Find a Problem Type for this Lesson")
+    assert_current_path search_problem_types_path
+    click_link(different_problem_type.title)
+    
+    assert_current_path problem_type_path(different_problem_type)
+    assert_current_lesson_displayed(@lesson.title)
+    
+    click_button("Add Problem Type")
+    
+    assert_current_path lesson_path(@lesson)
+    
+    assert_problem_type_displayed_in_lesson_view(different_problem_type)
   end
   
   teardown do

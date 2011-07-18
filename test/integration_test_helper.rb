@@ -23,6 +23,11 @@ module ActionController
     end
     
     module Lessony
+      
+      def assert_problem_type_displayed_in_lesson_view(problem_type, present = true)
+        assert_equal present, page.has_content?(problem_type.title)
+      end
+      
       def assert_current_lesson_displayed(lesson_name)
         within('#lesson-title') do
           assert page.has_content?(lesson_name), "Current Lesson title not displayed"

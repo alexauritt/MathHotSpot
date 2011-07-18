@@ -9,9 +9,6 @@ class Lesson < ActiveRecord::Base
   
   validates_presence_of :owner_id, :title
   
-  def new_problem_type
-  end
-
   def new_problem_type=(problem_type_id)
     begin
       problem_types << ProblemType.find(problem_type_id)
