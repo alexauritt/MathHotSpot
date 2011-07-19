@@ -22,12 +22,7 @@ module MathProblemsHelper
       end
     end
   end
-  
-  def problem_type_count(lesson)
-    count = lesson.template_count
-    count >= 1 ? problem_type_count_msg(lesson.template_count) : "(Empty)"     
-  end
-  
+    
   def problem_type_count_msg(count)
     count > 1 ? "(#{count} problem types)" : "(1 problem type)"
   end

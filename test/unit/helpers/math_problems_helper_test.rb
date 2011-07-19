@@ -2,6 +2,7 @@ require 'test_helper'
 
 class MathProblemsHelperTest < ActionView::TestCase
   def setup
+    @lesson = Lesson.new
     @question_markup = "<mfrac><mrow><msup><mi>a</mi><mn>3</mn></msup></mrow><mrow><msup><mi>a</mi><mn>8</mn></msup></mrow></mfrac>"
     @answer_markup = "some answer markup"
     @problem = MathProblem.new(:question_markup => @question_markup, :answer_markup => @answer_markup)
@@ -24,26 +25,5 @@ class MathProblemsHelperTest < ActionView::TestCase
   test "display_mathml_question displays default msg if it receives null math problem" do
     assert_equal(MathHotSpotErrors::Message::NO_SAMPLE_MATH_PROBLEM_FOUND, display_mathml_question(nil))
   end
-  
-  test "problem_type_count should be zero" do
-    @lesson = Lesson.new
-    assert_equal "(Empty)", problem_type_count(@lesson)
-  end
-  
-  test "problem_type_count should be 1" do    
-    @lesson = Lesson.new
-    @lesson.problem_types.build
     
-    assert_equal "(1 problem type)", problem_type_count(@lesson)
-  end
-
-  test "problem_type_count should be 7" do
-    @lesson = Lesson.new
-    7.times { @lesson.problem_types.build }
-    
-    assert_equal "(7 problem types)", problem_type_count(@lesson)
-  end
-  
-  
-  
 end

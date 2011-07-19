@@ -1,6 +1,8 @@
 class Lesson < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
-  has_and_belongs_to_many :problem_types
+
+  has_many :core_lesson_problem_types
+  has_many :problem_types, :through => :core_lesson_problem_types
 
   belongs_to :category
   belongs_to :subject  
@@ -11,12 +13,12 @@ class Lesson < ActiveRecord::Base
   
   def new_problem_type=(problem_type_id)
     begin
-      problem_types << ProblemType.find(problem_type_id)
+      problem_types << (ProblemType.find problem_type_id)
     rescue ActiveRecord::RecordNotFound
     end
   end
 
-  def template_count
+  def problem_type_count
     problem_types.size
   end
   

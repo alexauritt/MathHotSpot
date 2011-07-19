@@ -4,8 +4,19 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+divide_monomials:
+  lesson: dividing_monomials_lesson
+  problem_type: dividing_monomials_problem_type
+
+fing_gcf:
+  problem_type: find_gcf_of_monomials_problem_type
+  lesson: dividing_monomials_lesson
+
+simp:
+  problem_type: simp_no_zero_problem_type
+  lesson: dividing_monomials_lesson
+  
+empty:
+  problem_type: empty_problem_type
+  lesson: dividing_monomials_lesson

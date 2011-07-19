@@ -4,7 +4,6 @@ dividing_monomials_problem_type:
   title: Monomial Fraction Simplification
   permalink: monomial-fraction-simplification
   category: polynomials
-  lessons: dividing_monomials_lesson
   instruction: simplify
   owner: testuser
         
@@ -12,7 +11,6 @@ find_gcf_of_monomials_problem_type:
   title: Find GCF of monomials
   permalink: find-gcf-of-monomials
   category: polynomials
-  lessons: dividing_monomials_lesson
   display_mode: false
   instruction: gcf_monomials
   owner: testuser
@@ -21,7 +19,6 @@ simp_no_zero_problem_type:
   title: Monomial Fraction Simplifcation Assume No Zero Denominator
   permalink: monomial-fraction-simplifcation-assume-no-zero-denominator
   category: polynomials
-  lessons: dividing_monomials_lesson
   instruction: simplify_no_zero_denom
   owner: testuser
     
@@ -29,6 +26,5 @@ empty_problem_type:
   title: Problem Type That Has No Levels
   permalink: problem-type-that-has-no-levels
   category: polynomials
-  lessons: dividing_monomials_lesson
   instruction: simplify_no_zero_denom
   owner: testuser
