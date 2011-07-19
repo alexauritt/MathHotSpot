@@ -31,5 +31,14 @@ class LessonTest < ActiveSupport::TestCase
       @lesson.new_problem_type = problem_type.id
     end
   end
+  
+  test "lesson catches error when attempting to add problem type already in lesson" do
+    lesson = Factory.create(:lesson, :owner => User.first)
+    problem_type = Factory.create(:problem_type)
+    lesson.problem_types << problem_type
+    assert_nothing_raised do
+      lesson.new_problem_type = problem_type.id
+    end
+  end
 
 end

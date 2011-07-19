@@ -15,8 +15,8 @@ class SimpleLoginTest < ActionDispatch::IntegrationTest
     user = Factory.create(:user)
     
     visit(root_path)
-    fill_in 'user_email', :with => 'jim@jimbo.com'
-    fill_in 'user_password', :with => 'secret'
+    fill_in 'user_email', :with => user.email
+    fill_in 'user_password', :with => user.password
     click_button('Sign in')
   
     assert_equal root_path, current_path

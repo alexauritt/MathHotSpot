@@ -14,7 +14,7 @@ class Lesson < ActiveRecord::Base
   def new_problem_type=(problem_type_id)
     begin
       problem_types << (ProblemType.find problem_type_id)
-    rescue ActiveRecord::RecordNotFound
+    rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid
     end
   end
 
