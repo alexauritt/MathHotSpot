@@ -10,11 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110710104842) do
+ActiveRecord::Schema.define(:version => 20110719081623) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
     t.integer  "subject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "core_lesson_problem_types", :force => true do |t|
+    t.integer  "lesson_id"
+    t.integer  "problem_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
