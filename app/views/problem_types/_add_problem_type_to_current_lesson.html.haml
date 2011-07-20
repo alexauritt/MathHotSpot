@@ -1,5 +1,6 @@
 #add_problem_type
-  = simple_form_for(lesson) do |t|
-    = t.input :new_problem_type, :as => :hidden, :input_html => { :value => problem_type.id }
+  = simple_form_for(CoreLessonProblemType.new) do |t|
+    = t.input :problem_type_id, :as => :hidden, :input_html => { :value => problem_type.id }
+    = t.input :lesson_id, :as => :hidden, :input_html => { :value => lesson.id }    
     .actions
       = t.submit "Add Problem Type"

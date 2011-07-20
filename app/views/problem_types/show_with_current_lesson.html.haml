@@ -1,5 +1,6 @@
 - content_for :head do
-  %title =@problem_type.title
+  %title
+    =@problem_type.title
   =stylesheet_link_tag "lessons", "problem_type", "math_display", "tags"
   
 #current-lesson-problem-type

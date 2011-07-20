@@ -38,6 +38,8 @@ Mathhotspot::Application.routes.draw do
   
   resources :problem_levels, :only => [:create]
   
+  resources :core_lesson_problem_types, :only => [:create]
+  
   namespace :search do
     resources :problem_types, :only => [:index]
   end

@@ -111,5 +111,10 @@ class RoutingTest < ActionController::TestCase
   test "problem type search" do
     assert_routing( {:path => "search/problem_types", :method => :get}, {:controller => "search/problem_types", :action => 'index'} )
   end
-  
+
+#CoreLessonProblemTypes
+  test "new core lesson problem type" do
+    assert_routing( {:path => "/core_lesson_problem_types", :method => :post },
+      {:controller => "core_lesson_problem_types", :action => 'create'})
+  end
 end

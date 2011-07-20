@@ -19,6 +19,7 @@ end
 
 Factory.define :lesson do |l|
   l.title "Triangle Area Lesson"
+  # l.owner { |o| o.association(:user) }
 end
 
 Factory.define :problem_type do |pt|
@@ -26,4 +27,9 @@ Factory.define :problem_type do |pt|
   pt.permalink "polynomial-fraction-division"
   pt.category {|c| c.association(:category) }
   pt.owner { |o| o.association(:user) }
+end
+
+Factory.define :core_lesson_problem_type do |c|
+  c.lesson { |l| l.association(:lesson) }
+  c.problem_type { |pt| pt.association(:problem_type) }  
 end
