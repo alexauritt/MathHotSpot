@@ -3,4 +3,4 @@
   - subjects.each do |subject|
     .subject
       = subject.title
-      = render :partial => "categories/index_with_problem_types", :locals => {:subject => subject}
+      = render :partial => "categories/index_with_problem_types", :locals => { :categories => subject.categories }

@@ -6,7 +6,7 @@ class Search::ProblemTypesController < ApplicationController
       session[:current_lesson_id] = nil
     end
     
-    @subjects = Subject.all
+    @subjects = Subject.all.delete_if {|s| s.problem_types.empty? }
     @tags = ProblemType.tag_counts_on(:tags)
     
     render "index_with_current_lesson" if @current_lesson 
