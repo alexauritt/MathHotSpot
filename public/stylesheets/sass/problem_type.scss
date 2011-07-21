@@ -6,6 +6,7 @@
     
     #problem_type_title {
       text-align: center;
+      max-width: 300px;
     }
     
     .problem_instruction, .problem_info {
@@ -15,36 +16,72 @@
     .problem_display {
       height: auto;
       text-overflow: ellipsis;
-      white-space: nowrap;        
+      white-space: nowrap;
+      max-width: 300px;
     }
   }
   .problem-type-medium {
     height: 200px;
     overflow: hidden;
+    #problem_type_title {
+      max-width: 300px;      
+    }
     .problem_display {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;    
+      max-width: 300px;
     }
   }
 }
+
+.problem-type-full {
+  border: solid black;
+  float: left;
+  #problem-type-header-bar {
+    width: 100%;
+    background-color: #E7F20C;
+    border-bottom: solid black;
+    .problem-type-title {
+      font-size: 1.4em;
+      padding: 10px;
+    }
+  }
+  .problem-levels-display, .problem_info, .problem_instruction {
+    margin: 10px;
+  }
+  .problem-levels-display {
+    overflow: auto;
+    clear: both;
+    .problem-level {
+      float: left;
+      max-width: 300px;
+    }
+  }
+  .problem_info {
+    clear: both;
+  }
+}
+
 
 #current-lesson-problem-type {
   overflow: auto;
   .current-lesson-wrapper {
     float: left;
     width: 15%;
-    border-right: solid black;
     padding-right: 0.2em;
     margin-right: 1.3em;
   }
-  #problem-type-display {
-    float: left;
-    #problem-type-title {
-      font-size: 1.5em;
-      margin-bottom: .5em;    
+  .problem-type-full {
+    margin-top: 20px;
+    #problem-type-display {
+      float: left;
+      #problem-type-title {
+        font-size: 1.5em;
+        margin-bottom: .5em;    
+      }
     }
-  }  
+  }
 }
 
 #add-new-level-link {

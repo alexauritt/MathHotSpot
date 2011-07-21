@@ -1,5 +1,6 @@
 - content_for :head do
   %title Problem Type
-  = stylesheet_link_tag "math_display"
+  = stylesheet_link_tag "math_display", "problem_type"
 
-=render :partial => "problem_type_display", :locals => {:problem_type => @problem_type}  
+#main-content
+  =render :partial => "problem_type_full", :locals => {:problem_type => @problem_type}  

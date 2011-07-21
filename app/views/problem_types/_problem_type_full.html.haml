@@ -1,0 +1,16 @@
+.problem-type-full
+  #problem-type-header-bar
+    .problem-type-title
+      =problem_type.title
+  .problem_instruction
+    =problem_type.instruction_text
+
+  .problem-levels-display
+    =render(:partial => 'level_examples', :locals => {:levels => problem_type.problem_levels })
+
+  .problem_info
+    #tags
+      = display_tag_list problem_type
+    #edit-problem-type
+      =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(problem_type)
+    =delete_problem_type_link_if_empty(problem_type)

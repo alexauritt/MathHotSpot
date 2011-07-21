@@ -7,4 +7,4 @@
   .current-lesson-wrapper
     =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_lesson }
     =render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_lesson }
-  =render :partial => "problem_type_display", :locals => {:problem_type => @problem_type, :lesson => @current_lesson}
+  =render :partial => "problem_type_full", :locals => {:problem_type => @problem_type, :lesson => @current_lesson}
