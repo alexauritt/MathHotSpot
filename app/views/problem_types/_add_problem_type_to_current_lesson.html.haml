@@ -1,4 +1,4 @@
-#add_problem_type
+#add-problem-type
   = simple_form_for(CoreLessonProblemType.new) do |t|
     = t.input :problem_type_id, :as => :hidden, :input_html => { :value => problem_type.id }
     = t.input :lesson_id, :as => :hidden, :input_html => { :value => lesson.id }    

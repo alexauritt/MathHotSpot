@@ -14,3 +14,5 @@
     #edit-problem-type
       =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(problem_type)
     =delete_problem_type_link_if_empty(problem_type)
+    
+  =add_to_current_lesson_link_if_applicable(problem_type)
