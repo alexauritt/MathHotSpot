@@ -1,7 +1,9 @@
 .math-display {
   .problem-type-short {
+    width: 120px;
+    overflow: hidden;
+    
     #problem_type_title {
-      max-width: 100px;
       text-align: center;
     }
     
