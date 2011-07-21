@@ -1,15 +1,15 @@
 - content_for :head do
   %title
     = "Lesson: #{@lesson.title}"
-  = stylesheet_link_tag "lessons", "math_display"
+  = stylesheet_link_tag "lessons", "math_display", "problem_type"
 
 #container
   .lessons.long
     =render :partial => "lesson_header", :locals => { :lesson => @lesson }
     .math-display-row#problem_list
-      .problem-type-full
-        -@problem_types.each do |problem_type|
-          .math-display
+      -@problem_types.each do |problem_type|
+        .math-display
+          .problem-type-medium
             =render :partial => 'problem_types/problem_type', :locals => { :problem_type => problem_type }
     .math-display-row#add_new_problem_links
       =link_to "Edit this Lesson", edit_lesson_path(@lesson)    
