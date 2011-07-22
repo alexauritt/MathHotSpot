@@ -11,4 +11,8 @@ class ProblemTypes::SearchController < ApplicationController
     
     render "index_with_current_lesson" if @current_lesson     
   end
+  
+  def show
+    render :text => "Show results of search test here"
+  end
 end

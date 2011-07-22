@@ -110,6 +110,11 @@ class RoutingTest < ActionController::TestCase
   test "problem type search" do
     assert_routing( {:path => "problem_types/search", :method => :get}, {:controller => "problem_types/search", :action => 'index'} )
   end
+  
+  test "problem type search show results" do
+    query_string = 'some-query-string-goes-here'
+    assert_routing( {:path => "problem_types/search/#{query_string}", :method => :get}, {:controller => "problem_types/search", :action => 'show', :query => query_string} )
+  end
 
 #CoreLessonProblemTypes
   test "new core lesson problem type" do

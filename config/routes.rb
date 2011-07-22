@@ -29,6 +29,9 @@ Mathhotspot::Application.routes.draw do
     resources :worksheet_problems, :only => [:update]
   end
     
+    
+  match 'problem_types/search/:query' => 'problem_types/search#show', :as => :problem_types_search_show
+
   namespace :problem_types do
     resources :search, :only => [:index]
   end
