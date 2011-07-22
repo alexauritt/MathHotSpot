@@ -2,7 +2,7 @@ Mathhotspot::Application.routes.draw do
   
   devise_for :users
 
-  root :to => "Search::ProblemTypes#index"
+  root :to => "ProblemTypes::Search#index"
   
   resources :categories
   
