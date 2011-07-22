@@ -28,6 +28,10 @@ Mathhotspot::Application.routes.draw do
   resources :worksheets, :only => [:index, :show, :update] do
     resources :worksheet_problems, :only => [:update]
   end
+    
+  namespace :problem_types do
+    resources :search, :only => [:index]
+  end
   
   resources :problem_types, :except => [:delete] do
     resources :problem_levels, :except => [:create] do
@@ -35,7 +39,7 @@ Mathhotspot::Application.routes.draw do
     end
     resources :available_tags, :only => [:index]
   end
-  
+    
   resources :problem_levels, :only => [:create]
   
   resources :core_lesson_problem_types, :only => [:create]

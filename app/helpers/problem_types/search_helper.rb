@@ -1,0 +1,2 @@
+module ProblemTypes::SearchHelper
+end
