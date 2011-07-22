@@ -23,7 +23,7 @@ class LessonsAndProblemTypesTest < ActionDispatch::IntegrationTest
     
     click_link "Find a Problem Type for this Lesson"
     
-    assert_current_path search_problem_types_path
+    assert_current_path problem_types_search_index_path
     assert_current_lesson_displayed(@lesson.title)
     assert_problem_type_search_forms_displayed
   end
@@ -35,7 +35,7 @@ class LessonsAndProblemTypesTest < ActionDispatch::IntegrationTest
     visit lesson_path(@lesson)
     
     click_link("Find a Problem Type for this Lesson")
-    assert_current_path search_problem_types_path
+    assert_current_path problem_types_search_index_path
     click_link(different_problem_type.title)
     
     assert_current_path problem_type_path(different_problem_type)
