@@ -1,16 +1,15 @@
 - content_for :head do
   %title
     =@tag
-  = stylesheet_link_tag "lessons", "math_display"
+  = stylesheet_link_tag "problem_type", "math_display", "problem_type_search"
 
-%h2
-  ="Problem Types tagged as #{@tag.capitalize}"
-
-.math-display-row
-  -@problem_types.each do |problem_type|
-    .math-display
-      .problem-type
-        .problem-type-regular
-          =render :partial => "problem_types/problem_type", :locals => {:problem_type => problem_type }
+#main-content
+  #search-title
+    ="Problem Types tagged as #{@tag.capitalize}"
+  .problem_types
+    -@problem_types.each do |problem_type|
+      .math-display
+        .problem-type-medium
+          =render :partial => "problem_types/problem_type", :locals => {:problem_type => problem_type}  
 
 

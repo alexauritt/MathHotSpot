@@ -6,7 +6,7 @@
     =problem_type.instruction_text
 
   .problem-levels-display
-    =render(:partial => 'level_examples', :locals => {:levels => problem_type.problem_levels })
+    =render(:partial => 'problem_types/level_examples', :locals => {:problem_type => problem_type})
 
   .problem_info
     #tags

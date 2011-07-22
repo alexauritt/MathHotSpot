@@ -56,6 +56,11 @@
     .problem-level {
       float: left;
       max-width: 300px;
+      .problem_display {
+        overflow: auto;
+        text-overflow: ellipsis;
+      }
+      
     }
   }
   .problem_info {
@@ -86,4 +91,13 @@
 
 #add-new-level-link {
   clear: both;
+}
+
+#main-content {
+  .problem_types {
+    .problem-type-full {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+  }
 }

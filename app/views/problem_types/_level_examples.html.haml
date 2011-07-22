@@ -1,8 +1,8 @@
--unless levels.empty?
-  -levels.each do |level|
+-unless problem_type.problem_levels.empty?
+  -problem_type.problem_levels.each do |level|
     .problem-level.math-display
       .level_number_display
-        =link_to(display_level_number(level), problem_type_problem_level_url(@problem_type, level))
+        =link_to(display_level_number(level), problem_type_problem_level_url(problem_type, level))
       .problem_display
         =display_mathml_question(level.demo_problem)
       .problem_info
