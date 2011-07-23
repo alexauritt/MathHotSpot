@@ -1,7 +1,7 @@
 class ProblemTypesController < ApplicationController
 
   def index
-    @problem_types = ProblemType.search(params[:search])
+    redirect_to new_problem_types_search_url
   end
   
   def show
