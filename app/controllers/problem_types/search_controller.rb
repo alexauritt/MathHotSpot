@@ -8,12 +8,8 @@ class ProblemTypes::SearchController < ApplicationController
     
     @subjects = Subject.all.delete_if {|s| s.problem_types.empty? }
     @tags = ProblemType.tag_counts_on(:tags)
-    
-    if @current_lesson
-      render "index_with_current_lesson"
-    else
-      render "index"
-    end
+
+    render "new_with_current_lesson" if @current_lesson
   end
     
   def show
