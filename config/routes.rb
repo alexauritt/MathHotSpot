@@ -30,7 +30,7 @@ Mathhotspot::Application.routes.draw do
   end
     
     
-  match "problem_types/search/query" => 'problem_types/search#show', :as => :problem_types_search
+  match "problem_types/search/results" => 'problem_types/search#show', :as => :problem_types_search
   match "problem_types/search" => 'problem_types/search#new', :as => :new_problem_types_search
   
   resources :problem_types, :except => [:delete] do

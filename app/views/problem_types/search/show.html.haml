@@ -1,0 +1,23 @@
+- content_for :head do
+  %title Problem Types
+  = stylesheet_link_tag "lessons"
+
+Problem Types
+
+.row#problem_list
+  -@problem_types.each do |problem_type|
+    .problem_example
+      .problem_type_title
+        Problem Type: 
+        =problem_type.title
+      .problem_instruction
+        Instructions: 
+        =problem_type.instruction.description
+      .problem_display
+        =display_mathml_question(problem_type.demo_problem)
+      .problem_info
+        =link_to level_count_msg(problem_type), problem_type_path(problem_type)
+        %br
+        =problem_count_msg problem_type
+        %br
+        =display_tag_list problem_type

@@ -13,6 +13,6 @@ class ProblemTypes::SearchController < ApplicationController
   end
     
   def show
-    render :text => "Show results of search test here"
+    @problem_types = ProblemType.search(params[:search])
   end
 end
