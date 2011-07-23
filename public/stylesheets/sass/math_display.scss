@@ -6,13 +6,6 @@ $math-display-color: grey;
   margin: 10px 0px 10px 0px;
 }
 
-.math-display {
-  float: left;
-  background-color: $math-display-color;
-  padding: 10px;
-  margin: 5px;
-}
-
 div.problem_instruction {
   height: 40px;
 }
@@ -20,4 +13,12 @@ div.problem_instruction {
 div.problem_display {
   height: 80px;
 }
+
+.math-display {
+  float: left;
+  background-color: $math-display-color;
+  padding: 10px;
+  margin: 5px;
+}
+
 

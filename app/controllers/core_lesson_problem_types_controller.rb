@@ -6,7 +6,7 @@ class CoreLessonProblemTypesController < ApplicationController
       redirect_to(lesson_path(@core.lesson), :notice => message )
     else
       Rails.logger.error("Attempt to add problem type to non-existent lesson")
-      redirect_to(problem_types_search_index_path, :notice => "Unable to add problem type.")
+      redirect_to(new_problem_types_search_path, :notice => "Unable to add problem type.")
     end
   end
 end

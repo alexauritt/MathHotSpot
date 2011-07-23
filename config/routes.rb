@@ -2,7 +2,7 @@ Mathhotspot::Application.routes.draw do
   
   devise_for :users
 
-  root :to => "ProblemTypes::Search#index"
+  root :to => "ProblemTypes::Search#new"
   
   resources :categories
   
@@ -30,11 +30,8 @@ Mathhotspot::Application.routes.draw do
   end
     
     
-  match 'problem_types/search/:query' => 'problem_types/search#show', :as => :problem_types_search_show
-
-  namespace :problem_types do
-    resources :search, :only => [:index]
-  end
+  match "problem_types/search/query" => 'problem_types/search#show', :as => :problem_types_search
+  match "problem_types/search" => 'problem_types/search#new', :as => :new_problem_types_search
   
   resources :problem_types, :except => [:delete] do
     resources :problem_levels, :except => [:create] do
