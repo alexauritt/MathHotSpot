@@ -30,6 +30,15 @@
   #new-problem-type-search-link a {
     text-decoration: none;
   }
+  #problem-type-search-tags {
+    form {
+      display: inline;
+      .single-tag-search-button {
+        background-color: green;
+        border: none;
+      }
+    }
+  }
 } 
 
 #problem-type-search-tags {

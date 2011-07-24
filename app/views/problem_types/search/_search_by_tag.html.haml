@@ -5,4 +5,4 @@
       - tags.each do |tag|
         = form_tag problem_types_search_url, :method => 'get' do
           = hidden_field_tag "search[tag]", tag.name
-          = submit_tag tag.name.downcase, :name => nil
+          = submit_tag tag.name, :name => nil, :class => 'single-tag-search-button'
