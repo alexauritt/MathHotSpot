@@ -16,7 +16,7 @@ Mathhotspot::Application.routes.draw do
   end  
     
   resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete] do
-    resources :menus, :only => [:show]
+
   end
   
   resources :subjects, :only => [:show, :index]
@@ -28,8 +28,7 @@ Mathhotspot::Application.routes.draw do
   resources :worksheets, :only => [:index, :show, :update] do
     resources :worksheet_problems, :only => [:update]
   end
-    
-    
+
   match "problem_types/search/results" => 'problem_types/search#show', :as => :problem_types_search
   match "problem_types/search" => 'problem_types/search#new', :as => :new_problem_types_search
   
@@ -46,7 +45,6 @@ Mathhotspot::Application.routes.draw do
     
   match '/dashboard' => 'dashboards#show', :as => :dashboard
   match '/my_lessons' => 'my_lessons#index', :as => :my_lessons
-  match '/menu/:tag' => 'menus#tag_menu', :as => :tag_menu
   match '/problem_types/:problem_type_id/available_tags/search' => 'available_tags#search', :as => :available_tag_search
     
 

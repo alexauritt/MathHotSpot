@@ -8,11 +8,6 @@ class RoutingTest < ActionController::TestCase
     assert_routing( { :path => '/dashboard', :method => :get}, { :controller => 'dashboards', :action => 'show' })
   end
 
-# menus  
-  test "tag menu route" do
-    assert_routing( { :path => "menu/a_math_problem_tag", :method => :get}, {:controller => "menus", :action => "tag_menu", :tag => "a_math_problem_tag"})
-  end
-
 #instructions
   test "instructions new" do
     assert_routing( {:path => "instructions/new", :method => :get}, {:controller => "instructions", :action => "new"})
