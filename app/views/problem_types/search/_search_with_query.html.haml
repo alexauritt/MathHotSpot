@@ -1,7 +1,7 @@
 #problem-type-query-search
   = form_tag problem_types_search_url, :method => 'get' do
     %p
-      = text_field_tag :search, params[:search]
+      = text_field_tag "search[query]"
       = submit_tag "Search", :name => nil
       %br
       Search by Title or Tag Name (e.g. Fractions, Monomials)

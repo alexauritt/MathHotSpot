@@ -54,6 +54,13 @@ module ActionController
           assert page.has_content?('Search by Tags')
         end
       end
+      
+      def assert_problem_type_displayed_in_search_results(problem_type)
+        within('#search-results') do
+          assert page.has_content?(problem_type.title)
+        end
+      end
+      
     end
   end
 end

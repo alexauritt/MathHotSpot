@@ -127,28 +127,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
     
     assert_problem_created_with_first_title_but_second_fails(first_title, second_title)
   end
-  
-  test "search" do
-    results = ProblemType.search("Monomial Fraction Simplifcation Assume No Zero Denominator")
-    assert results.include?(problem_types(:simp_no_zero_problem_type)), "Problem Type not found."
-    assert_equal 1, results.length, "Exactly one result expected in search, but #{results.length} item(s) found"
-  end
-  
-  test "search (title) is case insensitive" do
-    pt = ProblemType.create(:title => "Fraction Multiplication", :owner => users(:testuser), 
-      :category => categories(:polynomials))
-    results = ProblemType.search("fraction MULTIPLicATIOn")
-    assert results.include?(pt), "Problem Type not found with case insensitive search (by title)"
-  end
-  
-  test "search (tags) is case insensitive" do
-    params = @standard_problem_type_params.merge({:tag_list => "Candy, chocolate"})
-    # puts "new params are #{params}"
-    pt = ProblemType.create(params)
-    results = ProblemType.search("candy, Chocolate")
-    assert results.include?(pt)
-  end
-    
+      
   test "empty_problem returns math problems with blank string as answer markup" do
     assert_equal "", ProblemType.empty_problem.answer_markup
   end
@@ -177,6 +156,41 @@ class ProblemTypeTest < ActiveSupport::TestCase
     expected_subject_string = "A Subject: A title"
     problem_type.category.expects(:name).returns(expected_subject_string)
     assert_equal expected_subject_string, problem_type.topic_name
+  end
+
+  test "search" do
+    results = ProblemType.search({:query => "Monomial Fraction Simplifcation Assume No Zero Denominator"})
+    assert results.include?(problem_types(:simp_no_zero_problem_type)), "Problem Type not found."
+    assert_equal 1, results.length, "Exactly one result expected in search, but #{results.length} item(s) found"
+  end
+  
+  test "search (title) is case insensitive" do
+    pt = ProblemType.create(:title => "Fraction Multiplication", :owner => users(:testuser), 
+      :category => categories(:polynomials))
+    results = ProblemType.search({:query => "fraction MULTIPLicATIOn"})
+    assert results.include?(pt), "Problem Type not found with case insensitive search (by title)"
+  end
+  
+  test "search (tags in query) is case insensitive" do
+    params = @standard_problem_type_params.merge({:tag_list => "Candy, chocolate"})
+    pt = ProblemType.create(params)
+    results = ProblemType.search({:query => "candy, Chocolate"})
+    assert results.include?(pt)
+  end
+  
+  test "search fails with string as argument" do
+    assert_raise ArgumentError do
+      ProblemType.search("this is not a hash")
+    end
+  end
+  
+  test "search for problem types with single tag returns problem tagged with said tag" do
+    tag = Factory.build(:tag)
+    pt = Factory.build(:problem_type, :tag_list => tag.name)
+    ProblemType.expects(:tagged_with).with(tag.name).returns([pt])
+    results = ProblemType.search({:tag => tag.name})
+
+    assert results.include?(pt)
   end
   
   private

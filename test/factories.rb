@@ -33,3 +33,7 @@ Factory.define :core_lesson_problem_type do |c|
   c.lesson { |l| l.association(:lesson) }
   c.problem_type { |pt| pt.association(:problem_type) }  
 end
+
+Factory.define :tag do |t|
+  t.name "Basic Addition"
+end

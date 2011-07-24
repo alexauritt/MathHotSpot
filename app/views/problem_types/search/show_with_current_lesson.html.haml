@@ -2,15 +2,15 @@
   %title Problem Types
   = stylesheet_link_tag "lessons", "problem_type", "math_display", "problem_type_search", "tags"
 
-#main-content
-  #current-lesson-problem-type-search
-    .current-lesson-wrapper
-      =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_lesson }
-      =render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_lesson }
-  #results-title
-    Search results for "#{@search}"
-  #search-results
-  -@problem_types.each do |problem_type|
-    .math-display
-      .problem-type-medium
-        =render :partial => "problem_types/problem_type", :locals => { :problem_type => problem_type }
+
+#current-lesson-problem-type-search
+  .current-lesson-wrapper
+    =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_lesson }
+    =render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_lesson }
+#results-title
+  Search Results:
+#search-results
+-@problem_types.each do |problem_type|
+  .math-display
+    .problem-type-medium
+      =render :partial => "problem_types/problem_type", :locals => { :problem_type => problem_type }

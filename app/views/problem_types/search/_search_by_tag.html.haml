@@ -3,4 +3,6 @@
     .search-section-title Search by Tags
     #tag_list
       - tags.each do |tag|
-        =link_to "<span class='tag'>#{tag.name}</span>".html_safe, {:controller => "/menus", :action => "tag_menu", :tag => "#{tag.name.downcase}"}
+        = form_tag problem_types_search_url, :method => 'get' do
+          = hidden_field_tag "search[tag]", tag.name
+          = submit_tag tag.name.downcase, :name => nil

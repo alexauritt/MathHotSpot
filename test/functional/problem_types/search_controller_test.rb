@@ -5,6 +5,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
   
   setup do
     @problem_type = Factory.build(:problem_type)
+    @valid_search_hash = {'search' => {'query' => "for something"}}
   end
   
   test "index without current_lesson set in session returns simple problem type search" do
@@ -50,7 +51,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
   end
   
   test "show search results" do
-    get :show, :search => "Monomial Fraction"
+    get :show, :search => {:query => "Monomial Fraction"} 
     assert_response :success
     assert assigns(:problem_types).include?(problem_types(:dividing_monomials_problem_type))
   end
@@ -95,12 +96,13 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
   def get_new_search_with_invalid_current_lesson_id_in_session!
     invalid_id = 234234
     Lesson.expects(:find).with(invalid_id).raises(ActiveRecord::RecordNotFound)
-    get :new, {}, authenticated_session_with({'current_lesson_id' => invalid_id})
+    get :new, @valid_search_hash, authenticated_session_with({'current_lesson_id' => invalid_id})
   end
   
   def get_search_results_with_invalid_current_lesson_id_in_session!
     invalid_id = 234234
     Lesson.expects(:find).with(invalid_id).raises(ActiveRecord::RecordNotFound)
-    get :show, {:search => "for something"}, authenticated_session_with({'current_lesson_id' => invalid_id})
+    get :show, @valid_search_hash, authenticated_session_with({'current_lesson_id' => invalid_id})
   end
+
 end

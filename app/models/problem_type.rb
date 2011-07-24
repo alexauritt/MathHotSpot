@@ -82,8 +82,11 @@ class ProblemType < ActiveRecord::Base
   end
 
   def self.search(search)
-    if search
-      self.where("lower(title) ILIKE ?", "%#{search}%") | self.tagged_with("%#{search}%")
+    raise ArgumentError unless search.is_a?(Hash)
+    if tag = search[:tag]
+      ProblemType.tagged_with(tag)
+    elsif query = search[:query]
+      self.where("lower(title) ILIKE ?", "%#{query}%") | self.tagged_with("%#{query}%")
     else
       self.find(:all)
     end

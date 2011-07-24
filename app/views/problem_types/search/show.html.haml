@@ -2,10 +2,9 @@
   %title Problem Types
   = stylesheet_link_tag "problem_type", "math_display"
 
-#main-content
-  #results-title
-    Search results for "#{@search}"
-  #search-results
+#results-title
+  Search Results:
+#search-results
   -@problem_types.each do |problem_type|
     .math-display
       .problem-type-medium
