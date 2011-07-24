@@ -1,8 +1,7 @@
 - content_for :head do
   %title
     =@problem_type.title
-  =stylesheet_link_tag "lessons", "problem_type", "math_display", "tags"
-  
+  =stylesheet_link_tag "lessons", "problem_type", "math_display", "tags"  
 #current-lesson-problem-type
   .current-lesson-wrapper
     =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_lesson }
