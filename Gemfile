@@ -8,7 +8,7 @@ gem 'rack'
 
 gem 'rake'
 gem 'pg'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 1.0.12'
 gem 'haml', '3.1.2'
 gem 'sass'
 gem 'acts-as-taggable-on'
