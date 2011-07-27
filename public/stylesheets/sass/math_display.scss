@@ -1,9 +1,13 @@
 $math-display-color: grey;
 
-.math-display-row {
+@mixin problem-level-row {
   overflow: auto;
   clear: both;
   margin: 10px 0px 10px 0px;
+}
+
+#lesson-problem-list, #level-problem-list {
+  @include problem-level-row;
 }
 
 div.problem_instruction {

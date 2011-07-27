@@ -21,8 +21,9 @@ div#tag_list a:link, div#tag_list a:visited {
   border-bottom: solid black;
 }
 
-#navigation-header #nav_bar {
+#navigation-header #navigation-links {
   float: left;
+  margin-bottom: 10px;  
 }
 
 #navigation-header #user_login {

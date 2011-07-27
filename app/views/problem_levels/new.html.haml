@@ -6,7 +6,7 @@
   %h4 Current Levels:
   #instructions
     = "#{@problem_level.instruction.description}"
-  .math-display-row
+  #sibling-level-list
     - @sibling_levels.each do |sibling_level|
       .math-display
         .level_number_display
