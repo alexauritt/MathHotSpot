@@ -45,7 +45,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     end
   end
   
-  test "new search clears current_lesson_id in session when said id is invalid" do
+  test "new search clears current_lesson_id in session when the id is invalid" do
     get_new_search_with_invalid_current_lesson_id_in_session!
     assert_nil session[:current_lesson_id]
   end

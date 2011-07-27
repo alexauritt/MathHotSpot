@@ -1,10 +1,7 @@
 class ProblemTypes::SearchController < ApplicationController
+  include CurrentLessonManageable
   def new
-    begin
-      @current_lesson = session[:current_lesson_id] ? Lesson.find(session[:current_lesson_id]) : nil
-    rescue ActiveRecord::RecordNotFound
-      session[:current_lesson_id] = nil
-    end
+    @current_lesson = current_lesson_specified_in_session!
     
     @subjects = Subject.all.delete_if {|s| s.problem_types.empty? }
     @tags = ProblemType.tag_counts_on(:tags)
@@ -13,12 +10,7 @@ class ProblemTypes::SearchController < ApplicationController
   end
     
   def show
-    begin
-      @current_lesson = session[:current_lesson_id] ? Lesson.find(session[:current_lesson_id]) : nil
-    rescue ActiveRecord::RecordNotFound
-      session[:current_lesson_id] = nil
-    end
-        
+    @current_lesson = current_lesson_specified_in_session!
     @search = params[:search]
     @problem_types = ProblemType.search(params[:search])
     
