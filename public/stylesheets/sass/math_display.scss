@@ -6,7 +6,7 @@ $math-display-color: grey;
   margin: 10px 0px 10px 0px;
 }
 
-#lesson-problem-list, #level-problem-list {
+#lesson-problem-list, #level-problem-list, #lesson-links {
   @include problem-level-row;
 }
 

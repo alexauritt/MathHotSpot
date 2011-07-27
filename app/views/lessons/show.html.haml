@@ -3,14 +3,14 @@
     = "Lesson: #{@lesson.title}"
   = stylesheet_link_tag "lessons", "math_display", "problem_type"
 
-#lesson
+#lesson.lesson
   =render :partial => "lesson_header", :locals => { :lesson => @lesson }
   #lesson-problem-list
     -@problem_types.each do |problem_type|
       .math-display
         .problem-type-medium
           =render :partial => 'problem_types/problem_type', :locals => { :problem_type => problem_type }
-  .math-display-row#add_new_problem_links
+  #lesson-links
     =link_to "Edit this Lesson", edit_lesson_path(@lesson)    
     |
     =link_to "Create new Problem Type", new_problem_type_path
