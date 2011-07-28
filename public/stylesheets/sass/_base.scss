@@ -5,3 +5,16 @@ $math-display-color: grey;
   clear: both;
   margin: 10px 0px 10px 0px;
 }
+
+.module-header-bar {
+  width: 100%;
+  border-bottom: solid black;
+  .module-title {
+    font-size: 1.4em;
+    padding: 10px;
+  }
+}
+.module-display, .module-info {
+  margin: 10px;
+}
+

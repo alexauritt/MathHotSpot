@@ -38,14 +38,8 @@
 .problem-type-full {
   border: solid black;
   float: left;
-  #problem-type-header-bar {
-    width: 100%;
+  .module-header-bar {
     background-color: #E7F20C;
-    border-bottom: solid black;
-    .problem-type-title {
-      font-size: 1.4em;
-      padding: 10px;
-    }
   }
   .problem-levels-display, .problem_info, .problem_instruction, #add-problem-type {
     margin: 10px;

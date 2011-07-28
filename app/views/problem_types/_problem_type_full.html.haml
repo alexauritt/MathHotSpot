@@ -1,18 +1,19 @@
 .problem-type-full
-  #problem-type-header-bar
-    .problem-type-title
+  .module-header-bar
+    .module-title
       =problem_type.title
-  .problem_instruction
-    =problem_type.instruction_text
+  .module-main-content
+    .problem_instruction
+      =problem_type.instruction_text
 
-  .problem-levels-display
-    =render(:partial => 'problem_types/level_examples', :locals => {:problem_type => problem_type})
+    .problem-levels-display
+      =render(:partial => 'problem_types/level_examples', :locals => {:problem_type => problem_type})
 
-  .problem_info
-    #tags
-      = display_tag_list problem_type
-    #edit-problem-type
-      =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(problem_type)
-    =delete_problem_type_link_if_empty(problem_type)
+    .problem_info
+      #tags
+        = display_tag_list problem_type
+      #edit-problem-type
+        =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(problem_type)
+      =delete_problem_type_link_if_empty(problem_type)
     
-  =add_to_current_lesson_link_if_applicable(problem_type)
+    =add_to_current_lesson_link_if_applicable(problem_type)
