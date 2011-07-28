@@ -1,7 +1,7 @@
 - content_for :head do
   %title
     = "Lesson: #{@lesson.title}"
-  = stylesheet_link_tag "lessons", "math_display", "problem_type"
+  = stylesheet_link_tag "global", "lessons", "math_display", "problem_type"
 
 #lesson.lesson
   =render :partial => "lesson_header", :locals => { :lesson => @lesson }

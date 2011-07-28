@@ -1,3 +1,5 @@
+@import "base";
+
 span.tag {
   background-color: green;
   margin: 3px;
@@ -14,10 +16,8 @@ div#tag_list a:link, div#tag_list a:visited {
 }
 
 #navigation-header {
-  overflow: auto;
-  clear: both;
+  @include horizontal-module-display;
   margin: 10px;
-  padding-bottom: 5px;
   border-bottom: solid black;
 }
 

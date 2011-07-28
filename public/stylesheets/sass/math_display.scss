@@ -1,13 +1,7 @@
-$math-display-color: grey;
+@import "base";
 
-@mixin problem-level-row {
-  overflow: auto;
-  clear: both;
-  margin: 10px 0px 10px 0px;
-}
-
-#lesson-problem-list, #level-problem-list, #lesson-links {
-  @include problem-level-row;
+#lesson-problem-list, #level-problem-list {
+  @include horizontal-module-display;
 }
 
 div.problem_instruction {
