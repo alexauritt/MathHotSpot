@@ -1,1 +1,0 @@
-heroku console --app rightrabbit 'User.find 3'
