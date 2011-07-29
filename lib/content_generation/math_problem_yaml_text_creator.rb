@@ -4,9 +4,10 @@ class MathProblemYamlTextCreator
       raise ArgumentError
     end
     start_and_prob_level = "-\n  problem_level_id: #{problem_info_hash[:problem_level_id]}\n"
+
     markups = ""
     problem_info_hash[:markup_templates].keys.each do |key|
-      raw_markup = problem_info_hash[:markup_templates][key].clone
+      raw_markup = problem_info_hash[:markup_templates][key]
       problem_info_hash[:values].each_pair do |key,value|
         raw_markup.gsub!("@#{key}", "#{value}")
       end
