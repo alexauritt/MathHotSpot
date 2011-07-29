@@ -1,0 +1,3 @@
+class MathProblemCollectionSpec
+  
+end
