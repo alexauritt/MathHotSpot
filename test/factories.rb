@@ -29,6 +29,17 @@ Factory.define :problem_type do |pt|
   pt.owner { |o| o.association(:user) }
 end
 
+Factory.define :problem_level do |pl|
+  pl.level_number "1"
+  pl.problem_type { |pt| pt.association(:problem_type) }
+end
+
+Factory.define :math_problem do |mp|
+  mp.question_markup 'this is markup for question'
+  mp.answer_markup 'this is markup for answer'
+  mp.problem_level { |pl| pl.association(:problem_level) }
+end
+
 Factory.define :core_lesson_problem_type do |c|
   c.lesson { |l| l.association(:lesson) }
   c.problem_type { |pt| pt.association(:problem_type) }  
