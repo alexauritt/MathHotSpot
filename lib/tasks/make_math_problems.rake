@@ -1,11 +1,20 @@
 PATH = ::Rails.root.to_s + "/tmp/content_generation/"
 
+require_relative '../content_generation/math_problem_yaml_reader'
+  
 namespace :make_math do
+  desc "check input yml"
+  task :check_input => :environment do
+    reader = MathProblemYamlReader.new
+    if file_specified? && reader.load(ENV['FILE']) && reader.is_file_valid?
+      reader.create!
+    end
+    # puts valid_input_file_specified?
+  end
+  
   desc "check that only one problem_level_id is used in specified yml file"
   task :create => :environment do
-    unless ENV['FILE'] && valid_file_specified?(ENV['FILE'])
-      raise 'Please input a yml file: rake math_make:create FILE=some_file_name'
-    end
+    valid_input_file_specified?
     file = ENV['FILE']
     math_problems = YAML.load_file(PATH + file + ".yml")
     if only_one_problem_level_in_file?(math_problems)
@@ -16,8 +25,14 @@ namespace :make_math do
   end
 end
 
-def valid_file_specified?(file)
-  File.exists?(PATH + file + ".yml")
+def file_specified?
+  unless ENV['FILE']
+    puts 'Please input a yml file: rake math_make:create FILE=some_file_name'
+    false
+  else
+    true
+  end
+  
 end
 
 def only_one_problem_level_in_file?(problem_specs)
