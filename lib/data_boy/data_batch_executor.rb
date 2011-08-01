@@ -13,25 +13,29 @@ class DataBatchExecutor
     if file_name.nil?
       @message = "Please specify a file"
       return
-    elsif !file_found?(file_name)
-      @message = 'File not found'
     else
-      @message = "Executed the file!"
+      location = file_location(file_name)
+      if location
+        @message = "File was found!"
+        require "gramps.rb"
+      else
+        @message = "File not found"
+      end
     end
   end
   
   private
-  def file_found?(file_name)
-    @found = false
+  def file_location(file_name)
+    @path = nil
     Find.find('db/data_boy') do |path|
       if correct_file?(path, file_name)
-        @found = true 
+        @path = path
         next
       end
     end
-    @found
+    @path
   end
-  
+    
   def correct_file?(path, file_name)
     File.file?(path) && (file_name == File.basename(path) || file_name == File.basename(path, ".rb"))
   end
