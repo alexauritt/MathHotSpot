@@ -2,9 +2,14 @@ require 'find'
 require 'mocha'
 
 class DataBatchExecutor
-  @message = nil
+
+  attr_accessor :message
   
-  def self.execute!(file_name)
+  def initialize
+    @message = nil
+  end
+  
+  def execute!(file_name)
     if file_name.nil?
       @message = "Please specify a file"
       return
@@ -15,19 +20,19 @@ class DataBatchExecutor
     end
   end
   
-  def self.message
-    @message
-  end
-  
   private
-  def self.file_found?(file_name)
+  def file_found?(file_name)
+    @found = false
     Find.find('db/data_boy') do |path|
-      return true if correct_file?(path, file_name)
+      if correct_file?(path, file_name)
+        @found = true 
+        next
+      end
     end
-    false
+    @found
   end
   
-  def self.correct_file?(path, file_name)
+  def correct_file?(path, file_name)
     File.file?(path) && (file_name == File.basename(path) || file_name == File.basename(path, ".rb"))
   end
   

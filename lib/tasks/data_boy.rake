@@ -3,8 +3,9 @@ require_relative "../data_boy/data_batch_executor"
 namespace :data_boy do
   desc "execute given batch specification"
   task :execute do
-    DataBatchExecutor.execute!(ENV['FILE'])
-    puts DataBatchExecutor.message
+    dbe = DataBatchExecutor.new
+    dbe.execute!(ENV['FILE'])
+    puts dbe.message
   end
 end
 
