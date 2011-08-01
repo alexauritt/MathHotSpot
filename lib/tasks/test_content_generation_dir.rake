@@ -8,7 +8,7 @@ namespace :test do
   
   desc "Test Databoy"
   Rake::TestTask.new(:databoy) do |t|
-    t.pattern = 'test/lib/content_generation/data_boy/*_test.rb'
+    t.pattern = 'test/lib/data_boy/*_test.rb'
     t.verbose = true        
   end
   

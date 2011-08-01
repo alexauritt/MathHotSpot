@@ -1,6 +1,6 @@
 require "test/unit"
-require_relative '../../../../lib/content_generation/data_boy/data_boy'
-require_relative '../../../../lib/content_generation/data_boy/data_batch_specification'
+require_relative '../../../lib/data_boy/data_boy'
+require_relative '../../../lib/data_boy/data_batch_specification'
 
 
 class DataBoy::BatchSpecificationTest < Test::Unit::TestCase
