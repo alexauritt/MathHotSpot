@@ -32,7 +32,6 @@ def file_specified?
   else
     true
   end
-  
 end
 
 def only_one_problem_level_in_file?(problem_specs)

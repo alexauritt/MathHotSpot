@@ -7,7 +7,4 @@ class DataBoy::BatchSpecificationTest < Test::Unit::TestCase
   def test_something
     assert true
   end
-  def test_somethingelse
-    flunk
-  end
 end
