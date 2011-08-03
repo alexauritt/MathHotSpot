@@ -19,11 +19,11 @@ module MathMaker
         raise if type.nil?
         level = ProblemLevel.find_by_problem_type_id_and_level_number(type.id, @level_number)
         raise if level.nil?
+        true
       rescue
         puts "Unable to find Problem Type / Level specified"
         false
       end
-      true
     end
   end
 end

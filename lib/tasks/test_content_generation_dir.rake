@@ -12,8 +12,14 @@ namespace :test do
     t.verbose = true        
   end
   
+  desc "Test MathMaker"
+  Rake::TestTask.new(:math_maker) do |t|
+    t.pattern = 'test/lib/math_maker/*_test.rb'
+    t.verbose = true
+  end
+  
   desc "Test lib"
-  task :lib => [:content_generation, :databoy] do
+  task :lib => [:content_generation, :databoy, :math_maker] do
   end
   
 end
