@@ -17,8 +17,6 @@ end
 #shuffle values
 values_list.shuffle!
 
-
-
 # open target yml file
 checker = MathMaker::ProblemExistenceChecker.new(problem_type_title, problem_level_number)
 if checker.problem_type_and_level_in_db?
@@ -26,10 +24,8 @@ if checker.problem_type_and_level_in_db?
   dir = File.dirname(__FILE__)
   target_filename = Rails.root.to_s + "/tmp/content_generation/" + File.basename(__FILE__, '.rb') + ".yml"
 
-
-  # gut soon
-  type = ProblemType.find_by_title("Simple Equations: One Variable, Addition")
-  level = ProblemLevel.find_by_problem_type_id_and_level_number(type.id, 1)
+  type = checker.problem_type
+  level = ProblemLevel.find_by_problem_type_id_and_level_number(type.id, checker.level_number)
 
   problem_info = {
     :problem_level_id => level.id, 
