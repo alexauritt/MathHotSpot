@@ -1,18 +1,5 @@
-# # require "math_problem_yaml_text_creator"
-# list = $LOAD_PATH.map {|cur| cur}
-# list.each do |l|
-#   puts "one LP is #{l}"
-# end
+require "#{Rails.root.to_s}/lib/make_math_helper"
 
-$LOAD_PATH << "#{RAILS_ROOT}/lib/content_generation"
-require "math_problem_yaml_text_creator"
-
-class Array
-  def shuffle!
-    size.downto(1) { |n| push delete_at(rand(n)) }
-    self
-  end
-end
 
 problem_type_title = "Simple Equations: One Variable, Addition"
 problem_level_number = 1
@@ -20,7 +7,7 @@ question_template = '\[x + @left = @right\]'
 answer_template = '\[x = @solution\]'
 
 #produce values
-values_list = []
+values_list = Shuffler.new
 10.times do |left_val|
   Array(left_val .. 9).each do |right_val|
     values_list << {left: left_val, right: right_val, solution: right_val - left_val }
@@ -30,23 +17,20 @@ end
 #shuffle values
 values_list.shuffle!
 
-#ensure specified problem type / level is in db
 
-#create one math problem for each listed value
-begin
-  type = ProblemType.find_by_title("Simple Equations: One Variable, Addition")
-  raise if type.nil?
-  level = ProblemLevel.find_by_problem_type_id_and_level_number(type.id, 1)
-  raise if level.nil?
-rescue
-  puts "Unable to find Problem Type / Level specified"
-end
 
 # open target yml file
-if level
+checker = MathMaker::ProblemExistenceChecker.new(problem_type_title, problem_level_number)
+if checker.problem_type_and_level_in_db?
+
   dir = File.dirname(__FILE__)
-  target_filename = dir + "/" + File.basename(__FILE__, '.rb') + ".yml"
-  
+  target_filename = Rails.root.to_s + "/tmp/content_generation/" + File.basename(__FILE__, '.rb') + ".yml"
+
+
+  # gut soon
+  type = ProblemType.find_by_title("Simple Equations: One Variable, Addition")
+  level = ProblemLevel.find_by_problem_type_id_and_level_number(type.id, 1)
+
   problem_info = {
     :problem_level_id => level.id, 
     :markup_templates => {
@@ -62,9 +46,9 @@ if level
       yml_data = MathProblemYamlTextCreator.problem_yaml_text(data)
       target.puts yml_data
     end
-    
+  
     target.close
-  rescue
+  rescue  
     puts "unable to write yml file full of math problems"
   end
 end
