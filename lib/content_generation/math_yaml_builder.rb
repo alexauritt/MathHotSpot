@@ -6,9 +6,12 @@ class MathYamlBuilder
     @values_list = args[:values_list]
     @question_template = args[:question_template]
     @answer_template = args[:answer_template]
+    
+    @values_list.extend Shuffleable
+    @values_list.shuffle!
   end
   
-  def build!
+  def build!    
     # open target yml file
     checker = MathMaker::ProblemExistenceChecker.new(@problem_type_title, @problem_level_number)
     if checker.problem_type_and_level_in_db?
