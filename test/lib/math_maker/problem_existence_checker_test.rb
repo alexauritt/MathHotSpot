@@ -14,15 +14,17 @@ class ProblemExistenceCheckerTest < Test::Unit::TestCase
   end
   
   def test_checker_indicates_if_problem_type_not_in_db
-    expects_unable_to_find_problem_type_in_db_message!
+    expects_error(MathMaker::ProblemTypeNotFoundError::MESSAGE)
     ProblemType.expects(:find_by_title).with(@problem_type_title).returns(nil)
     assert_equal false, @checker.problem_type_and_level_in_db?
   end
   
   def test_checker_indicates_if_level_missing_but_problem_type_is_in_db
     fake_id = 876876
-    type = stubs(:id => fake_id, :nil? => false)
-    expects_unable_to_find_problem_type_in_db_message!
+    type = mock
+    type.stubs(:id).returns(fake_id)
+    type.stubs(:nil?).returns(false)
+    expects_error(MathMaker::ProblemLevelNotFoundError::MESSAGE)
     ProblemLevel.stubs(:find_by_problem_type_id_and_level_number).with(fake_id, @level_number).returns(nil)
     ProblemType.expects(:find_by_title).with(@problem_type_title).returns(type)
 
@@ -30,7 +32,7 @@ class ProblemExistenceCheckerTest < Test::Unit::TestCase
   end  
   
   private
-  def expects_unable_to_find_problem_type_in_db_message!
-    $stdout.expects(:puts).with("Unable to find Problem Type / Level specified")    
+  def expects_error(message)
+    $stdout.expects(:puts).with(message)    
   end
 end
