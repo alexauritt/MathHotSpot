@@ -4,6 +4,8 @@ class MathYamlBuilder
     @problem_type_title = args[:problem_type_title]
     @problem_level_number = args[:problem_level_number]
     @values_list = args[:values_list]
+    @question_template = args[:question_template]
+    @answer_template = args[:answer_template]
   end
   
   def build!
@@ -21,8 +23,8 @@ class MathYamlBuilder
       problem_info = {
         :problem_level_id => level.id, 
         :markup_templates => {
-          :question => '\[x + @left = @right\]',
-          :answer => '\[x = @solution\]'
+          :question => @question_template,
+          :answer => @answer_template
         }
       }
 
