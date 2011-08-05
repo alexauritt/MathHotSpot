@@ -1,5 +1,4 @@
 require "test/unit"
-require_relative '../../../lib/data_boy/data_boy'
 require_relative '../../../lib/data_boy/data_batch_executor'
 
 class DataBatchExecutorTest < Test::Unit::TestCase
