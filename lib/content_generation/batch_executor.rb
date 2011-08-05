@@ -1,7 +1,7 @@
 require 'find'
 require 'mocha'
 
-class DataBatchExecutor
+class BatchExecutor
 
   attr_accessor :message
   
@@ -17,7 +17,6 @@ class DataBatchExecutor
       location = file_location(file_name)
       if location
         @message = "File was found!"
-        require "gramps.rb"
       else
         @message = "File not found"
       end
