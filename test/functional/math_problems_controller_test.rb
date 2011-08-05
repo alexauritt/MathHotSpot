@@ -25,8 +25,9 @@ class MathProblemsControllerTest < AuthenticatingControllerTestCase
   end
   
   test "should create math problem" do
+    level = problem_levels(:dividing_monomials_level_01)
     assert_difference('MathProblem.count') do
-      post :create, :math_problem => @math_problem.attributes
+      post :create, :math_problem => Factory.attributes_for(:math_problem, :problem_level => level)
     end
     assert_redirected_to math_problem_path(assigns(:math_problem))
   end
