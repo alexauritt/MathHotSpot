@@ -51,4 +51,5 @@ class MathProblemYamlTextCreatorTest < Test::Unit::TestCase
   def test_problem_yaml
     assert_equal @expected_yaml, MathProblemYamlTextCreator.problem_yaml_text(@problem_info)
   end
+    
 end

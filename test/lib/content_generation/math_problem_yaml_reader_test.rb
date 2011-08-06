@@ -27,15 +27,14 @@ class MathProblemYamlReaderTest < Test::Unit::TestCase
   def test_yaml_reader_returns_false_if_problems_from_multiple_levels_are_specified
     file_with_multiple_levels = "some address"
     assert_equal false, @yaml_reader.load(file_with_multiple_levels)
-
   end
   
-  def test_yaml_reader_returns_true_if_problems_specified_are_all_from_same_level
-
-  end
-  
-  def test_create_stores_notice_if_any_problem_fails_to_be_created
-
-  end
+  # def test_yaml_reader_returns_true_if_problems_specified_are_all_from_same_level
+  # 
+  # end
+  # 
+  # def test_create_stores_notice_if_any_problem_fails_to_be_created
+  # 
+  # end
   
 end
