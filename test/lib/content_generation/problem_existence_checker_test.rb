@@ -2,7 +2,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../../../config/environment', __FILE__)
 require 'rails/test_help'
 
-require_relative '../../../lib/make_math_helper.rb'
+require_relative '../../../lib/content_generation/content_generation_helper.rb'
 
 
 class ProblemExistenceCheckerTest < Test::Unit::TestCase

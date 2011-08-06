@@ -1,4 +1,4 @@
-require "#{Rails.root.to_s}/lib/make_math_helper"
+require "#{Rails.root.to_s}/lib/content_generation/content_generation_helper"
 
 #produce values
 values_list = []
