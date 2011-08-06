@@ -16,8 +16,7 @@ class MathYamlBuilder
     checker = MathMaker::ProblemExistenceChecker.new(@problem_type_title, @problem_level_number)
     if checker.problem_type_and_level_in_db?
 
-      filename = "#{@problem_type_title}_level_#{@problem_level_number}".gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '-')
-      filename += ".yml"
+      file_name += ".yml"
       target_filename = Rails.root.to_s + "/tmp/content_generation/#{filename}" 
 
       type = checker.problem_type
@@ -43,5 +42,10 @@ class MathYamlBuilder
         puts "unable to write yml file full of math problems"
       end
     end
+  end
+
+  private
+  def file_name
+    "#{@problem_type_title}_level_#{@problem_level_number}".gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '_')    
   end
 end
