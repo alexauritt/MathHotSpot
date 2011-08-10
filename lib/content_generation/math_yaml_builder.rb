@@ -15,8 +15,7 @@ class MathYamlBuilder
     # open target yml file
     checker = MathMaker::ProblemExistenceChecker.new(@problem_type_title, @problem_level_number)
     if checker.problem_type_and_level_in_db?
-
-      file_name += ".yml"
+      filename = file_name + ".yml"
       target_filename = Rails.root.to_s + "/tmp/content_generation/#{filename}" 
 
       type = checker.problem_type

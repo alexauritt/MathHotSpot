@@ -18,7 +18,6 @@ class MathProblemYamlReaderTest < Test::Unit::TestCase
     file_path = "tmp/content_generation/#{good_file}.yml"
     File.expects(:exists?).with(file_path).returns(true)
     mock_file = mock
-    # mock_file.stubs(:nil?).returns(f)
     File.expects(:open).with(file_path).returns(mock_file)
 
     assert_equal true, @yaml_reader.load(good_file)
