@@ -1,5 +1,6 @@
 class MathYamlBuilder
 
+  attr_reader :problem_type_title, :problem_level_number
   def initialize(args = nil)
     @problem_type_title = args[:problem_type_title]
     @problem_level_number = args[:problem_level_number]
@@ -45,6 +46,6 @@ class MathYamlBuilder
 
   private
   def file_name
-    "#{@problem_type_title}_level_#{@problem_level_number}".gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '_')    
+    "#{@problem_type_title}_level_#{@problem_level_number}".gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '_').gsub(/_{2,}/,'_')    
   end
 end
