@@ -5,20 +5,36 @@ class MathProblemYamlTextCreator
     end
     start_and_prob_level = "-\n  problem_level_id: #{problem_info_hash[:problem_level_id]}\n"
     markups = ""
+    
+    
+    raise(ArgumentError, "If you're going to specify an array of Template options, each such array must have same number of (corresponding) options.") unless templates_with_multiple_choices_have_same_number?(problem_info_hash[:markup_templates])
+ 
     problem_info_hash[:markup_templates].keys.each do |key|
       current_value = problem_info_hash[:markup_templates][key]
-      index = rand(current_value.length)
-      
-      raw_markup = (current_value.is_a? Array) ? current_value[index].clone : current_value.clone
+      raw_markup = (current_value.is_a? Array) ? current_value[rand(current_value.length)].clone : current_value.clone
       problem_info_hash[:values].each_pair do |key,value|
-        raw_markup.gsub!("@#{key}", "#{value}")
-      end
-      markups.concat("  #{key.to_s.concat('_markup')}: #{raw_markup}\n")
+      raw_markup.gsub!("@#{key}", "#{value}")
     end
+    
+    markups.concat("  #{key.to_s.concat('_markup')}: #{raw_markup}\n")
+    
+   end
     start_and_prob_level.concat(markups).concat("\n")
   end
   
   private
+  
+  def self.templates_with_multiple_choices_have_same_number?(templates)
+    choices_count = []
+    templates.keys.each do |key|
+      if templates[key].is_a? Array
+        choices_count << templates[key].length
+      end
+    end
+    choices_count.uniq!
+    (choices_count.length == 1) || (choices_count.empty?)
+  end
+  
   def self.valid_hash?(hash)
     answer = true
     hash[:values].keys.each do |key|

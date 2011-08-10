@@ -18,11 +18,21 @@ class MathProblemYamlTextCreatorTest < Test::Unit::TestCase
     @expected_yaml = "-\n  problem_level_id: 5\n  question_markup: something should go here and also something should go here too\n  answer_markup: you sohuld get rid of this and also get rid of this too\n\n"
   end
   
+  def test_all_markup_templates_arrays_must_be_of_same_length
+    templates = @problem_info[:markup_templates]
+    templates[:question] = ["first", "second","third"]
+    templates[:answer] = ["first", "second"]
+    
+    assert_raise ArgumentError do
+      MathProblemYamlTextCreator.problem_yaml_text(@problem_info)
+    end
+  end
+  
   def test_problem_yaml_uses_first_of_two_question_templates
     expected_question_markup = "  question_markup: first format 50"
     unexpected_question_markup = "second format 50"
     @problem_info[:markup_templates][:question] = ["first format @value", "second format @value"]
-    @problem_info[:markup_templates][:answer] = ["the answer is @value"]
+    @problem_info[:markup_templates][:answer] = "the answer is @value"
     @problem_info[:values] = {:value => 50}
 
     MathProblemYamlTextCreator.stubs(:rand).with(1).returns(0)
@@ -37,7 +47,7 @@ class MathProblemYamlTextCreatorTest < Test::Unit::TestCase
     expected_question_markup = "  question_markup: second format 50"
     unexpected_question_markup = "first format 50"
     @problem_info[:markup_templates][:question] = ["first format @value", "second format @value"]
-    @problem_info[:markup_templates][:answer] = ["the answer is @value"]
+    @problem_info[:markup_templates][:answer] = "the answer is @value"
     @problem_info[:values] = {:value => 50}
 
     MathProblemYamlTextCreator.stubs(:rand).with(1).returns(0)

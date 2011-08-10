@@ -38,8 +38,8 @@ class MathYamlBuilder
           target.puts yml_data
         end
         target.close
-      rescue  
-        puts "unable to write yml file full of math problems"
+      rescue ArgumentError => detail  
+        puts "unable to write yml file full of math problems: #{detail}"
       end
     end
   end
