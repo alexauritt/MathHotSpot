@@ -42,7 +42,6 @@ class MathYamlBuilder
         puts "unable to write yml file full of math problems: #{detail}"
       end
     end
-    puts "Wrote file #{filename}"
   end
 
   private
