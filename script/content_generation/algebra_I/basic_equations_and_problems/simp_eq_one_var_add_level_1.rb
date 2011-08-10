@@ -11,7 +11,7 @@ end
 args = {
     :problem_type_title => "Simple Equations: One Variable, Addition",
     :problem_level_number => 1,
-    :question_template => '\[x + @left = @right\]',
+    :question_template => ['\[x + @left = @right\]', '\[@left + x = @right\]', '\[@right = x + @left\]', '\[@right = @left + x\]'],
     :answer_template => '\[x = @solution\]',
     :values_list => values_list
 }

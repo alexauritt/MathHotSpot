@@ -43,7 +43,7 @@ class MathYamlBuilderTest < Test::Unit::TestCase
 
     builder.build!
   end
-  
+    
   private
 
   def mock_file(file_name)
