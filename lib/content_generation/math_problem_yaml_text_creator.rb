@@ -8,10 +8,11 @@ class MathProblemYamlTextCreator
     
     
     raise(ArgumentError, "If you're going to specify an array of Template options, each such array must have same number of (corresponding) options.") unless templates_with_multiple_choices_have_same_number?(problem_info_hash[:markup_templates])
- 
+
+    random_index = rand(choice_count(problem_info_hash[:markup_templates]))
     problem_info_hash[:markup_templates].keys.each do |key|
       current_value = problem_info_hash[:markup_templates][key]
-      raw_markup = (current_value.is_a? Array) ? current_value[rand(current_value.length)].clone : current_value.clone
+      raw_markup = (current_value.is_a? Array) ? current_value[random_index].clone : current_value.clone
       problem_info_hash[:values].each_pair do |key,value|
       raw_markup.gsub!("@#{key}", "#{value}")
     end
@@ -23,6 +24,14 @@ class MathProblemYamlTextCreator
   end
   
   private
+  def self.choice_count(templates)
+    templates.keys.each do |key|
+      if templates[key].is_a? Array
+        return templates[key].length
+      end
+    end
+    nil
+  end
   
   def self.templates_with_multiple_choices_have_same_number?(templates)
     choices_count = []
