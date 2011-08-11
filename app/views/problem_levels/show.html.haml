@@ -2,6 +2,8 @@
   %title Problem Level
   = stylesheet_link_tag "math_display", "lessons"
 
+= paginate @math_problems
+
 #problem-levels
   .row
     = @problem_level.instruction.description

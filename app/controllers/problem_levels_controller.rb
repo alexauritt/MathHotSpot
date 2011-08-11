@@ -2,7 +2,7 @@ class ProblemLevelsController < ApplicationController
   def show
     problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
     @problem_level = ProblemLevel.find_by_level_number_and_problem_type_id(params[:id], problem_type.id)
-    @math_problems = @problem_level.math_problems
+    @math_problems = @problem_level.math_problems.page(params[:page])
   end
   
   def new

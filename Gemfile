@@ -15,6 +15,7 @@ gem 'acts-as-taggable-on'
 gem 'heroku'
 gem 'simple_form'
 gem 'devise'
+gem 'kaminari'
 
 group :development, :test do
   gem 'capybara'
