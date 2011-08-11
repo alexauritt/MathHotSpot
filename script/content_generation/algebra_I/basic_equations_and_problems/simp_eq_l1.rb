@@ -10,7 +10,7 @@ values_list = []
 end
 
 args = {
-    :problem_type_title => "Simple Equations: One Variable, Addition",
+    :problem_type_title => "Simple Equations with Positive Integers, No Coefficients, Addition and Subtraction",
     :problem_level_number => 1,
     :question_template => ['\[@variable + @addend = @sum\]', '\[@addend + @variable = @sum\]', '\[@sum = @variable + @addend\]', '\[@sum = @addend + @variable\]'],
     :answer_template => ['\[@variable = @solution\]', '\[@variable = @solution\]', '\[@solution = @variable\]', '\[@solution = @variable\]'],
