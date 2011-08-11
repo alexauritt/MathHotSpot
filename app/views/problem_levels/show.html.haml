@@ -7,8 +7,6 @@
 #problem-levels
   .row
     = @problem_level.instruction.description
-  .row
-    = "There are #{@math_problems.size} problems on this level:"
   #level-problem-list
     -@math_problems.each do |math_problem|
       =render :partial => "math_problems/math_problem_full", :locals => { :math_problem => math_problem }
