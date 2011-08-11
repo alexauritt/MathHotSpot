@@ -24,14 +24,25 @@ class MathProblemsControllerTest < AuthenticatingControllerTestCase
     assert_equal level.problem_type, assigns(:problem_type)
   end
   
-  test "should create math problem" do
+  test "should create math problem for existent and non-empty level" do
     level = problem_levels(:dividing_monomials_level_01)
     assert_difference('MathProblem.count') do
       post :create, :math_problem => Factory.attributes_for(:math_problem, :problem_level => level)
     end
     assert_redirected_to math_problem_path(assigns(:math_problem))
   end
-  
+
+  test "should create new math problem for existent but empty problem level" do
+    type = problem_types(:find_gcf_of_monomials_problem_type)
+    new_level = ProblemLevel.create(:problem_type => type, :level_number => type.lowest_available_level_number)
+    
+    assert_difference('MathProblem.count') do
+      post :create, :math_problem => Factory.attributes_for(:math_problem, :problem_level => new_level)
+    end
+    
+    assert_redirected_to math_problem_path(assigns(:math_problem))
+  end
+    
   test "should destroy math problem" do
     assert_difference('MathProblem.count', -1) do
       delete :destroy, :id => @math_problem.to_param
@@ -48,4 +59,5 @@ class MathProblemsControllerTest < AuthenticatingControllerTestCase
     put :update, :id => @math_problem.to_param, :math_problem => @math_problem.attributes
     assert_redirected_to math_problem_path(assigns(:math_problem))
   end
+  
 end
