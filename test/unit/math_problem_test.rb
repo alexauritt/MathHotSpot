@@ -154,6 +154,11 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal expected_siblings, problem.siblings
   end
   
+  test "math problem is invalid without problem_level" do
+    problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup')
+    assert_equal false, problem.valid?
+  end
+  
   private
   def stub_math_problem_order_to_return_sorted_list(ordered_problem_list)
     MathProblem.stubs(:grouped_problems).returns(ordered_problem_list)

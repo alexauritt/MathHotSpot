@@ -5,8 +5,9 @@ class MathProblem < ActiveRecord::Base
   belongs_to :problem_level
   has_one :problem_type, :through => :problem_level
 
-  validates_presence_of :problem_level, :question_markup, :answer_markup
+  validates_presence_of :question_markup, :answer_markup
   validates :question_markup, :uniqueness => {:scope => :problem_level_id}
+  validate :problem_level_exists!
 
   before_validation :strip_excess_tags, :replace_xmlns_with_display_block
   
@@ -55,6 +56,14 @@ class MathProblem < ActiveRecord::Base
   end  
   
   private
+  
+  def problem_level_exists!
+    begin
+      errors.add(:problem_level_id, "doesn't exist") unless (!problem_level.nil? || (problem_level_id && ProblemLevel.exists?(problem_level_id)))
+    rescue
+      errors.add(:problem_level_id, "not found in db")
+    end
+  end
   
   def strip_excess_tags
     [question_markup, answer_markup].each do |markup|
