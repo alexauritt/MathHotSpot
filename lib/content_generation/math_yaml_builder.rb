@@ -1,6 +1,8 @@
 class MathYamlBuilder
 
   attr_reader :problem_type_title, :problem_level_number
+  attr_accessor :file_name
+  
   def initialize(args = nil)
     @problem_type_title = args[:problem_type_title]
     @problem_level_number = args[:problem_level_number]
@@ -11,7 +13,11 @@ class MathYamlBuilder
     @values_list.extend Shuffleable
     @values_list.shuffle!
   end
-  
+
+  def file_name
+    @file_name ||= "#{@problem_type_title}_level_#{@problem_level_number}".gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '_').gsub(/_{2,}/,'_')        
+  end
+    
   def build!    
     # open target yml file
     checker = MathMaker::ProblemExistenceChecker.new(@problem_type_title, @problem_level_number)
@@ -42,10 +48,5 @@ class MathYamlBuilder
         puts "unable to write yml file full of math problems: #{detail}"
       end
     end
-  end
-
-  private
-  def file_name
-    "#{@problem_type_title}_level_#{@problem_level_number}".gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '_').gsub(/_{2,}/,'_')    
   end
 end

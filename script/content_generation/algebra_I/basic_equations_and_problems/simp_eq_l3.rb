@@ -17,5 +17,6 @@ args = {
     :values_list => values_list
 }
 builder = MathYamlBuilder.new(args)
+builder.file_name = "simp_eq_l3"
 builder.build!
 

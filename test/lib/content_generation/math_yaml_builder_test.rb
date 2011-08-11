@@ -16,8 +16,13 @@ class MathYamlBuilderTest < Test::Unit::TestCase
     @math_yaml_builder = MathYamlBuilder.new(@default_builder_params)
   end
   
-  def test_file_name
+  def test_default_file_name
     assert_equal "a_problem_of_some_kind_level_1", @math_yaml_builder.send(:file_name)
+  end
+  
+  def test_set_file_name
+    @math_yaml_builder.file_name = "short_name"
+    assert_equal "short_name", @math_yaml_builder.file_name
   end
   
   def test_file_name_with_punctuation_and_caps
