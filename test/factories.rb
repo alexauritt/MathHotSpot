@@ -37,6 +37,7 @@ end
 Factory.define :math_problem do |mp|
   mp.question_markup 'this is markup for question'
   mp.answer_markup 'this is markup for answer'
+  mp.owner { |o| o.association(:user) }
   mp.problem_level { |pl| pl.association(:problem_level) }
 end
 

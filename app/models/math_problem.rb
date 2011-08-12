@@ -4,10 +4,11 @@ class MathProblem < ActiveRecord::Base
   has_many :worksheets, :through => :worksheet_problems
   belongs_to :problem_level
   has_one :problem_type, :through => :problem_level
+  belongs_to :owner, :class_name => "User"
 
-  validates_presence_of :question_markup, :answer_markup
+  validates_presence_of :question_markup, :answer_markup, :owner_id
   validates :question_markup, :uniqueness => {:scope => :problem_level_id}
-  validate :problem_level_exists!
+  validate :problem_level_exists!, :owner_exists!
 
   before_validation :strip_excess_tags, :replace_xmlns_with_display_block
   
@@ -56,6 +57,12 @@ class MathProblem < ActiveRecord::Base
   end  
   
   private
+
+  def owner_exists!
+    if owner_id
+      errors.add(:owner_id, "doesn't exist in database") unless User.find(owner_id)
+    end
+  end
   
   def problem_level_exists!
     begin

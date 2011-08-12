@@ -53,12 +53,36 @@ class ProblemLevelTest < ActiveSupport::TestCase
     assert !level.empty?
   end
   
-  test "owner is owner of parent problem type " do
+  test "owner is owner of parent problem type" do
     mock_user = mock
     type = Factory.build(:problem_type)
     level = ProblemLevel.new(:problem_type => type, :level_number => type.lowest_available_level_number)
     type.expects(:owner).returns(mock_user)
     assert_equal mock_user, level.owner
+  end
+  
+  test "nested math problems are assigned to owner of problem type by default" do
+    type = problem_types(:dividing_monomials_problem_type)
+    owner = users(:testuser)
+    type.stubs(:owner).returns(owner)
+    level = ProblemLevel.create(:problem_type => type, :level_number => type.lowest_available_level_number, 
+      :math_problems_attributes => [{:question_markup => "asdf", :answer_markup => "asdf"}])
+
+    assert level.valid?, "Level didn't save"
+    assert_equal owner, level.math_problems.first.owner, "owner was not expected owner"
+  end
+  
+  test "nested math problems are assigned to an owner specified in attributes" do
+    type = problem_types(:dividing_monomials_problem_type)
+    type_owner = users(:testuser)
+    problem_owner = users(:joe)
+    type.stubs(:owner).returns(type_owner)
+    level = ProblemLevel.create(:problem_type => type, :level_number => type.lowest_available_level_number, 
+      :math_problems_attributes => [{:owner => problem_owner, :question_markup => "asdf", :answer_markup => "asdf"}])
+
+    assert level.valid?, "Level is invalid"
+    assert_equal type_owner, level.owner
+    assert_equal problem_owner, level.math_problems.first.owner, "owner was not expected owner"
   end
   
 end

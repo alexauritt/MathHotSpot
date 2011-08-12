@@ -155,7 +155,12 @@ class MathProblemTest < ActiveSupport::TestCase
   end
   
   test "math problem is invalid without problem_level" do
-    problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup')
+    problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup', :owner => User.first)
+    assert_equal false, problem.valid?
+  end
+  
+  test "math problem is invalid without owner" do
+    problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup', :problem_level => problem_levels(:dividing_monomials_level_01))
     assert_equal false, problem.valid?
   end
   
