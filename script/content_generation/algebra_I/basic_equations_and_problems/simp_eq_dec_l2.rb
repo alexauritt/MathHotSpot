@@ -4,9 +4,10 @@ values_list = []
 
 100.times do
   # for types 3 - 8
-  dec = Random.digit_integer(20)
-  diff = Random.digit_integer(20)
-  sum = Random.round_tens(dec + diff)
+  dec = Random.digit_decimal
+  roundup = Random.round_tens(dec.ceil - dec)
+  diff = Random.round_tens(rand(5) + roundup)
+  sum = (dec + diff).to_i
   
   # for types 1 and 2
   int_diff = rand(20)
@@ -17,12 +18,12 @@ end
 
 args = {
     :problem_type_title => "Simple Equations with Decimals, No Coefficients, Addition and Subtraction",
-    :problem_level_number => 3,
+    :problem_level_number => 2,
     :question_template => ['\[@decimal = @variable - @int_diff\]', '\[@variable - @int_diff = @decimal\]', '\[@decimal = @variable - @difference\]', '\[@variable - @difference = @decimal\]', '\[@variable + @difference = @sum\]', '\[@difference + @variable = @sum\]', '\[@sum = @variable + @difference\]', '\[@sum = @difference + @variable\]'],
     :answer_template => ['\[@total = @variable\]', '\[@variable = @total\]', '\[@sum = @variable\]', '\[@variable = @sum\]', '\[@variable = @decimal\]', '\[@variable = @decimal\]', '\[@decimal = @variable\]', '\[@decimal = @variable\]'],
     :values_list => values_list
 }
 builder = MathYamlBuilder.new(args)
-builder.file_name = "simp_eq_real_l3"
+builder.file_name = "simp_eq_dec_l2"
 builder.build!
 

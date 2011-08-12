@@ -18,12 +18,12 @@ end
 
 args = {
     :problem_type_title => "Simple Equations with Decimals, No Coefficients, Addition and Subtraction",
-    :problem_level_number => 2,
+    :problem_level_number => 3,
     :question_template => ['\[@decimal = @variable - @int_diff\]', '\[@variable - @int_diff = @decimal\]', '\[@decimal = @variable - @difference\]', '\[@variable - @difference = @decimal\]', '\[@variable + @difference = @sum\]', '\[@difference + @variable = @sum\]', '\[@sum = @variable + @difference\]', '\[@sum = @difference + @variable\]'],
     :answer_template => ['\[@total = @variable\]', '\[@variable = @total\]', '\[@sum = @variable\]', '\[@variable = @sum\]', '\[@variable = @decimal\]', '\[@variable = @decimal\]', '\[@decimal = @variable\]', '\[@decimal = @variable\]'],
     :values_list => values_list
 }
 builder = MathYamlBuilder.new(args)
-builder.file_name = "simp_eq_real_l2"
+builder.file_name = "simp_eq_dec_l3"
 builder.build!
 
