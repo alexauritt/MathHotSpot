@@ -85,6 +85,29 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_equal 40, assigns(:problem_level).level_number
   end
   
+  test "should create problem level and nested math problem" do
+    pending "write test, functionality already present"    
+  end
+  
+  test "new problem level belongs to user of parent problem type instead of current user (if different)" do
+    pending "write test, functionality already present"
+  end
+  
+  test "new nested math problem should belong to current user" do
+    other_user = users(:joe)
+    current_user = users(:testuser)
+    type = Factory.create(:problem_type, :owner => other_user)
+    problem_level = ProblemLevel.new(:problem_type => type, :level_number => type.lowest_available_level_number)
+
+    assert_difference('ProblemLevel.count') do
+      post :create, :problem_type_id => type.permalink, :problem_level => problem_level.attributes.merge(math_problem_attributes)
+    end
+    
+    assert_equal other_user, assigns(:problem_level).owner, "New Level should belong to owner of parent Problem Type"
+    assert_equal current_user, assigns(:problem_level).math_problems.first.owner, "Newly created Math Problem should belong to current User"
+    flunk "this is still flunking manually even though test passes"
+  end
+  
   private
 
   def math_problem_attributes
