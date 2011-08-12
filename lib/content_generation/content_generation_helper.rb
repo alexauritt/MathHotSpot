@@ -9,7 +9,7 @@ class Random
   end
   
   def self.digit_decimal
-    round_tens(rand(100) / 10.0)
+    digit_integer
   end
   
   def self.digit_integer(max = 10)
