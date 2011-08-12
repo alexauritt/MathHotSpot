@@ -35,5 +35,9 @@ class ProblemLevel < ActiveRecord::Base
   def instruction
     problem_type.instruction
   end
+  
+  def owner
+    problem_type.owner
+  end
 
 end

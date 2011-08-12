@@ -52,4 +52,13 @@ class ProblemLevelTest < ActiveSupport::TestCase
     level.math_problems.build
     assert !level.empty?
   end
+  
+  test "owner is owner of parent problem type " do
+    mock_user = mock
+    type = Factory.build(:problem_type)
+    level = ProblemLevel.new(:problem_type => type, :level_number => type.lowest_available_level_number)
+    type.expects(:owner).returns(mock_user)
+    assert_equal mock_user, level.owner
+  end
+  
 end
