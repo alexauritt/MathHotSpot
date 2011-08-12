@@ -23,9 +23,9 @@ class ProblemLevelsController < ApplicationController
   end
   
   def update
-    @problem_level = ProblemLevel.find(params[:id])
-    notice = @problem_level.update_attributes(params[:problem_level]) ? "Problem Level successfully updated." : "Unable to update Problem Level."
     @problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
+    @problem_level = ProblemLevel.find_by_level_number_and_problem_type_id(params[:id], @problem_type.id)
+    notice = @problem_level.update_attributes(params[:problem_level]) ? "Problem Level successfully updated." : "Unable to update Problem Level."
     redirect_to(problem_type_url(@problem_type), :notice => notice)      
   end
 

@@ -75,6 +75,15 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_redirected_to problem_type_path(problem_type)    
   end
 
+  test "update level number for existing problem level" do
+    level = problem_levels(:dividing_monomials_level_03)
+    assert_equal 3, level.level_number
+    
+    put :update, :id => level.level_number, :problem_type_id => level.problem_type.permalink, :problem_level => {:level_number => 40}
+    
+    assert_redirected_to problem_type_path(level.problem_type)
+    assert_equal 40, assigns(:problem_level).level_number
+  end
   
   private
 
