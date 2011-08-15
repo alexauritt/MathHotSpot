@@ -116,6 +116,19 @@ class RoutingTest < ActionController::TestCase
       {:controller => "core_lesson_problem_types", :action => 'create'})
   end
 
+#Worksheet
+
+  test "edit worksheet" do
+    assert_routing( {:path => "worksheets/34/edit", :method => :get },
+      {:controller => "worksheets", :action => "edit", :id => '34'})
+  end
+
+  test "show worksheet" do
+    assert_routing( {:path => "worksheets/34", :method => :get },
+      {:controller => "worksheets", :action => "show", :id => '34'})
+  end
+
+  
 #WorksheetSolutions
   test "show worksheet_solutions" do
     assert_routing( {:path => "/worksheet_solutions/89", :method => :get }, 

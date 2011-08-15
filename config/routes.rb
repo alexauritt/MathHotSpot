@@ -25,7 +25,7 @@ Mathhotspot::Application.routes.draw do
 
   resources :math_problems, :except => [:new, :index]
   
-  resources :worksheets, :only => [:index, :show, :update] do
+  resources :worksheets, :only => [:index, :show, :edit, :update] do
     resources :worksheet_problems, :only => [:update]
   end
   
