@@ -5,8 +5,10 @@
 <% end %>
 
 <div class="worksheet" id="worksheet_<%= @worksheet.id %>">
-  <%= link_to "Hide Solutions", worksheet_path(@worksheet) %> |
-  <%= link_to "Edit Worksheet", edit_worksheet_path(@worksheet) %>
+  <div id="worksheet_links">
+    <%= link_to "Hide Solutions", worksheet_path(@worksheet) %> |
+    <%= link_to "Edit Worksheet", edit_worksheet_path(@worksheet) %>
+  </div>
   <% current_index = 0 %>
   <% @worksheet.problem_groups.each do |group| %>
     <div class="problem_group">
