@@ -104,14 +104,16 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     end
     
     assert_equal other_user, assigns(:problem_level).owner, "New Level should belong to owner of parent Problem Type"
-    assert_equal current_user, assigns(:problem_level).math_problems.first.owner, "Newly created Math Problem should belong to current User"
-    flunk "this is still flunking manually even though test passes"
+    assert_equal 1, assigns(:problem_level).math_problems.count
+    new_problem = assigns(:problem_level).math_problems.first
+
+    assert_equal current_user, new_problem.owner, "Newly created Math Problem should belong to current User"
   end
   
   private
 
   def math_problem_attributes
-    {:math_problems_attributes => [{:question_markup => 'some question', :answer_markup => 'some answer'}] }    
+    {:math_problems_attributes => {"0" => {:question_markup => 'some question', :answer_markup => 'some answer'}}}    
   end
 
   def assert_prompts_for_problem_question_and_answer

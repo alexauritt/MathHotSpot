@@ -41,8 +41,8 @@ class MathYamlBuilderTest < Test::Unit::TestCase
     assert_delegation_to_problem_existence_checker! builder    
     
     file = mock_file("a_really_really_wonderful_problem_level_43.yml")
-    problem_1_yaml = "-\n  problem_level_id: 200\n  question_markup: some question goes here with a 100\n  answer_markup: some answer goes here with an 50\n\n"
-    problem_2_yaml = "-\n  problem_level_id: 200\n  question_markup: some question goes here with a 200\n  answer_markup: some answer goes here with an 75\n\n"
+    problem_1_yaml = "-\n  problem_level_id: 200\n  question_markup: some question goes here with a 100\n  answer_markup: some answer goes here with an 50\n  owner_id: 1\n\n"
+    problem_2_yaml = "-\n  problem_level_id: 200\n  question_markup: some question goes here with a 200\n  answer_markup: some answer goes here with an 75\n  owner_id: 1\n\n"
     file.expects(:puts).with(problem_1_yaml)
     file.expects(:puts).with(problem_2_yaml)
 

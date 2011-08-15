@@ -40,7 +40,7 @@ class ProblemLevelsController < ApplicationController
   private
   def set_current_user_as_owner_of_new_nested_math_problems!
     if params[:problem_level][:math_problems_attributes]
-      params[:problem_level][:math_problems_attributes].each do |prob_attr|
+      params[:problem_level][:math_problems_attributes].each_value do |prob_attr|
         prob_attr[:owner_id] = current_user.id
       end
     end
