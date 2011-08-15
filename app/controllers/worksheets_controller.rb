@@ -10,6 +10,7 @@ class WorksheetsController < ApplicationController
   
   def edit
     @worksheet = Worksheet.find(params[:id])
+    @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem }
   end
 
   def update    

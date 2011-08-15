@@ -41,8 +41,15 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_select 'div.notice', MathHotSpotErrors::Message::DEFAULT
   end
   
+  test "show worksheet" do
+    get(:show, {:id => @worksheet.id})
+    assert_select '.problem_links input#replace_problem_submit_1', false, "Replace problem should not be present for Worksheet#show -- only Worksheet#update"
+    assert_response :success
+  end
+  
   test "edit worksheet" do
     get(:edit, {:id => @worksheet.id})
+    assert_select '.problem_links input#replace_problem_submit_1'
     assert_response :success
   end
   

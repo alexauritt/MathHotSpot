@@ -6,15 +6,16 @@
 <% end %>
 
 <div class="worksheet" id="worksheet_<%= @worksheet.id %>">
-<% current_index = 0 %>
-<% @worksheet.problem_groups.each do |group| %>
-  <div class="problem_group">
-  	<div class="instructions"><%= group.first.instruction.description %></div>
-  	<% group.each do |worksheet_problem| %>
-  		<%= render :partial => "worksheets/worksheet_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1 } %>
-  		<% current_index += 1%>
-  	<% end %>  	
-  </div>
-<% end %>
+  <%= link_to "Edit Worksheet", edit_worksheet_path(@worksheet) %>
+  <% current_index = 0 %>
+  <% @worksheet.problem_groups.each do |group| %>
+    <div class="problem_group">
+    	<div class="instructions"><%= group.first.instruction.description %></div>
+    	<% group.each do |worksheet_problem| %>
+    		<%= render :partial => "worksheets/worksheet_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1, :editable => false } %>
+    		<% current_index += 1%>
+    	<% end %>  	
+    </div>
+  <% end %>
 
 </div>
