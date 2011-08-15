@@ -22,6 +22,10 @@ module MathProblemsHelper
       end
     end
   end
+  
+  def display_solution(problem)
+    display_mathml(problem, false)
+  end
     
   def problem_type_count_msg(count)
     count > 1 ? "(#{count} problem types)" : "(1 problem type)"

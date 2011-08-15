@@ -11,6 +11,9 @@ div.worksheet_problem {
 	float: left;
 	width: 200px;
 	height: 200px;
+	.answer {
+    color: red;
+  }
 }
 
 div.worksheet_problem .error_display {

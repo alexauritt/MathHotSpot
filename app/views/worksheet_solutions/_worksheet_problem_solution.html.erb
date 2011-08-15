@@ -1,0 +1,4 @@
+<div class="worksheet_problem" id="problem_<%= problem_number %>">
+	<span class="problem_number"><%= problem_number %>)</span>
+	<%= render :partial => "math_problems/problem_display", :locals => { :math_problem => math_problem, :should_show_solution => true } %>
+</div>

@@ -1,2 +1,7 @@
 .math_display
-  = display_mathml_question(math_problem)
+  .question
+    = display_mathml_question(math_problem)
+  - if should_show_solution
+    .answer
+      Solution:
+      = display_solution(math_problem)

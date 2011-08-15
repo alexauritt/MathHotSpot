@@ -47,6 +47,11 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_response :success
   end
   
+  test "show worksheet does not display solutions" do
+    get(:show, {:id => @worksheet.id})
+    assert_select '.worksheet_problem .math_display .answer', false, "Solution should not be displayed for Worksheet#show"
+  end
+  
   test "edit worksheet" do
     get(:edit, {:id => @worksheet.id})
     assert_select '.problem_links input#replace_problem_submit_1'

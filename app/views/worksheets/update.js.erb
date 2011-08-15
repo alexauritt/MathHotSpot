@@ -6,7 +6,7 @@ var displayTarget = $('div.math_display', problemTarget);
 <% else %>
   var newMathDisplay = "<%= escape_javascript(render(
     :partial => 'math_problems/problem_display',
-    :locals => { :math_problem => @new_problem })) %>";
+    :locals => { :math_problem => @new_problem, :should_show_solution => false })) %>";
   displayTarget.replaceWith(newMathDisplay);
 <% end %>
 
