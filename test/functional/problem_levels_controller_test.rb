@@ -75,6 +75,28 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_redirected_to problem_type_path(problem_type)    
   end
 
+  test "should create problem level and nested math problem" do
+    problem_type = problem_types(:empty_problem_type)
+    problem_level = ProblemLevel.new(:problem_type => problem_type, :level_number => problem_type.lowest_available_level_number)
+    
+    assert_difference('MathProblem.count') do
+      post :create, :problem_type_id => problem_type.permalink, :problem_level => problem_level.attributes.merge(math_problem_attributes)
+    end
+    assert_redirected_to problem_type_path(problem_type)    
+  end
+  
+  test "created problem level belongs to user of parent problem type instead of current user (if different)" do
+    sign_in users(:joe)
+
+    problem_type = problem_types(:empty_problem_type)
+    problem_level = ProblemLevel.new(:problem_type => problem_type, :level_number => problem_type.lowest_available_level_number)
+
+    post :create, :problem_type_id => problem_type.permalink, :problem_level => problem_level.attributes.merge(math_problem_attributes)
+
+    assert_equal users(:testuser), assigns(:problem_level).owner
+    assert_equal users(:joe), assigns(:problem_level).math_problems.first.owner
+  end  
+
   test "update level number for existing problem level" do
     level = problem_levels(:dividing_monomials_level_03)
     assert_equal 3, level.level_number
@@ -83,14 +105,6 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     
     assert_redirected_to problem_type_path(level.problem_type)
     assert_equal 40, assigns(:problem_level).level_number
-  end
-  
-  test "should create problem level and nested math problem" do
-    pending "write test, functionality already present"    
-  end
-  
-  test "new problem level belongs to user of parent problem type instead of current user (if different)" do
-    pending "write test, functionality already present"
   end
   
   test "new nested math problem should belong to current user" do
