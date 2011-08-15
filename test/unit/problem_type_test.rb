@@ -193,7 +193,22 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert results.include?(pt)
   end
   
+  test "simultaneously created problem type, level, and math_problem all have same owner when owner only specified for problem_type" do
+    pt = ProblemType.create(@standard_problem_type_params.merge nested_level_and_problem_attributes_but_no_owner)
+    level = pt.problem_levels.first
+    problem = level.math_problems.first
+    testuser = users(:testuser)
+    assert_equal testuser, pt.owner
+    assert_equal testuser, level.owner
+    assert_equal testuser, problem.owner
+  end
+  
   private
+
+  def nested_level_and_problem_attributes_but_no_owner
+    { :problem_levels_attributes => [{:level_number => 666, :math_problems_attributes => 
+        [{:question_markup => 'some question', :answer_markup => 'some answer'}]}]}  
+  end
   
   def assert_problem_created_with_first_title_but_second_fails(first_title, second_title)
     title = first_title

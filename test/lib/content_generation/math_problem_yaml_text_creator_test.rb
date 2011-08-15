@@ -15,7 +15,7 @@ class MathProblemYamlTextCreatorTest < Test::Unit::TestCase
         :replace_this => 'get rid of this'
       }
     }
-    @expected_yaml = "-\n  problem_level_id: 5\n  question_markup: something should go here and also something should go here too\n  answer_markup: you sohuld get rid of this and also get rid of this too\n\n"
+    @expected_yaml = "-\n  problem_level_id: 5\n  question_markup: something should go here and also something should go here too\n  answer_markup: you sohuld get rid of this and also get rid of this too\n  owner_id: 1\n\n"
   end
   
   def test_all_markup_templates_arrays_must_be_of_same_length

@@ -4,7 +4,7 @@ class MathProblemsController < ApplicationController
   end
   
   def create
-    @math_problem = MathProblem.new(params[:math_problem])
+    @math_problem = MathProblem.new(params[:math_problem].merge({:owner => current_user }))
     respond_to do |format|
       if @math_problem.save
         format.html { redirect_to(@math_problem, :notice => 'Math Problem was successfully created.') }

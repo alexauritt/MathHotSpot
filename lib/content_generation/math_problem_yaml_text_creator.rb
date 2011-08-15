@@ -4,8 +4,8 @@ class MathProblemYamlTextCreator
       raise ArgumentError
     end
     start_and_prob_level = "-\n  problem_level_id: #{problem_info_hash[:problem_level_id]}\n"
+    owner_info = "  owner_id: 1\n"
     markups = ""
-    
     
     raise(ArgumentError, "If you're going to specify an array of Template options, each such array must have same number of (corresponding) options.") unless templates_with_multiple_choices_have_same_number?(problem_info_hash[:markup_templates])
 
@@ -14,13 +14,14 @@ class MathProblemYamlTextCreator
       current_value = problem_info_hash[:markup_templates][key]
       raw_markup = (current_value.is_a? Array) ? current_value[random_index].clone : current_value.clone
       problem_info_hash[:values].each_pair do |key,value|
-      raw_markup.gsub!("@#{key}", "#{value}")
-    end
+        raw_markup.gsub!("@#{key}", "#{value}")
+      end
     
-    markups.concat("  #{key.to_s.concat('_markup')}: #{raw_markup}\n")
-    
+      markups.concat("  #{key.to_s.concat('_markup')}: #{raw_markup}\n")
    end
-    start_and_prob_level.concat(markups).concat("\n")
+   
+   markups.concat(owner_info)
+  start_and_prob_level.concat(markups).concat("\n")
   end
   
   private

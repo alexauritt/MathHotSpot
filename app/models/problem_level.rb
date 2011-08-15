@@ -10,6 +10,7 @@ class ProblemLevel < ActiveRecord::Base
   
   accepts_nested_attributes_for :math_problems, :reject_if => lambda { |a| a[:question_markup].blank? || a[:answer_markup].blank? }, :allow_destroy => true
 
+  before_validation :assign_unowned_problems_to_problem_type_owner!
   before_destroy :empty?
   
   def to_param
@@ -39,5 +40,13 @@ class ProblemLevel < ActiveRecord::Base
   def owner
     problem_type.owner
   end
+  
+  private
+  def assign_unowned_problems_to_problem_type_owner!
+    math_problems.each do |mp|
+      mp.owner ||= problem_type.owner
+    end
+  end
+  
 
 end

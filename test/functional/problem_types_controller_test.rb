@@ -103,7 +103,7 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
 
   test "create makes new problem_level" do
     problem_type = problem_type_with_category_level_and_problem
-    attributes = problem_type.attributes.merge nested_level_and_problem_attributes
+    attributes = problem_type.attributes.merge nested_level_and_problem_attributes_but_no_owner
     assert_difference('ProblemLevel.count') do
       post :create, :problem_type => attributes
     end
@@ -113,7 +113,7 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
 
   test "create makes new math_problem" do
     problem_type = problem_type_with_category_level_and_problem
-    attributes = problem_type.attributes.merge nested_level_and_problem_attributes
+    attributes = problem_type.attributes.merge nested_level_and_problem_attributes_but_no_owner
     assert_difference('MathProblem.count') do
       post :create, :problem_type => attributes
     end
@@ -162,7 +162,7 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     problem_type
   end
 
-  def nested_level_and_problem_attributes
+  def nested_level_and_problem_attributes_but_no_owner
     { :problem_levels_attributes => [{:level_number => 666, :math_problems_attributes => 
         [{:question_markup => 'some question', :answer_markup => 'some answer'}]}]}  
   end

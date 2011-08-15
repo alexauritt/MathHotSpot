@@ -85,10 +85,35 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_equal 40, assigns(:problem_level).level_number
   end
   
+  test "should create problem level and nested math problem" do
+    pending "write test, functionality already present"    
+  end
+  
+  test "new problem level belongs to user of parent problem type instead of current user (if different)" do
+    pending "write test, functionality already present"
+  end
+  
+  test "new nested math problem should belong to current user" do
+    other_user = users(:joe)
+    current_user = users(:testuser)
+    type = Factory.create(:problem_type, :owner => other_user)
+    problem_level = ProblemLevel.new(:problem_type => type, :level_number => type.lowest_available_level_number)
+
+    assert_difference('ProblemLevel.count') do
+      post :create, :problem_type_id => type.permalink, :problem_level => problem_level.attributes.merge(math_problem_attributes)
+    end
+    
+    assert_equal other_user, assigns(:problem_level).owner, "New Level should belong to owner of parent Problem Type"
+    assert_equal 1, assigns(:problem_level).math_problems.count
+    new_problem = assigns(:problem_level).math_problems.first
+
+    assert_equal current_user, new_problem.owner, "Newly created Math Problem should belong to current User"
+  end
+  
   private
 
   def math_problem_attributes
-    {:math_problems_attributes => [{:question_markup => 'some question', :answer_markup => 'some answer'}] }    
+    {:math_problems_attributes => {"0" => {:question_markup => 'some question', :answer_markup => 'some answer'}}}    
   end
 
   def assert_prompts_for_problem_question_and_answer

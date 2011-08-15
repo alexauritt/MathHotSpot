@@ -13,6 +13,7 @@ class ProblemLevelsController < ApplicationController
   end
   
   def create
+    set_current_user_as_owner_of_new_nested_math_problems!
     @problem_level = ProblemLevel.new(params[:problem_level])
     @problem_level.problem_type.problem_levels.build  # ahhh! ick! required to prevent problem_type from being 'blank' when we are creating first level. unclear why this is the case.
     if @problem_level.save
@@ -34,6 +35,15 @@ class ProblemLevelsController < ApplicationController
     @problem_level = ProblemLevel.find_by_level_number_and_problem_type_id(params[:id], problem_type.id)
     @problem_level.destroy
     redirect_to problem_type_url(problem_type)
-  end    
+  end
+  
+  private
+  def set_current_user_as_owner_of_new_nested_math_problems!
+    if params[:problem_level][:math_problems_attributes]
+      params[:problem_level][:math_problems_attributes].each_value do |prob_attr|
+        prob_attr[:owner_id] = current_user.id
+      end
+    end
+  end
 
 end
