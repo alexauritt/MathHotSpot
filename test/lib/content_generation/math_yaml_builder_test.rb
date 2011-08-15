@@ -69,6 +69,7 @@ class MathYamlBuilderTest < Test::Unit::TestCase
     mock_checker.expects(:level_number).returns(math_yaml_builder.problem_level_number)
     mock_checker.expects(:problem_type_and_level_in_db?).returns(true)
     mock_checker.expects(:problem_type).returns(problem_type)
+    mock_checker.expects(:is_admin_owner?).returns(true)
     ProblemLevel.expects(:find_by_problem_type_id_and_level_number).with(problem_type_id, math_yaml_builder.problem_level_number).returns(problem_level)
     MathMaker::ProblemExistenceChecker.expects(:new).with(math_yaml_builder.problem_type_title, math_yaml_builder.problem_level_number).returns(mock_checker)
   end

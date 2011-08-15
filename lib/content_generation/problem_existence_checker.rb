@@ -16,7 +16,7 @@ module MathMaker
     end
     
     def problem_type
-      @problem_type ||= (@title.nil? ? ProblemType.find_by_title(@title) : nil)
+      @problem_type ||= (@title.nil? ? nil : ProblemType.find_by_title(@title))
     end
     
     def problem_type_and_level_in_db?
@@ -33,6 +33,11 @@ module MathMaker
         puts ProblemLevelNotFoundError::MESSAGE
         false
       end
+    end
+    
+    def is_admin_owner?
+      owner = problem_type.owner
+      owner.id == 1
     end
   end
 end
