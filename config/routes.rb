@@ -28,6 +28,8 @@ Mathhotspot::Application.routes.draw do
   resources :worksheets, :only => [:index, :show, :update] do
     resources :worksheet_problems, :only => [:update]
   end
+  
+  resources :worksheet_solutions, :only => [:show]
 
   match "problem_types/search/results" => 'problem_types/search#show', :as => :problem_types_search
   match "problem_types/search" => 'problem_types/search#new', :as => :new_problem_types_search

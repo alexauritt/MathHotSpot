@@ -115,4 +115,10 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "/core_lesson_problem_types", :method => :post },
       {:controller => "core_lesson_problem_types", :action => 'create'})
   end
+
+#WorksheetSolutions
+  test "show worksheet_solutions" do
+    assert_routing( {:path => "/worksheet_solutions/89", :method => :get }, 
+      {:controller => "worksheet_solutions", :action => 'show', :id => '89'})
+  end
 end
