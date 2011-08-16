@@ -1,0 +1,17 @@
+- content_for :head do
+  %title
+    ="Worksheet #{@worksheet.id}"
+  = javascript_include_tag "replace_problem"
+  = stylesheet_link_tag "worksheet", {:media => "print, screen"}
+  = stylesheet_link_tag "print/worksheet", {:media => "print" }
+
+.worksheet{:id => "worksheet_#{@worksheet.id}"}
+  = link_to "Back", worksheet_path(@worksheet)
+  - current_index = 0
+  - @worksheet.problem_groups.each do |group|
+    .problem_group
+      .instructions
+        = group.first.instruction.description
+      - group.each do |worksheet_problem|
+        = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1, :editable => true }
+        - current_index += 1
