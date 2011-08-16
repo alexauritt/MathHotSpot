@@ -8,7 +8,8 @@ class ProblemTypeTest < ActiveSupport::TestCase
   def setup
     @standard_problem_type_params = { :owner_id => users(:testuser).id, 
       :category_id => categories(:polynomials).id, :title => 'This is a Problem Type'}
-    @problem_type = ProblemType.new(@standard_problem_type_params)
+    @problem_type = Factory.build(:problem_type)  
+    # @problem_type = ProblemType.new(@standard_problem_type_params)
     @level = @problem_type.problem_levels.build
     @level2 = @problem_type.problem_levels.build
   end
@@ -186,11 +187,11 @@ class ProblemTypeTest < ActiveSupport::TestCase
   
   test "search for problem types with single tag returns problem tagged with said tag" do
     tag = Factory.build(:tag)
-    pt = Factory.build(:problem_type, :tag_list => tag.name)
-    ProblemType.expects(:tagged_with).with(tag.name).returns([pt])
+    @problem_type.tag_list = tag.name
+    ProblemType.expects(:tagged_with).with(tag.name).returns([@problem_type])
     results = ProblemType.search({:tag => tag.name})
 
-    assert results.include?(pt)
+    assert results.include?(@problem_type)
   end
   
   test "simultaneously created problem type, level, and math_problem all have same owner when owner only specified for problem_type" do
