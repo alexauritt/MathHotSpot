@@ -8,7 +8,7 @@
   = link_to "Show Solutions", worksheet_solution_path(@worksheet)
   |
   = link_to "Edit Worksheet", edit_worksheet_path(@worksheet)
-  = @worksheet.problem_groups.each do |group|
+  - @worksheet.problem_groups.each do |group|
     .problem_group
       .instructions
         = group.first.instruction.description
