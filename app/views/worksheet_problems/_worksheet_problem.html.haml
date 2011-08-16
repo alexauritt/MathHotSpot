@@ -1,5 +1,5 @@
 .worksheet_problem{:id => "problem_#{worksheet_problem.problem_number}"}
   %span.problem_number
-    = worksheet_problem.problem_number
+    = display_problem_number(worksheet_problem)
   = render :partial => "math_problems/problem_display", :locals => { :math_problem => worksheet_problem.math_problem, :should_show_solution => false }
-  = problem_links_if_editable(worksheet_problem.worksheet, worksheet_problem.problem_number, editable)
+  = problem_links_if_editable(worksheet_problem, editable)
