@@ -14,5 +14,5 @@
       .instructions
         = group.first.instruction.description
       - group.each do |worksheet_problem|
-        = render :partial => "worksheets/worksheet_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1, :editable => false }
+        = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet => @worksheet, :math_problem => worksheet_problem.math_problem, :problem_number => current_index + 1, :editable => false }
         - current_index += 1
