@@ -28,6 +28,8 @@ Mathhotspot::Application.routes.draw do
   resources :worksheets, :only => [:index, :show, :edit, :update] do
     resources :worksheet_problems, :only => [:update]
   end
+
+  resources :worksheet_problems, :only => [:destroy]
   
   resources :worksheet_solutions, :only => [:show]
 

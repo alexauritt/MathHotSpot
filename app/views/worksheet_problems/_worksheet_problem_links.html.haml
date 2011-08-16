@@ -1,6 +1,5 @@
 .problem_links
-  = form_tag(worksheet_path(worksheet_problem.worksheet), :method => 'put', :class => "replace_problem_form", :id => "replace_problem_form_#{worksheet_problem.problem_number}") do
-    %input{:type => "hidden", :name => 'problem_number', :value => worksheet_problem.problem_number}
-    %input{:id => "replace_problem_submit_#{worksheet_problem.problem_number}", :class =>"replace_problem_submit", :type => "submit", :value => "replace" }
-
+   = render :partial => "worksheet_problems/replace_worksheet_problem", :locals => { :worksheet_problem => worksheet_problem }
+   = render :partial => "worksheet_problems/remove_worksheet_problem", :locals => {:worksheet_problem => worksheet_problem }
+   
 .error_display
