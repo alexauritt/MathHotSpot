@@ -1,8 +1,0 @@
-<div class="problem_links">
-  <%= form_tag(worksheet_path(worksheet), :method => 'put', :class => "replace_problem_form", :id => "replace_problem_form_#{problem_number}") do -%>
-  <input type="hidden" name="problem_number" value="<%= problem_number %>" />
-  <input id="replace_problem_submit_<%= problem_number %>" class="replace_problem_submit" 
-    type="submit" value="replace" />
-  <% end -%>
-</div>
-<div class="error_display"></div>
