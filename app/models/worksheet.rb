@@ -5,6 +5,18 @@ class Worksheet < ActiveRecord::Base
   
   validate :problems_must_be_sequentially_numbered
   
+  def problem_count
+    worksheet_problems.count
+  end
+  
+  def problem_exists?(problem_number)
+    !(problem problem_number).nil?
+  end
+  
+  def empty?
+    problem_count == 0
+  end
+  
   def renumber_worksheet_problems!
     worksheet_problems.reload
     if worksheet_problems.last.problem_number != worksheet_problems.count
@@ -39,6 +51,18 @@ class Worksheet < ActiveRecord::Base
       errors[:replace_failure] << bam
       false
     end
+  end
+  
+  def remove_problem(number)
+    problem_exists?(number) ? remove_problem_number_and_reload!(number) : false
+  end
+    
+  def remove_problems(problem_numbers)
+    if problem_numbers.is_a? Integer
+      remove_problem(problem_numbers)
+    end
+    true
+    # unless problem_numbers.is_a? Array
   end
   
   def error_for_failed_replace
@@ -78,4 +102,9 @@ class Worksheet < ActiveRecord::Base
     worksheet_problem.math_problem = replacement_problem
     worksheet_problem.save
   end
+  
+  def remove_problem_number_and_reload!(problem_number)
+    (problem problem_number).destroy
+    reload
+  end  
 end

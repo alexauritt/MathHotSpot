@@ -8,6 +8,25 @@ class WorksheetTest < ActiveSupport::TestCase
     @worksheet = Worksheet.new
     @fixture_worksheet = worksheets(:monomial_worksheet_01)
   end
+  
+  test "problem_exists? returns true for valid problem number" do
+    good_problem_number = @fixture_worksheet.problem_count
+    assert @fixture_worksheet.problem_exists? good_problem_number
+  end
+  
+  test "problem_exists? returns false for invalid problem number" do
+    bad_problem_number = @fixture_worksheet.problem_count + 1
+    assert_equal false, @fixture_worksheet.problem_exists?(bad_problem_number)
+  end
+
+  test "empty? returns true if worksheet has no problems" do
+    worksheet = Worksheet.new
+    assert worksheet.empty?
+  end
+  
+  test "empty? returns false if worksheet has at least one problem" do
+    assert !@fixture_worksheet.empty?, "Worksheet should have been empty"
+  end
 
   test "problem_groups returns array of arrays of math_problems, sorted by instruction" do
     sheet = worksheets(:monomial_worksheet_01)
@@ -90,13 +109,47 @@ class WorksheetTest < ActiveSupport::TestCase
   
   test "renumber_worksheet_problems! fixes gap in middle" do
     worksheet = worksheets(:monomial_worksheet_01)
-    middle_problem = worksheet.problem 4
-    middle_problem.destroy
     
-    worksheet.renumber_worksheet_problems!
-
+    assert_difference('worksheet.problem_count', -1) do
+      middle_problem = worksheet.problem 4
+      middle_problem.destroy
+      worksheet.renumber_worksheet_problems!
+    end
+    
     msg = "Worksheet problems not properly renumbered after deletion of problem in middle of worksheet"
     assert worksheet.problems_sequentially_numbered?, msg
+  end
+  
+  test "renumber_worksheet_problems! fixes gap of two problems in middle" do
+    worksheet = worksheets(:monomial_worksheet_01)
+    
+    assert_difference('worksheet.problem_count', -2) do
+      middle_problem = worksheet.problem 4
+      middle_problem.destroy
+      middle_problem = worksheet.problem 5
+      middle_problem.destroy
+    
+      worksheet.renumber_worksheet_problems!
+    end
+    
+    msg = "Worksheet problems not properly renumbered after deletion of two problems in middle of worksheet"
+    assert worksheet.problems_sequentially_numbered?, msg
+  end
+  
+  test "remove_problems accepts single problem number" do
+    assert_difference('@fixture_worksheet.problem_count', -1, "Problem Count did not decrease by 1 as expected") do
+      @fixture_worksheet.remove_problems(5)
+    end
+    assert @fixture_worksheet.problems_sequentially_numbered?, "Problems were not sequentially numbered"
+  end
+  
+  test "remove_problem returns true if problem removed successfully" do
+    assert @fixture_worksheet.remove_problem(1)
+  end
+  
+  test "remove_problem returns false if problem was NOT removed successfully" do
+    bad_problem_number = @fixture_worksheet.problem_count + 1
+    assert_equal false, @fixture_worksheet.remove_problem(bad_problem_number)
   end
 
   private
