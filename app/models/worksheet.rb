@@ -12,7 +12,7 @@ class Worksheet < ActiveRecord::Base
   def problem_exists?(problem_number)
     !(problem problem_number).nil?
   end
-  
+    
   def empty?
     problem_count == 0
   end
@@ -56,15 +56,7 @@ class Worksheet < ActiveRecord::Base
   def remove_problem(number)
     problem_exists?(number) ? remove_problem_number_and_reload!(number) : false
   end
-    
-  def remove_problems(problem_numbers)
-    if problem_numbers.is_a? Integer
-      remove_problem(problem_numbers)
-    end
-    true
-    # unless problem_numbers.is_a? Array
-  end
-  
+      
   def error_for_failed_replace
     Message.display(errors[:replace_failure].first) || MathHotSpotErrors::Message::DEFAULT
   end
@@ -106,5 +98,5 @@ class Worksheet < ActiveRecord::Base
   def remove_problem_number_and_reload!(problem_number)
     (problem problem_number).destroy
     reload
-  end  
+  end
 end

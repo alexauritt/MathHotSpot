@@ -18,7 +18,7 @@ class WorksheetTest < ActiveSupport::TestCase
     bad_problem_number = @fixture_worksheet.problem_count + 1
     assert_equal false, @fixture_worksheet.problem_exists?(bad_problem_number)
   end
-
+  
   test "empty? returns true if worksheet has no problems" do
     worksheet = Worksheet.new
     assert worksheet.empty?
@@ -134,13 +134,6 @@ class WorksheetTest < ActiveSupport::TestCase
     
     msg = "Worksheet problems not properly renumbered after deletion of two problems in middle of worksheet"
     assert worksheet.problems_sequentially_numbered?, msg
-  end
-  
-  test "remove_problems accepts single problem number" do
-    assert_difference('@fixture_worksheet.problem_count', -1, "Problem Count did not decrease by 1 as expected") do
-      @fixture_worksheet.remove_problems(5)
-    end
-    assert @fixture_worksheet.problems_sequentially_numbered?, "Problems were not sequentially numbered"
   end
   
   test "remove_problem returns true if problem removed successfully" do
