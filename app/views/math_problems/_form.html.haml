@@ -3,7 +3,6 @@
     .error_explanation
       %h2
         = pluralize(@math_problem.errors.count, "error")
-        prohibited this movie from being saved
       %ul
         - @math_problem.errors.full_messages.each do |msg|
           %li
