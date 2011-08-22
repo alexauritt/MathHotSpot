@@ -8,7 +8,7 @@ class MathProblem < ActiveRecord::Base
 
   validates_presence_of :question_markup, :answer_markup, :owner_id
   validates :question_markup, :uniqueness => {:scope => :problem_level_id}
-  validate :problem_level_exists!, :owner_exists!
+  validate :problem_level_exists, :owner_exists
 
   before_validation :strip_excess_tags, :replace_xmlns_with_display_block
   
@@ -58,13 +58,13 @@ class MathProblem < ActiveRecord::Base
   
   private
 
-  def owner_exists!
+  def owner_exists
     if owner_id
       errors.add(:owner_id, "doesn't exist in database") unless User.find(owner_id)
     end
   end
   
-  def problem_level_exists!
+  def problem_level_exists
     begin
       errors.add(:problem_level_id, "doesn't exist") unless (!problem_level.nil? || (problem_level_id && ProblemLevel.exists?(problem_level_id)))
     rescue

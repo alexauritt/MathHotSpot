@@ -3,6 +3,23 @@ class Worksheet < ActiveRecord::Base
   has_many :worksheet_problems, :order => :problem_number
   has_many :math_problems, :through => :worksheet_problems
   
+  validate :problems_must_be_sequentially_numbered
+  
+  def renumber_worksheet_problems!
+    worksheet_problems.reload
+    if worksheet_problems.last.problem_number != worksheet_problems.count
+      prev_index = 0
+      worksheet_problems.each do |wp|
+        next_index = prev_index + 1
+        unless wp.problem_number == next_index
+          wp.problem_number = next_index
+          wp.save
+        end
+        prev_index += 1
+      end
+    end
+  end
+  
   def problem_groups
     groups = []
     worksheet_problems.chunk {|prob| prob.instruction }.each { |instruction, group| groups << group }
@@ -32,7 +49,17 @@ class Worksheet < ActiveRecord::Base
     worksheet_problems[number - 1]
   end  
   
+  def problems_sequentially_numbered?
+    problem_numbers = worksheet_problems.map {|wp| wp.problem_number }
+    problem_numbers.sort!
+    worksheet_problems.empty? || (problem_numbers == Array(1..worksheet_problems.count))
+  end
+  
   private
+
+  def problems_must_be_sequentially_numbered
+    errors.add(:worksheet_problems, "must be consecutive integers beginning with 1") unless problems_sequentially_numbered?
+  end
     
   def similar_problems_on_worksheet(worksheet_problem)
     worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []

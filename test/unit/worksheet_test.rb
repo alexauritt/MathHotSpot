@@ -6,6 +6,7 @@ class WorksheetTest < ActiveSupport::TestCase
   
   def setup
     @worksheet = Worksheet.new
+    @fixture_worksheet = worksheets(:monomial_worksheet_01)
   end
 
   test "problem_groups returns array of arrays of math_problems, sorted by instruction" do
@@ -74,6 +75,28 @@ class WorksheetTest < ActiveSupport::TestCase
     prob4 = worksheet.worksheet_problems[3]
 
     assert_equal [prob2, prob4], worksheet.send(:similar_problems_on_worksheet, prob1)
+  end
+  
+  test "problems_numbered_correctly? returns true for worksheet without gaps" do
+    assert @fixture_worksheet.problems_sequentially_numbered?, "fixture worksheet should be correctly numbered"
+  end
+  
+  test "problems_numbered_correctly identifies gaps in problem numbering" do
+    middle_prob = @fixture_worksheet.problem 7
+    middle_prob.destroy
+    msg = "Worksheet should NOT be sequentially numbered after deletion of middle problem, if worksheet has not been renumbered."
+    assert !@fixture_worksheet.problems_sequentially_numbered?, msg
+  end
+  
+  test "renumber_worksheet_problems! fixes gap in middle" do
+    worksheet = worksheets(:monomial_worksheet_01)
+    middle_problem = worksheet.problem 4
+    middle_problem.destroy
+    
+    worksheet.renumber_worksheet_problems!
+
+    msg = "Worksheet problems not properly renumbered after deletion of problem in middle of worksheet"
+    assert worksheet.problems_sequentially_numbered?, msg
   end
 
   private

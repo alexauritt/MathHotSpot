@@ -3,7 +3,10 @@ class WorksheetProblem < ActiveRecord::Base
   belongs_to :math_problem
   
   validates_presence_of :worksheet, :math_problem
+  validates_uniqueness_of :problem_number, :scope => :worksheet_id
 
+  after_destroy :renumber_remaining_worksheet_problems!
+  
   def problem_level
     math_problem.nil? ? nil : math_problem.problem_level
   end
@@ -17,5 +20,11 @@ class WorksheetProblem < ActiveRecord::Base
     options[:exclude] = options[:exclude].map { |worksheet_problem| worksheet_problem.math_problem } || []
     self.math_problem = current_problem.find_replacement(options)
     save
+  end
+  
+  private
+  def renumber_remaining_worksheet_problems!
+    worksheet.renumber_worksheet_problems!
+    worksheet.reload
   end
 end
