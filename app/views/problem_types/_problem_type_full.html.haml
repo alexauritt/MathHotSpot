@@ -7,7 +7,7 @@
       =problem_type.instruction_text
 
     .problem-levels-display
-      =render(:partial => 'problem_types/level_examples', :locals => {:problem_type => problem_type})
+      =display_problem_levels_or_empty_message(problem_type.problem_levels)
 
     .problem_info
       #tags

@@ -42,4 +42,12 @@ module ProblemTypesHelper
   def empty_problem_type_message
     MathHotSpotErrors::Message::NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE
   end
+  
+  def display_problem_levels_or_empty_message(problem_levels)
+    unless problem_levels.empty?
+      render :partial => "problem_levels/problem_level_example", :collection => problem_levels
+    else
+      empty_problem_type_message
+    end
+  end
 end

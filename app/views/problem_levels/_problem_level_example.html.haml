@@ -1,0 +1,9 @@
+.problem-level.math-display
+  .level_number_display
+    =link_to(display_level_number(problem_level_example), problem_type_problem_level_url(problem_level_example.problem_type, problem_level_example.level_number))
+  .problem_display
+    =display_mathml_question(problem_level_example.demo_problem)
+  .problem_info
+    =problem_count_msg(problem_level_example)
+    %br
+    =delete_level(problem_level_example)

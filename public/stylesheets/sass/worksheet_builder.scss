@@ -1,0 +1,14 @@
+#worksheet-builder {
+  clear: both;
+  overflow: auto;  
+  #create-worksheet-button {
+    clear: both;
+  }
+  .problem-level-worksheet-builder {
+    float: left;
+    .problem-level, .math-display, .worksheet-form-links {
+      float: none;
+      max-width: 300px;
+    }
+  }
+}
