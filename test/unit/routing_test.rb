@@ -89,6 +89,12 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "/categories/3", :method => :get}, {:controller => 'categories', :action => 'show', :id => '3'})
   end
   
+#math_problem clone
+  test "math problem clone new" do
+    assert_routing( {:path => "/math_problems/234/clone/new", :method => :get}, 
+      {:controller => 'clone', :action => 'new', :math_problem_id => '234'})
+  end
+
 #available_tags
   test "availble_tag index" do
     assert_routing( {:path => "/problem_types/algebra-fractions/available_tags", :method => :get}, 

@@ -8,4 +8,6 @@
         =display_mathml_answer(math_problem)
   .math-problem-links
     =link_to 'Edit Problem', edit_math_problem_url(math_problem)
+    %br
+    =link_to 'Create Similar Problem', new_math_problem_clone_url(math_problem)
   
