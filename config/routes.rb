@@ -23,7 +23,9 @@ Mathhotspot::Application.routes.draw do
     
   resources :lessons
 
-  resources :math_problems, :except => [:new, :index]
+  resources :math_problems, :except => [:new, :index] do
+    resources :clone, :only => [:new]
+  end
   
   resources :worksheets, :only => [:index, :show, :edit, :update] do
     resources :worksheet_problems, :only => [:update]
