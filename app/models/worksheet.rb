@@ -1,8 +1,13 @@
 class Worksheet < ActiveRecord::Base
   include MathHotSpotErrors
+  
+  belongs_to :owner, :class_name => "User"  
   has_many :worksheet_problems, :order => :problem_number, :dependent => :destroy
   has_many :math_problems, :through => :worksheet_problems
   
+  validates_presence_of :owner_id, :title
+  validates_associated :owner
+  validates_uniqueness_of :title, :score => :owner_id
   validate :problems_must_be_sequentially_numbered
   
   def problem_count
