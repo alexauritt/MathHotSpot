@@ -10,6 +10,5 @@ namespace :check_live do
     local_db_version = `rake db:version`
     puts "heroku is #{live_db_version}"
     puts "local is #{local_db_version}"
-    end
   end
 end
