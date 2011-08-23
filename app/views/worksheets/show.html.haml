@@ -5,9 +5,10 @@
   = stylesheet_link_tag "print/worksheet", {:media => "print" }
 
 .worksheet{:id => "worksheet_#{@worksheet.id}"}
-  = link_to "Show Solutions", worksheet_solution_path(@worksheet)
-  |
-  = link_to "Edit Worksheet", edit_worksheet_path(@worksheet)
+  #worksheet_links
+    = link_to "Show Solutions", worksheet_solution_path(@worksheet)
+    |
+    = link_to "Edit Worksheet", edit_worksheet_path(@worksheet)
   - @worksheet.problem_groups.each do |group|
     .problem_group
       .instructions
