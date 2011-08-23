@@ -14,6 +14,9 @@
         = display_tag_list problem_type
       #edit-problem-type
         =link_to "Edit Problem Type / Add or Delete Tags", edit_problem_type_url(problem_type)
+        %br
+        =link_to "Create New Worksheet with this Problem Type", problem_type_worksheet_builder_url(problem_type)    
+        
       =delete_problem_type_link_if_empty(problem_type)
-    
+
     =add_to_current_lesson_link_if_applicable(problem_type)

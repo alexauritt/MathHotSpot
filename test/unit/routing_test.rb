@@ -123,6 +123,10 @@ class RoutingTest < ActionController::TestCase
   end
 
 #Worksheet
+  test "create worksheet" do
+    assert_routing( {:path => "worksheets", :method => :post }, {:controller => "worksheets", :action => "create"})
+  end
+
   test "edit worksheet" do
     assert_routing( {:path => "worksheets/34/edit", :method => :get },
       {:controller => "worksheets", :action => "edit", :id => '34'})

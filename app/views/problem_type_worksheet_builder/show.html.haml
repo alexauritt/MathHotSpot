@@ -1,0 +1,9 @@
+=form_tag(problem_type_worksheet_builder_path(@problem_type)) do 
+  = label :worksheet_builder, :title, "Title"
+  = text_field :worksheet_builder, :title
+  
+  -@builder.problem_levels.each do |pl|
+    = render :partial => "math_problems/problem_display", :locals => {:math_problem => pl.demo_problem, :should_show_solution => true}
+  
+  .actions
+    = submit_tag

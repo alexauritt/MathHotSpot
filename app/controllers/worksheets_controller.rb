@@ -3,6 +3,17 @@ class WorksheetsController < ApplicationController
     @worksheets = Worksheet.all
   end
   
+  def create
+    @worksheet = Worksheet.new(params[:worksheet].merge({:owner => current_user }))
+    respond_to do |format|
+      if @worksheet.save
+        format.html { redirect_to(@worksheet, :notice => 'Worksheet was successfully created.') }
+      else
+        format.html { render :action => "new" }
+      end
+    end 
+  end
+  
   def show
     @worksheet = Worksheet.find(params[:id])
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem }

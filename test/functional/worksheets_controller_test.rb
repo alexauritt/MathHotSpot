@@ -7,6 +7,13 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     @worksheet = worksheets(:monomial_worksheet_01)
   end
   
+  test "create empty worksheet with title only" do
+    assert_difference('Worksheet.count') do
+      post :create, :worksheet => {:title => "Best worksheet Ever"}
+    end
+    assert_redirected_to worksheet_path(assigns(:worksheet))
+  end
+  
   test "update/replace changes div content of target problem" do
     assert_problem_changes_on_update(@worksheet, 3)
   end
