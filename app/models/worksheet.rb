@@ -1,6 +1,6 @@
 class Worksheet < ActiveRecord::Base
   include MathHotSpotErrors
-  has_many :worksheet_problems, :order => :problem_number
+  has_many :worksheet_problems, :order => :problem_number, :dependent => :destroy
   has_many :math_problems, :through => :worksheet_problems
   
   validate :problems_must_be_sequentially_numbered

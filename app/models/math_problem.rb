@@ -1,6 +1,7 @@
 class MathProblem < ActiveRecord::Base
   include MathHotSpotErrors
   
+  has_many :worksheet_problems, :dependent => :destroy
   has_many :worksheets, :through => :worksheet_problems
   belongs_to :problem_level
   has_one :problem_type, :through => :problem_level

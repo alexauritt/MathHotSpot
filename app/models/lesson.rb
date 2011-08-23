@@ -1,7 +1,7 @@
 class Lesson < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
 
-  has_many :core_lesson_problem_types
+  has_many :core_lesson_problem_types, :dependent => :destroy
   has_many :problem_types, :through => :core_lesson_problem_types
 
   belongs_to :category
