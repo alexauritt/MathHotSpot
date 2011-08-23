@@ -34,9 +34,11 @@ Mathhotspot::Application.routes.draw do
   resources :worksheet_problems, :only => [:destroy]
   
   resources :worksheet_solutions, :only => [:show]
-
+  
   match "problem_types/search/results" => 'problem_types/search#show', :as => :problem_types_search
   match "problem_types/search" => 'problem_types/search#new', :as => :new_problem_types_search
+  match "problem_types/:permalink/worksheet_builder" => 'problem_type_worksheet_builder#show',
+    :as => :problem_type_worksheet_builder
   
   resources :problem_types, :except => [:delete] do
     resources :problem_levels, :except => [:create] do
