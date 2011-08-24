@@ -23,6 +23,6 @@ class ProblemTypeWorksheetBuilderControllerTest < AuthenticatingControllerTestCa
   
   private
   def stub_problem_type_worksheet_builder_to_return_fixture_from!(params)
-    ProblemTypeWorksheetBuilder.expects(:create).with(params).returns(worksheets(:monomial_worksheet_01))    
+    WorksheetBuilder.expects(:create).with(params).returns(worksheets(:monomial_worksheet_01))    
   end  
 end

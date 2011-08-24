@@ -4,7 +4,7 @@ class ProblemTypeWorksheetBuilderController < ApplicationController
   end
   
   def create
-    @worksheet = ProblemTypeWorksheetBuilder.create(params[:worksheet_builder].merge({:owner => current_user }))
+    @worksheet = WorksheetBuilder.create(params[:worksheet_builder].merge({:owner => current_user }))
     redirect_to @worksheet
   end
 end
