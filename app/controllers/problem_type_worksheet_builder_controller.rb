@@ -5,6 +5,7 @@ class ProblemTypeWorksheetBuilderController < ApplicationController
   end
   
   def create
-    redirect_to root_path
+    @worksheet = Worksheet.create(:title => params[:worksheet_builder][:title], :owner => current_user)
+    redirect_to @worksheet
   end
 end
