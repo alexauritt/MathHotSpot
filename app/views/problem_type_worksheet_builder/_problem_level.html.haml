@@ -1,4 +1,6 @@
 .problem-level-worksheet-builder
   = render :partial => "problem_levels/problem_level_example", :locals => {:problem_level_example => problem_level}
   .worksheet-form-links
-    Hello theres
+    Add
+    = text_field_tag "worksheet_builder[problems][][problem_levels][#{problem_level.level_number}]", nil, :size => '1'  
+    Problems
