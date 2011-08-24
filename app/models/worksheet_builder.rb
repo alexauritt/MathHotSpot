@@ -1,6 +1,6 @@
 class WorksheetBuilder
       
-  def self.create(params)
-    Worksheet.create(:owner => params[:owner], :title => params[:title])
+  def self.build(params)
+    Worksheet.new(:owner => params[:owner], :title => params[:title])
   end
 end

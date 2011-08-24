@@ -1,6 +1,10 @@
 class WorksheetBuilderController < ApplicationController
   def create
-    @worksheet = WorksheetBuilder.create(params[:worksheet_builder].merge({:owner => current_user }))
-    redirect_to @worksheet
+    @worksheet = WorksheetBuilder.build(params[:worksheet_builder].merge({:owner => current_user }))
+    if @worksheet.save
+      redirect_to @worksheet, :notice => "New Worksheet!"
+    else
+      redirect_to problem_types_search_path, :notice => "Error creating new Worksheet."
+    end
   end
 end
