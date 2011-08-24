@@ -1,0 +1,19 @@
+- content_for :head do
+  %title
+    = "Worksheet Builder: #{@problem_type.title}"
+  = stylesheet_link_tag "math_display", "problem_type", "worksheet_builder"
+
+
+#worksheet-builder
+  #title
+    ="Worksheet Builder: #{@problem_type.title}"
+  =form_tag(problem_type_worksheet_builder_path(@problem_type)) do 
+    .problem-levels-display
+      .title
+        = label "worksheet_builder[title]", "Title"
+        = text_field_tag "worksheet_builder[title]", nil, :size => 80
+        = hidden_field_tag 'worksheet_builder[problems][][permalink]', @problem_type.permalink
+        .problem-levels-display
+          = render :partial => "problem_level", :collection => @problem_type.problem_levels
+        #create-worksheet-button
+          = submit_tag "Create Worksheet"
