@@ -7,7 +7,7 @@
 #worksheet-builder
   #title
     ="Worksheet Builder: #{@problem_type.title}"
-  =form_tag(problem_type_worksheet_builder_path(@problem_type)) do 
+  =form_tag(worksheet_builder_path) do 
     .problem-levels-display
       .title
         = label "worksheet_builder[title]", "Title"

@@ -138,9 +138,9 @@ class RoutingTest < ActionController::TestCase
   end
 
 #WorksheetBuilders  
-  test "problem type worksheet builder create" do
-    assert_routing( {:path => "problem_types/23/worksheet_builder", :method => :post}, 
-      {:controller => "problem_type_worksheet_builder", :action => "create", :permalink => '23'})
+  test "worksheet builder create" do
+    assert_routing( {:path => "worksheet_builder", :method => :post}, 
+      {:controller => "worksheet_builder", :action => "create"})
   end
 
   test "problem_type worksheet builder new" do
