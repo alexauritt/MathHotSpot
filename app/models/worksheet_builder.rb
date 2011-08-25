@@ -1,6 +1,13 @@
 class WorksheetBuilder
       
   def self.build(params)
-    Worksheet.new(:owner => params[:owner], :title => params[:title])
+    worksheet = Worksheet.new
+    begin
+      params.each do |key, value|
+        key == "problems" ? add_problems(value) : worksheet.send("#{key}=",value)
+      end
+    rescue
+    end
+    worksheet
   end
 end
