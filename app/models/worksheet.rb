@@ -30,7 +30,7 @@ class Worksheet < ActiveRecord::Base
         next_index = prev_index + 1
         unless wp.problem_number == next_index
           wp.problem_number = next_index
-          wp.save
+          wp.save unless self.new_record?
         end
         prev_index += 1
       end

@@ -2,7 +2,7 @@ class WorksheetProblem < ActiveRecord::Base
   belongs_to :worksheet
   belongs_to :math_problem
   
-  validates_presence_of :worksheet, :math_problem
+  validates_presence_of :worksheet_id, :math_problem_id
   validates_uniqueness_of :problem_number, :scope => :worksheet_id
 
   after_destroy :renumber_remaining_worksheet_problems!
