@@ -144,6 +144,21 @@ class WorksheetTest < ActiveSupport::TestCase
     bad_problem_number = @fixture_worksheet.problem_count + 1
     assert_equal false, @fixture_worksheet.remove_problem(bad_problem_number)
   end
+  
+  test "renumber_worksheet_problems! renumbers unpersisted worksheet problems" do
+    worksheet = Worksheet.new
+    4.times do |index|
+      prob = MathProblem.limit(1).offset(MathProblem.count).first
+      bad_prob_number = rand(1000)
+      worksheet.worksheet_problems.build(:math_problem => prob, :problem_number => bad_prob_number)      
+    end
+
+    worksheet.renumber_worksheet_problems!
+    
+    4.times do |index|
+      assert_equal index+1, worksheet.worksheet_problems[index].problem_number
+    end
+  end
 
   private
 

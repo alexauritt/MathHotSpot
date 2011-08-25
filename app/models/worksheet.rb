@@ -23,7 +23,7 @@ class Worksheet < ActiveRecord::Base
   end
   
   def renumber_worksheet_problems!
-    worksheet_problems.reload
+    worksheet_problems.reload unless self.new_record?
     if worksheet_problems.last.problem_number != worksheet_problems.count
       prev_index = 0
       worksheet_problems.each do |wp|
