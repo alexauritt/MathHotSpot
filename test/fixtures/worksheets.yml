@@ -6,3 +6,4 @@
 #
 monomial_worksheet_01:
     title: Dividing monomial worksheet
+    owner: users(:testuser)
