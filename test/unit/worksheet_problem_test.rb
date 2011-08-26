@@ -36,5 +36,13 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     
     assert_equal new_math_problem, @worksheet_problem.math_problem
   end
+
+  test "destruction of worksheet problem should trigger renumeration of worksheet" do
+    @fixture_worksheet = worksheets(:monomial_worksheet_01)
+    middle_prob = @fixture_worksheet.problem 7
+    middle_prob.destroy
+    msg = "Worksheet should be automatically numbered after middle problem incorrectly renumbered."
+    assert @fixture_worksheet.problems_sequentially_numbered?, msg
+  end
   
 end

@@ -5,6 +5,10 @@ class Worksheet < ActiveRecord::Base
   has_many :worksheet_problems, :order => :problem_number, :dependent => :destroy
   has_many :math_problems, :through => :worksheet_problems
   
+  accepts_nested_attributes_for :worksheet_problems, :reject_if => lambda { |wp| wp[:problem_number].blank? || wp[:math_problem_id].blank?}, :allow_destroy => true
+
+  before_validation :renumber_worksheet_problems!, :initialize_worksheet_problems
+
   validates_presence_of :owner_id, :title
   validates_associated :owner
   validates_uniqueness_of :title, :score => :owner_id
@@ -23,6 +27,7 @@ class Worksheet < ActiveRecord::Base
   end
   
   def renumber_worksheet_problems!
+    return if worksheet_problems.empty?
     worksheet_problems.reload unless self.new_record?
     if worksheet_problems.last.problem_number != worksheet_problems.count
       prev_index = 0
@@ -73,10 +78,14 @@ class Worksheet < ActiveRecord::Base
   def problems_sequentially_numbered?
     problem_numbers = worksheet_problems.map {|wp| wp.problem_number }
     problem_numbers.sort!
-    worksheet_problems.empty? || (problem_numbers == Array(1..worksheet_problems.count))
+    worksheet_problems.empty? || (problem_numbers == Array(1..worksheet_problems.size))
   end
   
   private
+
+  def initialize_worksheet_problems
+    worksheet_problems.each { |wp| wp.worksheet = self }    
+  end
 
   def problems_must_be_sequentially_numbered
     errors.add(:worksheet_problems, "must be consecutive integers beginning with 1") unless problems_sequentially_numbered?

@@ -102,8 +102,9 @@ class WorksheetTest < ActiveSupport::TestCase
   
   test "problems_numbered_correctly identifies gaps in problem numbering" do
     middle_prob = @fixture_worksheet.problem 7
-    middle_prob.destroy
-    msg = "Worksheet should NOT be sequentially numbered after deletion of middle problem, if worksheet has not been renumbered."
+    middle_prob.problem_number = worksheet_problems.size + 10
+    middle_prob.save
+    msg = "Worksheet should NOT be sequentially numbered after middle problem incorrectly renumbered, if worksheet has not been renumbered."
     assert !@fixture_worksheet.problems_sequentially_numbered?, msg
   end
   
@@ -157,6 +158,17 @@ class WorksheetTest < ActiveSupport::TestCase
     
     4.times do |index|
       assert_equal index+1, worksheet.worksheet_problems[index].problem_number
+    end
+  end
+  
+  test "can create new worksheet with nested worksheet problems" do
+    prob1 = math_problems(:medium_monomial_problem_02)
+    prob2 = math_problems(:simple_monomial_problem_03)
+    worksheet_problems_attributes = {"0" => {:math_problem_id => prob1.id, :problem_number => 10}, "1" => {:math_problem_id => prob2.id, :problem_number => 2}}
+    assert_difference('Worksheet.count') do
+      assert_difference('WorksheetProblem.count', 2) do
+        w = Worksheet.create(:title => "a new worksheet", :owner => User.first, :worksheet_problems_attributes => worksheet_problems_attributes)
+      end
     end
   end
 
