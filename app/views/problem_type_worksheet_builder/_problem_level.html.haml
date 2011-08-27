@@ -2,5 +2,5 @@
   = render :partial => "problem_levels/problem_level_example", :locals => {:problem_level_example => problem_level}
   .worksheet-form-links
     Add
-    = text_field_tag "worksheet_builder[problems][][problem_levels][#{problem_level.level_number}]", nil, :size => '1'  
+    = text_field_tag "worksheet_builder[problem_levels_info][#{problem_level.id}]", nil, :size => '1'  
     Problems

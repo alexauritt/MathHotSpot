@@ -12,7 +12,6 @@
       .title
         = label "worksheet_builder[title]", "Title"
         = text_field_tag "worksheet_builder[title]", nil, :size => 80
-        = hidden_field_tag 'worksheet_builder[problems][][permalink]', @problem_type.permalink
         .problem-levels-display
           = render :partial => "problem_level", :collection => @problem_type.problem_levels
         #create-worksheet-button
