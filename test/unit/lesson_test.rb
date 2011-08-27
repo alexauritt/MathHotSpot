@@ -21,7 +21,6 @@ class LessonTest < ActiveSupport::TestCase
   test "problem_type_count" do
     lesson = Lesson.new
     4.times { lesson.problem_types.build }
-    Rails.logger.info "pts #{lesson.problem_types}"
     assert_equal 4, lesson.problem_type_count
   end
   
