@@ -19,9 +19,10 @@ class LessonTest < ActiveSupport::TestCase
   end
   
   test "problem_type_count" do
-    lesson = Lesson.new
-    4.times { lesson.problem_types.build }
-    assert_equal 4, lesson.problem_type_count
+    lesson = Lesson.create(:owner => users(:testuser), :title => "sample lesson")
+    pt = problem_types(:find_gcf_of_monomials_problem_type)
+    clpt = CoreLessonProblemType.create(:lesson => lesson, :problem_type => pt)
+    assert_equal 1, lesson.problem_type_count
   end
   
   test "new_problem_type" do
