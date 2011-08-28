@@ -136,6 +136,10 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "worksheets/34", :method => :get },
       {:controller => "worksheets", :action => "show", :id => '34'})
   end
+  
+  test "delete worksheet" do
+    assert_routing( {:path => "worksheets/234", :method => :delete }, {:controller => "worksheets", :action => "destroy", :id => '234'})
+  end
 
 #WorksheetBuilders  
   test "worksheet builder create" do

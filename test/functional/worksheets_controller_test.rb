@@ -65,6 +65,14 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_response :success
   end
   
+  test "destroy worksheet" do
+    assert_difference('Worksheet.count', -1) do
+      delete :destroy, :id => @worksheet
+    end
+    assert_redirected_to dashboard_path
+    
+  end
+  
   private
   
   def assert_problem_changes_on_update(worksheet, problem_number)

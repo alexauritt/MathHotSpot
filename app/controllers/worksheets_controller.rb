@@ -23,6 +23,12 @@ class WorksheetsController < ApplicationController
     @worksheet = Worksheet.find(params[:id])
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem }
   end
+  
+  def destroy
+     @worksheet = Worksheet.find(params[:id])
+     @worksheet.destroy    
+    redirect_to dashboard_path
+  end
 
   def update    
     @worksheet = Worksheet.find(params[:id])

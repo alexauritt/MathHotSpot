@@ -9,6 +9,9 @@
     = link_to "Show Solutions", worksheet_solution_path(@worksheet)
     |
     = link_to "Edit Worksheet", edit_worksheet_path(@worksheet)
+    |
+    = link_to "Delete this Worksheet", worksheet_url(@worksheet), :confirm => 'Are you sure you want to delete this worksheet?', :method => :delete
+    
   - @worksheet.problem_groups.each do |group|
     .problem_group
       .instructions
