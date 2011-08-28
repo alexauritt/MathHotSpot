@@ -157,6 +157,11 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "/worksheet_problems/8", :method => :delete}, {:controller => "worksheet_problems", :action => "destroy", :id => '8'})
   end
   
+#Worksheet Prolem Replacer
+  test "create worksheet_problem_replacer" do
+    assert_routing( {:path => "/worksheet_problem_replacer", :method => :post}, {:controller => "worksheet_problem_replacer", :action => "create"})
+  end
+  
 #WorksheetSolutions
   test "show worksheet_solutions" do
     assert_routing( {:path => "/worksheet_solutions/89", :method => :get }, 
