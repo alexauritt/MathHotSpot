@@ -1,3 +1,9 @@
+#worksheet-title {
+  font-size: 2em;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
 div.problem_group {
 	margin: 20px;
 	clear: both;
@@ -7,7 +13,7 @@ div.instructions {
 	margin-bottom: 30px;
 }
 
-div.worksheet_problem {
+div.worksheet-problem {
 	float: left;
 	width: 200px;
 	height: 200px;
@@ -16,7 +22,7 @@ div.worksheet_problem {
   }
 }
 
-div.worksheet_problem .error_display {
+div.worksheet-problem .error_display {
   display: none;
 }
 

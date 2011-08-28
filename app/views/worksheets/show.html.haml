@@ -12,9 +12,12 @@
     |
     = link_to "Delete this Worksheet", worksheet_url(@worksheet), :confirm => 'Are you sure you want to delete this worksheet?', :method => :delete
     
-  - @worksheet.problem_groups.each do |group|
-    .problem_group
-      .instructions
-        = group.first.instruction.description
-      - group.each do |worksheet_problem|
-        = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet_problem => worksheet_problem, :editable => false }
+  #worksheet-title
+    =@worksheet.title
+  .worksheet-problems
+    - @worksheet.problem_groups.each do |group|
+      .problem_group
+        .instructions
+          = group.first.instruction.description
+        - group.each do |worksheet_problem|
+          = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet_problem => worksheet_problem, :editable => false }
