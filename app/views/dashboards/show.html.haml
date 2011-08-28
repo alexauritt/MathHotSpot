@@ -9,7 +9,9 @@
   #my-worksheets
     %h2 My Worksheets
     .dashboard-list#worksheets
-      Coming Soon!
+      -@worksheets.each do |worksheet|
+        %li.worksheet
+          =link_to worksheet.title, worksheet_path(worksheet)
   #my-problem-types
     %h2 My Problem Types
     .dashboard-list#problem-types
