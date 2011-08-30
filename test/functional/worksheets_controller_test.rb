@@ -13,11 +13,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     end
     assert_redirected_to worksheet_path(assigns(:worksheet))
   end
-  
-  test "update/replace changes div content of target problem" do
-    assert_problem_changes_on_update(@worksheet, 3)
-  end
-  
+    
   test "show worksheet" do
     get(:show, {:id => @worksheet.id})
     assert_select '.problem_links input#replace_problem_submit_1', false, "Replace problem should not be present for Worksheet#show -- only Worksheet#update"
@@ -42,25 +38,11 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_redirected_to dashboard_path    
   end
   
-  private
-  
-  def assert_problem_changes_on_update(worksheet, problem_number)
-    compare_problem_before_and_after_update(worksheet, problem_number, false)
-  end
-
-  def assert_problem_does_not_change_on_update(worksheet, problem_number)
-    compare_problem_before_and_after_update(worksheet, problem_number, true)
-  end
-  
-  def compare_problem_before_and_after_update(worksheet, problem_number, should_be_equal)
-    get(:show, {:id => worksheet.id})
-    initial_state = css_select("div.worksheet div#problem_#{problem_number}")[0]
-    put(:update, {:id => worksheet.id, :problem_number => problem_number})
-    after_state = css_select("div.worksheet div#problem_#{problem_number}")[0]
-    if (should_be_equal)
-      assert_equal initial_state, after_state, "Problem #{problem_number} change after replace call but should have remained unchanged."
-    else
-      assert_not_equal initial_state, after_state, "Problem #{problem_number} did not change after replace call."
-    end
+  test "update worksheet" do
+    new_title = "This worksheet now has a different title"
+    @worksheet.title = new_title
+    put :update, :id => @worksheet.to_param, :worksheet => @worksheet.attributes
+    assert_redirected_to edit_worksheet_path(assigns(:worksheet))
+    assert_equal new_title, assigns[:worksheet].title
   end
 end
