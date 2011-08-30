@@ -54,54 +54,40 @@ class CreateWorksheetFromNewProblemsTest < ActionDispatch::IntegrationTest
     assert_current_path "/problem_types/vaguely-scatological-word-problems/edit"
     click_link "Add New Level"
     assert_current_path "/problem_types/vaguely-scatological-word-problems/problem_levels/new"
-    
+
     fill_in 'Level number', :with => '2'
     fill_in 'Question markup', :with => questions[2]
     fill_in 'Answer markup', :with => answers[2]
     click_button "Create Problem level"
-    
     assert_current_path "/problem_types/vaguely-scatological-word-problems"
     
+    # create second level/ second problem
     click_link "Level: 2"
     assert_current_path "/problem_types/vaguely-scatological-word-problems/problem_levels/2"    
-
     click_link "Add New Problem to this Level"
     assert_current_path "/problem_types/vaguely-scatological-word-problems/problem_levels/2/math_problems/new"
-
     fill_in 'Question markup', :with => questions[3]
     fill_in 'Answer markup', :with => answers[3]
     click_button 'Create Math problem'
     
+    # build worksheet
     visit "/problem_types/vaguely-scatological-word-problems"
     click_link "Create New Worksheet with this Problem Type"
-    
     assert_current_path "/problem_types/vaguely-scatological-word-problems/worksheet_builder"
+    
+    fill_in "worksheet_builder_title", :with => "Scatological Worksheet"
+    fill_for_each_worksheet_problem_count 1
+    
+    click_button 'Create Worksheet'
+
+    assert page.has_content? questions[0]
+    assert page.has_content? questions[2]
   end
   
   private
-  def assert_problem_changes_on_update!(worksheet, problem_number)
-    compare_problem_before_and_after_update!(worksheet, problem_number, false)
-  end
-
-  def assert_problem_does_not_change_on_update!(worksheet, problem_number)
-    compare_problem_before_and_after_update!(worksheet, problem_number, true)
-  end
-
-  def compare_problem_before_and_after_update!(worksheet, problem_number, should_be_equal)
-    # Rails.logger.info "here comapring"
-    next_num = problem_number - 1
-    initial_node = page.find("#problem_#{next_num} .question")
-    # Rails.logger.info "here is #{initial_node}"
-    within("#problem_#{next_num}") do
-      click_button('replace')
+  def fill_for_each_worksheet_problem_count(count)
+    all(".worksheet-form-links").each do |a| 
+      a.find('.worksheet-builder-problem-count').set('1')
     end
-    after_node = page.find("#problem_#{next_num} .question")
-
-    if (should_be_equal)
-      assert_equal initial_node, after_node, "Problem #{problem_number} change after replace call but should have remained unchanged."
-    else
-      assert_not_equal initial_node, after_node, "Problem #{problem_number} did not change after replace call."
-    end
-  end
-  
+  end      
 end
