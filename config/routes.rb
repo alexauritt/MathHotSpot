@@ -33,7 +33,7 @@ Mathhotspot::Application.routes.draw do
 
   resources :worksheet_problems, :only => [:destroy]
   
-  resources :worksheet_problem_replacer, :only => [:create]
+  post "worksheet_problem_replacer" => 'worksheet_problem_replacer#create', :as => :worksheet_problem_replacer
   
   resources :worksheet_solutions, :only => [:show]
   

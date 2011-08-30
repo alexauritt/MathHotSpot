@@ -18,36 +18,6 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_problem_changes_on_update(@worksheet, 3)
   end
   
-  test "update/replace problem failure should display correct error msg if problem is unique" do
-    
-    unique_problem = worksheet_problems(:monomial_worksheet_unique_problem)
-
-    assert_problem_does_not_change_on_update(@worksheet, unique_problem.problem_number)
-  
-    assert_response :success
-    assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', MathHotSpotErrors::Message::UNIQUE
-  end
-  
-  test "update/replace error display for no remaining problems of given type" do
-    second_problem_of_two_on_worksheet = worksheet_problems(:monomial_worksheet_prob_05)
-  
-    assert_problem_does_not_change_on_update(@worksheet, second_problem_of_two_on_worksheet.problem_number)  
-
-    assert_response :success
-    assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', MathHotSpotErrors::Message::NONE_REMAINING
-  end
-  
-  test "update/replace error display for request replacement of problem that doesn't exist" do    
-    nonexistent_problem_number = @worksheet.worksheet_problems.size + 1
-    assert_problem_does_not_change_on_update(@worksheet, nonexistent_problem_number)  
-  
-    assert_response :success
-    assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', MathHotSpotErrors::Message::DEFAULT
-  end
-  
   test "show worksheet" do
     get(:show, {:id => @worksheet.id})
     assert_select '.problem_links input#replace_problem_submit_1', false, "Replace problem should not be present for Worksheet#show -- only Worksheet#update"
@@ -69,8 +39,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_difference('Worksheet.count', -1) do
       delete :destroy, :id => @worksheet
     end
-    assert_redirected_to dashboard_path
-    
+    assert_redirected_to dashboard_path    
   end
   
   private
