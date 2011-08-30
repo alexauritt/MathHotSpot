@@ -1,5 +1,5 @@
 MHS.Worksheet.Util = {
-	getWorksheetID: function() { return parseInt($('div.worksheet').attr('id').match(/\d/)); },
+	getWorksheetID: function() { return parseInt($('div.worksheet').attr('id').match(/[0-9]+/)); },
 }
 
 MHS.Routes = {
