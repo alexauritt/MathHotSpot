@@ -6,7 +6,12 @@
   = stylesheet_link_tag "print/worksheet", {:media => "print" }
 
 .worksheet{:id => "worksheet_#{@worksheet.id}"}
+  #worksheet-links
   = link_to "Back", worksheet_path(@worksheet)
+  #worksheet-title
+    = simple_form_for @worksheet do |w|
+      = w.input :title
+      = w.submit
   - @worksheet.problem_groups.each do |group|
     .problem_group
       .instructions
