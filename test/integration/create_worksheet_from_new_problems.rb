@@ -81,7 +81,32 @@ class CreateWorksheetFromNewProblemsTest < ActionDispatch::IntegrationTest
     click_button 'Create Worksheet'
 
     assert page.has_content? questions[0]
+    assert page.has_no_content? questions[1]
     assert page.has_content? questions[2]
+    assert page.has_no_content? questions[3]
+        
+    click_link "Edit Worksheet"
+    
+    within('#problem_1') do
+      click_button "replace"
+    end
+
+    assert page.has_no_content? questions[0]
+    assert page.has_content? questions[1]
+    assert page.has_content? questions[2]
+    assert page.has_no_content? questions[3]
+
+    click_link "Edit Worksheet"
+    
+    within('#problem_2') do
+      click_button "replace"
+    end
+
+    assert page.has_no_content? questions[0]
+    assert page.has_content? questions[1]
+    assert page.has_no_content? questions[2]
+    assert page.has_content? questions[3]
+    
   end
   
   private
