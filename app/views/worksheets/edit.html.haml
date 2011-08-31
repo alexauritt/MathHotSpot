@@ -1,7 +1,7 @@
 - content_for :head do
   %title
     ="Worksheet #{@worksheet.id}"
-  = javascript_include_tag "replace_problem"
+  = javascript_include_tag "replace_problem", "worksheet_update"
   = stylesheet_link_tag "worksheet", {:media => "print, screen"}
   = stylesheet_link_tag "print/worksheet", {:media => "print" }
 
@@ -9,9 +9,18 @@
   #worksheet-links
   = link_to "Back", worksheet_path(@worksheet)
   #worksheet-title
-    = simple_form_for @worksheet do |w|
-      = w.input :title
-      = w.submit
+    #current-title
+      #title-display
+        =@worksheet.title
+      #title-edit-link
+        =button_to "change worksheet title", nil, :class => 'worksheet-button'
+    #title-update
+      = simple_form_for @worksheet, :id => "title-update-form", :remote => true do |w|
+        = w.input :title
+        = w.submit "update title", :id => "title-update-submit", :class => 'worksheet-button'
+      #cancel-title-update
+        = simple_form_for edit_worksheet_path(@worksheet) do |c|
+          = c.submit "cancel", :class => 'worksheet-button'
   - @worksheet.problem_groups.each do |group|
     .problem_group
       .instructions

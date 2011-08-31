@@ -1,14 +1,6 @@
-var problemTarget = $('div#problem_<%= @problem_number %>');
-var displayTarget = $('div.math_display', problemTarget);
+var title = $('#current-title');
+$('#title-display', title).html("<%= @worksheet.title %>");
 
-<% unless (@success) %>
-  problemTarget.displayErrorMsg("<%= @error_msg %>");
-<% else %>
-  var newMathDisplay = "<%= escape_javascript(render(
-    :partial => 'math_problems/problem_display',
-    :locals => { :math_problem => @new_problem, :should_show_solution => false })) %>";
-  displayTarget.replaceWith(newMathDisplay);
-<% end %>
-
-$.throbberHide();
-MathJax.Hub.Queue(["Typeset",MathJax.Hub,problemTarget.attr('id')]);
+$('#title-update').hide('fast', function() {
+  title.show('fast');
+});

@@ -35,6 +35,7 @@ class WorksheetsController < ApplicationController
     respond_to do |format|
       if @worksheet.update_attributes(params[:worksheet])
         format.html { redirect_to edit_worksheet_path(@worksheet), :notice => 'Worksheet was successfully updated.' }
+        format.js
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
