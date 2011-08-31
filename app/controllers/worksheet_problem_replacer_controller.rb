@@ -12,6 +12,7 @@ class WorksheetProblemReplacerController < ApplicationController
     @new_problem = @math_problems[@problem_number - 1]
     respond_to do |format|
       format.html { render :template => "worksheets/show" }
+      format.js
     end
   end
 end

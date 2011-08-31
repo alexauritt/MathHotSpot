@@ -1,3 +1,15 @@
+.worksheet-button, .replace_problem_submit {
+  background-color: green;
+  border: none;
+  margin: 0px;
+  padding: 4px;
+  font-size: 0.6em;
+  font-weight: normal;
+  font: arial;
+  text-decoration: none;
+  color: black;
+}
+
 #worksheet-title {
   margin-top: 0.5em;
   text-align: center;
@@ -6,17 +18,6 @@
   }
   #title-display {
     font-size: 2em;
-  }
-  .worksheet-button {
-    background-color: green;
-    border: none;
-    margin: 0px;
-    padding: 4px;
-    font-size: 0.6em;
-    font-weight: normal;
-    font: arial;
-    text-decoration: none;
-    color: black;
   }
 }
 
