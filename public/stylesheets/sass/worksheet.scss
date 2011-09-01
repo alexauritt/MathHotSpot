@@ -1,3 +1,17 @@
+.problem-links {
+  clear: both;
+  display: block;
+  form {
+    display: inline;
+    float: left;
+    margin: 10px auto 10px auto;
+    width: 50%;
+    text-align: center;
+    color: white;
+  }
+}
+
+
 .worksheet-button, .replace_problem_submit {
   background-color: green;
   border: none;
@@ -6,8 +20,9 @@
   font-size: 0.6em;
   font-weight: normal;
   font: arial;
+  color: white;
   text-decoration: none;
-  color: black;
+  display: inline;
 }
 
 #worksheet-title {
@@ -37,6 +52,9 @@ div.worksheet-problem {
 	.answer {
     color: red;
   }
+  background-color: #D3D3D3;
+  margin: 5px;
+  padding: 5px;
 }
 
 div.worksheet-problem .error_display {

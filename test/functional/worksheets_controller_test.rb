@@ -27,7 +27,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
   
   test "edit worksheet" do
     get(:edit, {:id => @worksheet.id})
-    assert_select '.problem_links input#replace_problem_submit_1'
+    assert_select '.problem-links input#replace_problem_submit_1'
     assert_response :success
   end
   
