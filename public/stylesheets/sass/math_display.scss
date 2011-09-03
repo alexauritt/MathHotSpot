@@ -15,9 +15,35 @@ div.problem_display {
 .math-display {
   float: left;
   background-color: $math-display-color;
-  padding: 10px;
+  padding: 5px;
   margin: 5px;
   min-height: 150px;
+}
+
+#level-problem-list {
+  .math-display {
+    height: 180px;
+    .math-problem {
+      height: 80%;
+      overflow: auto;      
+    }
+    .math-problem-links {
+      height: 20%;
+    }
+
+  }
+}
+.problem-levels-display {
+  .math-display {
+    height: 120px;
+    padding: 5px;
+    .level_number_display { height: 20px; }
+    .problem_display { height: 100px;}
+    .problem_info { 
+      height: 20px;
+      margin: 0px;
+    }
+  }
 }
 
 

@@ -35,9 +35,16 @@
   }
 }
 
+#current-lesson-problem-type {
+  .problem-type-full {
+    width: 80%;
+  }
+}
+
 .problem-type-full {
   border: solid black;
   float: left;
+  width: auto;
   .module-header-bar {
     background-color: #E7F20C;
   }
