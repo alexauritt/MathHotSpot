@@ -4,10 +4,12 @@
   = stylesheet_link_tag "problem_entry_form"
 
 .row#current_level_display
-  %h4 Some Existing Problems:
+  %h4
+    Some Existing Problems
+    = sibling_count(@siblings.count, @math_problem.siblings.count)
   #instructions
     = "#{@math_problem.instruction.description}"
-    - @math_problem.siblings.each do |sibling_problem|
+    - @siblings.each do |sibling_problem|
       .math-display
         .problem_display
           =display_mathml_question(sibling_problem)

@@ -30,5 +30,14 @@ module MathProblemsHelper
   def problem_type_count_msg(count)
     count > 1 ? "(#{count} problem types)" : "(1 problem type)"
   end
+
+  def sibling_count(siblings, total_count)
+    if (total_count == siblings)
+      last_word = siblings == 1 ? "problem" : "problems"
+      "(#{total_count} #{last_word})"
+    else
+      "(#{siblings} of #{total_count} problems)"
+    end
+  end
   
 end

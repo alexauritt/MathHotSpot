@@ -25,5 +25,19 @@ class MathProblemsHelperTest < ActionView::TestCase
   test "display_mathml_question displays default msg if it receives null math problem" do
     assert_equal(MathHotSpotErrors::Message::NO_SAMPLE_MATH_PROBLEM_FOUND, display_mathml_question(nil))
   end
+  
+  test "sibling_count plural" do
+    expected_msg = "(4 of 7 problems)"
+    assert_equal expected_msg, sibling_count(4, 7)
+  end
     
+  test "sibling_count singular" do
+    expected_msg = "(1 problem)"
+    assert_equal expected_msg, sibling_count(1, 1)    
+  end
+  
+  test "sibling_count when all problems are displayed" do
+    expected_msg = "(10 problems)"
+    assert_equal expected_msg, sibling_count(10, 10)
+  end
 end
