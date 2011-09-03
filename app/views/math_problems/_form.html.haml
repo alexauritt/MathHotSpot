@@ -12,13 +12,15 @@
     #question
       #question-equation-editor
         =link_to "Launch Equation Editor for Question", "javascript:OpenLatexEditor('math_problem_question_markup','latex','')"
-        (will replace current question)
+      .editor-explanation
+        (note: will add to existing markup)
       #question_markup
         = f.input :question_markup, :as => :text
     #answer
       #answer-equation-editor
         =link_to "Launch Equation Editor for Answer", "javascript:OpenLatexEditor('math_problem_answer_markup','latex','')"
-        (will replace current answer)      
+      .editor-explanation
+        (note: will add to existing markup)
       #answer_markup
         = f.input :answer_markup, :as => :text 
   #level

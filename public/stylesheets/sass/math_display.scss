@@ -20,6 +20,17 @@ div.problem_display {
   min-height: 150px;
 }
 
+#current-level-display {
+  #instructions {
+  }
+  .math-display {
+    min-height: 40px;
+  }
+  #links {
+    clear: both;
+  }
+}
+
 #level-problem-list {
   .math-display {
     height: 220px;

@@ -1,13 +1,11 @@
 - content_for :head do
   %title New Math Problem
-  = stylesheet_link_tag "lessons, math_display, math_problem"
-  = stylesheet_link_tag "problem_entry_form"
+  = stylesheet_link_tag "math_display", "problem_entry_form"
   = javascript_include_tag "http://latex.codecogs.com/editor3.js"
   
 #new-math-problem
   .page-title New Math Problem
   =render 'math_problems/form'
-
   
 #current-level-display
   %h4
@@ -15,10 +13,10 @@
     = sibling_count(@siblings.count, @math_problem.siblings.count)
   #instructions
     = "#{@math_problem.instruction.description}"
+  #sibling-problems
     - @siblings.each do |sibling_problem|
       .math-display
         .problem_display
           =display_mathml_question(sibling_problem)
-
-.row#links
-=link_to 'Menu', root_url
+  #links
+    =link_to 'Menu', root_url
