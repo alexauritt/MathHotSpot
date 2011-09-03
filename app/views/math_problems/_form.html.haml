@@ -8,12 +8,21 @@
           %li
             = msg
   = f.association :problem_level, :as => :hidden
+  #math-markup-input-fields
+    #question
+      #question-equation-editor
+        =link_to "Launch Equation Editor for Question", "javascript:OpenLatexEditor('math_problem_question_markup','latex','')"
+        (will replace current question)
+      #question_markup
+        = f.input :question_markup, :as => :text
+    #answer
+      #answer-equation-editor
+        =link_to "Launch Equation Editor for Answer", "javascript:OpenLatexEditor('math_problem_answer_markup','latex','')"
+        (will replace current answer)      
+      #answer_markup
+        = f.input :answer_markup, :as => :text 
   #level
     = f.association :problem_level, :label => "Level: ", :collection => @problem_type.problem_levels, :label_method => :level_number, :include_blank => false, :confirm => "Are you sure?"
-  #math-markup-input-fields
-    #question_markup
-      = f.input :question_markup, :as => :text
-    #answer_markup
-      = f.input :answer_markup, :as => :text 
+        
   .actions
     = f.submit

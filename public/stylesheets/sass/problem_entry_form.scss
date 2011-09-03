@@ -5,3 +5,27 @@ div.new_problem_form {
 div.new_problem_form div.problem_builder_field {
   float: left;
 }
+
+.page-title {
+  font-size: 1.4em;
+  margin-bottom: .5em;
+}
+#level {
+  clear: both;
+  margin: .5em;
+}
+#math-markup-input-fields {
+  clear: both;
+  #question {
+    float: left;
+    margin: .8em;
+  }
+  #answer {
+    float: left;
+    margin: .8em;
+  }
+}
+
+#current-level-display {
+  clear: both;
+}
