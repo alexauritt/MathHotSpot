@@ -4,7 +4,7 @@
   = stylesheet_link_tag "problem_entry_form"
 
 .row#current_level_display
-  %h4 Existing Problems:
+  %h4 Some Existing Problems:
   #instructions
     = "#{@math_problem.instruction.description}"
     - @math_problem.siblings.each do |sibling_problem|

@@ -143,7 +143,7 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal MathProblem::DEFAULT_INSTRUCTION, MathProblem.new.instruction
   end
   
-  test "siblings" do
+  test "siblings with no params returns all siblings" do
     problem_level = ProblemLevel.new
     4.times {problem_level.math_problems.build}
     problem = problem_level.math_problems.build
@@ -152,6 +152,15 @@ class MathProblemTest < ActiveSupport::TestCase
     
     assert_equal problem_level, problem.problem_level, "Looks as through level wasn't set"
     assert_equal expected_siblings, problem.siblings
+  end
+  
+  test "siblings 3 returns only 3 siblings" do
+    problem_level = ProblemLevel.new
+    4.times {problem_level.math_problems.build}
+    problem = problem_level.math_problems.build
+    problem.problem_level = problem_level
+
+    assert_equal 3, problem.siblings(3).count
   end
   
   test "math problem is invalid without problem_level" do
