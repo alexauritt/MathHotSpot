@@ -43,6 +43,7 @@ Mathhotspot::Application.routes.draw do
   post "worksheet_builder" => 'worksheet_builder#create', :as => :worksheet_builder
   get "problem_types/:permalink/worksheet_builder" => 'problem_type_worksheet_builder#new',
     :as => :new_problem_type_worksheet_builder
+  get "lessons/:id/worksheet_builder" => 'lesson_worksheet_builder#new', :as => :new_lesson_worksheet_builder
 
   resources :problem_types, :except => [:delete] do
     resources :problem_levels, :except => [:create] do

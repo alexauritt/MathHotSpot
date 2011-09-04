@@ -151,6 +151,11 @@ class RoutingTest < ActionController::TestCase
     assert_routing( {:path => "problem_types/50/worksheet_builder", :method => :get}, 
       {:controller => "problem_type_worksheet_builder", :action => "new", :permalink => '50'})
   end
+  
+  test "lesson worksheet builder new" do
+    assert_routing( {:path => "lessons/23/worksheet_builder", :method => :get}, 
+      {:controller => "lesson_worksheet_builder", :action => "new", :id => '23'})    
+  end
 
 #Worksheet Problems
   test "delete worksheet problem" do

@@ -6,12 +6,6 @@ class WorksheetBuilderControllerTest < AuthenticatingControllerTestCase
     @bad_params = {:hookah => "bookah"}                          
     @dummy_params = {"owner" => @user, "worksheet_builder" => {"random_stuff" => "asdfsa"}}
   end
-
-  def mock_builder_returning_worksheet!(expected_params, worksheet_to_return)
-    mock_builder = mock
-    mock_builder.expects(:build).with(expected_params).returns(worksheet_to_return)
-    WorksheetBuilder.expects(:new).returns(mock_builder)
-  end
   
   test "create redirects to new worksheet if WorksheetBuilder returns persistable worksheet" do
     @controller.stubs(:current_user).returns(@user)
@@ -49,6 +43,13 @@ class WorksheetBuilderControllerTest < AuthenticatingControllerTestCase
       end
     end
     assert_redirected_to assigns(:worksheet)
+  end
+
+  private
+  def mock_builder_returning_worksheet!(expected_params, worksheet_to_return)
+    mock_builder = mock
+    mock_builder.expects(:build).with(expected_params).returns(worksheet_to_return)
+    WorksheetBuilder.expects(:new).returns(mock_builder)
   end
   
 end
