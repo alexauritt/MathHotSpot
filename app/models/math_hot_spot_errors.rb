@@ -25,6 +25,8 @@ module MathHotSpotErrors
     NO_PROBLEMS_DEFINED_FOR_PROBLEM_TYPE = "No math problems are defined for this problem type. Please add some math problems!"
     NO_INSTRUCTIONS_SPECIFIED = "No instructions specified."
     
+    LESSON_NEEDS_PROBLEM_TYPES_FOR_WORKSHEET = 'This Lesson is empty. Please add Problem Types to this Lesson before creating a Worksheet.'
+    
     @message = {
       ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR => UNIQUE,
       ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING => NONE_REMAINING,

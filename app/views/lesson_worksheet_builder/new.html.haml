@@ -1,0 +1,18 @@
+- content_for :head do
+  %title
+    = "Lesson Worksheet Builder: #{@lesson.title}"
+  = stylesheet_link_tag "math_display", "problem_type", "worksheet_builder"
+
+
+#worksheet-builder
+  #title
+    ="Lesson Worksheet Builder: #{@lesson.title}"
+  =form_tag(worksheet_builder_path) do 
+    .problem-levels-display
+      .title
+        = label "worksheet_builder[title]", "Title"
+        = text_field_tag "worksheet_builder[title]", nil, :size => 80
+        .problem-levels-display
+          = render :partial => "problem_type_worksheet_builder/problem_level", :collection => @problem_levels
+        #create-worksheet-button
+          = submit_tag "Create Worksheet"
