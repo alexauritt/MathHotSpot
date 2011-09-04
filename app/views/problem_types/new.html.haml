@@ -1,39 +1,35 @@
+- content_for :head do
+  %title Problem Level
+  = stylesheet_link_tag "lessons", "math_display", "problem_entry_form"
+  = javascript_include_tag "http://latex.codecogs.com/editor3.js"
 %h3
   = "Create A New Problem Type"
 
 = form_for(@problem_type) do |t|
 
-  %p
+  #category.problem-type-section
     = t.label :category_id, "Category"
     = t.select(:category_id, category_choices)
-    %br
-    = link_to "Create a new Category", new_category_url
-    %br
-
-  %p
+    .link
+      = link_to "Create a new Category", new_category_url
+  
+  #title.problem-type-section
     = t.label :title, "Title"
     = t.text_field :title
-    %br
 
-  %p
+  #instruction.problem-type-section
     = t.label :instruction_id, "Instruction"
     = t.select :instruction_id, instruction_choices
-    %br
+    .link
+      = link_to "Make new Instructions", new_instructions_path
   
-    = link_to "Make new Instructions", new_instructions_path
-    %br
-  
-  %p
-    = render :partial => "math_problems/markup_generator_links"
-
-  %p
+  #problem-level-builder.problem-type-section
     = t.fields_for :problem_levels do |level_builder|
-      .row
+      #level-number
         = level_builder.label :level_number
-        %br
         = level_builder.text_field :level_number
   
-      = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level_builder})
+        = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level_builder})
 
   .actions
     = t.submit

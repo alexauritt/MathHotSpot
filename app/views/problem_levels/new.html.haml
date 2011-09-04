@@ -1,6 +1,7 @@
 - content_for :head do
   %title Problem Level
   = stylesheet_link_tag "lessons", "math_display", "problem_entry_form"
+  = javascript_include_tag "http://latex.codecogs.com/editor3.js"
   
 .row#current_level_display
   %h4 Current Levels:
@@ -17,9 +18,6 @@
 .row
   %h2 Create a New Level:
 
-.row
-  = render :partial => "math_problems/markup_generator_links"
-  
 .row#new_level_form
   = form_for(@problem_level) do |level|
     = hidden_field_tag "problem_level[problem_type_id]", @problem_level.problem_type.id
