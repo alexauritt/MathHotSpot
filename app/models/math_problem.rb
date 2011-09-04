@@ -29,6 +29,10 @@ class MathProblem < ActiveRecord::Base
   def instruction
     problem_level.nil? ? DEFAULT_INSTRUCTION : problem_level.instruction
   end
+
+  def instruction_description
+    instruction.description
+  end
   
   def siblings(max_count = nil)
     all_siblings = problem_level.nil? ? [] : problem_level.math_problems.reject {|current| current == self}

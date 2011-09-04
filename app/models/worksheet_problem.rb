@@ -15,6 +15,10 @@ class WorksheetProblem < ActiveRecord::Base
     math_problem.instruction
   end
   
+  def instruction_description
+    math_problem.instruction_description
+  end
+  
   def replace_math_problem(options = {:exclude => []})
     current_problem = self.math_problem
     options[:exclude] = options[:exclude].map { |worksheet_problem| worksheet_problem.math_problem } || []

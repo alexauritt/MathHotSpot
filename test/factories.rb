@@ -1,4 +1,5 @@
 # This will guess the User class
+
 Factory.define :user do |u|
   u.email 'jim@jimbo.com'
   u.password  'secret'
@@ -44,6 +45,17 @@ end
 Factory.define :core_lesson_problem_type do |c|
   c.lesson { |l| l.association(:lesson) }
   c.problem_type { |pt| pt.association(:problem_type) }  
+end
+
+Factory.define :worksheet do |w|
+  w.title "Algebra Review Worksheet"
+  w.owner { |o| o.association(:user) }
+end
+
+Factory.define :worksheet_problem do |wp|
+  wp.problem_number 1
+  wp.math_problem { |mp| mp.association(:math_problem) }
+  wp.worksheet { |w| w.association(:worksheet)}
 end
 
 Factory.define :tag do |t|

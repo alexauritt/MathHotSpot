@@ -143,6 +143,16 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal MathProblem::DEFAULT_INSTRUCTION, MathProblem.new.instruction
   end
   
+  test "instruction_description returns expected text from level" do
+    expected_msg = "this is the expected message"
+    instruction = Instruction.new(:description => expected_msg)
+    prob = MathProblem.new
+    level = prob.build_problem_level
+    level.expects(:instruction).returns(instruction)
+    
+    assert_equal expected_msg, prob.instruction_description
+  end
+  
   test "siblings with no params returns all siblings" do
     problem_level = ProblemLevel.new
     4.times {problem_level.math_problems.build}
