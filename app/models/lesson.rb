@@ -25,12 +25,7 @@ class Lesson < ActiveRecord::Base
   def topic_name
     subject.nil? ? '' : subject.title
   end
-  
-  def all_problem_levels
-    levels = problem_types.collect {|pt| pt.problem_levels}
-    levels.flatten
-  end
-  
+    
   def empty?
     problem_types.size == 0
   end

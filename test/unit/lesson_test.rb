@@ -41,22 +41,6 @@ class LessonTest < ActiveSupport::TestCase
     end
   end
   
-  test "all_problem_levels returns empty array if level empty" do
-    assert_equal [], @lesson.all_problem_levels
-  end
-  
-  test "all_problem_levels returns all levels in all problem types" do
-    first_type_levels = Array.new(3) {|i| ProblemLevel.new(:level_number => i)}
-    third_type_levels = Array.new(2) {|i| ProblemLevel.new(:level_number => i)}
-    type1 = ProblemType.new(:problem_levels => first_type_levels)
-    type2 = ProblemType.new
-    type3 = ProblemType.new(:problem_levels => third_type_levels)
-    
-    @lesson.problem_types << [type1, type2, type3]
-    
-    assert_equal first_type_levels + third_type_levels, @lesson.all_problem_levels
-  end
-  
   test "empty? returns true if lesson has problem types" do
     assert @lesson.empty?
   end
