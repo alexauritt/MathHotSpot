@@ -39,10 +39,11 @@
 div.problem_group {
 	margin: 20px;
 	clear: both;
+	overflow: auto;
 }
 
 div.instructions {
-	margin-bottom: 30px;
+	margin: .3em 0 .6em 0;
 }
 
 div.worksheet-problem {
