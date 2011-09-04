@@ -8,11 +8,15 @@
   #title
     ="Lesson Worksheet Builder: #{@lesson.title}"
   =form_tag(worksheet_builder_path) do 
-    .problem-levels-display
-      .title
-        = label "worksheet_builder[title]", "Title"
-        = text_field_tag "worksheet_builder[title]", nil, :size => 80
-        .problem-levels-display
-          = render :partial => "problem_type_worksheet_builder/problem_level", :collection => @problem_levels
-        #create-worksheet-button
-          = submit_tag "Create Worksheet"
+    .title
+      = label "worksheet_builder[title]", "Title"
+      = text_field_tag "worksheet_builder[title]", nil, :size => 80
+    #problem-types-display
+      -@problem_types.each do |pt|
+        .problem-type
+          .problem-type-title
+            =pt.title
+          .problem-levels-list
+            = render :partial => "worksheet_builder/problem_level", :collection => pt.problem_levels
+    #create-worksheet-button
+      = submit_tag "Create Worksheet"

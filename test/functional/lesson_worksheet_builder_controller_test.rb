@@ -8,12 +8,12 @@ class LessonWorksheetBuilderControllerTest < AuthenticatingControllerTestCase
     all_lesson_levels = type1.problem_levels + type2.problem_levels
     
     Lesson.expects(:find).with(lesson.to_param).returns(lesson)
-    lesson.expects(:all_problem_levels).returns(all_lesson_levels)
+    lesson.expects(:problem_types).returns([type1, type2])
+    lesson.expects(:empty?).returns(false)
     
     get :new, :id => lesson.to_param
     
     assert assigns(:lesson)
-    assert_equal all_lesson_levels, assigns(:problem_levels)
     assert_response :success
   end
   

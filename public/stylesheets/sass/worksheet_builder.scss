@@ -1,15 +1,17 @@
 #worksheet-builder {
-  clear: both;
-  overflow: auto;  
+  #problem-types-display {
+    .problem-type {
+      clear: both;
+      .problem-level {
+        float: left;
+        margin: 0.6em;
+        .math-display, .worksheet-form-link {
+          float: none;
+        }
+      }
+    }
+  }
   #create-worksheet-button {
     clear: both;
-  }
-  .problem-level-worksheet-builder {
-    float: left;
-    margin: 5px 15px 5px 0px; 
-    .problem-level, .math-display, .worksheet-form-links {
-      float: none;
-      max-width: 300px;
-    }
   }
 }

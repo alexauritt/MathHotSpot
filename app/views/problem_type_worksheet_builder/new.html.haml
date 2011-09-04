@@ -13,6 +13,6 @@
         = label "worksheet_builder[title]", "Title"
         = text_field_tag "worksheet_builder[title]", nil, :size => 80
         .problem-levels-display
-          = render :partial => "problem_level", :collection => @problem_type.problem_levels
+          = render :partial => "worksheet_builder/problem_level", :collection => @problem_type.problem_levels
         #create-worksheet-button
           = submit_tag "Create Worksheet"
