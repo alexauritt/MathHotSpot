@@ -15,6 +15,15 @@ class WorksheetsHelperTest < ActionView::TestCase
     expected_message = "Problems #15, 16, 17, 18: Solve the damn problem."
     assert_equal expected_message, problem_group_instructions(prob_group)
   end
+  
+  test "problem_group_instructions returns unpluralized text" do
+    expected_msg = "Solve the silly problem."
+    single_prob_in_group = problem_group_numbered
+    single_prob_in_group.first.stubs(:instruction_description).returns(expected_msg)
+    
+    expected_message = "Problem #1: Solve the silly problem."
+    assert_equal expected_message, problem_group_instructions(single_prob_in_group)
+  end
 
   private
   def problem_group_numbered(number_range = (1..1))

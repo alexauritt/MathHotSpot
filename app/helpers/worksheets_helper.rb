@@ -11,7 +11,8 @@ module WorksheetsHelper
   
   def problem_group_instructions(problem_group)
     problem_numbers = problem_group.map { |prob| prob.problem_number }
+    first_word = problem_numbers.size == 1 ? 'Problem' : 'Problems'
     numbers_list = problem_numbers.join(", ")
-    "Problems ##{numbers_list.chomp(', ')}: #{problem_group.first.instruction_description}" 
+    "#{first_word} ##{numbers_list.chomp(', ')}: #{problem_group.first.instruction_description}" 
   end
 end
