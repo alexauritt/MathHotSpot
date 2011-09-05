@@ -18,6 +18,6 @@
     - @worksheet.problem_groups.each do |group|
       .problem_group
         .instructions
-          = group.first.instruction.description
+          = problem_group_instructions(group)
         - group.each do |worksheet_problem|
           = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet_problem => worksheet_problem, :editable => false }
