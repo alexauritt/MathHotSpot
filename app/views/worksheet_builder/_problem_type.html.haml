@@ -1,0 +1,5 @@
+.problem-type
+  .problem-type-title
+    =problem_type.title
+  .problem-levels-list
+    = render :partial => "worksheet_builder/problem_level", :collection => problem_type.problem_levels

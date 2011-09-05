@@ -3,21 +3,19 @@
     font-size: 1.8em;
     margin-bottom: .4em;
   }
-  #problem-types-display {
-    .problem-type {
-      border-top: medium black solid;
-      clear: both;
-      margin: .5em 0 .5em 0;
-      .problem-type-title {
-        margin-top: 0.2em;
-        font-size: 1.3em;
-      }
-      .problem-level {
-        float: left;
-        margin: 0.6em;
-        .math-display, .worksheet-form-link {
-          float: none;
-        }
+  .problem-type {
+    border-top: medium black solid;
+    clear: both;
+    margin: .5em 0 .5em 0;
+    .problem-type-title {
+      margin-top: 0.2em;
+      font-size: 1.3em;
+    }
+    .problem-level {
+      float: left;
+      margin: 0.6em;
+      .math-display, .worksheet-form-link {
+        float: none;
       }
     }
   }
