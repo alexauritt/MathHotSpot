@@ -12,7 +12,19 @@ module WorksheetsHelper
   def problem_group_instructions(problem_group)
     problem_numbers = problem_group.map { |prob| prob.problem_number }
     first_word = problem_numbers.size == 1 ? 'Problem' : 'Problems'
-    numbers_list = problem_numbers.join(", ")
-    "#{first_word} ##{numbers_list.chomp(', ')}: #{problem_group.first.instruction_description}" 
+    if is_range? problem_numbers
+      numbers_list = range_string problem_numbers
+    else
+      numbers_list = problem_numbers.join(", ").chomp(', ')
+    end
+    "#{first_word} ##{numbers_list.chomp}: #{problem_group.first.instruction_description}" 
+  end
+  
+  def is_range?(number_list)
+    (number_list.first .. number_list.last).to_a == number_list && number_list.size > 1
+  end
+  
+  def range_string(number_list)
+    "#{number_list.first} - #{number_list.last}"
   end
 end

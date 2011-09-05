@@ -12,7 +12,7 @@ class WorksheetsHelperTest < ActionView::TestCase
     prob_group = problem_group_numbered((15..18))
     prob_group.each {|wp| wp.math_problem.stubs(:instruction_description).returns(expected_msg)}
     
-    expected_message = "Problems #15, 16, 17, 18: Solve the damn problem."
+    expected_message = "Problems #15 - 18: Solve the damn problem."
     assert_equal expected_message, problem_group_instructions(prob_group)
   end
   
@@ -23,6 +23,14 @@ class WorksheetsHelperTest < ActionView::TestCase
     
     expected_message = "Problem #1: Solve the silly problem."
     assert_equal expected_message, problem_group_instructions(single_prob_in_group)
+  end
+  
+  test "is_range? recongizes a range" do
+    assert is_range?([2,3,4])
+  end
+  
+  test "is_range? rejects a non range" do
+    assert_equal false, is_range?([2,3,5])
   end
 
   private
