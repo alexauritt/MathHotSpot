@@ -1,8 +1,16 @@
 # This will guess the User class
 
+Factory.sequence :email do |n|
+  "test#{n}@example.com"
+end
+
+Factory.sequence :question_markup do |n|
+  "this is some markup for a question ##{n}"
+end
+
 Factory.define :user do |u|
-  u.email 'jim@jimbo.com'
-  u.password  'secret'
+  u.email Factory.next(:email)
+  u.password 'secret'
 end
 
 Factory.define :user_with_lesson, :parent => :user do |user|
@@ -36,7 +44,7 @@ Factory.define :problem_level do |pl|
 end
 
 Factory.define :math_problem do |mp|
-  mp.question_markup 'this is markup for question'
+  mp.question_markup { Factory.next(:question_markup) }
   mp.answer_markup 'this is markup for answer'
   mp.owner { |o| o.association(:user) }
   mp.problem_level { |pl| pl.association(:problem_level) }

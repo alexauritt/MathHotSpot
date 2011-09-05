@@ -171,8 +171,35 @@ class WorksheetTest < ActiveSupport::TestCase
       end
     end
   end
+  
+  test "add_problem_like! returns nil if problem number specified is not on worksheet" do
+    worksheet = Factory.create(:worksheet)
+    level = ProblemLevel.new
+    work_prob_attributes = []
+    3.times {|i| work_prob_attributes << Factory.attributes_for(:worksheet_problem, :problem_number => i+1, :math_problem => new_persisted_math_problem(level, worksheet.owner))}
+    worksheet.worksheet_problems.build work_prob_attributes
+    worksheet.worksheet_problems[2].math_problem.expects(:find_replacement).returns(new_persisted_math_problem(level, worksheet.owner))
+
+    assert_difference("WorksheetProblem.count") do
+      assert_difference('worksheet.worksheet_problems.size') do
+        worksheet.add_problem_like! 3
+      end
+    end
+
+    # assert_equal 3, worksheet.worksheet_problems.size
+
+    # worksheet.worksheet_problems.build([])
+    # Array.new(number_range.count) {|i| Factory.build(:worksheet_problem, :problem_number => i, :math_problem => MathProblem.new(:problem_level => level), :worksheet => worksheet) }
+    # 
+    # worksheet.worksheet_problems.build(:problem_level => level)
+    
+  end
 
   private
+  
+  def new_persisted_math_problem(level, owner)
+    Factory.create(:math_problem, :problem_level => level, :owner => owner)
+  end
 
   def assert_all_have_same_instructions(problem_group)
     instructions = problem_group.collect { |problem| problem.instruction }

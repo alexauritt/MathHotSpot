@@ -63,6 +63,16 @@ class Worksheet < ActiveRecord::Base
     end
   end
   
+  def add_problem_like!(number)
+    target_worksheet_problem = problem number
+    target_math_problem = target_worksheet_problem.math_problem
+    similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
+
+    new_math_problem = target_math_problem.find_replacement({:exclude => similar_worksheet_problems.map {|wp| wp.math_problem}})
+    
+    new_worksheet_problem = worksheet_problems.create(:problem_number => number + 1, :math_problem => new_math_problem)
+  end
+  
   def remove_problem(number)
     problem_exists?(number) ? remove_problem_number_and_reload!(number) : false
   end
