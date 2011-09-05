@@ -20,7 +20,7 @@ class WorksheetProblemTest < ActiveSupport::TestCase
   test "replace_math_problem delegates to MathProblem" do
     new_math_problem = MathProblem.new
     
-    @current_problem.expects(:find_replacement).with({:exclude => []}).returns(new_math_problem)
+    @current_problem.expects(:find_problem_from_same_level).with({:exclude => []}).returns(new_math_problem)
     
     @worksheet_problem.replace_math_problem
     assert_equal new_math_problem, @worksheet_problem.math_problem
@@ -31,7 +31,7 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     similar_worksheet_problem = WorksheetProblem.new
     similar_math_problem = similar_worksheet_problem.build_math_problem
     
-    @current_problem.expects(:find_replacement).with({:exclude => [similar_math_problem]}).returns(new_math_problem)
+    @current_problem.expects(:find_problem_from_same_level).with({:exclude => [similar_math_problem]}).returns(new_math_problem)
     @worksheet_problem.replace_math_problem({:exclude => [similar_worksheet_problem]})
     
     assert_equal new_math_problem, @worksheet_problem.math_problem

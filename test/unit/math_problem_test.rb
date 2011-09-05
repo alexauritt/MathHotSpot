@@ -24,34 +24,34 @@ class MathProblemTest < ActiveSupport::TestCase
   test "replace math problem returns different problem with same problem_type" do
     third_problem = MathProblem.new
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem, @another_problem])
-    replacement = @math_problem.find_replacement
+    replacement = @math_problem.find_problem_from_same_level
     assert_equal(@another_problem, replacement)
   end
   
-  test "find_replacement raises if specified problem's problem_type can not be found" do
+  test "find_problem_from_same_level raises if specified problem's problem_type can not be found" do
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([])
     assert_raise ActiveRecord::RecordNotFound do
-      @math_problem.find_replacement
+      @math_problem.find_problem_from_same_level
     end
   end
 
-  test "find_replacement returns problem not being replaced and not exluded" do
+  test "find_problem_from_same_level returns problem not being replaced and not exluded" do
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns(@three_problems)
-    replacement = @math_problem.find_replacement({:exclude => [@another_problem] })
+    replacement = @math_problem.find_problem_from_same_level({:exclude => [@another_problem] })
     assert_equal @yet_another_problem, replacement
   end
 
-  test "find_replacement raises if problem is one of a kind" do
+  test "find_problem_from_same_level raises if problem is one of a kind" do
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem])
     assert_raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR do
-      @math_problem.find_replacement
+      @math_problem.find_problem_from_same_level
     end
   end
   
-  test "find_replacement raises if all available problems excluded" do
+  test "find_problem_from_same_level raises if all available problems excluded" do
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem, @another_problem])
     assert_raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING do
-      @math_problem.find_replacement({:exclude => [@another_problem]})
+      @math_problem.find_problem_from_same_level({:exclude => [@another_problem]})
     end
   end
       

@@ -9,7 +9,7 @@ Factory.sequence :question_markup do |n|
 end
 
 Factory.define :user do |u|
-  u.email Factory.next(:email)
+  u.email { Factory.next(:email) }
   u.password 'secret'
 end
 

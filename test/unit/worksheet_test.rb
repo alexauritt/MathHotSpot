@@ -73,7 +73,7 @@ class WorksheetTest < ActiveSupport::TestCase
     middle_math_problem = worksheet_problems[1].math_problem
     replacement_problem = MathProblem.new(:question_markup => "this is the replacement problem")
 
-    middle_math_problem.expects(:find_replacement).returns(replacement_problem)
+    middle_math_problem.expects(:find_problem_from_same_level).returns(replacement_problem)
     
     @worksheet.replace_problem 2
     
@@ -172,33 +172,37 @@ class WorksheetTest < ActiveSupport::TestCase
     end
   end
   
-  test "add_problem_like! returns nil if problem number specified is not on worksheet" do
-    worksheet = Factory.create(:worksheet)
-    level = ProblemLevel.new
-    work_prob_attributes = []
-    3.times {|i| work_prob_attributes << Factory.attributes_for(:worksheet_problem, :problem_number => i+1, :math_problem => new_persisted_math_problem(level, worksheet.owner))}
-    worksheet.worksheet_problems.build work_prob_attributes
-    worksheet.worksheet_problems[2].math_problem.expects(:find_replacement).returns(new_persisted_math_problem(level, worksheet.owner))
-
+  test "add_problem_like! returns nil if specified problem number not present on worksheet" do
+    worksheet = create_worksheet_with_all_problems_from_same_level!
+    assert_nil worksheet.add_problem_like! 2
+  end
+  
+  test "add_problem_like! returns creates new worksheet problem" do
+    prob_number = 2
+    worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
+    copy_math_problem = worksheet.problem(prob_number).math_problem
+    copy_math_problem.expects(:find_problem_from_same_level).returns(new_persisted_math_problem(copy_math_problem.problem_level))
+    
     assert_difference("WorksheetProblem.count") do
-      assert_difference('worksheet.worksheet_problems.size') do
-        worksheet.add_problem_like! 3
+      assert_difference('worksheet.problem_count') do
+        worksheet.add_problem_like! prob_number
       end
     end
-
-    # assert_equal 3, worksheet.worksheet_problems.size
-
-    # worksheet.worksheet_problems.build([])
-    # Array.new(number_range.count) {|i| Factory.build(:worksheet_problem, :problem_number => i, :math_problem => MathProblem.new(:problem_level => level), :worksheet => worksheet) }
-    # 
-    # worksheet.worksheet_problems.build(:problem_level => level)
-    
   end
 
   private
+
+  def create_worksheet_with_all_problems_from_same_level!(attr = {:problem_count => 1})
+    worksheet = Factory.create(:worksheet)
+    level = ProblemLevel.new
+    work_prob_attributes = []
+    attr[:problem_count].times {|i| work_prob_attributes << Factory.attributes_for(:worksheet_problem, :problem_number => i+1, :math_problem => new_persisted_math_problem(level))}
+    worksheet.worksheet_problems.build work_prob_attributes
+    worksheet
+  end
   
-  def new_persisted_math_problem(level, owner)
-    Factory.create(:math_problem, :problem_level => level, :owner => owner)
+  def new_persisted_math_problem(level)
+    Factory.create(:math_problem, :problem_level => level)
   end
 
   def assert_all_have_same_instructions(problem_group)
