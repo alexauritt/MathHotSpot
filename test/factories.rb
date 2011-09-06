@@ -4,6 +4,10 @@ Factory.sequence :email do |n|
   "test#{n}@example.com"
 end
 
+Factory.sequence :title do |n|
+  "title for something #{n}"
+end
+
 Factory.sequence :question_markup do |n|
   "this is some markup for a question ##{n}"
 end
@@ -32,8 +36,8 @@ Factory.define :lesson do |l|
 end
 
 Factory.define :problem_type do |pt|
-  pt.title "Polynomial Fraction Division"
-  pt.permalink "polynomial-fraction-division"
+  pt.title { Factory.next(:title) }
+  pt.permalink { ProblemType.generate_permalink_from title }
   pt.category {|c| c.association(:category) }
   pt.owner { |o| o.association(:user) }
 end
@@ -56,7 +60,7 @@ Factory.define :core_lesson_problem_type do |c|
 end
 
 Factory.define :worksheet do |w|
-  w.title "Algebra Review Worksheet"
+  w.title { Factory.next(:title) }
   w.owner { |o| o.association(:user) }
 end
 

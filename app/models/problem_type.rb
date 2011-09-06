@@ -119,9 +119,13 @@ class ProblemType < ActiveRecord::Base
     MathHotSpotErrors::EmptyProblem
   end
   
+  def self.generate_permalink_from(title)
+    title.gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '-')
+  end
+  
   private
   def generate_slug
-    self.permalink = self.title.gsub(/\W+/, ' ').strip.downcase.gsub(/\ +/, '-')
+    self.permalink = ProblemType.generate_permalink_from(self.title)
   end
   
 end
