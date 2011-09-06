@@ -64,7 +64,10 @@ class Worksheet < ActiveRecord::Base
   end
   
   def add_problem_like!(number)
-    return nil unless problem_exists? number
+    unless problem_exists? number
+      errors[:base] << WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
+      return nil
+    end
     
     target_worksheet_problem = problem number
     target_math_problem = target_worksheet_problem.math_problem

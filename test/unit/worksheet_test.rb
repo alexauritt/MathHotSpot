@@ -175,6 +175,7 @@ class WorksheetTest < ActiveSupport::TestCase
   test "add_problem_like! returns nil if specified problem number not present on worksheet" do
     worksheet = create_worksheet_with_all_problems_from_same_level!
     assert_nil worksheet.add_problem_like! 2
+    assert worksheet.errors[:base].include? MathHotSpotErrors::WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
   end
   
   test "add_problem_like! creates and returns a new worksheet problem" do

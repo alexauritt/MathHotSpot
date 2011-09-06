@@ -1,14 +1,15 @@
 module MathHotSpotErrors
+  module WorksheetModifierErrors
+    module Messages
+      PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE = "Unable to add new problem."
+    end
+  end
   module ProblemReplacementErrors
     class UNIQUE_PROBLEM_REPLACE_ERROR < StandardError; end     
     class NO_SIMILAR_PROBLEMS_REMAINING < StandardError; end
     class PROBLEM_NUMBER_MISSING_ERROR < StandardError; end
   end
-  
-  # def message
-  #   "Error Message Here"
-  # end
-  
+    
   class Message
     UNIQUE = "Problem is one of a kind"
     NONE_REMAINING = "All problems already present on worksheet"
