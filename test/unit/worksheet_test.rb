@@ -190,6 +190,18 @@ class WorksheetTest < ActiveSupport::TestCase
     end
   end
 
+  test "add_problem_like! adds new problem to back of worksheet this will change soon" do
+    worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
+    new_prob = new_persisted_math_problem(worksheet.worksheet_problems.first.problem_level)
+    
+    worksheet.problem(1).math_problem.expects(:find_problem_from_same_level).returns(new_prob)
+    worksheet.add_problem_like! 1
+    
+    last_worksheet_prob = worksheet.worksheet_problems.last
+
+    assert_equal new_prob, last_worksheet_prob.math_problem
+    assert_equal 4, last_worksheet_prob.problem_number
+  end
   private
 
   def create_worksheet_with_all_problems_from_same_level!(attr = {:problem_count => 1})

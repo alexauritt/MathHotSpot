@@ -15,7 +15,7 @@ class Worksheet < ActiveRecord::Base
   validate :problems_must_be_sequentially_numbered
     
   def problem_count
-    worksheet_problems.count
+    worksheet_problems.size
   end
   
   def problem_exists?(problem_number)
@@ -72,7 +72,7 @@ class Worksheet < ActiveRecord::Base
 
     new_math_problem = target_math_problem.find_problem_from_same_level({:exclude => similar_worksheet_problems.map {|wp| wp.math_problem}})
     
-    new_worksheet_problem = worksheet_problems.create(:problem_number => number + 1, :math_problem => new_math_problem)
+    new_worksheet_problem = worksheet_problems.create(:problem_number => (self.problem_count + 1), :math_problem => new_math_problem)
   end
   
   def remove_problem(number)
@@ -92,7 +92,7 @@ class Worksheet < ActiveRecord::Base
     problem_numbers.sort!
     worksheet_problems.empty? || (problem_numbers == Array(1..worksheet_problems.size))
   end
-  
+    
   private
 
   def initialize_worksheet_problems

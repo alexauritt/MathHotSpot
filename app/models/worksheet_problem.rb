@@ -2,6 +2,8 @@ class WorksheetProblem < ActiveRecord::Base
   belongs_to :worksheet
   belongs_to :math_problem
   
+  has_one :problem_level, :through => :math_problem
+  
   validates_presence_of :math_problem_id
   validates_uniqueness_of :problem_number, :scope => :worksheet_id
   validate :worksheet_exists
