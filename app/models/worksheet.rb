@@ -50,16 +50,16 @@ class Worksheet < ActiveRecord::Base
   
   def replace_problem(problem_number)
     begin
-      raise ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR if problem_number_missing_from_worksheet?(problem_number)
+      raise ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR unless problem_exists?(problem_number)
       target_worksheet_problem = problem problem_number
       similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
       target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
-      true
+      target_worksheet_problem
     rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING,
       ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, 
       ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
       errors[:replace_failure] << bam
-      false
+      nil
     end
   end
   
@@ -106,10 +106,6 @@ class Worksheet < ActiveRecord::Base
   def similar_problems_on_worksheet(worksheet_problem)
     worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []
   end    
-
-  def problem_number_missing_from_worksheet?(problem_number)
-    problem_number > worksheet_problems.size
-  end
   
   def find_math_problem_number(problem_number)
     worksheet_problems[problem_number - 1].math_problem

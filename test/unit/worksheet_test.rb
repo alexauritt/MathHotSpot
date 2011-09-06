@@ -46,10 +46,10 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal 10, problem_groups.size
   end
 
-  test "replace_problem fails if bad problem number specified" do
+  test "replace_problem fails and returns nil if bad problem number specified" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 2 })
 
-    assert_equal false, @worksheet.replace_problem(20)    
+    assert_nil @worksheet.replace_problem(20)    
   end
   
   test "replace_problem delegates replacement to worksheet problem and excludes similar problems on worksheet" do
@@ -177,7 +177,7 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_nil worksheet.add_problem_like! 2
   end
   
-  test "add_problem_like! returns creates new worksheet problem" do
+  test "add_problem_like! creates and returns a new worksheet problem" do
     prob_number = 2
     worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
     copy_math_problem = worksheet.problem(prob_number).math_problem
@@ -185,7 +185,8 @@ class WorksheetTest < ActiveSupport::TestCase
     
     assert_difference("WorksheetProblem.count") do
       assert_difference('worksheet.problem_count') do
-        worksheet.add_problem_like! prob_number
+        new_worksheet_prob = worksheet.add_problem_like! prob_number
+        assert new_worksheet_prob.is_a? WorksheetProblem        
       end
     end
   end
