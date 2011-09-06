@@ -7,7 +7,23 @@ class ProblemLevelTest < ActiveSupport::TestCase
     @level.math_problems.build
     @problem_type = @level.build_problem_type
   end
+
+  test "factory level is valid" do
+    assert Factory.build(:problem_level).valid?, "default FactoryGirl ProblemLevel is invalid, please update"
+  end
   
+  test "invalid with out problem_type assigned" do
+    level = Factory.build(:problem_level, :problem_type => nil)
+    assert !level.valid?
+    assert level.errors.include? :problem_type_id    
+  end
+
+  test "problem_type_id error present after validating with invalid pt_id" do
+    level = Factory.build(:problem_level, :problem_type_id => -765)
+    assert !level.valid?
+    assert level.errors.include? :problem_type_id    
+  end
+
   test "demo problem" do
     assert_instance_of MathProblem, @level.demo_problem
   end

@@ -5,8 +5,9 @@ class ProblemLevel < ActiveRecord::Base
   has_many :math_problems, :inverse_of => :problem_level
   has_one :lesson, :through => :problem_type
   
-  validates_presence_of :problem_type, :level_number
+  validates_presence_of :level_number
   validates_uniqueness_of :level_number, :scope => [:problem_type_id]
+  validate :problem_type_exists
   
   accepts_nested_attributes_for :math_problems, :reject_if => lambda { |a| a[:question_markup].blank? || a[:answer_markup].blank? }, :allow_destroy => true
 
@@ -48,5 +49,11 @@ class ProblemLevel < ActiveRecord::Base
     end
   end
   
-
+  def problem_type_exists
+    begin
+      errors.add(:problem_type_id, "doesn't exist") unless (!problem_type.nil? || (problem_type_id && ProblemType.exists?(problem_type_id)))
+    rescue
+      errors.add(:problem_type_id, "not found in db")
+    end
+  end
 end
