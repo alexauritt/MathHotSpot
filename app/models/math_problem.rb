@@ -1,5 +1,6 @@
 class MathProblem < ActiveRecord::Base
   include MathHotSpotErrors
+  include RightRabbitErrors
   
   has_many :worksheet_problems, :dependent => :destroy
   has_many :worksheets, :through => :worksheet_problems
@@ -47,7 +48,7 @@ class MathProblem < ActiveRecord::Base
     end
     
     # then problem is irreplaceable -- it's one of a kind
-    raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR if (available_problems.count == 1)
+    raise UniqueProblemError if (available_problems.count == 1)
   
     if options[:exclude]
       available_problems.reject! {|problem| options[:exclude].include? problem }

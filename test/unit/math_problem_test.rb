@@ -3,6 +3,7 @@ require 'mocha'
 
 class MathProblemTest < ActiveSupport::TestCase
   include MathHotSpotErrors
+  include RightRabbitErrors
   
   def setup
     @math_problem = MathProblem.new
@@ -43,7 +44,7 @@ class MathProblemTest < ActiveSupport::TestCase
 
   test "find_problem_from_same_level raises if problem is one of a kind" do
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem])
-    assert_raise ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR do
+    assert_raise UniqueProblemError do
       @math_problem.find_problem_from_same_level
     end
   end

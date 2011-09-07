@@ -1,5 +1,6 @@
-class Worksheet < ActiveRecord::Base
+  class Worksheet < ActiveRecord::Base
   include MathHotSpotErrors
+  include RightRabbitErrors
   
   belongs_to :owner, :class_name => "User"  
   has_many :worksheet_problems, :order => :problem_number, :dependent => :destroy
@@ -56,7 +57,7 @@ class Worksheet < ActiveRecord::Base
       target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
       target_worksheet_problem
     rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING,
-      ProblemReplacementErrors::UNIQUE_PROBLEM_REPLACE_ERROR, 
+      RightRabbitErrors::UniqueProblemError, 
       ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
       errors[:replace_failure] << bam
       nil
@@ -64,18 +65,23 @@ class Worksheet < ActiveRecord::Base
   end
   
   def add_problem_like!(number)
-    unless problem_exists? number
-      errors[:base] << WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
-      return nil
-    end
+    begin
+      unless problem_exists? number
+        errors[:base] << WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
+        return nil
+      end
     
-    target_worksheet_problem = problem number
-    target_math_problem = target_worksheet_problem.math_problem
-    similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
+      target_worksheet_problem = problem number
+      target_math_problem = target_worksheet_problem.math_problem
+      similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
 
-    new_math_problem = target_math_problem.find_problem_from_same_level({:exclude => similar_worksheet_problems.map {|wp| wp.math_problem}})
+      new_math_problem = target_math_problem.find_problem_from_same_level({:exclude => similar_worksheet_problems.map {|wp| wp.math_problem}})
     
-    new_worksheet_problem = worksheet_problems.create(:problem_number => (self.problem_count + 1), :math_problem => new_math_problem)
+      new_worksheet_problem = worksheet_problems.create(:problem_number => (self.problem_count + 1), :math_problem => new_math_problem)
+    rescue UniqueProblemError => e
+      errors[:base] << e.message
+      nil
+    end
   end
   
   def remove_problem(number)
@@ -83,7 +89,7 @@ class Worksheet < ActiveRecord::Base
   end
       
   def error_for_failed_replace
-    Message.display(errors[:replace_failure].first) || MathHotSpotErrors::Message::DEFAULT
+    Message.display(errors[:replace_failure].first) || errors[:replace_failure].first.message || MathHotSpotErrors::Message::DEFAULT
   end
   
   def problem(number)

@@ -3,6 +3,7 @@ require 'mocha'
 
 class WorksheetTest < ActiveSupport::TestCase
   include MathHotSpotErrors
+  include RightRabbitErrors
   
   def setup
     @worksheet = Worksheet.new
@@ -100,7 +101,7 @@ class WorksheetTest < ActiveSupport::TestCase
     assert @fixture_worksheet.problems_sequentially_numbered?, "fixture worksheet should be correctly numbered"
   end
   
-  test "problems_numbered_correctly identifies gaps in problem numbering" do
+  test "problems_numbered_correctly? identifies gaps in problem numbering" do
     middle_prob = @fixture_worksheet.problem 7
     middle_prob.problem_number = worksheet_problems.size + 10
     middle_prob.save
@@ -164,10 +165,12 @@ class WorksheetTest < ActiveSupport::TestCase
   test "can create new worksheet with nested worksheet problems" do
     prob1 = math_problems(:medium_monomial_problem_02)
     prob2 = math_problems(:simple_monomial_problem_03)
-    worksheet_problems_attributes = {"0" => {:math_problem_id => prob1.id, :problem_number => 10}, "1" => {:math_problem_id => prob2.id, :problem_number => 2}}
+    worksheet_problems_attributes = {"0" => {:math_problem_id => prob1.id, 
+      :problem_number => 10}, "1" => {:math_problem_id => prob2.id, :problem_number => 2}}
     assert_difference('Worksheet.count') do
       assert_difference('WorksheetProblem.count', 2) do
-        w = Worksheet.create(:title => "a new worksheet", :owner => User.first, :worksheet_problems_attributes => worksheet_problems_attributes)
+        w = Worksheet.create(:title => "a new worksheet", :owner => User.first, 
+          :worksheet_problems_attributes => worksheet_problems_attributes)
       end
     end
   end
@@ -175,14 +178,16 @@ class WorksheetTest < ActiveSupport::TestCase
   test "add_problem_like! returns nil if specified problem number not present on worksheet" do
     worksheet = create_worksheet_with_all_problems_from_same_level!
     assert_nil worksheet.add_problem_like! 2
-    assert worksheet.errors[:base].include? MathHotSpotErrors::WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
+    msg = MathHotSpotErrors::WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
+    assert worksheet.errors[:base].include? msg
   end
   
   test "add_problem_like! creates and returns a new worksheet problem" do
     prob_number = 2
     worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
     copy_math_problem = worksheet.problem(prob_number).math_problem
-    copy_math_problem.expects(:find_problem_from_same_level).returns(new_persisted_math_problem(copy_math_problem.problem_level))
+    new_math_prob = new_persisted_math_problem(copy_math_problem.problem_level)
+    copy_math_problem.expects(:find_problem_from_same_level).returns(new_math_prob)
     
     assert_difference("WorksheetProblem.count") do
       assert_difference('worksheet.problem_count') do
@@ -192,7 +197,7 @@ class WorksheetTest < ActiveSupport::TestCase
     end
   end
 
-  test "add_problem_like! adds new problem to back of worksheet this will change soon" do
+  test "add_problem_like! adds new problem to back of worksheet" do
     worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
     new_prob = new_persisted_math_problem(worksheet.worksheet_problems.first.problem_level)
     
@@ -204,13 +209,25 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal new_prob, last_worksheet_prob.math_problem
     assert_equal 4, last_worksheet_prob.problem_number
   end
+  
+  test "add_problem_like! returns nil and sets error if problem is unique" do
+    worksheet = create_worksheet_with_all_problems_from_same_level!
+    first_mp = MathProblem.new
+    first_mp.expects(:find_problem_from_same_level).raises(UniqueProblemError.new)
+    first_wp = worksheet.worksheet_problems.first
+    first_wp.stubs(:math_problem).returns(first_mp)
+    assert_nil worksheet.add_problem_like! 1
+    assert worksheet.errors[:base].include? UNIQUE_PROBLEM_ERROR
+  end
+  
   private
 
   def create_worksheet_with_all_problems_from_same_level!(attr = {:problem_count => 1})
     worksheet = Factory.create(:worksheet)
     level = ProblemLevel.new
     work_prob_attributes = []
-    attr[:problem_count].times {|i| work_prob_attributes << Factory.attributes_for(:worksheet_problem, :problem_number => i+1, :math_problem => new_persisted_math_problem(level))}
+    attr[:problem_count].times {|i| work_prob_attributes << Factory.attributes_for(:worksheet_problem, 
+        :problem_number => i+1, :math_problem => new_persisted_math_problem(level))}
     worksheet.worksheet_problems.build work_prob_attributes
     worksheet
   end

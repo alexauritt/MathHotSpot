@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class WorksheetProblemReplacerControllerTest < AuthenticatingControllerTestCase
+  include RightRabbitErrors
   
   def setup
     @worksheet = worksheets(:monomial_worksheet_01)
@@ -26,7 +27,7 @@ class WorksheetProblemReplacerControllerTest < AuthenticatingControllerTestCase
         
     assert_response :success
     assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', MathHotSpotErrors::Message::UNIQUE
+    assert_select 'div.notice', UNIQUE_PROBLEM_ERROR
   end
   
   test "update/replace error display for no remaining problems of given type" do
