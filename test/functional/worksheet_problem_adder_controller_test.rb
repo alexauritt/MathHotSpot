@@ -11,14 +11,14 @@ class WorksheetProblemAdderControllerTest < AuthenticatingControllerTestCase
     
   end
   test "create delegates to Worksheet add_problem_like" do
-
+    
     @worksheet.expects(:add_problem_like!).with(@problem_number).returns(@new_worksheet_problem)
     Worksheet.expects(:find).with(@worksheet_id).returns(@worksheet)
     
     post :create, :worksheet_problem_adder => {:worksheet_id => @worksheet_id, :problem_number => @problem_number}
-    assert_template "worksheets/show"
-    assert_response :success
-    assert_error_message false
+
+    assert_redirected_to edit_worksheet_path(@worksheet)
+    assert_no_error_message
   end
   
   test "renders worksheet with error if add_problem_like! returns nil and adds base error to worksheet" do
@@ -27,13 +27,17 @@ class WorksheetProblemAdderControllerTest < AuthenticatingControllerTestCase
     Worksheet.expects(:find).with(@worksheet_id).returns(@worksheet)
         
     post :create, :worksheet_problem_adder => {:worksheet_id => @worksheet_id, :problem_number => @problem_number}
-    assert_response :success
-    assert_template "worksheets/show"
-    assert_select 'div.notice', UNIQUE_PROBLEM_ERROR
+    assert_redirected_to edit_worksheet_path(@worksheet)
+    assert_error_message UNIQUE_PROBLEM_ERROR
   end
   
   private
-  def assert_error_message(bool = true)
-    assert_select 'div.notice', bool
+  
+  def assert_no_error_message
+    assert_error_message nil
+  end
+  
+  def assert_error_message(message)
+    message.nil? ? assert_nil(flash[:notice]) : assert_equal(message, flash[:notice])
   end
 end

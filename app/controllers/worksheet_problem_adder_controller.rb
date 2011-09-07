@@ -4,6 +4,6 @@ class WorksheetProblemAdderController < ApplicationController
     unless @worksheet.add_problem_like!(params[:worksheet_problem_adder][:problem_number].to_i)
       @worksheet.errors[:base].each { |error| flash.now[:notice] = error }
     end
-    render :template => "worksheets/show"
+    redirect_to edit_worksheet_path(@worksheet), :notice => flash.now[:notice ]
   end
 end
