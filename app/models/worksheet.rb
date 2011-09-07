@@ -78,7 +78,7 @@
       new_math_problem = target_math_problem.find_problem_from_same_level({:exclude => similar_worksheet_problems.map {|wp| wp.math_problem}})
     
       new_worksheet_problem = worksheet_problems.create(:problem_number => (self.problem_count + 1), :math_problem => new_math_problem)
-    rescue UniqueProblemError => e
+    rescue UniqueProblemError, NoSimilarProblemsRemainingError => e
       errors[:base] << e.message
       nil
     end

@@ -5,16 +5,16 @@
     display: inline;
     float: left;
     margin: 10px auto 10px auto;
-    width: 50%;
+    width: 33%;
     text-align: center;
     color: white;
   }
 }
 
 
-.worksheet-button, .replace_problem_submit {
+.worksheet-button, {
   background-color: green;
-  border: none;
+  border: thin solid black;
   margin: 0px;
   padding: 4px;
   font-size: 0.6em;

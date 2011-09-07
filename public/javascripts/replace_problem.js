@@ -12,7 +12,7 @@ MHS.Routes = {
 }
 
 $(function() {
-  $('input.replace_problem_submit').throbber('click', {'image':"/images/throbber.gif"} );
+  $('input.replace-problem-submit').throbber('click', {'image':"/images/throbber.gif"} );
   $('.replace_problem_form').live('submit', function() {
     var worksheet_id = MHS.Worksheet.Replacer.getWorksheetID();
     var problemNumber = $(this).attr('id').match(/\d+/)[0];

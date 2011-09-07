@@ -16,7 +16,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     
   test "show worksheet" do
     get(:show, {:id => @worksheet.id})
-    assert_select '.problem_links input#replace_problem_submit_1', false, "Replace problem should not be present for Worksheet#show -- only Worksheet#update"
+    assert_select '.problem_links input#replace-problem-submit-1', false, "Replace problem should not be present for Worksheet#show -- only Worksheet#update"
     assert_response :success
   end
   
@@ -27,7 +27,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
   
   test "edit worksheet" do
     get(:edit, {:id => @worksheet.id})
-    assert_select '.problem-links input#replace_problem_submit_1'
+    assert_select '.problem-links input#replace-problem-submit-1'
     assert_response :success
   end
   
