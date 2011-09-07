@@ -32,4 +32,12 @@ class AuthenticatingControllerTestCase < ActionController::TestCase
   def authenticated_session_with(hash)
     session.merge(hash)
   end
+  
+  def assert_no_error_message
+    assert_error_message nil
+  end
+  
+  def assert_error_message(message)
+    message.nil? ? assert_nil(flash[:notice]) : assert_equal(message, flash[:notice])
+  end  
 end

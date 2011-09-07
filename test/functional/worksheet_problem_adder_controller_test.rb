@@ -30,14 +30,5 @@ class WorksheetProblemAdderControllerTest < AuthenticatingControllerTestCase
     assert_redirected_to edit_worksheet_path(@worksheet)
     assert_error_message UNIQUE_PROBLEM_ERROR
   end
-  
-  private
-  
-  def assert_no_error_message
-    assert_error_message nil
-  end
-  
-  def assert_error_message(message)
-    message.nil? ? assert_nil(flash[:notice]) : assert_equal(message, flash[:notice])
-  end
+
 end

@@ -95,8 +95,6 @@ class CreateWorksheetFromNewProblemsTest < ActionDispatch::IntegrationTest
     assert page.has_content? questions[1]
     assert page.has_content? questions[2]
     assert page.has_no_content? questions[3]
-
-    click_link "Edit Worksheet"
     
     within('#problem_2') do
       click_button "replace"

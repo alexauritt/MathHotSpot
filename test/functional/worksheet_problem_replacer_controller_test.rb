@@ -24,27 +24,24 @@ class WorksheetProblemReplacerControllerTest < AuthenticatingControllerTestCase
     
     unique_problem = worksheet_problems(:monomial_worksheet_unique_problem)
     post :create, :worksheet_problem_replacer => {:worksheet_id => @worksheet.id, :problem_number => unique_problem.problem_number}
-        
-    assert_response :success
-    assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', UNIQUE_PROBLEM_ERROR
+
+    assert_redirected_to edit_worksheet_path(assigns(:worksheet))
+    assert_error_message UNIQUE_PROBLEM_ERROR
   end
   
   test "update/replace error display for no remaining problems of given type" do
     second_problem_of_two_on_worksheet = worksheet_problems(:monomial_worksheet_prob_05)
     post :create, :worksheet_problem_replacer => {:worksheet_id => @worksheet.id, :problem_number => second_problem_of_two_on_worksheet.problem_number}
-    
-    assert_response :success
-    assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', NO_SIMILAR_PROBLEMS_REMAINING_MSG
+
+    assert_redirected_to edit_worksheet_path(assigns(:worksheet))
+    assert_error_message NO_SIMILAR_PROBLEMS_REMAINING_MSG
   end
   
   test "update/replace error display for request replacement of problem that doesn't exist" do    
     nonexistent_problem_number = @worksheet.worksheet_problems.size + 1
     post :create, :worksheet_problem_replacer => {:worksheet_id => @worksheet.id, :problem_number => nonexistent_problem_number}
-      
-    assert_response :success
-    assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', MathHotSpotErrors::Message::DEFAULT
+
+    assert_redirected_to edit_worksheet_path(assigns(:worksheet))
+    assert_error_message MathHotSpotErrors::Message::DEFAULT      
   end  
 end
