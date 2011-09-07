@@ -57,7 +57,7 @@ class MathProblem < ActiveRecord::Base
     without_original = available_problems.delete_if {|problem| problem == self}
     
     if without_original.empty?
-      raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING
+      raise NoSimilarProblemsRemainingError
     end
     
     without_original[rand(without_original.size)]

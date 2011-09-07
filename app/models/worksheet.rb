@@ -56,8 +56,8 @@
       similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
       target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
       target_worksheet_problem
-    rescue ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING,
-      RightRabbitErrors::UniqueProblemError, 
+    rescue NoSimilarProblemsRemainingError,
+      UniqueProblemError, 
       ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
       errors[:replace_failure] << bam
       nil

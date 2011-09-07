@@ -36,7 +36,7 @@ class WorksheetProblemReplacerControllerTest < AuthenticatingControllerTestCase
     
     assert_response :success
     assert_not_nil assigns(:worksheet)
-    assert_select 'div.notice', MathHotSpotErrors::Message::NONE_REMAINING
+    assert_select 'div.notice', NO_SIMILAR_PROBLEMS_REMAINING_MSG
   end
   
   test "update/replace error display for request replacement of problem that doesn't exist" do    

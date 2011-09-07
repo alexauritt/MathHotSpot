@@ -51,7 +51,7 @@ class MathProblemTest < ActiveSupport::TestCase
   
   test "find_problem_from_same_level raises if all available problems excluded" do
     MathProblem.expects(:find_all_by_problem_level_id).with(@level.id).returns([@math_problem, @another_problem])
-    assert_raise ProblemReplacementErrors::NO_SIMILAR_PROBLEMS_REMAINING do
+    assert_raise NoSimilarProblemsRemainingError do
       @math_problem.find_problem_from_same_level({:exclude => [@another_problem]})
     end
   end

@@ -1,6 +1,6 @@
 module RightRabbitErrors
   UNIQUE_PROBLEM_ERROR = "Problem is one of a kind"
-  NONE_REMAINING = "All problems already present on worksheet"
+  NO_SIMILAR_PROBLEMS_REMAINING_MSG = "All problems already present on worksheet"
   DEFAULT = "An unknown error has occured"
   
   NO_INSTRUCTIONS = "No instructions provided."
@@ -16,6 +16,7 @@ module RightRabbitErrors
   
   LESSON_NEEDS_PROBLEM_TYPES_FOR_WORKSHEET = 'This Lesson is empty. Please add Problem Types to this Lesson before creating a Worksheet.'  
   class UniqueProblemError < StandardError; def message; UNIQUE_PROBLEM_ERROR; end; end  
+  class NoSimilarProblemsRemainingError < StandardError; def message; NO_SIMILAR_PROBLEMS_REMAINING_MSG; end; end
   class ProblemNumberMissing < StandardError; end
 end
 
