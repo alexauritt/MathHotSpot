@@ -15,6 +15,7 @@ end
 Factory.define :user do |u|
   u.email { Factory.next(:email) }
   u.password 'secret'
+  
 end
 
 Factory.define :user_with_lesson, :parent => :user do |user|

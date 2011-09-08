@@ -2,7 +2,6 @@ require 'test_helper'
 
 class LessonsControllerTest < AuthenticatingControllerTestCase
   setup do
-    @current_user = users(:testuser)
     @old_lesson = lessons(:dividing_monomials_lesson)
     @lesson = Factory.build(:lesson)
   end

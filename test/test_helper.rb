@@ -26,7 +26,9 @@ end
 
 class AuthenticatingControllerTestCase < ActionController::TestCase
   setup do
-    sign_in users(:testuser)
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    @current_user = Factory.create(:user)
+    sign_in @current_user
   end
   
   def authenticated_session_with(hash)

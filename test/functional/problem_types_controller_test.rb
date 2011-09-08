@@ -123,7 +123,7 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
   
   test "newly created problemtype has current user as owner" do
     post :create, :problem_type => problem_type_with_category_and_incomplete_level.attributes
-    assert_equal users(:testuser), assigns(:problem_type).owner
+    assert_equal @current_user, assigns(:problem_type).owner
   end
   
   test "should show delete link if problem type has no math problems" do

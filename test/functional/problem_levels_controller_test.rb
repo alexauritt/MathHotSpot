@@ -108,8 +108,7 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
   end
   
   test "new nested math problem should belong to current user" do
-    other_user = users(:joe)
-    current_user = users(:testuser)
+    other_user = Factory.create(:user)
     type = Factory.create(:problem_type, :owner => other_user)
     problem_level = ProblemLevel.new(:problem_type => type, :level_number => type.lowest_available_level_number)
 
@@ -121,7 +120,7 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_equal 1, assigns(:problem_level).math_problems.count
     new_problem = assigns(:problem_level).math_problems.first
 
-    assert_equal current_user, new_problem.owner, "Newly created Math Problem should belong to current User"
+    assert_equal @current_user, new_problem.owner, "Newly created Math Problem should belong to current User"
   end
   
   private
