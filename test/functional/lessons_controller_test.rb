@@ -2,13 +2,13 @@ require 'test_helper'
 
 class LessonsControllerTest < AuthenticatingControllerTestCase
   setup do
-    @old_lesson = lessons(:dividing_monomials_lesson)
-    @lesson = Factory.build(:lesson)
+    @old_lesson = Factory.create(:lesson)
+    @lesson = Factory.create(:lesson)
   end
 
   test "should show lesson" do
-    @lesson = stub_db_to_return_lesson!
-    get :show, {:id => @lesson.id }
+    Lesson.expects(:find).with(@lesson.to_param).returns(@lesson)
+    get :show, {:id => @lesson.to_param}
     assert_response :success    
   end
     
@@ -37,7 +37,9 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
   end
   
   test "new clears current_lesson_id from session" do
-    get :new, nil, authenticated_session_with({'current_lesson_id' => 234234})
+    session['current_lesson_id'] = '23423423'
+    get :new, nil
+    assert_response :success
     assert_nil session[:current_lesson_id]
   end
 
@@ -53,8 +55,9 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
   end
     
   test "create should set new lesson as current lesson in session" do
-    post :create, :lesson => @lesson.attributes
-    assert_equal Lesson.find_by_title(@lesson.title).id, session[:current_lesson_id]
+    new_lesson_attr = Factory.attributes_for(:lesson)
+    post :create, :lesson => new_lesson_attr
+    assert_equal Lesson.find_by_title(new_lesson_attr[:title]).id, session[:current_lesson_id]
   end
   
   test "should update lesson" do
@@ -84,8 +87,8 @@ class LessonsControllerTest < AuthenticatingControllerTestCase
 
   def stub_db_to_return_lesson!
     fake_id = 234234
-    lesson = Factory.build(:lesson, :id => fake_id)
-    Lesson.stubs(:find).with(fake_id).returns(lesson)    
+    lesson = Factory.create(:lesson)
+    Lesson.stubs(:find).with(lesson.id).returns(lesson)    
     lesson
   end
 

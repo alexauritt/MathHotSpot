@@ -20,7 +20,8 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
   
   test "show should display current lesson and problem type if current_lesson specified in session" do
     lesson, problem_type = stub_db_to_return_lesson_and_problem_type!
-    get(:show, {:id => @problem_type.permalink}, authenticated_session_with({'current_lesson_id' => lesson.id}))
+    session['current_lesson_id'] = lesson.id
+    get :show, :id => @problem_type.permalink
       
     assert_equal lesson.id, session[:current_lesson_id]
     assert_response :success

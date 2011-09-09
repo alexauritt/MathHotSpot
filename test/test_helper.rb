@@ -31,10 +31,6 @@ class AuthenticatingControllerTestCase < ActionController::TestCase
     sign_in @current_user
   end
   
-  def authenticated_session_with(hash)
-    session.merge(hash)
-  end
-  
   def assert_no_error_message
     assert_error_message nil
   end

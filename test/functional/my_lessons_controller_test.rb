@@ -10,7 +10,10 @@ class MyLessonsControllerTest < AuthenticatingControllerTestCase
   end
   
   test "index clears current_lesson_id from session" do
-    get :index, nil, authenticated_session_with({'current_lesson_id' => 234234})
+    session['current_lesson_id'] = 234234
+
+    get :index
+    
     assert_nil session[:current_lesson_id]
   end
 end

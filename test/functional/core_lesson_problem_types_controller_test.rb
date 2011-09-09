@@ -5,7 +5,7 @@ class CoreLessonProblemTypesControllerTest < AuthenticatingControllerTestCase
   def setup
     @lesson = Factory.create(:lesson, :owner => users(:testuser))
     @problem_type = Factory.create(:problem_type)
-    @attributes = Factory.attributes_for(:core_lesson_problem_type, :lesson => @lesson, :problem_type => @problem_type)
+    @attributes = Factory.attributes_for(:core_lesson_problem_type, :lesson_id => @lesson.id, :problem_type_id => @problem_type.id)
   end
 
   test "create" do

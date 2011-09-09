@@ -21,8 +21,9 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
   test "new search displays current lesson when valid current_lesson_id is set in session" do
     lesson = Factory.build(:lesson, :id => 234234)
     Lesson.expects(:find).with(anything).returns(lesson)
-    
-    get :new, {}, authenticated_session_with({'current_lesson_id' => lesson.id})
+
+    session['current_lesson_id'] = lesson.id
+    get :new
     
     assert_response :success
     assert_equal lesson, assigns(:current_lesson), "Current lesson not found as expected"
@@ -60,8 +61,9 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     lesson = Factory.build(:lesson, :id => 234234)
     Lesson.expects(:find).with(anything).returns(lesson)
     ProblemType.expects(:search).with(anything).returns([@problem_type])
-    
-    get :show, {:search => "Monomial Fraction"}, authenticated_session_with({'current_lesson_id' => lesson.id})
+
+    session['current_lesson_id'] = lesson.id
+    get :show, {:search => "Monomial Fraction"}
     
     assert_response :success
     assert_equal lesson, assigns(:current_lesson), "Current lesson not found as expected"
@@ -96,13 +98,17 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
   def get_new_search_with_invalid_current_lesson_id_in_session!
     invalid_id = 234234
     Lesson.expects(:find).with(invalid_id).raises(ActiveRecord::RecordNotFound)
-    get :new, @valid_search_hash, authenticated_session_with({'current_lesson_id' => invalid_id})
+
+    session['current_lesson_id'] = invalid_id
+    get :new, @valid_search_hash
   end
   
   def get_search_results_with_invalid_current_lesson_id_in_session!
     invalid_id = 234234
     Lesson.expects(:find).with(invalid_id).raises(ActiveRecord::RecordNotFound)
-    get :show, @valid_search_hash, authenticated_session_with({'current_lesson_id' => invalid_id})
+
+    session['current_lesson_id'] = invalid_id
+    get :show, @valid_search_hash
   end
 
 end

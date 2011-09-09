@@ -32,8 +32,8 @@ Factory.define :category do |c|
 end
 
 Factory.define :lesson do |l|
-  l.title "Triangle Area Lesson"
-  # l.owner { |o| o.association(:user) }
+  l.title { Factory.next(:title) }
+  l.owner { |o| o.association(:user) }
 end
 
 Factory.define :problem_type do |pt|

@@ -26,8 +26,9 @@ class MathProblemsControllerTest < AuthenticatingControllerTestCase
   
   test "should create math problem for existent and non-empty level" do
     level = problem_levels(:dividing_monomials_level_01)
+    problem_attrs = Factory.attributes_for(:math_problem, :problem_level_id => level.id)
     assert_difference('MathProblem.count') do
-      post :create, :math_problem => Factory.attributes_for(:math_problem, :problem_level => level)
+      post :create, :math_problem => problem_attrs
     end
     assert_redirected_to math_problem_path(assigns(:math_problem))
   end
@@ -37,7 +38,7 @@ class MathProblemsControllerTest < AuthenticatingControllerTestCase
     new_level = ProblemLevel.create(:problem_type => type, :level_number => type.lowest_available_level_number)
     
     assert_difference('MathProblem.count') do
-      post :create, :math_problem => Factory.attributes_for(:math_problem, :problem_level => new_level)
+      post :create, :math_problem => Factory.attributes_for(:math_problem, :problem_level_id => new_level.id)
     end
     
     assert_redirected_to math_problem_path(assigns(:math_problem))
