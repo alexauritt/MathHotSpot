@@ -1,4 +1,4 @@
-class CloneController < ApplicationController
+class Clone::MathProblemCloneController < ApplicationController
   def new
     parent = MathProblem.find(params[:math_problem_id])
     @problem_type = parent.problem_type

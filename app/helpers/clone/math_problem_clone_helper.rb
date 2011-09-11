@@ -1,0 +1,2 @@
+module Clone::MathProblemCloneHelper
+end

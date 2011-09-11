@@ -23,13 +23,12 @@ Mathhotspot::Application.routes.draw do
     
   resources :lessons
 
-  resources :math_problems, :except => [:new, :index] do
-    resources :clone, :only => [:new]
-  end
+  resources :math_problems, :except => [:new, :index]
   
+  get "math_problems/:math_problem_id/new" => 'clone/math_problem_clone#new', :as => :math_problem_clone
   get "worksheets/:worksheet_id/problem/:problem_number/new" => 'clone/worksheet_problem_clone#new', 
     :as => :worksheet_problem_clone
-  
+
   resources :worksheets, :except => [:new] do
     resources :worksheet_problems, :only => [:update]
   end

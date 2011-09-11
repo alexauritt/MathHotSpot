@@ -91,8 +91,8 @@ class RoutingTest < ActionController::TestCase
   
 #math_problem clone
   test "math problem clone new" do
-    assert_routing( {:path => "/math_problems/234/clone/new", :method => :get}, 
-      {:controller => 'clone', :action => 'new', :math_problem_id => '234'})
+    assert_routing( {:path => "/math_problems/234/new", :method => :get}, 
+      {:controller => 'clone/math_problem_clone', :action => 'new', :math_problem_id => '234'})
   end
 
 #worksheet problem clone
