@@ -1,0 +1,2 @@
+module Clone::WorksheetProblemCloneHelper
+end

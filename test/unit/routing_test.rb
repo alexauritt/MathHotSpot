@@ -95,6 +95,13 @@ class RoutingTest < ActionController::TestCase
       {:controller => 'clone', :action => 'new', :math_problem_id => '234'})
   end
 
+#worksheet problem clone
+  test "worksheet problem clone" do
+    assert_routing( {:path => "/worksheets/234/problem/2/new", :method => :get},
+      {:controller => 'clone/worksheet_problem_clone', :action => 'new', 
+        :worksheet_id => '234', :problem_number => "2" })
+  end
+
 #available_tags
   test "availble_tag index" do
     assert_routing( {:path => "/problem_types/algebra-fractions/available_tags", :method => :get}, 

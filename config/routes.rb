@@ -27,6 +27,9 @@ Mathhotspot::Application.routes.draw do
     resources :clone, :only => [:new]
   end
   
+  get "worksheets/:worksheet_id/problem/:problem_number/new" => 'clone/worksheet_problem_clone#new', 
+    :as => :worksheet_problem_clone
+  
   resources :worksheets, :except => [:new] do
     resources :worksheet_problems, :only => [:update]
   end
