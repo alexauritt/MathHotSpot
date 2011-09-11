@@ -30,7 +30,7 @@ Mathhotspot::Application.routes.draw do
     :as => :worksheet_problem_clone
 
   resources :worksheets, :except => [:new] do
-    resources :worksheet_problems, :only => [:update]
+    resources :worksheet_problems, :only => [:update, :new]
   end
 
   resources :worksheet_problems, :only => [:destroy]

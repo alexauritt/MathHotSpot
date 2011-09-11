@@ -7,4 +7,8 @@ class WorksheetProblemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def new
+    render :text => "placeholder for new worksheet problem"
+  end
 end
