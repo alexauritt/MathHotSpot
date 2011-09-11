@@ -159,7 +159,7 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert_equal expected_subject_string, problem_type.topic_name
   end
 
-  test "search" do
+  test "search for title" do
     results = ProblemType.search({:query => "Monomial Fraction Simplifcation Assume No Zero Denominator"})
     assert results.include?(problem_types(:simp_no_zero_problem_type)), "Problem Type not found."
     assert_equal 1, results.length, "Exactly one result expected in search, but #{results.length} item(s) found"
@@ -172,10 +172,21 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert results.include?(pt), "Problem Type not found with case insensitive search (by title)"
   end
   
-  test "search (tags in query) is case insensitive" do
-    params = @standard_problem_type_params.merge({:tag_list => "Candy, chocolate"})
+  test "search for single tag" do
+    tag = "laksjfoijslkxcjvaowef"
+    tag_query_string = "\"#{tag}\""
+    params = @standard_problem_type_params.merge({:tag_list => tag})
     pt = ProblemType.create(params)
-    results = ProblemType.search({:query => "candy, Chocolate"})
+    
+    results = ProblemType.search({:query => tag_query_string})
+    assert results.include?(pt)    
+  end
+  
+  test "search (tags in query) is case insensitive" do
+    pt = Factory.build(:problem_type)
+    pt.tag_list = "Candy, chocolate"
+    pt.save
+    results = ProblemType.search({:query => "\"candy\", \"Chocolate\""})
     assert results.include?(pt)
   end
   
@@ -202,6 +213,23 @@ class ProblemTypeTest < ActiveSupport::TestCase
     assert_equal testuser, pt.owner
     assert_equal testuser, level.owner
     assert_equal testuser, problem.owner
+  end
+  
+  def test_format_query_string_for_tag_search_with_escaped_quotes
+    query_string = "\"Basic Algebra\", \"Word Problems\""
+    expected_results = ['Basic Algebra', 'Word Problems']
+    assert_equal expected_results, ProblemType.send(:format_query_string_for_tag_search, query_string)    
+  end
+  
+  def test_format_query_string_for_tag_search_with_whitespace
+    query_string = "   chocolate, candy,     sugar,   cookies,   cakes   "
+    expected_results = ['chocolate', 'candy', 'sugar', 'cookies', 'cakes']
+    assert_equal expected_results, ProblemType.send(:format_query_string_for_tag_search, query_string)
+  end
+  
+  def test_tag_query?
+    assert !ProblemType.send(:tag_query?, 'asdfasdfas'), "tag_query? should return false if string has no excaped double quotes "
+    assert ProblemType.send(:tag_query?, "\"fasdfas\", \"asdfasdf\"")
   end
   
   private

@@ -91,9 +91,27 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
   test "show search results clears current_lesson_id in session when said id is invalid" do
     get_new_search_with_invalid_current_lesson_id_in_session!
     assert_nil session[:current_lesson_id]
-  end  
+  end
+  
+  test "search with no quotes triggers title search" do
+    query = "  this is a tittle"
+    ProblemType.expects(:title_search).with(query).returns(types_from_search)
+    get :show, {'search' => {'query' => query}}
+  end
+  
+  test "search with quotes triggers tag search" do
+    query = "\"tag 1\", \"tag 2\""
+    ProblemType.expects(:tagged_with).with(['tag 1', 'tag 2']).returns(types_from_search)
+    get :show, {'search' => {'query' => query}}
+  end
     
   private  
+
+  def types_from_search
+    types = []
+    2.times { types << Factory.build(:problem_type) }
+    types    
+  end
 
   def get_new_search_with_invalid_current_lesson_id_in_session!
     invalid_id = 234234

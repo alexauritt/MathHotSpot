@@ -83,10 +83,10 @@ class ProblemType < ActiveRecord::Base
 
   def self.search(search)
     raise ArgumentError unless search.is_a?(Hash)
-    if tag = search[:tag]
+    if tag = search[:tag] # tag button clicked, not tag query search
       ProblemType.tagged_with(tag)
     elsif query = search[:query]
-      self.where("lower(title) ILIKE ?", "%#{query}%") | self.tagged_with("%#{query}%")
+      tag_query?(query) ? tag_search(query) : title_search(query)
     else
       self.find(:all)
     end
@@ -126,6 +126,25 @@ class ProblemType < ActiveRecord::Base
   private
   def generate_slug
     self.permalink = ProblemType.generate_permalink_from(self.title)
+  end
+  
+  def self.format_query_string_for_tag_search(query_string)
+    unesc = query_string.gsub('"','')
+    tag_list = unesc.squeeze(" ").split(/,/)
+    tag_list.each {|tag| tag.strip!}
+    tag_list
+  end
+
+  def self.tag_query?(query)
+    query.include?("\"") || query.include?("\'")
+  end
+  
+  def self.title_search(query)
+    self.where("lower(title) ILIKE ?", "%#{query}%")
+  end
+  
+  def self.tag_search(query)
+    self.tagged_with(format_query_string_for_tag_search query)    
   end
   
 end

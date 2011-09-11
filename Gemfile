@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.1.0'
 gem 'rack'
 
 # Bundle edge Rails instead:
@@ -22,6 +22,7 @@ group :development, :test do
   gem 'mocha', :require => false
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-test'
+  gem 'ruby-prof'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
 end
