@@ -4,9 +4,10 @@ class WorksheetProblem < ActiveRecord::Base
   
   has_one :problem_level, :through => :math_problem
   
-  validates_presence_of :math_problem_id
+  accepts_nested_attributes_for :math_problem
+  
   validates_uniqueness_of :problem_number, :scope => :worksheet_id
-  validate :worksheet_exists
+  validate :worksheet_exists, :math_problem_exists
   after_destroy :renumber_remaining_worksheet_problems!
   
   def problem_level
@@ -36,6 +37,14 @@ class WorksheetProblem < ActiveRecord::Base
     rescue
       errors.add(:worksheet_id, "not found in db")
     end
+  end
+  
+  def math_problem_exists
+    begin
+      errors.add(:math_problem_id, "doesn't exist") unless (!math_problem.nil? || (math_problem_id && MathProblem.exists?(math_problem_id)))
+    rescue
+      errors.add(:math_problem_id, "not found in db")
+    end    
   end
   
   def renumber_remaining_worksheet_problems!
