@@ -22,10 +22,16 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
         post :create, :worksheet_problem => {:worksheet_id => worksheet.id, :math_problem_attributes => new_math_problem.attributes}
       end
     end
+    assert_current_user_is_owner assigns(:worksheet_problem).math_problem
     assert_redirected_to edit_worksheet_path(worksheet)
   end
   
   private
+  
+  def assert_current_user_is_owner(object)
+    assert_equal @current_user, object.owner
+  end
+  
   def stubbed_worksheet
     worksheet_id = 234
     worksheet = Factory.build(:worksheet)

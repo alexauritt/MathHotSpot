@@ -52,32 +52,5 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
   teardown do
     DatabaseCleaner.clean
   end
-  
-  # test "Create a generic Algebra Lesson and set the category" do
-  # 
-  #   @subject = Factory.create(:subject)
-  #   @category = Factory.create(:category)
-  # 
-  #   lesson_name = 'My First Lesson'
-  #   
-  #   click_link('My Dashboard')
-  #   click_link('Create a new Lesson')
-  # 
-  #   assert_equal new_lesson_path, current_path
-  # 
-  #   fill_in 'Title', :with => lesson_name
-  #   select @category.title, :from => "Topic"
-  #   click_button('Create Lesson')
-  #   
-  #   assert_equal my_lessons_path, current_path
-  #   
-  #   within('#my-lessons .topic-list .topic-title') do
-  #     assert page.has_content?(@category.title), "missing name of category: #{@category.title}"
-  #   end
-  # 
-  #   within('#my-lessons .topic-list ul li') do
-  #     assert page.has_content?(lesson_name), "missing name of new lesson: #{lesson_name}"
-  #   end    
-  # end
          
 end
