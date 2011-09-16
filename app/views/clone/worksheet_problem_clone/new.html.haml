@@ -1,0 +1,5 @@
+= simple_form_for(@worksheet_problem) do |wpf|
+  = wpf.input :worksheet_id, :as => :hidden
+  = wpf.fields_for :math_problem do |builder|
+    = render :partial => "math_problems/form_contents", :locals => { :form => builder }
+

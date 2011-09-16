@@ -1,11 +1,3 @@
-- if math_problem.errors.any?
-  .error_explanation
-    %h2
-      = pluralize(math_problem.errors.count, "error")
-    %ul
-      - math_problem.errors.full_messages.each do |msg|
-        %li
-          = msg
 = form.association :problem_level, :as => :hidden
 #math-markup-input-fields
   #question

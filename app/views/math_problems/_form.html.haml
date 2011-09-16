@@ -1,2 +1,10 @@
 = simple_form_for(@math_problem) do |f|
-  = render :partial => 'math_problems/form_contents', :locals => { :form => f, :math_problem => @math_problem }
+  - if @math_problem.errors.any?
+    .error_explanation
+      %h2
+        = pluralize(math_problem.errors.count, "error")
+      %ul
+        - math_problem.errors.full_messages.each do |msg|
+          %li
+            = msg
+  = render :partial => 'math_problems/form_contents', :locals => { :form => f }

@@ -15,9 +15,7 @@ Mathhotspot::Application.routes.draw do
     resources :lessons, :except => [:show]
   end  
     
-  resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete] do
-
-  end
+  resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete]
   
   resources :subjects, :only => [:show, :index]
     
@@ -33,7 +31,7 @@ Mathhotspot::Application.routes.draw do
     resources :worksheet_problems, :only => [:update, :new]
   end
 
-  resources :worksheet_problems, :only => [:destroy]
+  resources :worksheet_problems, :only => [:destroy, :create]
   
   post "worksheet_problem_replacer" => 'worksheet_problem_replacer#create', :as => :worksheet_problem_replacer
   post "worksheet_problem_adder" => 'worksheet_problem_adder#create', :as => :worksheet_problem_adder
