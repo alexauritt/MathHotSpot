@@ -14,8 +14,3 @@
       (note: will add to existing markup)
     #answer_markup
       = form.input :answer_markup, :as => :text 
-#level
-  = form.association :problem_level, :label => "Level: ", :collection => @problem_type.problem_levels, :label_method => :level_number, :include_blank => false, :confirm => "Are you sure?"
-      
-.actions
-  = form.submit

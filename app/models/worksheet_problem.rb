@@ -14,6 +14,10 @@ class WorksheetProblem < ActiveRecord::Base
     math_problem.nil? ? nil : math_problem.problem_level
   end
   
+  def level_number
+    problem_level.nil? ? nil : problem_level.level_number
+  end
+  
   def instruction
     math_problem.instruction
   end

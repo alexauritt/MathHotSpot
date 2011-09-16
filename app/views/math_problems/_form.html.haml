@@ -7,4 +7,11 @@
         - math_problem.errors.full_messages.each do |msg|
           %li
             = msg
-  = render :partial => 'math_problems/form_contents', :locals => { :form => f }
+  = render :partial => 'math_problems/question_and_answer_markup', :locals => { :form => f }
+  
+  #level
+    = f.association :problem_level, :label => "Level: ", :collection => @problem_type.problem_levels, :label_method => :level_number, :include_blank => false, :confirm => "Are you sure?"
+
+  .actions
+    = f.submit
+  

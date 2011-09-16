@@ -60,4 +60,17 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     end
   end
   
+  test "level_number delegates to problem level" do
+    wp = Factory.build(:worksheet_problem)
+    wp.problem_level.stubs(:level_number).returns(90)
+    assert_equal 90, wp.level_number
+  end
+  
+  test "level_number returns nil but does not raise if problem_level nil" do
+    wp = Factory.build(:worksheet_problem, :math_problem => nil)
+    assert_nothing_raised do
+      assert_nil wp.level_number
+    end
+  end
+  
 end
