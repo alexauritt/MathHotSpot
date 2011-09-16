@@ -67,7 +67,7 @@ class MathProblem < ActiveRecord::Base
 
   def owner_exists
     if owner_id
-      errors.add(:owner_id, "doesn't exist in database") unless User.find(owner_id)
+      errors.add(:owner_id, "doesn't exist in database") unless User.exists?(owner_id)
     end
   end
   

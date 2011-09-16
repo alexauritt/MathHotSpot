@@ -15,23 +15,23 @@ Mathhotspot::Application.routes.draw do
     resources :lessons, :except => [:show]
   end  
     
-  resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete] do
-
-  end
+  resources :tags, :except => [:index, :new, :create, :edit, :update, :show, :delete]
   
   resources :subjects, :only => [:show, :index]
     
   resources :lessons
 
-  resources :math_problems, :except => [:new, :index] do
-    resources :clone, :only => [:new]
-  end
+  resources :math_problems, :except => [:new, :index]
   
+  get "math_problems/:math_problem_id/new" => 'clone/math_problem_clone#new', :as => :math_problem_clone
+  get "worksheets/:worksheet_id/problem/:problem_number/new" => 'clone/worksheet_problem_clone#new', 
+    :as => :worksheet_problem_clone
+
   resources :worksheets, :except => [:new] do
-    resources :worksheet_problems, :only => [:update]
+    resources :worksheet_problems, :only => [:update, :new]
   end
 
-  resources :worksheet_problems, :only => [:destroy]
+  resources :worksheet_problems, :only => [:destroy, :create]
   
   post "worksheet_problem_replacer" => 'worksheet_problem_replacer#create', :as => :worksheet_problem_replacer
   post "worksheet_problem_adder" => 'worksheet_problem_adder#create', :as => :worksheet_problem_adder

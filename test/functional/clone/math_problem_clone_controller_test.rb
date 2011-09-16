@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CloneControllerTest < AuthenticatingControllerTestCase
+class Clone::MathProblemCloneControllerTest < AuthenticatingControllerTestCase
   test "new" do
     parent = math_problems(:simple_monomial_problem_04)
     get :new, :math_problem_id => parent.id

@@ -91,8 +91,15 @@ class RoutingTest < ActionController::TestCase
   
 #math_problem clone
   test "math problem clone new" do
-    assert_routing( {:path => "/math_problems/234/clone/new", :method => :get}, 
-      {:controller => 'clone', :action => 'new', :math_problem_id => '234'})
+    assert_routing( {:path => "/math_problems/234/new", :method => :get}, 
+      {:controller => 'clone/math_problem_clone', :action => 'new', :math_problem_id => '234'})
+  end
+
+#worksheet problem clone
+  test "worksheet problem clone" do
+    assert_routing( {:path => "/worksheets/234/problem/2/new", :method => :get},
+      {:controller => 'clone/worksheet_problem_clone', :action => 'new', 
+        :worksheet_id => '234', :problem_number => "2" })
   end
 
 #available_tags
@@ -140,6 +147,20 @@ class RoutingTest < ActionController::TestCase
   test "delete worksheet" do
     assert_routing( {:path => "worksheets/234", :method => :delete }, {:controller => "worksheets", :action => "destroy", :id => '234'})
   end
+  
+#Worksheet Problems
+  test "show worksheet problem" do
+    assert_routing( {:path => "worksheets/9999/worksheet_problems/new", :method => :get},
+      {:controller => "worksheet_problems", :action => "new", :worksheet_id => '9999'})
+  end
+
+  test "delete worksheet problem" do
+    assert_routing( {:path => "/worksheet_problems/8", :method => :delete}, {:controller => "worksheet_problems", :action => "destroy", :id => '8'})
+  end
+  
+  test "create worksheet problem" do
+    assert_routing( {:path => "/worksheet_problems", :method => :post}, {:controller => "worksheet_problems", :action => "create"})
+  end
 
 #WorksheetBuilders  
   test "worksheet builder create" do
@@ -155,11 +176,6 @@ class RoutingTest < ActionController::TestCase
   test "lesson worksheet builder new" do
     assert_routing( {:path => "lessons/23/worksheet_builder", :method => :get}, 
       {:controller => "lesson_worksheet_builder", :action => "new", :id => '23'})    
-  end
-
-#Worksheet Problems
-  test "delete worksheet problem" do
-    assert_routing( {:path => "/worksheet_problems/8", :method => :delete}, {:controller => "worksheet_problems", :action => "destroy", :id => '8'})
   end
   
 #Worksheet Prolem Replacer

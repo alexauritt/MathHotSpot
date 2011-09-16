@@ -19,6 +19,10 @@
     worksheet_problems.size
   end
   
+  def next_available_problem_number
+    problem_count + 1
+  end
+  
   def problem_exists?(problem_number)
     !(problem problem_number).nil?
   end
@@ -77,7 +81,7 @@
 
       new_math_problem = target_math_problem.find_problem_from_same_level({:exclude => similar_worksheet_problems.map {|wp| wp.math_problem}})
     
-      new_worksheet_problem = worksheet_problems.create(:problem_number => (self.problem_count + 1), :math_problem => new_math_problem)
+      new_worksheet_problem = worksheet_problems.create(:problem_number => next_available_problem_number, :math_problem => new_math_problem)
     rescue UniqueProblemError, NoSimilarProblemsRemainingError => e
       errors[:base] << e.message
       nil

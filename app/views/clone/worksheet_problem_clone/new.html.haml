@@ -1,0 +1,16 @@
+Create new Math Problem for
+= @worksheet_problem.worksheet.title
+
+#problem-type-display
+  = @problem_type.title
+#level-number-display
+  = "Level: #{@worksheet_problem.level_number}"
+
+= simple_form_for(@worksheet_problem) do |wpf|
+  = wpf.input :worksheet_id, :as => :hidden
+  = wpf.fields_for :math_problem do |builder|
+    = builder.input :problem_level_id, :as => :hidden
+    = render :partial => "math_problems/question_and_answer_markup", :locals => { :form => builder }
+
+  .actions
+    = wpf.button :submit, "Create New Problem for Worksheet"

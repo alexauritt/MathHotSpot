@@ -45,4 +45,32 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     assert @fixture_worksheet.problems_sequentially_numbered?, msg
   end
   
+  test "worksheet_problem accepts nested attributes for new math problem belonging to existing PT/PL" do
+    worksheet = Factory.build(:worksheet)
+    problem_level_id = 234
+    user_id = 243234
+    prob_attrs = Factory.attributes_for(:math_problem, :problem_level_id => problem_level_id, :owner_id => user_id)
+    ProblemLevel.expects(:exists?).with(problem_level_id).returns(true)
+    User.expects(:exists?).with(user_id).returns(true)
+    
+    assert_difference('WorksheetProblem.count') do
+      assert_difference('MathProblem.count') do
+        wp = WorksheetProblem.create(:worksheet => worksheet, :problem_number => 1, :math_problem_attributes => prob_attrs)
+      end
+    end
+  end
+  
+  test "level_number delegates to problem level" do
+    wp = Factory.build(:worksheet_problem)
+    wp.problem_level.stubs(:level_number).returns(90)
+    assert_equal 90, wp.level_number
+  end
+  
+  test "level_number returns nil but does not raise if problem_level nil" do
+    wp = Factory.build(:worksheet_problem, :math_problem => nil)
+    assert_nothing_raised do
+      assert_nil wp.level_number
+    end
+  end
+  
 end

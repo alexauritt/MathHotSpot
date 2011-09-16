@@ -7,16 +7,4 @@
   .page-title New Math Problem
   =render 'math_problems/form'
   
-#current-level-display
-  %h4
-    Some Existing Problems
-    = sibling_count(@siblings.count, @math_problem.siblings.count)
-  #instructions
-    = "#{@math_problem.instruction.description}"
-  #sibling-problems
-    - @siblings.each do |sibling_problem|
-      .math-display
-        .problem_display
-          =display_mathml_question(sibling_problem)
-  #links
-    =link_to 'Menu', root_url
+= render :partial => 'math_problems/current_level_display', :locals => { :siblings => @siblings, :math_problem => @math_problem }
