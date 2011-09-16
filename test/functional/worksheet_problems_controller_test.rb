@@ -8,6 +8,6 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
       delete :destroy, :id => worksheet_problem
     end
     
-    assert_redirected_to worksheet_path(worksheet)
+    assert_redirected_to edit_worksheet_path(worksheet)
   end  
 end
