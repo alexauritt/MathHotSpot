@@ -220,6 +220,17 @@ class WorksheetTest < ActiveSupport::TestCase
     assert worksheet.errors[:base].include? UNIQUE_PROBLEM_ERROR
   end
   
+  test "next available problem number for empty worksheet" do
+    worksheet = Worksheet.new
+    assert_equal 1, worksheet.next_available_problem_number
+  end
+  
+  test "next available problem number for real worksheet" do
+    worksheet = worksheets(:monomial_worksheet_01)
+    prob_count = worksheet.worksheet_problems.size
+    assert_equal prob_count + 1, worksheet.next_available_problem_number
+  end
+  
   private
 
   def create_worksheet_with_all_problems_from_same_level!(attr = {:problem_count => 1})

@@ -37,7 +37,7 @@ class WorksheetProblem < ActiveRecord::Base
   
   def worksheet_exists
     begin
-      errors.add(:worksheet_id, "doesn't exist") unless (!worksheet.nil? || (worksheet_id && Worsheet.exists?(worksheet_id)))
+      errors.add(:worksheet_id, "doesn't exist") unless (!worksheet.nil? || (worksheet_id && Worksheet.exists?(worksheet_id)))
     rescue
       errors.add(:worksheet_id, "not found in db")
     end
