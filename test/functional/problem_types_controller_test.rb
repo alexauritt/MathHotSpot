@@ -186,7 +186,7 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
   end
   
   def assert_prompts_for_problem_question_and_answer
-    assert_select "textarea#problem_type_problem_levels_attributes_0_math_problems_attributes_0_question_markup", 1    
-    assert_select "textarea#problem_type_problem_levels_attributes_0_math_problems_attributes_0_answer_markup", 1
+    assert_select "textarea#question-markup-input", 1    
+    assert_select "textarea#answer-markup-input", 1
   end
 end

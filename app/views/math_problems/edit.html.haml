@@ -11,7 +11,7 @@
 %b Answer:
 =display_mathml_answer(@math_problem)
 
-=render 'form'
+=render :partial => 'math_problems/form', :locals => { :math_problem => @math_problem }
 
 =link_to 'Show', @math_problem
 |

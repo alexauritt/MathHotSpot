@@ -1,3 +1,10 @@
+- content_for :head do
+  %title
+    New Math Problem for
+    = @worksheet_problem.worksheet.title
+  = stylesheet_link_tag "math_display", "problem_entry_form"
+  = javascript_include_tag latex_generator_popup_url
+
 Create new Math Problem for
 = @worksheet_problem.worksheet.title
 

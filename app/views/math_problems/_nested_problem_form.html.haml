@@ -3,19 +3,20 @@
     #math-markup-input-fields
       #question
         #question-equation-editor
-          =link_to "Launch Equation Editor for Question", "javascript:OpenLatexEditor('math_problem_question_markup','latex','')"
+          = equation_editor_link 'Launch Equation Editor for Question', 'question-markup-input'
         .editor-explanation
           (note: will add to existing markup)
         #question_markup
           = problem_builder.label :question_markup
           %br
-          = problem_builder.text_area :question_markup          
+          = problem_builder.text_area :question_markup, :id => 'question-markup-input'
       #answer
         #answer-equation-editor
-          =link_to "Launch Equation Editor for Answer", "javascript:OpenLatexEditor('math_problem_answer_markup','latex','')"
+          = equation_editor_link 'Launch Equation Editor for Answer', 'answer-markup-input'
         .editor-explanation
           (note: will add to existing markup)
         #answer_markup
           = problem_builder.label :answer_markup
           %br
-          = problem_builder.text_area :answer_markup
+          = problem_builder.text_area :answer_markup, :id => 'answer-markup-input'
+ 

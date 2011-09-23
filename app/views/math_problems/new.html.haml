@@ -1,10 +1,10 @@
 - content_for :head do
   %title New Math Problem
   = stylesheet_link_tag "math_display", "problem_entry_form"
-  = javascript_include_tag "http://latex.codecogs.com/editor3.js"
+  = javascript_include_tag latex_generator_popup_url
   
 #new-math-problem
   .page-title New Math Problem
-  =render 'math_problems/form'
+  =render :partial => 'math_problems/form', :locals => { :math_problem => @math_problem }
   
 = render :partial => 'math_problems/current_level_display', :locals => { :siblings => @siblings, :math_problem => @math_problem }
