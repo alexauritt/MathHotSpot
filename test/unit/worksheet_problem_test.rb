@@ -74,9 +74,12 @@ class WorksheetProblemTest < ActiveSupport::TestCase
   end
     
   test "replacement_available? excludes similar problems from worksheet from consideration" do
-    three_similar_problems = Array.new(3, MathProblem.new)
-    @current_worksheet.expects(:similar_problems_on_worksheet).with(@worksheet_problem).returns(three_similar_problems)
-    @current_math_problem.expects(:sibling_available?).with({:exclude => three_similar_problems}).returns(true)
+    similar_worksheet_problems = Array.new(3, WorksheetProblem.new)
+    similar_worksheet_problems.each {|wp| wp.build_math_problem }
+    similar_math_problems = similar_worksheet_problems.map {|wp| wp.math_problem }
+    
+    @current_worksheet.expects(:similar_problems_on_worksheet).with(@worksheet_problem).returns(similar_worksheet_problems)
+    @current_math_problem.expects(:sibling_available?).with({:exclude => similar_math_problems}).returns(true)
 
     assert @worksheet_problem.replacement_available?
   end

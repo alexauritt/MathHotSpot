@@ -34,8 +34,8 @@ class WorksheetProblem < ActiveRecord::Base
   end
   
   def replacement_available?
-    similars = worksheet.similar_problems_on_worksheet(self)
-    math_problem.sibling_available?(:exclude => similars)
+    similar_worksheet_problems = worksheet.similar_problems_on_worksheet(self)
+    math_problem.sibling_available?(:exclude => similar_worksheet_problems.map {|wp| wp.math_problem })
   end
   
   private
