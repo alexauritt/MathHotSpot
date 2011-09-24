@@ -35,7 +35,7 @@ class WorksheetProblem < ActiveRecord::Base
   
   def replacement_available?
     similars = worksheet.similar_problems_on_worksheet(self)
-    math_problem.replacement_available?(:exclude => similars)
+    math_problem.sibling_available?(:exclude => similars)
   end
   
   private

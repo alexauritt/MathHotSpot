@@ -40,6 +40,15 @@ class MathProblem < ActiveRecord::Base
     requested_sibs = max_count == nil ? all_siblings : all_siblings.first(max_count)
   end
   
+  def sibling_available?(options = {})
+    begin
+      available_problems = find_problem_from_same_level options
+      true
+    rescue
+      false
+    end
+  end
+  
   def find_problem_from_same_level(options = {})
     available_problems = MathProblem.find_all_by_problem_level_id(self.problem_level.id)
 

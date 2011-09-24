@@ -184,6 +184,33 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal false, problem.valid?
   end
   
+  test "sibling_available? returns true with one sibling found and no restrictions" do
+    level_id = 987
+    @level.stubs(:id).returns(level_id)
+
+    MathProblem.expects(:find_all_by_problem_level_id).with(level_id).returns(@three_problems)
+
+    assert @math_problem.sibling_available?
+  end
+  
+  test "sibling_available returns true if one option left" do
+    level_id = 987
+    @level.stubs(:id).returns(level_id)
+
+    MathProblem.expects(:find_all_by_problem_level_id).with(level_id).returns(@three_problems)
+
+    assert @math_problem.sibling_available?(:exclude => [@another_problem])    
+  end
+  
+  test "sibling_available returns false if all options are excluded" do
+    level_id = 987
+    @level.stubs(:id).returns(level_id)
+
+    MathProblem.expects(:find_all_by_problem_level_id).with(level_id).returns(@three_problems)
+
+    assert_equal false, @math_problem.sibling_available?(:exclude => [@another_problem, @yet_another_problem])
+  end
+  
   private
   def stub_math_problem_order_to_return_sorted_list(ordered_problem_list)
     MathProblem.stubs(:grouped_problems).returns(ordered_problem_list)

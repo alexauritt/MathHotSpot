@@ -76,7 +76,7 @@ class WorksheetProblemTest < ActiveSupport::TestCase
   test "replacement_available? excludes similar problems from worksheet from consideration" do
     three_similar_problems = Array.new(3, MathProblem.new)
     @current_worksheet.expects(:similar_problems_on_worksheet).with(@worksheet_problem).returns(three_similar_problems)
-    @current_math_problem.expects(:replacement_available?).with({:exclude => three_similar_problems}).returns(true)
+    @current_math_problem.expects(:sibling_available?).with({:exclude => three_similar_problems}).returns(true)
 
     assert @worksheet_problem.replacement_available?
   end
