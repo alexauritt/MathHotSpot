@@ -105,6 +105,10 @@
     problem_numbers.sort!
     worksheet_problems.empty? || (problem_numbers == Array(1..worksheet_problems.size))
   end
+  
+  def similar_problems_on_worksheet(worksheet_problem)
+    worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []
+  end  
     
   private
 
@@ -115,11 +119,7 @@
   def problems_must_be_sequentially_numbered
     errors.add(:worksheet_problems, "must be consecutive integers beginning with 1") unless problems_sequentially_numbered?
   end
-    
-  def similar_problems_on_worksheet(worksheet_problem)
-    worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []
-  end    
-  
+      
   def find_math_problem_number(problem_number)
     worksheet_problems[problem_number - 1].math_problem
   end

@@ -33,6 +33,11 @@ class WorksheetProblem < ActiveRecord::Base
     save
   end
   
+  def replacement_available?
+    similars = worksheet.similar_problems_on_worksheet(self)
+    math_problem.replacement_available?(:exclude => similars)
+  end
+  
   private
   
   def worksheet_exists

@@ -4,9 +4,9 @@ class WorksheetProblemTest < ActiveSupport::TestCase
 
   def setup
     @worksheet_problem = WorksheetProblem.new
-    @current_problem = @worksheet_problem.build_math_problem(:question_markup => "a question")
-    @current_problem.build_problem_level
-    # @current_problem.build_problem_type
+    @current_math_problem = @worksheet_problem.build_math_problem(:question_markup => "a question")
+    @current_worksheet = @worksheet_problem.build_worksheet
+    @current_math_problem.build_problem_level
   end
 
   test "problem_level returns instance of ProblemLevel" do
@@ -20,7 +20,7 @@ class WorksheetProblemTest < ActiveSupport::TestCase
   test "replace_math_problem delegates to MathProblem" do
     new_math_problem = MathProblem.new
     
-    @current_problem.expects(:find_problem_from_same_level).with({:exclude => []}).returns(new_math_problem)
+    @current_math_problem.expects(:find_problem_from_same_level).with({:exclude => []}).returns(new_math_problem)
     
     @worksheet_problem.replace_math_problem
     assert_equal new_math_problem, @worksheet_problem.math_problem
@@ -31,7 +31,7 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     similar_worksheet_problem = WorksheetProblem.new
     similar_math_problem = similar_worksheet_problem.build_math_problem
     
-    @current_problem.expects(:find_problem_from_same_level).with({:exclude => [similar_math_problem]}).returns(new_math_problem)
+    @current_math_problem.expects(:find_problem_from_same_level).with({:exclude => [similar_math_problem]}).returns(new_math_problem)
     @worksheet_problem.replace_math_problem({:exclude => [similar_worksheet_problem]})
     
     assert_equal new_math_problem, @worksheet_problem.math_problem
@@ -71,6 +71,14 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     assert_nothing_raised do
       assert_nil wp.level_number
     end
+  end
+    
+  test "replacement_available? excludes similar problems from worksheet from consideration" do
+    three_similar_problems = Array.new(3, MathProblem.new)
+    @current_worksheet.expects(:similar_problems_on_worksheet).with(@worksheet_problem).returns(three_similar_problems)
+    @current_math_problem.expects(:replacement_available?).with({:exclude => three_similar_problems}).returns(true)
+
+    assert @worksheet_problem.replacement_available?
   end
   
 end
