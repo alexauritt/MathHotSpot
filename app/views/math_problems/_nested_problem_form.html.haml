@@ -1,22 +1,3 @@
 .new_problem_form
   =builder.fields_for :math_problems do |problem_builder|
-    #math-markup-input-fields
-      #question
-        #question-equation-editor
-          = equation_editor_link 'Launch Equation Editor for Question', 'question-markup-input'
-        .editor-explanation
-          (note: will add to existing markup)
-        #question_markup
-          = problem_builder.label :question_markup
-          %br
-          = problem_builder.text_area :question_markup, :id => 'question-markup-input'
-      #answer
-        #answer-equation-editor
-          = equation_editor_link 'Launch Equation Editor for Answer', 'answer-markup-input'
-        .editor-explanation
-          (note: will add to existing markup)
-        #answer_markup
-          = problem_builder.label :answer_markup
-          %br
-          = problem_builder.text_area :answer_markup, :id => 'answer-markup-input'
- 
+    =render :partial => 'math_problems/question_and_answer_markup', :locals => { :form => problem_builder }

@@ -5,30 +5,25 @@
 %h3
   = "Create A New Problem Type"
 
-= form_for(@problem_type) do |t|
+= simple_form_for(@problem_type) do |t|
 
   #category.problem-type-section
-    = t.label :category_id, "Category"
-    = t.select(:category_id, category_choices)
+    = t.association :category
     .link
       = link_to "Create a new Category", new_category_url
   
   #title.problem-type-section
-    = t.label :title, "Title"
-    = t.text_field :title
+    = t.input :title
 
   #instruction.problem-type-section
-    = t.label :instruction_id, "Instruction"
-    = t.select :instruction_id, instruction_choices
+    = t.association :instruction
     .link
       = link_to "Make new Instructions", new_instructions_path
   
   #problem-level-builder.problem-type-section
     = t.fields_for :problem_levels do |level_builder|
       #level-number
-        = level_builder.label :level_number
-        = level_builder.text_field :level_number
-  
+        = level_builder.input :level_number  
         = render(:partial => "math_problems/nested_problem_form", :locals => {:builder => level_builder})
 
   .actions

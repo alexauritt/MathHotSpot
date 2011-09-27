@@ -7,6 +7,7 @@
         - math_problem.errors.full_messages.each do |msg|
           %li
             = msg
+  = f.association :problem_level, :as => :hidden
   = render :partial => 'math_problems/question_and_answer_markup', :locals => { :form => f }
   
   #level
