@@ -174,11 +174,19 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal 3, problem.siblings(3).count
   end
   
-  test "math problem is invalid without problem_level" do
+  test "math problem is valid without if problem_level nil" do
     problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup', :owner => User.first)
-    assert_equal false, problem.valid?
+    assert problem.valid?
   end
   
+  test "math problem invalid if problem_level_id specified but not in db" do
+    level_id = 666
+    ProblemLevel.expects(:exists?).with(level_id).returns(false)
+    problem = Factory.build(:math_problem, :problem_level_id => level_id)
+    
+    assert_equal false, problem.valid?
+  end
+    
   test "math problem is invalid without owner" do
     problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup', :problem_level => problem_levels(:dividing_monomials_level_01))
     assert_equal false, problem.valid?
