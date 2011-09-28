@@ -20,8 +20,6 @@ module RightRabbitErrors
   class ProblemNumberMissing < StandardError; end
 end
 
-
-
 module MathHotSpotErrors
   module WorksheetModifierErrors
     module Messages
@@ -32,6 +30,7 @@ module MathHotSpotErrors
     class UNIQUE_PROBLEM_REPLACE_ERROR < StandardError; end     
     class NO_SIMILAR_PROBLEMS_REMAINING < StandardError; end
     class PROBLEM_NUMBER_MISSING_ERROR < StandardError; end
+    class ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR < StandardError; end
   end
     
   class Message

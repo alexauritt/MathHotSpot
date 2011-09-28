@@ -26,6 +26,10 @@ class WorksheetProblem < ActiveRecord::Base
     math_problem.instruction_description
   end
   
+  def classified?
+    math_problem.nil? ? false : math_problem.classified?
+  end
+  
   def replace_math_problem(options = {:exclude => []})
     current_problem = self.math_problem
     options[:exclude] = options[:exclude].map { |worksheet_problem| worksheet_problem.math_problem } || []

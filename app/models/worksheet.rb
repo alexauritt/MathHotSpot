@@ -26,6 +26,10 @@
   def problem_exists?(problem_number)
     !(problem problem_number).nil?
   end
+  
+  def problem_classified?(problem_number)
+    problem_exists?(problem_number) ? problem(problem_number).classified? : false
+  end
     
   def empty?
     problem_count == 0
@@ -56,13 +60,15 @@
   def replace_problem(problem_number)
     begin
       raise ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR unless problem_exists?(problem_number)
+      raise ProblemReplacementErrors::ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR unless problem_classified?(problem_number)
       target_worksheet_problem = problem problem_number
       similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
       target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
       target_worksheet_problem
     rescue NoSimilarProblemsRemainingError,
       UniqueProblemError, 
-      ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
+      ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR,
+      ProblemReplacementErrors::ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR => bam
       errors[:replace_failure] << bam
       nil
     end

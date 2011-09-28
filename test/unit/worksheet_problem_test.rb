@@ -84,4 +84,14 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     assert @worksheet_problem.replacement_available?
   end
   
+  test "classified? queries math_problem" do
+    @current_math_problem.expects(:classified?).returns(true)
+    assert @worksheet_problem.classified?
+  end
+  
+  test "classified? returns false if no math_problem specified" do
+    worksheet_problem = WorksheetProblem.new
+    assert_equal false, worksheet_problem.classified?
+  end
+  
 end
