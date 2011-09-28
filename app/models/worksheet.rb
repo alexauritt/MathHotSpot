@@ -65,10 +65,13 @@
       similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
       target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
       target_worksheet_problem
+    rescue ProblemReplacementErrors::ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR => e
+      Rails.logger.error "worksheet.replace_problem called for unclassified problem number."
+      errors[:replace_failure] << e
+      nil
     rescue NoSimilarProblemsRemainingError,
       UniqueProblemError, 
-      ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR,
-      ProblemReplacementErrors::ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR => bam
+      ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
       errors[:replace_failure] << bam
       nil
     end
