@@ -81,11 +81,7 @@ class MathProblem < ActiveRecord::Base
   end
   
   def problem_level_exists_if_specified
-    begin
-      errors.add(:problem_level_id, "doesn't exist") unless (problem_level_id.nil? || problem_level || (problem_level_id && ProblemLevel.exists?(problem_level_id)))
-    rescue
-      errors.add(:problem_level_id, "not found in db")
-    end
+    errors.add(:problem_level_id, "not found in db") unless (problem_level_id.nil? || problem_level || (problem_level_id && ProblemLevel.exists?(problem_level_id)))
   end
   
   def strip_excess_tags
