@@ -83,6 +83,12 @@
         errors[:base] << WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
         return nil
       end
+            
+      unless problem_classified? number
+        Rails.logger.error WorksheetModifierErrors::Messages::PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE
+        errors[:base] << WorksheetModifierErrors::Messages::PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE
+        return nil
+      end
     
       target_worksheet_problem = problem number
       target_math_problem = target_worksheet_problem.math_problem

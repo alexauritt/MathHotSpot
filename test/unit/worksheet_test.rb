@@ -209,6 +209,17 @@ class WorksheetTest < ActiveSupport::TestCase
     assert worksheet.errors[:base].include? msg
   end
   
+  test "add_problem_like! returns nil if specified problem number not classified" do
+    worksheet = Factory.build(:worksheet)
+    worksheet_problem_attributes = Factory.attributes_for(:worksheet_problem, :worksheet => worksheet, :problem_number => 1)
+    worksheet_problem = worksheet.worksheet_problems.build(worksheet_problem_attributes)
+    worksheet_problem.expects(:classified?).returns(false)
+    assert_nil worksheet.add_problem_like! 1
+    
+    expected_msg = MathHotSpotErrors::WorksheetModifierErrors::Messages::PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE
+    assert worksheet.errors[:base].include? expected_msg
+  end
+  
   test "add_problem_like! creates and returns a new worksheet problem" do
     prob_number = 2
     worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
@@ -239,6 +250,7 @@ class WorksheetTest < ActiveSupport::TestCase
   
   test "add_problem_like! returns nil and sets error if problem is unique" do
     worksheet = create_worksheet_with_all_problems_from_same_level!
+    WorksheetProblem.any_instance.stubs(:classified?).returns(true)
     first_mp = MathProblem.new
     first_mp.expects(:find_problem_from_same_level).raises(UniqueProblemError.new)
     first_wp = worksheet.worksheet_problems.first

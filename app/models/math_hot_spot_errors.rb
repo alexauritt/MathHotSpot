@@ -24,6 +24,7 @@ module MathHotSpotErrors
   module WorksheetModifierErrors
     module Messages
       PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE = "Unable to add new problem."
+      PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE = "Attempt to add new problem like unclassifed math problem"
     end
   end
   module ProblemReplacementErrors
