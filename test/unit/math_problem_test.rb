@@ -219,6 +219,15 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal false, @math_problem.sibling_available?(:exclude => [@another_problem, @yet_another_problem])
   end
   
+  test "math problems with specified problem levels are considered classified" do
+    assert @math_problem.classified?, "Math Problem should be classified because problem_level is specified"
+  end
+  
+  test "math problem with no problem_level are NOT classified" do
+    problem = Factory.build(:math_problem, :problem_level_id => nil)
+    assert_equal false, problem.classified?
+  end
+  
   private
   def stub_math_problem_order_to_return_sorted_list(ordered_problem_list)
     MathProblem.stubs(:grouped_problems).returns(ordered_problem_list)

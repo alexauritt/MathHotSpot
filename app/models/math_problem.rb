@@ -70,7 +70,11 @@ class MathProblem < ActiveRecord::Base
     end
     
     without_original[rand(without_original.size)]
-  end  
+  end
+  
+  def classified?
+    !problem_level.nil?
+  end
   
   private
 
