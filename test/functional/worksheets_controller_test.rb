@@ -31,6 +31,11 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_response :success
   end
   
+  test "new worksheet" do
+    get :new
+    assert_response :success
+  end
+  
   test "destroy worksheet" do
     assert_difference('Worksheet.count', -1) do
       delete :destroy, :id => @worksheet

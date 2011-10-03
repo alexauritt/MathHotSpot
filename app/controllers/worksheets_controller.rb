@@ -43,6 +43,8 @@ class WorksheetsController < ApplicationController
       end
     end
   end
+
   def new
+    @worksheet = Worksheet.new
   end
 end
