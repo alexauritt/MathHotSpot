@@ -22,7 +22,7 @@ class CreateNewEmptyWorksheetTest < ActionDispatch::IntegrationTest
     assert page.has_no_content? title
     
     within('#my-worksheets') do
-      click_link "Create New Worksheet"
+      click_link "Create a New Worksheet"
     end
     
     assert_current_path new_worksheet_path
