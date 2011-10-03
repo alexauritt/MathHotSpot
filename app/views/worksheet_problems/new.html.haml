@@ -1,1 +1,6 @@
-This is a form for a new worksheet
+= simple_form_for @worksheet_problem do |wp|
+  = wp.input :worksheet_id, :as => :hidden
+  = wp.fields_for :math_problem do |mp_builder|
+    = mp_builder.input :question_markup
+    = mp_builder.input :answer_markup
+  = wp.submit

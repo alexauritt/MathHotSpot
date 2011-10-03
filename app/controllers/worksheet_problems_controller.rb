@@ -21,5 +21,7 @@ class WorksheetProblemsController < ApplicationController
   
   def new
     @worksheet = Worksheet.find params[:worksheet_id]
+    @worksheet_problem = @worksheet.worksheet_problems.build
+    @math_problem = @worksheet_problem.build_math_problem
   end
 end

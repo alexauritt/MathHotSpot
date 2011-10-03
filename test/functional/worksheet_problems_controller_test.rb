@@ -35,10 +35,11 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
 
     assert_response :success
     assert assigns(:worksheet)
-    pending "should display hidden worksheet id"
-    pending "should display form for nested new unclassified math problem"
+    assert_worksheet_id_specified_but_hidden worksheet_id
+    assert_nested_math_problem_form
+    
   end
-  
+      
   private
   
   def assert_current_user_is_owner(object)
@@ -62,4 +63,13 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
     ProblemLevel.stubs(:exists?).with(problem_level_id).returns(true)
     level
   end
+  
+  def assert_worksheet_id_specified_but_hidden(worksheet_id)
+    assert_select "#worksheet_problem_worksheet_id", {:type => "hidden", :value => worksheet_id}
+  end
+  
+  def assert_nested_math_problem_form
+    assert_select "textarea#worksheet_problem_math_problem_question_markup"
+    assert_select "textarea#worksheet_problem_math_problem_answer_markup"
+  end  
 end
