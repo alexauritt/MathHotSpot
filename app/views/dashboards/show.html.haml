@@ -12,6 +12,8 @@
       -@worksheets.each do |worksheet|
         %li.worksheet
           =link_to worksheet.title, worksheet_path(worksheet)
+      .new-item
+        =link_to "Create New Worksheet", new_worksheet_url
   #my-problem-types
     %h2 My Problem Types
     .dashboard-list#problem-types
