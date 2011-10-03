@@ -31,6 +31,17 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_response :success
   end
   
+  test "edit worksheet has link to Add Problem" do
+    worksheet = Factory.build(:worksheet)
+    worksheet_id = 233456
+    Worksheet.expects(:find).with(worksheet_id).returns(worksheet)
+    worksheet.stubs(:id).returns(worksheet_id)
+
+    get :edit, :id => worksheet.id
+    
+    assert_select "input.worksheet-button", {:attributes => {:value => 'Add New Problem' }}
+  end
+  
   test "new worksheet" do
     get :new
     assert_response :success

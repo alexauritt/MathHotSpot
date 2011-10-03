@@ -28,19 +28,23 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
   
   test "new worksheet problem" do
     worksheet_id = 234345
-    worksheet = Factory.build(:worksheet)
-    Worksheet.expects(:find).with(worksheet_id).returns(worksheet)
-
+    mock_worksheet_for_id! worksheet_id
+    
     get :new, :worksheet_id => worksheet_id
-
+    
     assert_response :success
     assert assigns(:worksheet)
     assert_worksheet_id_specified_but_hidden worksheet_id
     assert_nested_math_problem_form
     
   end
-      
+
   private
+  
+  def mock_worksheet_for_id!(id)
+    worksheet = Factory.build(:worksheet)
+    Worksheet.expects(:find).with(id).returns(worksheet)
+  end
   
   def assert_current_user_is_owner(object)
     assert_equal @current_user, object.owner
@@ -69,7 +73,7 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
   end
   
   def assert_nested_math_problem_form
-    assert_select "textarea#worksheet_problem_math_problem_question_markup"
-    assert_select "textarea#worksheet_problem_math_problem_answer_markup"
+    assert_select "textarea#question-markup-input"
+    assert_select "textarea#answer-markup-input"
   end  
 end

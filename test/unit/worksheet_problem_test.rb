@@ -94,4 +94,14 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     assert_equal false, worksheet_problem.classified?
   end
   
+  test "worksheet_title" do
+    title = "a great worksheet"
+    mock_worksheet = Worksheet.new
+    mock_worksheet.expects(:title).returns(title)
+    
+    problem = WorksheetProblem.new(:worksheet => mock_worksheet)
+    
+    assert_equal title, problem.worksheet_title
+  end
+  
 end
