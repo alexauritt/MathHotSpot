@@ -26,6 +26,19 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
     assert_redirected_to edit_worksheet_path(worksheet)
   end
   
+  test "new worksheet problem" do
+    worksheet_id = 234345
+    worksheet = Factory.build(:worksheet)
+    Worksheet.expects(:find).with(worksheet_id).returns(worksheet)
+
+    get :new, :worksheet_id => worksheet_id
+
+    assert_response :success
+    assert assigns(:worksheet)
+    pending "should display hidden worksheet id"
+    pending "should display form for nested new unclassified math problem"
+  end
+  
   private
   
   def assert_current_user_is_owner(object)

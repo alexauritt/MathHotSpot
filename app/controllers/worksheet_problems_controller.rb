@@ -18,4 +18,8 @@ class WorksheetProblemsController < ApplicationController
       redirect_to(edit_worksheet_path(worksheet), :notice => 'Unable to create new worksheet problem.')
     end
   end
+  
+  def new
+    @worksheet = Worksheet.find params[:worksheet_id]
+  end
 end
