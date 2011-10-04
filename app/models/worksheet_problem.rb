@@ -10,6 +10,14 @@ class WorksheetProblem < ActiveRecord::Base
   validate :worksheet_exists, :math_problem_exists
   after_destroy :renumber_remaining_worksheet_problems!
   
+  def sibling_count
+    siblings.count
+  end
+  
+  def siblings
+    worksheet.worksheet_problems - Array(self)
+  end
+  
   def problem_level
     math_problem.nil? ? nil : math_problem.problem_level
   end

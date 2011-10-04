@@ -2,8 +2,11 @@
   %title
     New Worksheet Problem for 
     = @worksheet.title
-  = stylesheet_link_tag "problem_entry_form"
+  = stylesheet_link_tag "problem_entry_form", "worksheet"
   = javascript_include_tag latex_generator_popup_url
+
+#new-problem-title
+  Add New Problem
 
 = simple_form_for @worksheet_problem do |wp|
   = wp.input :worksheet_id, :as => :hidden
@@ -11,3 +14,5 @@
     = render :partial => "math_problems/question_and_answer_markup", :locals => { :form => mp_builder }
   .actions
     = wp.submit
+    
+= render :partial => "worksheet_problems/sibling_worksheet_problems", :locals => {:worksheet_problem => @worksheet_problem}

@@ -104,4 +104,22 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     assert_equal title, problem.worksheet_title
   end
   
+  test "sibling_count" do
+    sibling_count = 9
+    siblings = Array.new(sibling_count, Factory.build(:worksheet_problem))
+    siblings_and_self = siblings + Array(@worksheet_problem)
+
+    @current_worksheet.expects(:worksheet_problems).returns(siblings_and_self)
+
+    assert_equal sibling_count, @worksheet_problem.sibling_count
+  end
+  
+  test "siblings" do
+    siblings = Array.new(3, Factory.build(:worksheet_problem))
+    siblings_and_self = siblings + Array(@worksheet_problem)
+
+    @current_worksheet.expects(:worksheet_problems).returns(siblings_and_self)
+
+    assert_equal siblings, @worksheet_problem.siblings
+  end
 end
