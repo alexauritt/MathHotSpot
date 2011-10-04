@@ -22,6 +22,10 @@ class WorksheetProblem < ActiveRecord::Base
     math_problem.nil? ? nil : math_problem.problem_level
   end
   
+  def problem_type_title
+    problem_level.nil? ? RightRabbitErrors::UNCLASSFIED_PROBLEM : problem_level.problem_type_title
+  end
+  
   def level_number
     problem_level.nil? ? nil : problem_level.level_number
   end

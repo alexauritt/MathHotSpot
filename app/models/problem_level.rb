@@ -25,6 +25,10 @@ class ProblemLevel < ActiveRecord::Base
   def empty?
     math_problems.empty?
   end
+  
+  def problem_type_title
+    problem_type.title
+  end
 
   def demo_problem
     math_problems.first

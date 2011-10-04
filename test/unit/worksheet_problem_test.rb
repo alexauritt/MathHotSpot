@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class WorksheetProblemTest < ActiveSupport::TestCase
-
+  include RightRabbitErrors
+  
   def setup
     @worksheet_problem = WorksheetProblem.new
     @current_math_problem = @worksheet_problem.build_math_problem(:question_markup => "a question")
@@ -122,4 +123,16 @@ class WorksheetProblemTest < ActiveSupport::TestCase
 
     assert_equal siblings, @worksheet_problem.siblings
   end
+  
+  test "problem_type_title" do
+    title = "OOOOOOOGGGA SHOCKA!!!!!!"
+    @current_math_problem.problem_level.stubs(:problem_type_title).returns(title)
+    assert_equal title, @worksheet_problem.problem_type_title
+  end
+  
+  test "problem_type_title returns Unclassified Math Problem msg if problem is unclassified" do
+    @current_math_problem.problem_level = nil
+    assert_equal UNCLASSFIED_PROBLEM, @worksheet_problem.problem_type_title 
+  end
+  
 end

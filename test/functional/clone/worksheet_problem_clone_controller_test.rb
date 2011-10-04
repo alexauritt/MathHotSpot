@@ -9,7 +9,17 @@ class Clone::WorksheetProblemCloneControllerTest < AuthenticatingControllerTestC
   end
   
   test "new" do
-    worksheet_problem = mock_worksheet_problem!
+    mock_worksheet_problem!
+    get :new, { :worksheet_id => @worksheet_id, :problem_number => @problem_number }
+    
+    assert_hidden_worksheet_id_input! @worksheet_id
+    assert_response :success
+  end
+  
+  test "new for unclassified math problem" do
+    @worksheet_problem.math_problem.problem_level = nil
+    mock_worksheet_problem!
+
     get :new, { :worksheet_id => @worksheet_id, :problem_number => @problem_number }
     
     assert_hidden_worksheet_id_input! @worksheet_id
@@ -17,6 +27,7 @@ class Clone::WorksheetProblemCloneControllerTest < AuthenticatingControllerTestC
   end
   
   private
+
   def assert_hidden_worksheet_id_input!(worksheet_id)
     assert_select "form input#worksheet_problem_worksheet_id[value=#{worksheet_id}][type=hidden]"
   end
@@ -27,4 +38,5 @@ class Clone::WorksheetProblemCloneControllerTest < AuthenticatingControllerTestC
     WorksheetProblem.expects(:find_by_worksheet_id_and_problem_number).with(worksheet_id, problem_number).returns(@worksheet_problem)
     @worksheet_problem
   end
+  
 end

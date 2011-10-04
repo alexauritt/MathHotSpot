@@ -6,6 +6,8 @@ module RightRabbitErrors
   NO_INSTRUCTIONS = "No instructions provided."
   NO_LEVEL_NUMBER = "No level_number level specified."
   
+  UNCLASSFIED_PROBLEM = "Unclassified Math Problem."
+  
   NO_SAMPLE_MATH_PROBLEM_FOUND = "No Sample Math Problem was found"
   
   NO_LEVEL_DELETE = "Unable to delete level. (Perhaps the level was not empty.)"

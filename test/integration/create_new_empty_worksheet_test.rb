@@ -34,4 +34,5 @@ class CreateNewEmptyWorksheetTest < ActionDispatch::IntegrationTest
     visit dashboard_path
     assert page.has_content? title
   end
+  
 end
