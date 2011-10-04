@@ -8,10 +8,7 @@
 Create new Math Problem for
 = @worksheet_problem.worksheet_title
 
-#problem-type-display
-  = @worksheet_problem.problem_type_title
-#level-number-display
-  = "Level: #{@worksheet_problem.level_number}"
+= display_level_info_if_classified! @worksheet_problem
 
 = simple_form_for(@worksheet_problem) do |wpf|
   = wpf.input :worksheet_id, :as => :hidden

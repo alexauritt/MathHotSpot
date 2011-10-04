@@ -7,4 +7,10 @@ module WorksheetProblemsHelper
       render :partial => 'worksheet_problems/create_similar_problem', :locals => locals
     end
   end
+  
+  def display_level_info_if_classified!(worksheet_problem)
+    if worksheet_problem.classified?
+      render :partial => "worksheet_problems/type_and_level_info", :locals => {:worksheet_problem => worksheet_problem }
+    end
+  end
 end
