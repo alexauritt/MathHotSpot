@@ -20,7 +20,7 @@ gem 'kaminari'
 group :development, :test do
   gem 'capybara'
   gem 'mocha', :require => false
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent'
   gem 'guard-test'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
