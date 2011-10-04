@@ -1,3 +1,8 @@
+- content_for :head do
+  %title Edit Math Problem
+  = stylesheet_link_tag "math_display", "problem_entry_form"
+  = javascript_include_tag latex_generator_popup_url
+
 %h1 Editing Math Problem
 #problem_type_info
   Problem Type: 
@@ -11,7 +16,7 @@
 %b Answer:
 =display_mathml_answer(@math_problem)
 
-=render 'form'
+=render :partial => 'math_problems/form', :locals => { :math_problem => @math_problem }
 
 =link_to 'Show', @math_problem
 |

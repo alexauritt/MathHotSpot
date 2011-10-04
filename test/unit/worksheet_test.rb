@@ -47,14 +47,18 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal 10, problem_groups.size
   end
 
-  test "replace_problem fails and returns nil if bad problem number specified" do
+  test "replace_problem returns nil and generates replace_failure error if problem number specified is not on worksheet" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 2 })
 
-    assert_nil @worksheet.replace_problem(20)    
+    assert_nil @worksheet.replace_problem(20)
+    assert_not_nil @worksheet.errors[:replace_failure]
+  
   end
   
   test "replace_problem delegates replacement to worksheet problem and excludes similar problems on worksheet" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 4 })
+    WorksheetProblem.any_instance.stubs(:classified?).returns(true)
+    
     level1, level2 = mock, mock
     
     worksheet_problems = @worksheet.worksheet_problems
@@ -63,11 +67,11 @@ class WorksheetTest < ActiveSupport::TestCase
     worksheet_problems[1].expects(:replace_math_problem).with({:exclude => worksheet_problems[2..3]}).returns(true)
 
     @worksheet.replace_problem 2
-
   end
 
   test "replace_problem replaces expected problem" do
     create_mock_worksheet_problems_for(@worksheet, { :count => 3 })
+    WorksheetProblem.any_instance.stubs(:classified?).returns(true)
     
     worksheet_problems = @worksheet.worksheet_problems
     
@@ -79,6 +83,29 @@ class WorksheetTest < ActiveSupport::TestCase
     @worksheet.replace_problem 2
     
     assert_equal replacement_problem, @worksheet.worksheet_problems[1].math_problem
+  end
+  
+  test "replace_problem returns nil if number specifies an unclassified problem" do
+    worksheet = Factory.build(:worksheet)
+    math_problem = Factory.build(:math_problem)
+    math_problem.expects(:classified?).returns(false)
+    worksheet.worksheet_problems.build(:math_problem => math_problem, :problem_number => 1)
+    
+    assert_nil worksheet.replace_problem(1)
+  end
+  
+  test "problem_classified? queries appropriate worksheet_problem" do
+    worksheet = Factory.build(:worksheet)
+    worksheet_problem = worksheet.worksheet_problems.build
+
+    worksheet_problem.expects(:classified?).returns(true)
+    
+    worksheet.problem_classified? 1
+  end
+  
+  test "problem_classified? returns false if specified problem_number does not exist on worksheet" do
+    worksheet = Factory.build(:worksheet)
+    assert_equal false, worksheet.problem_classified?(40)
   end
   
   test "similar problems on worksheet" do
@@ -182,6 +209,17 @@ class WorksheetTest < ActiveSupport::TestCase
     assert worksheet.errors[:base].include? msg
   end
   
+  test "add_problem_like! returns nil if specified problem number not classified" do
+    worksheet = Factory.build(:worksheet)
+    worksheet_problem_attributes = Factory.attributes_for(:worksheet_problem, :worksheet => worksheet, :problem_number => 1)
+    worksheet_problem = worksheet.worksheet_problems.build(worksheet_problem_attributes)
+    worksheet_problem.expects(:classified?).returns(false)
+    assert_nil worksheet.add_problem_like! 1
+    
+    expected_msg = MathHotSpotErrors::WorksheetModifierErrors::Messages::PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE
+    assert worksheet.errors[:base].include? expected_msg
+  end
+  
   test "add_problem_like! creates and returns a new worksheet problem" do
     prob_number = 2
     worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
@@ -212,6 +250,7 @@ class WorksheetTest < ActiveSupport::TestCase
   
   test "add_problem_like! returns nil and sets error if problem is unique" do
     worksheet = create_worksheet_with_all_problems_from_same_level!
+    WorksheetProblem.any_instance.stubs(:classified?).returns(true)
     first_mp = MathProblem.new
     first_mp.expects(:find_problem_from_same_level).raises(UniqueProblemError.new)
     first_wp = worksheet.worksheet_problems.first
@@ -267,8 +306,8 @@ class WorksheetTest < ActiveSupport::TestCase
   
   def create_mock_worksheet_problems_for(worksheet, options = { :count => 1 })
     options[:count].times do |i|
-      worksheet_problem = worksheet.worksheet_problems.build
-      worksheet_problem.build_math_problem(:question_markup => "this is some question markup #{i}")
+      worksheet_problem = worksheet.worksheet_problems.build(:problem_number => i+1)
+      worksheet_problem.build_math_problem(:question_markup => "this is some question markup #{i+1}")
     end
   end
   

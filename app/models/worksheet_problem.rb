@@ -10,8 +10,20 @@ class WorksheetProblem < ActiveRecord::Base
   validate :worksheet_exists, :math_problem_exists
   after_destroy :renumber_remaining_worksheet_problems!
   
+  def sibling_count
+    siblings.count
+  end
+  
+  def siblings
+    worksheet.worksheet_problems - Array(self)
+  end
+  
   def problem_level
     math_problem.nil? ? nil : math_problem.problem_level
+  end
+  
+  def problem_type_title
+    problem_level.nil? ? RightRabbitErrors::UNCLASSFIED_PROBLEM : problem_level.problem_type_title
   end
   
   def level_number
@@ -26,11 +38,24 @@ class WorksheetProblem < ActiveRecord::Base
     math_problem.instruction_description
   end
   
+  def classified?
+    math_problem.nil? ? false : math_problem.classified?
+  end
+  
+  def worksheet_title
+    worksheet.title
+  end
+  
   def replace_math_problem(options = {:exclude => []})
     current_problem = self.math_problem
     options[:exclude] = options[:exclude].map { |worksheet_problem| worksheet_problem.math_problem } || []
     self.math_problem = current_problem.find_problem_from_same_level(options)
     save
+  end
+  
+  def replacement_available?
+    similar_worksheet_problems = worksheet.similar_problems_on_worksheet(self)
+    math_problem.sibling_available?(:exclude => similar_worksheet_problems.map {|wp| wp.math_problem })
   end
   
   private

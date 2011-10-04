@@ -9,9 +9,12 @@
   #my-worksheets
     %h2 My Worksheets
     .dashboard-list#worksheets
-      -@worksheets.each do |worksheet|
-        %li.worksheet
-          =link_to worksheet.title, worksheet_path(worksheet)
+      %ul
+        -@worksheets.each do |worksheet|
+          %li.worksheet
+            =link_to worksheet.title, worksheet_path(worksheet)
+      .new-item
+        =link_to "Create a New Worksheet", new_worksheet_url
   #my-problem-types
     %h2 My Problem Types
     .dashboard-list#problem-types
@@ -20,4 +23,4 @@
           %li.problem-type
             =link_to problem_type.title, problem_type_path(problem_type)
       .new-item
-        =link_to "Create a new ProblemType", new_problem_type_url 
+        =link_to "Create a New ProblemType", new_problem_type_url 

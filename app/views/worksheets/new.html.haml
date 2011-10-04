@@ -1,0 +1,11 @@
+- content_for :head do
+  %title 
+    New Worksheet
+
+#new-worksheet-form
+  = simple_form_for(@worksheet) do |w|
+    #worksheet-title
+      = w.input :title
+    #submit
+      = w.submit 
+

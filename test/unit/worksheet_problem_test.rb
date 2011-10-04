@@ -1,12 +1,13 @@
 require 'test_helper'
 
 class WorksheetProblemTest < ActiveSupport::TestCase
-
+  include RightRabbitErrors
+  
   def setup
     @worksheet_problem = WorksheetProblem.new
-    @current_problem = @worksheet_problem.build_math_problem(:question_markup => "a question")
-    @current_problem.build_problem_level
-    # @current_problem.build_problem_type
+    @current_math_problem = @worksheet_problem.build_math_problem(:question_markup => "a question")
+    @current_worksheet = @worksheet_problem.build_worksheet
+    @current_math_problem.build_problem_level
   end
 
   test "problem_level returns instance of ProblemLevel" do
@@ -20,7 +21,7 @@ class WorksheetProblemTest < ActiveSupport::TestCase
   test "replace_math_problem delegates to MathProblem" do
     new_math_problem = MathProblem.new
     
-    @current_problem.expects(:find_problem_from_same_level).with({:exclude => []}).returns(new_math_problem)
+    @current_math_problem.expects(:find_problem_from_same_level).with({:exclude => []}).returns(new_math_problem)
     
     @worksheet_problem.replace_math_problem
     assert_equal new_math_problem, @worksheet_problem.math_problem
@@ -31,7 +32,7 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     similar_worksheet_problem = WorksheetProblem.new
     similar_math_problem = similar_worksheet_problem.build_math_problem
     
-    @current_problem.expects(:find_problem_from_same_level).with({:exclude => [similar_math_problem]}).returns(new_math_problem)
+    @current_math_problem.expects(:find_problem_from_same_level).with({:exclude => [similar_math_problem]}).returns(new_math_problem)
     @worksheet_problem.replace_math_problem({:exclude => [similar_worksheet_problem]})
     
     assert_equal new_math_problem, @worksheet_problem.math_problem
@@ -71,6 +72,67 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     assert_nothing_raised do
       assert_nil wp.level_number
     end
+  end
+    
+  test "replacement_available? excludes similar problems from worksheet from consideration" do
+    similar_worksheet_problems = Array.new(3, WorksheetProblem.new)
+    similar_worksheet_problems.each {|wp| wp.build_math_problem }
+    similar_math_problems = similar_worksheet_problems.map {|wp| wp.math_problem }
+    
+    @current_worksheet.expects(:similar_problems_on_worksheet).with(@worksheet_problem).returns(similar_worksheet_problems)
+    @current_math_problem.expects(:sibling_available?).with({:exclude => similar_math_problems}).returns(true)
+
+    assert @worksheet_problem.replacement_available?
+  end
+  
+  test "classified? queries math_problem" do
+    @current_math_problem.expects(:classified?).returns(true)
+    assert @worksheet_problem.classified?
+  end
+  
+  test "classified? returns false if no math_problem specified" do
+    worksheet_problem = WorksheetProblem.new
+    assert_equal false, worksheet_problem.classified?
+  end
+  
+  test "worksheet_title" do
+    title = "a great worksheet"
+    mock_worksheet = Worksheet.new
+    mock_worksheet.expects(:title).returns(title)
+    
+    problem = WorksheetProblem.new(:worksheet => mock_worksheet)
+    
+    assert_equal title, problem.worksheet_title
+  end
+  
+  test "sibling_count" do
+    sibling_count = 9
+    siblings = Array.new(sibling_count, Factory.build(:worksheet_problem))
+    siblings_and_self = siblings + Array(@worksheet_problem)
+
+    @current_worksheet.expects(:worksheet_problems).returns(siblings_and_self)
+
+    assert_equal sibling_count, @worksheet_problem.sibling_count
+  end
+  
+  test "siblings" do
+    siblings = Array.new(3, Factory.build(:worksheet_problem))
+    siblings_and_self = siblings + Array(@worksheet_problem)
+
+    @current_worksheet.expects(:worksheet_problems).returns(siblings_and_self)
+
+    assert_equal siblings, @worksheet_problem.siblings
+  end
+  
+  test "problem_type_title" do
+    title = "OOOOOOOGGGA SHOCKA!!!!!!"
+    @current_math_problem.problem_level.stubs(:problem_type_title).returns(title)
+    assert_equal title, @worksheet_problem.problem_type_title
+  end
+  
+  test "problem_type_title returns Unclassified Math Problem msg if problem is unclassified" do
+    @current_math_problem.problem_level = nil
+    assert_equal UNCLASSFIED_PROBLEM, @worksheet_problem.problem_type_title 
   end
   
 end

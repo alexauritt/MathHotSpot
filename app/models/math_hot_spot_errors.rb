@@ -6,6 +6,8 @@ module RightRabbitErrors
   NO_INSTRUCTIONS = "No instructions provided."
   NO_LEVEL_NUMBER = "No level_number level specified."
   
+  UNCLASSFIED_PROBLEM = "Unclassified Math Problem."
+  
   NO_SAMPLE_MATH_PROBLEM_FOUND = "No Sample Math Problem was found"
   
   NO_LEVEL_DELETE = "Unable to delete level. (Perhaps the level was not empty.)"
@@ -20,18 +22,18 @@ module RightRabbitErrors
   class ProblemNumberMissing < StandardError; end
 end
 
-
-
 module MathHotSpotErrors
   module WorksheetModifierErrors
     module Messages
       PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE = "Unable to add new problem."
+      PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE = "Attempt to add new problem like unclassifed math problem"
     end
   end
   module ProblemReplacementErrors
     class UNIQUE_PROBLEM_REPLACE_ERROR < StandardError; end     
     class NO_SIMILAR_PROBLEMS_REMAINING < StandardError; end
     class PROBLEM_NUMBER_MISSING_ERROR < StandardError; end
+    class ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR < StandardError; end
   end
     
   class Message

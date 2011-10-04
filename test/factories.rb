@@ -12,6 +12,10 @@ Factory.sequence :question_markup do |n|
   "this is some markup for a question ##{n}"
 end
 
+Factory.sequence :instruction_description do |i|
+  "Do what you're supposed to do for this question ##{i}"
+end
+
 Factory.define :user do |u|
   u.email { Factory.next(:email) }
   u.password 'secret'
@@ -41,6 +45,7 @@ Factory.define :problem_type do |pt|
   pt.permalink { ProblemType.generate_permalink_from title }
   pt.category {|c| c.association(:category) }
   pt.owner { |o| o.association(:user) }
+  pt.instruction {|i| i.association(:instruction) }
 end
 
 Factory.define :problem_level do |pl|
@@ -69,6 +74,10 @@ Factory.define :worksheet_problem do |wp|
   wp.problem_number 1
   wp.math_problem { |mp| mp.association(:math_problem) }
   wp.worksheet { |w| w.association(:worksheet)}
+end
+
+Factory.define :instruction do |i|
+  i.description { Factory.next(:instruction_description) }
 end
 
 Factory.define :tag do |t|

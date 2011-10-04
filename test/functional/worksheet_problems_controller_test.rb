@@ -22,10 +22,46 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
         post :create, :worksheet_problem => {:worksheet_id => worksheet.id, :math_problem_attributes => new_math_problem.attributes}
       end
     end
+    assert_current_user_is_owner assigns(:worksheet_problem).math_problem
     assert_redirected_to edit_worksheet_path(worksheet)
   end
   
+  test "new worksheet problem" do
+    worksheet_id = 234345
+    mock_worksheet_for_id worksheet_id
+    
+    get :new, :worksheet_id => worksheet_id
+    
+    assert_response :success
+    assert assigns(:worksheet)
+    assert_worksheet_id_specified_but_hidden worksheet_id
+    assert_nested_math_problem_form
+  end
+  
+  test "current sibling worksheet problems displayed on new worksheet problem form" do
+    worksheet_id = 234345
+    worksheet = mock_worksheet_for_id worksheet_id
+    5.times do 
+      mp = Factory.build(:math_problem)
+      worksheet.worksheet_problems.build(:math_problem => mp, :problem_number => worksheet.next_available_problem_number)
+    end
+    
+    get :new, :worksheet_id => worksheet_id
+    assert_select "#sibling-problems .worksheet-problem", 5
+  end
+
   private
+  
+  def mock_worksheet_for_id(id)
+    worksheet = Factory.build(:worksheet)
+    Worksheet.expects(:find).with(id).returns(worksheet)
+    worksheet
+  end
+  
+  def assert_current_user_is_owner(object)
+    assert_equal @current_user, object.owner
+  end
+  
   def stubbed_worksheet
     worksheet_id = 234
     worksheet = Factory.build(:worksheet)
@@ -43,4 +79,13 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
     ProblemLevel.stubs(:exists?).with(problem_level_id).returns(true)
     level
   end
+  
+  def assert_worksheet_id_specified_but_hidden(worksheet_id)
+    assert_select "#worksheet_problem_worksheet_id", {:type => "hidden", :value => worksheet_id}
+  end
+  
+  def assert_nested_math_problem_form
+    assert_select "textarea#question-markup-input"
+    assert_select "textarea#answer-markup-input"
+  end  
 end

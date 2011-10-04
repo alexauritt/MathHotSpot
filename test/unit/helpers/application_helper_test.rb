@@ -58,5 +58,11 @@ class ApplicationHelperTest < ActionView::TestCase
     @problem_type.stubs(:problem_count).returns(0)
     assert_equal "0 Problems", problem_count_msg(@problem_type)
   end
-
+  
+  test "equation_editor_link" do
+    text = 'Launch Equation Editor for Bruhahah'
+    id = 'racous-bauchsou-asd'
+    expected_html = "<a href=\"javascript:OpenLatexEditor('#{id}','latex','')\">#{text}</a>"
+    assert_equal expected_html, equation_editor_link(text, id)
+  end
 end

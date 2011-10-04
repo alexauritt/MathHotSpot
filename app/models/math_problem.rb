@@ -10,7 +10,7 @@ class MathProblem < ActiveRecord::Base
 
   validates_presence_of :question_markup, :answer_markup, :owner_id
   validates :question_markup, :uniqueness => {:scope => :problem_level_id}
-  validate :problem_level_exists, :owner_exists
+  validate :problem_level_exists_if_specified, :owner_exists
 
   before_validation :strip_excess_tags, :replace_xmlns_with_display_block
   
@@ -40,6 +40,15 @@ class MathProblem < ActiveRecord::Base
     requested_sibs = max_count == nil ? all_siblings : all_siblings.first(max_count)
   end
   
+  def sibling_available?(options = {})
+    begin
+      available_problems = find_problem_from_same_level options
+      true
+    rescue
+      false
+    end
+  end
+  
   def find_problem_from_same_level(options = {})
     available_problems = MathProblem.find_all_by_problem_level_id(self.problem_level.id)
 
@@ -61,7 +70,11 @@ class MathProblem < ActiveRecord::Base
     end
     
     without_original[rand(without_original.size)]
-  end  
+  end
+  
+  def classified?
+    !problem_level.nil?
+  end
   
   private
 
@@ -71,12 +84,8 @@ class MathProblem < ActiveRecord::Base
     end
   end
   
-  def problem_level_exists
-    begin
-      errors.add(:problem_level_id, "doesn't exist") unless (!problem_level.nil? || (problem_level_id && ProblemLevel.exists?(problem_level_id)))
-    rescue
-      errors.add(:problem_level_id, "not found in db")
-    end
+  def problem_level_exists_if_specified
+    errors.add(:problem_level_id, "not found in db") unless (problem_level_id.nil? || problem_level || (problem_level_id && ProblemLevel.exists?(problem_level_id)))
   end
   
   def strip_excess_tags

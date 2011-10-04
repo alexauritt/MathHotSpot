@@ -27,7 +27,7 @@ Mathhotspot::Application.routes.draw do
   get "worksheets/:worksheet_id/problem/:problem_number/new" => 'clone/worksheet_problem_clone#new', 
     :as => :worksheet_problem_clone
 
-  resources :worksheets, :except => [:new] do
+  resources :worksheets do
     resources :worksheet_problems, :only => [:update, :new]
   end
 
@@ -60,8 +60,6 @@ Mathhotspot::Application.routes.draw do
   match '/dashboard' => 'dashboards#show', :as => :dashboard
   match '/my_lessons' => 'my_lessons#index', :as => :my_lessons
   match '/problem_types/:problem_type_id/available_tags/search' => 'available_tags#search', :as => :available_tag_search
-    
-
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

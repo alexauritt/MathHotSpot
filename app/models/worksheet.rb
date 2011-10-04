@@ -26,6 +26,10 @@
   def problem_exists?(problem_number)
     !(problem problem_number).nil?
   end
+  
+  def problem_classified?(problem_number)
+    problem_exists?(problem_number) ? problem(problem_number).classified? : false
+  end
     
   def empty?
     problem_count == 0
@@ -56,10 +60,15 @@
   def replace_problem(problem_number)
     begin
       raise ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR unless problem_exists?(problem_number)
+      raise ProblemReplacementErrors::ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR unless problem_classified?(problem_number)
       target_worksheet_problem = problem problem_number
       similar_worksheet_problems = similar_problems_on_worksheet target_worksheet_problem
       target_worksheet_problem.replace_math_problem({ :exclude => similar_worksheet_problems })
       target_worksheet_problem
+    rescue ProblemReplacementErrors::ATTEMPT_TO_REPLACE_UNCLASSFIED_PROBLEM_ERROR => e
+      Rails.logger.error "worksheet.replace_problem called for unclassified problem number."
+      errors[:replace_failure] << e
+      nil
     rescue NoSimilarProblemsRemainingError,
       UniqueProblemError, 
       ProblemReplacementErrors::PROBLEM_NUMBER_MISSING_ERROR => bam
@@ -72,6 +81,12 @@
     begin
       unless problem_exists? number
         errors[:base] << WorksheetModifierErrors::Messages::PROBLEM_NUMBER_MISSING_FOR_ADD_LIKE
+        return nil
+      end
+            
+      unless problem_classified? number
+        Rails.logger.error WorksheetModifierErrors::Messages::PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE
+        errors[:base] << WorksheetModifierErrors::Messages::PROBLEM_NUMBER_UNCLASSIFIED_FOR_ADD_LIKE
         return nil
       end
     
@@ -105,6 +120,10 @@
     problem_numbers.sort!
     worksheet_problems.empty? || (problem_numbers == Array(1..worksheet_problems.size))
   end
+  
+  def similar_problems_on_worksheet(worksheet_problem)
+    worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []
+  end  
     
   private
 
@@ -115,11 +134,7 @@
   def problems_must_be_sequentially_numbered
     errors.add(:worksheet_problems, "must be consecutive integers beginning with 1") unless problems_sequentially_numbered?
   end
-    
-  def similar_problems_on_worksheet(worksheet_problem)
-    worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []
-  end    
-  
+      
   def find_math_problem_number(problem_number)
     worksheet_problems[problem_number - 1].math_problem
   end

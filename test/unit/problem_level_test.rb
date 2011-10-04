@@ -101,4 +101,10 @@ class ProblemLevelTest < ActiveSupport::TestCase
     assert_equal problem_owner, level.math_problems.first.owner, "owner was not expected owner"
   end
   
+  test "problem_type_title" do
+    title = "asdfsadf expected title"
+    @problem_type.expects(:title).returns(title)
+    assert_equal title, @level.problem_type_title
+  end
+  
 end

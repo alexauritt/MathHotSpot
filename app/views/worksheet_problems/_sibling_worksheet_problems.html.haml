@@ -1,0 +1,8 @@
+- if worksheet_problem.sibling_count > 0
+  #sibling-problems.problem_group
+    #current-problem-title
+      = "Current Problems on: #{worksheet_problem.worksheet_title}"
+    - worksheet_problem.siblings.each do |worksheet_problem|
+      = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet_problem => worksheet_problem, :editable => false }
+- else
+  "Worksheet is currently empty."

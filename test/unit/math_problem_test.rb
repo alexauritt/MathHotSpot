@@ -174,14 +174,58 @@ class MathProblemTest < ActiveSupport::TestCase
     assert_equal 3, problem.siblings(3).count
   end
   
-  test "math problem is invalid without problem_level" do
+  test "math problem is valid without if problem_level nil" do
     problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup', :owner => User.first)
-    assert_equal false, problem.valid?
+    assert problem.valid?
   end
   
+  test "math problem invalid if problem_level_id specified but not in db" do
+    level_id = 666
+    ProblemLevel.expects(:exists?).with(level_id).returns(false)
+    problem = Factory.build(:math_problem, :problem_level_id => level_id)
+    
+    assert_equal false, problem.valid?
+  end
+    
   test "math problem is invalid without owner" do
     problem = MathProblem.new(:question_markup => 'some markup', :answer_markup => 'some more markup', :problem_level => problem_levels(:dividing_monomials_level_01))
     assert_equal false, problem.valid?
+  end
+  
+  test "sibling_available? returns true with one sibling found and no restrictions" do
+    level_id = 987
+    @level.stubs(:id).returns(level_id)
+
+    MathProblem.expects(:find_all_by_problem_level_id).with(level_id).returns(@three_problems)
+
+    assert @math_problem.sibling_available?
+  end
+  
+  test "sibling_available returns true if one option left" do
+    level_id = 987
+    @level.stubs(:id).returns(level_id)
+
+    MathProblem.expects(:find_all_by_problem_level_id).with(level_id).returns(@three_problems)
+
+    assert @math_problem.sibling_available?(:exclude => [@another_problem])    
+  end
+  
+  test "sibling_available returns false if all options are excluded" do
+    level_id = 987
+    @level.stubs(:id).returns(level_id)
+
+    MathProblem.expects(:find_all_by_problem_level_id).with(level_id).returns(@three_problems)
+
+    assert_equal false, @math_problem.sibling_available?(:exclude => [@another_problem, @yet_another_problem])
+  end
+  
+  test "math problems with specified problem levels are considered classified" do
+    assert @math_problem.classified?, "Math Problem should be classified because problem_level is specified"
+  end
+  
+  test "math problem with no problem_level are NOT classified" do
+    problem = Factory.build(:math_problem, :problem_level_id => nil)
+    assert_equal false, problem.classified?
   end
   
   private
