@@ -1,11 +1,14 @@
 class LessonsController < ApplicationController
+  include CurrentAssetManageable
 
   # GET /lessons/1
   # GET /lessons/1.xml
   def show
     @lesson = Lesson.find(params[:id])
     @problem_types = @lesson.problem_types
-    session[:current_lesson_id] = @lesson.id
+
+    set_current_lesson_in_session! @lesson.id
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @lesson }
@@ -22,14 +25,14 @@ class LessonsController < ApplicationController
   end
   
   def new
-    session[:current_lesson_id] = nil
+    clear_current_lesson_in_session!
     @lesson = Lesson.new
   end
 
   def create
     @lesson = Lesson.new(params[:lesson].merge({:owner => current_user }))
     if @lesson.save
-      session[:current_lesson_id] = @lesson.id
+      set_current_lesson_in_session! @lesson.id
       redirect_to(lesson_path(@lesson), :notice => 'Lesson was successfully created.')
     else
       redirect_to new_lesson_path

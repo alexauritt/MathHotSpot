@@ -1,4 +1,6 @@
 class WorksheetsController < ApplicationController
+  include CurrentAssetManageable
+
   def index
     @worksheets = Worksheet.all
   end
@@ -7,6 +9,7 @@ class WorksheetsController < ApplicationController
     @worksheet = Worksheet.new(params[:worksheet].merge({:owner => current_user }))
     respond_to do |format|
       if @worksheet.save
+        set_current_worksheet_in_session! @worksheet.id
         format.html { redirect_to(@worksheet, :notice => 'Worksheet was successfully created.') }
       else
         format.html { render :action => "new" }
@@ -16,6 +19,7 @@ class WorksheetsController < ApplicationController
   
   def show
     @worksheet = Worksheet.find(params[:id])
+    set_current_worksheet_in_session! @worksheet.id
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem }
   end
   
@@ -45,6 +49,7 @@ class WorksheetsController < ApplicationController
   end
 
   def new
+    clear_current_worksheet_in_session!
     @worksheet = Worksheet.new
   end
 end

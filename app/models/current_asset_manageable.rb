@@ -13,15 +13,33 @@ module CurrentAssetManageable
     rescue ActiveRecord::RecordNotFound
       Rails.logger.error "Invalid Asset specified in session (probably a Lesson or a Worksheet)"
       flash.now[:notice] = RightRabbitErrors::DEFAULT
-      clear_current_assets_from_session!
+      clear_current_assets_in_session!
     rescue RightRabbitErrors::InvalidSessionState
       Rails.logger.error "Both Current Lesson and Current Worksheet were set in Session. THIS IS A NO NO!"
       flash.now[:notice] = RightRabbitErrors::DEFAULT      
-      clear_current_assets_from_session!
+      clear_current_assets_in_session!
     end
   end
   
-  def clear_current_assets_from_session!
+  def set_current_lesson_in_session! lesson_id
+    session[:current_lesson_id] = lesson_id
+    session[:current_worksheet_id] = nil
+  end
+  
+  def set_current_worksheet_in_session! worksheet_id
+    session[:current_lesson_id] = nil
+    session[:current_worksheet_id] = worksheet_id    
+  end
+  
+  def clear_current_lesson_in_session!
+    session[:current_lesson_id] = nil    
+  end
+  
+  def clear_current_worksheet_in_session!
+    session[:current_worksheet_id] = nil  
+  end
+  
+  def clear_current_assets_in_session!
     session[:current_lesson_id] = nil
     session[:current_worksheet_id] = nil    
   end
