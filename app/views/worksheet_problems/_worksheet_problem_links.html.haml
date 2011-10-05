@@ -1,6 +1,6 @@
 .problem-links
    = add_replace_or_create_similar_worksheet_problem_for worksheet_problem
    = display_level_link_if_classified! worksheet_problem
-   = render :partial => "worksheet_problems/remove_worksheet_problem", :locals => {:worksheet_problem => worksheet_problem }
+   = render :partial => "worksheet_problems/problem_links/remove_worksheet_problem", :locals => {:worksheet_problem => worksheet_problem }
    
 .error_display
