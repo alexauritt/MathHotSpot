@@ -20,8 +20,6 @@ class EditWorksheetTest < ActionDispatch::IntegrationTest
     @worksheet = Factory.create(:worksheet, :owner => @user)
     Factory.create(:worksheet_problem, :worksheet => @worksheet, :problem_number => 1, :math_problem => @replaceable_1)
     Factory.create(:worksheet_problem, :worksheet => @worksheet, :problem_number => 2, :math_problem => @non_replaceable)
-    # @worksheet.worksheet_problems.create(:problem_number => 1, :math_problem => @replaceable_1)
-    # @worksheet.worksheet_problems.create(:problem_number => 2, :math_problem => @non_replaceable)    
 
     @worksheet_title = @worksheet.title
     @replaceable_1_question_content = @replaceable_1.question_markup
@@ -48,6 +46,9 @@ class EditWorksheetTest < ActionDispatch::IntegrationTest
     click_link @worksheet_title
     
     click_link "Edit Worksheet"
+    
+    assert_problem_level_link_present '#problem_1'
+    assert_problem_level_link_present '#problem_2'
     
     assert_problem_replaceable '#problem_1'
     assert_problem_not_replaceable '#problem_2'
@@ -121,12 +122,51 @@ class EditWorksheetTest < ActionDispatch::IntegrationTest
     
     assert page.has_content? new_question
   end
+  
+  test "add new unclassified problem to worksheet" do
+    new_question = 'this will be the question for the new, third, unclassified question'
+    new_answer = 'This is the answer for unclassified question 3'
+
+    visit edit_worksheet_path @worksheet
     
+    assert page.has_no_content? new_question
+    
+    click_button "Add New Problem"
+    
+    assert_current_path new_worksheet_worksheet_problem_path(@worksheet)
+    
+    fill_in 'Question markup', :with => new_question
+    fill_in 'Answer markup', :with => new_answer
+
+    click_button "Create Worksheet problem"
+    
+    assert_current_path edit_worksheet_path @worksheet
+    
+    assert page.has_content? new_question
+    
+    assert_problem_not_replaceable '#problem_3'
+    assert_problem_level_link_not_present '#problem_3'
+    
+  end
+  
   teardown do
     DatabaseCleaner.clean
   end
   
   private
+  def assert_problem_level_link_present(id)
+    assert_problem_level_link_presence id
+  end
+  
+  def assert_problem_level_link_not_present(id)
+    assert_problem_level_link_presence id, false
+  end
+    
+  def assert_problem_level_link_presence(id, presence = true)
+    links = find("#{id} .problem-links")
+    assert_equal presence, links.has_button?('level info')    
+  end
+  
   def assert_problem_replaceable(id)
     assert_problem_replaceability(id)
   end

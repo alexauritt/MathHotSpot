@@ -8,6 +8,12 @@ module WorksheetProblemsHelper
     end
   end
   
+  def display_level_link_if_classified!(worksheet_problem)
+    if worksheet_problem.classified?
+      render :partial => "worksheet_problems/level_link", :locals => { :worksheet_problem => worksheet_problem }
+    end
+  end
+  
   def display_level_info_if_classified!(worksheet_problem)
     if worksheet_problem.classified?
       render :partial => "worksheet_problems/type_and_level_info", :locals => {:worksheet_problem => worksheet_problem }
