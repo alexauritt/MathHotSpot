@@ -27,10 +27,10 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
   end
   
   test "new worksheet problem" do
-    worksheet_id = 234345
+    worksheet_id = 234345.to_param
     mock_worksheet_for_id worksheet_id
     
-    get :new, :worksheet_id => worksheet_id
+    get :new, { :worksheet_id => worksheet_id }
     
     assert_response :success
     assert assigns(:worksheet)
@@ -39,7 +39,7 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
   end
   
   test "current sibling worksheet problems displayed on new worksheet problem form" do
-    worksheet_id = 234345
+    worksheet_id = 234345.to_param
     worksheet = mock_worksheet_for_id worksheet_id
     5.times do 
       mp = Factory.build(:math_problem)

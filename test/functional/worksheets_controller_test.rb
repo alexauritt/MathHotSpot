@@ -33,7 +33,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
   
   test "edit worksheet has link to Add Problem" do
     worksheet = Factory.build(:worksheet)
-    worksheet_id = 233456
+    worksheet_id = 233456.to_param
     Worksheet.expects(:find).with(worksheet_id).returns(worksheet)
     worksheet.stubs(:id).returns(worksheet_id)
 

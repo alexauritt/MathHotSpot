@@ -9,9 +9,12 @@ class WorksheetProblemsController < ApplicationController
   end
   
   def create
-    params[:worksheet_problem][:math_problem_attributes][:owner] = current_user
+    params[:worksheet_problem][:math_problem_attributes][:owner_id] = current_user.id
     worksheet = Worksheet.find params[:worksheet_problem][:worksheet_id]
-    @worksheet_problem = WorksheetProblem.new(params[:worksheet_problem].merge({:problem_number => worksheet.next_available_problem_number}))
+    
+    @worksheet_problem = WorksheetProblem.new(params[:worksheet_problem])
+    @worksheet_problem.problem_number = worksheet.next_available_problem_number
+    
     if @worksheet_problem.save
       redirect_to(edit_worksheet_path(worksheet), :notice => 'Problem Type was successfully created.')
     else
@@ -20,7 +23,7 @@ class WorksheetProblemsController < ApplicationController
   end
   
   def new
-    @worksheet = Worksheet.find params[:worksheet_id]
+    @worksheet = Worksheet.find(params[:worksheet_id])
     @worksheet_problem = WorksheetProblem.new(:worksheet => @worksheet)
     @math_problem = @worksheet_problem.build_math_problem
   end
