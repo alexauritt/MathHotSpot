@@ -6,7 +6,7 @@ class ProblemTypesController < ApplicationController
   end
   
   def show
-    @current_asset = current_lesson_specified_in_session!
+    @current_asset = current_asset_specified_in_session!
     @problem_type = ProblemType.find_by_permalink(params[:id])
     render "show_with_current_lesson" if @current_asset
   end

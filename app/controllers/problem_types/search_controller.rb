@@ -2,20 +2,20 @@ class ProblemTypes::SearchController < ApplicationController
   include CurrentAssetManageable
 
   def new
-    @current_asset = current_lesson_specified_in_session!
+    @current_asset = current_asset_specified_in_session!
     
     @subjects = Subject.all.delete_if {|s| s.problem_types.empty? }
     @tags = ProblemType.tag_counts_on(:tags)
 
-    render "new_with_current_lesson" if @current_asset
+    render "new_with_current_lesson" if @current_asset.is_a? Lesson
   end
     
   def show
-    @current_asset = current_lesson_specified_in_session!
+    @current_asset = current_asset_specified_in_session!
     @search = params[:search]
     @problem_types = ProblemType.search(params[:search])
     
-    render "show_with_current_lesson" if @current_asset
+    render "show_with_current_lesson" if @current_asset.is_a? Lesson
   end
   
 end
