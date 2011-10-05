@@ -25,6 +25,8 @@ class EditWorksheetTest < ActionDispatch::IntegrationTest
     @replaceable_1_question_content = @replaceable_1.question_markup
     @replaceable_2_question_content = @replaceable_2.question_markup
     @non_replaceable_question_content = @non_replaceable.question_markup
+    
+    @new_problem_for_worksheet_label = "Create New Problem for Worksheet"
   end
 
   test "problems appear as expected on problem level display pages" do
@@ -110,7 +112,7 @@ class EditWorksheetTest < ActionDispatch::IntegrationTest
     fill_in 'Question markup', :with => new_question
     fill_in 'Answer markup', :with => new_answer
     
-    click_button 'Create New Problem for Worksheet'
+    click_button @new_problem_for_worksheet_label
       
     assert_current_path edit_worksheet_path @worksheet
     
@@ -131,7 +133,7 @@ class EditWorksheetTest < ActionDispatch::IntegrationTest
     
     assert page.has_no_content? new_question
     
-    click_button "Add New Problem"
+    click_button @new_problem_for_worksheet_label
     
     assert_current_path new_worksheet_worksheet_problem_path(@worksheet)
     
