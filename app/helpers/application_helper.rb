@@ -12,6 +12,14 @@ module ApplicationHelper
     level.level_number? ? "Level: #{level.level_number}" : MathHotSpotErrors::Message::NO_LEVEL_NUMBER
   end
   
+  def display_current_asset(asset)
+    if asset.is_a? Lesson
+      render :partial => "lessons/current_lesson_sidebar", :locals => { :current_lesson => asset }
+    elsif asset.is_a? Worksheet
+      render :partial => "worksheets/current_worksheet_sidebar", :locals => { :current_worksheet => asset }
+    end  
+  end
+  
   def include_mathjax
     ::Rails.env == "production" ? cdn_mathjax_link : local_mathjax_link
   end
