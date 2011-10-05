@@ -1,5 +1,6 @@
 class ProblemTypes::SearchController < ApplicationController
-  include CurrentLessonManageable
+  include CurrentAssetManageable
+
   def new
     @current_lesson = current_lesson_specified_in_session!
     

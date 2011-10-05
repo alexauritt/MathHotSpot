@@ -1,5 +1,5 @@
 class ProblemTypesController < ApplicationController
-  include CurrentLessonManageable
+  include CurrentAssetManageable
 
   def index
     redirect_to new_problem_types_search_url
