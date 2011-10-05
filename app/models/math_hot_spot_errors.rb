@@ -20,6 +20,7 @@ module RightRabbitErrors
   class UniqueProblemError < StandardError; def message; UNIQUE_PROBLEM_ERROR; end; end  
   class NoSimilarProblemsRemainingError < StandardError; def message; NO_SIMILAR_PROBLEMS_REMAINING_MSG; end; end
   class ProblemNumberMissing < StandardError; end
+  class InvalidSessionState < StandardError; end  
 end
 
 module MathHotSpotErrors

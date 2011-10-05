@@ -92,6 +92,26 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     get_new_search_with_invalid_current_lesson_id_in_session!
     assert_nil session[:current_lesson_id]
   end
+    
+  test "show search results clears lesson and worksheet asset ids if both are specified in incoming session" do
+    session['current_lesson_id'] = 234234
+    session['current_worksheet_id'] = 453453
+    
+    get :new, @valid_search_hash
+
+    assert_response :success
+    assert_nil session[:current_lesson_id], "Expected current_lesson_id to be nil in session"
+    assert_nil session[:current_worksheet_id], "Expected current_worksheet_id to be nil in session"
+  end
+  
+  test "show search results displays error message when two current assets set in session" do
+    session['current_lesson_id'] = 234234
+    session['current_worksheet_id'] = 453453
+    
+    get :new, @valid_search_hash
+
+    assert_error_message RightRabbitErrors::DEFAULT
+  end  
   
   test "search with no quotes triggers title search" do
     query = "  this is a tittle"
