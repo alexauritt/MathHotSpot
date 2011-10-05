@@ -5,8 +5,8 @@
 
 #current-lesson-problem-type-search
   .current-lesson-wrapper
-    =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_lesson }
-    =render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_lesson }
+    =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_asset }
+    =render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_asset }
 #results-title
   Search Results:
 #search-results

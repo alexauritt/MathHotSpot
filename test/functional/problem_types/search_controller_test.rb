@@ -26,7 +26,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     get :new
     
     assert_response :success
-    assert_equal lesson, assigns(:current_lesson), "Current lesson not found as expected"
+    assert_equal lesson, assigns(:current_asset), "Current lesson not found as expected"
     
     assert_current_lesson_displayed_in_view
     assert_problem_type_search_displayed_in_view
@@ -66,7 +66,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     get :show, {:search => "Monomial Fraction"}
     
     assert_response :success
-    assert_equal lesson, assigns(:current_lesson), "Current lesson not found as expected"
+    assert_equal lesson, assigns(:current_asset), "Current lesson not found as expected"
     
     assert_current_lesson_displayed_in_view
     assert assigns(:problem_types).include?(@problem_type)
