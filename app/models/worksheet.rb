@@ -20,7 +20,7 @@
   end
   
   def problem_types
-    math_problems.map {|mp| mp.problem_type }.uniq
+    math_problems.map {|mp| mp.problem_type }.uniq.compact
   end
   
   def next_available_problem_number

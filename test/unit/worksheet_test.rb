@@ -290,8 +290,31 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal expected_type_list, actual_type_list
   end
   
-  test "problem_types method handles unclassified math problems" do
-    pending "to do"
+  test "problem_types method ignores unclassified math problems" do
+    type1 = Factory.build(:problem_type)
+    type2 = Factory.build(:problem_type)
+    
+    math_problems = []
+
+    mp = Factory.build(:math_problem, :problem_level => nil)
+    math_problems << mp
+
+    5.times do |i|
+      mp = Factory.build(:math_problem)
+      problem_type = i.even? ? type1 : type2
+      mp.stubs(:problem_type).returns(problem_type)
+      math_problems << mp
+    end
+
+    mp = Factory.build(:math_problem, :problem_level => nil)
+    math_problems << mp
+    
+    @worksheet.math_problems = math_problems
+
+    expected_type_list = [type1, type2].sort
+    actual_type_list = @worksheet.problem_types.sort
+    
+    assert_equal expected_type_list, actual_type_list
   end
   
   private
