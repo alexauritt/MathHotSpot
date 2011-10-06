@@ -3,7 +3,7 @@
     =@problem_type.title
   =stylesheet_link_tag "lessons", "problem_type", "math_display", "tags"  
 #current-asset-problem-type
-  .current-lesson-wrapper
+  .current-asset-wrapper
     =render :partial => "lessons/lesson_header", :locals => { :lesson => @current_asset }
     =render :partial => "lessons/current_lesson_short", :locals => { :current_lesson => @current_asset }
   =render :partial => "problem_type_full", :locals => {:problem_type => @problem_type, :lesson => @current_asset}

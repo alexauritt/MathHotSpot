@@ -16,7 +16,7 @@ module ApplicationHelper
     if asset.is_a? Lesson
       render :partial => "lessons/current_lesson_sidebar", :locals => { :current_lesson => asset }
     elsif asset.is_a? Worksheet
-      # render :partial => "worksheets/current_worksheet_sidebar", :locals => { :current_worksheet => asset }
+      render :partial => "worksheets/current_worksheet_sidebar", :locals => { :current_worksheet => asset }
     end  
   end
   
