@@ -2,7 +2,6 @@
   %title Problem Type Search
   =stylesheet_link_tag "lessons", "problem_type", "math_display", "problem_type_search", "tags"
 
-
 #current-asset-problem-type-search
   = display_current_asset @current_asset
   =render :partial => "problem_type_search", :locals => { :tags => @tags, :subjects => @subjects }
