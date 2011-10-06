@@ -317,6 +317,18 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal expected_type_list, actual_type_list
   end
   
+  test "unclassified_problems returns math problems excludes classified problems" do
+    math_probs = FactoryGirl.build_list(:math_problem, 20)
+    math_probs[0..9].each { |mp| mp.stubs(:classified?).returns(false) }
+    math_probs[10..14].each { |mp| mp.stubs(:classified?).returns(true) }
+    math_probs[15..19].each { |mp| mp.stubs(:classified?).returns(false) }
+    @worksheet.math_problems = math_probs
+    
+    expected_unclassifieds = math_probs[0..9] + math_probs[15..19]
+    
+    assert_equal expected_unclassifieds, @worksheet.unclassified_problems
+  end
+  
   private
 
   def create_worksheet_with_all_problems_from_same_level!(attr = {:problem_count => 1})

@@ -23,6 +23,10 @@
     math_problems.map {|mp| mp.problem_type }.uniq.compact
   end
   
+  def unclassified_problems
+    math_problems.reject { |mp| mp.classified? }
+  end
+  
   def next_available_problem_number
     problem_count + 1
   end
