@@ -19,6 +19,10 @@
     worksheet_problems.size
   end
   
+  def problem_types
+    math_problems.map {|mp| mp.problem_type }.uniq
+  end
+  
   def next_available_problem_number
     problem_count + 1
   end

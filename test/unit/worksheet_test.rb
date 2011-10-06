@@ -270,6 +270,30 @@ class WorksheetTest < ActiveSupport::TestCase
     assert_equal prob_count + 1, worksheet.next_available_problem_number
   end
   
+  test "problem_types method queries all math problems for problem types" do
+    type1 = Factory.build(:problem_type)
+    type2 = Factory.build(:problem_type)
+    
+    math_problems = []
+    5.times do |i|
+      mp = Factory.build(:math_problem)
+      problem_type = i.even? ? type1 : type2
+      mp.stubs(:problem_type).returns(problem_type)
+      math_problems << mp
+    end
+    
+    @worksheet.math_problems = math_problems
+    
+    expected_type_list = [type1, type2].sort
+    actual_type_list = @worksheet.problem_types.sort
+    
+    assert_equal expected_type_list, actual_type_list
+  end
+  
+  test "problem_types method handles unclassified math problems" do
+    pending "to do"
+  end
+  
   private
 
   def create_worksheet_with_all_problems_from_same_level!(attr = {:problem_count => 1})
@@ -306,8 +330,8 @@ class WorksheetTest < ActiveSupport::TestCase
   
   def create_mock_worksheet_problems_for(worksheet, options = { :count => 1 })
     options[:count].times do |i|
-      worksheet_problem = worksheet.worksheet_problems.build(:problem_number => i+1)
-      worksheet_problem.build_math_problem(:question_markup => "this is some question markup #{i+1}")
+      math_problem = Factory.build(:math_problem)
+      worksheet.worksheet_problems << Factory.build(:worksheet_problem, :problem_number => i+1, :worksheet => worksheet, :math_problem => math_problem)
     end
   end
   
