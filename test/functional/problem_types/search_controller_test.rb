@@ -15,7 +15,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     assert assigns(:subjects)
     assert assigns(:tags)
     assert_problem_type_search_displayed_in_view
-    assert_current_lesson_displayed_in_view false
+    assert_current_asset_display_in_view false
   end
   
   test "new search displays current lesson when valid current_lesson_id is set in session" do
@@ -28,7 +28,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     assert_response :success
     assert_equal lesson, assigns(:current_asset), "Current lesson not found as expected"
     
-    assert_current_lesson_displayed_in_view
+    assert_current_asset_display_in_view
     assert_problem_type_search_displayed_in_view
   end
   
@@ -37,7 +37,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
       
     assert_response :success
     assert_problem_type_search_displayed_in_view
-    assert_current_lesson_displayed_in_view false
+    assert_current_asset_display_in_view false
   end
   
   test "no errors in new search when current_lesson_id is invalid" do
@@ -68,7 +68,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
     assert_response :success
     assert_equal lesson, assigns(:current_asset), "Current lesson not found as expected"
     
-    assert_current_lesson_displayed_in_view
+    assert_current_asset_display_in_view
     assert assigns(:problem_types).include?(@problem_type)
   end
   
@@ -78,7 +78,7 @@ class ProblemTypes::SearchControllerTest < AuthenticatingControllerTestCase
       
     assert_response :success
 
-    assert_current_lesson_displayed_in_view false
+    assert_current_asset_display_in_view false
     assert assigns(:problem_types).include?(@problem_type)
   end
   

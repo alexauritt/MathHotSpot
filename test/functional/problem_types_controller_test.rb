@@ -26,7 +26,7 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     assert_equal lesson.id, session[:current_lesson_id]
     assert_response :success
     
-    assert_current_lesson_displayed_in_view
+    assert_current_asset_display_in_view
   end
     
   test "new" do

@@ -6,11 +6,10 @@
 
 #problem-levels
   .row
-    = @problem_level.instruction.description
+    = @problem_level.instruction_text
   #level-problem-list
     -@math_problems.each do |math_problem|
       =render :partial => "math_problems/math_problem_full", :locals => { :math_problem => math_problem }
-
   .row
     =link_to "Back to Problem Type", problem_type_path(@problem_level.problem_type)
     %br

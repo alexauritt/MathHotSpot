@@ -1,11 +1,7 @@
 class MyLessonsController < ApplicationController
+  include CurrentAssetManageable
   def index
-    clear_current_lesson_from_session!
+    clear_current_lesson_in_session!
     @lessons = Lesson.find_all_by_owner_id(current_user)
-  end
-  
-  private
-  def clear_current_lesson_from_session!
-    session[:current_lesson_id] = nil
-  end
+  end  
 end

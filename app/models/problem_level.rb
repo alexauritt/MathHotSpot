@@ -41,6 +41,10 @@ class ProblemLevel < ActiveRecord::Base
   def instruction
     problem_type.instruction
   end
+
+  def instruction_text
+    instruction.nil? ? MathHotSpotErrors::Message::NO_INSTRUCTIONS : problem_type.instruction_text
+  end
   
   def owner
     problem_type.owner

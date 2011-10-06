@@ -9,7 +9,7 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  def assert_current_lesson_displayed_in_view(present = true)
+  def assert_current_asset_display_in_view(present = true)
     assert_select '.assert-header', present, "Presence of .assert-header expected to be #{present}"
     assert_select '#current-asset-short', present, "Presence of #current-lesson expected to be #{present}"
   end

@@ -41,6 +41,15 @@ class ProblemLevelTest < ActiveSupport::TestCase
     assert_instance_of Instruction, @level.instruction
   end
   
+  test "instruction_text" do
+    expected_text = "do this do this"
+    @problem_type.expects(:instruction).returns(Instruction.new)
+    @problem_type.expects(:instruction_text).returns(expected_text)
+    @level.problem_type = @problem_type
+
+    assert_equal expected_text, @level.instruction_text
+  end
+  
   test "problem_count" do
     level = ProblemLevel.new
     6.times { level.math_problems.build }
