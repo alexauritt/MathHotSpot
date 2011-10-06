@@ -29,7 +29,7 @@ module ActionController
       end
       
       def assert_current_lesson_displayed(lesson_name)
-        within('#lesson-title') do
+        within('#asset-title') do
           assert page.has_content?(lesson_name), "Current Lesson title not displayed"
         end
       end
