@@ -1,5 +1,5 @@
 var problemTarget = $('div#problem_<%= @problem_number %>');
-var displayTarget = $('div.math_display', problemTarget);
+var displayTarget = $('div.math-display', problemTarget);
 
 <% unless (@success) %>
   problemTarget.displayErrorMsg("<%= @error_msg %>");

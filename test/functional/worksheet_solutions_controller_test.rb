@@ -5,6 +5,6 @@ class WorksheetSolutionsControllerTest < AuthenticatingControllerTestCase
     get :show, :id => worksheets(:monomial_worksheet_01)
     assert assigns(:worksheet)
     assert_response :success
-    assert_select '.worksheet-problem .math_display .answer'
+    assert_select '.worksheet-problem .math-display .answer'
   end  
 end

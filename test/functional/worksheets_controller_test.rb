@@ -22,7 +22,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
   
   test "show worksheet does not display solutions" do
     get(:show, {:id => @worksheet.id})
-    assert_select '.worksheet-problem .math_display .answer', false, "Solution should not be displayed for Worksheet#show"
+    assert_select '.worksheet-problem .math-display .answer', false, "Solution should not be displayed for Worksheet#show"
   end
   
   test "edit worksheet" do

@@ -1,1 +1,2 @@
-Unclassified problems will go here.
+-unclassified_problems.each do |math_problem|
+  =render :partial => "math_problems/problem_display", :locals => { :math_problem => math_problem, :should_show_solution => false }
