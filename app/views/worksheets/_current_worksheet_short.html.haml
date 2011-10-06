@@ -1,3 +1,4 @@
-#current-asset-short.lesson
+#current-asset-short.worksheet
   .problem-type-list
-    =render :partial => "shared/problem_list_short", :locals => { :problem_types => current_worksheet.problem_types }
+    =render :partial => "shared/problem_type_list_short", :locals => { :problem_types => current_worksheet.problem_types }
+    =render :partial => "shared/unclassified_math_problem_list_short", :locals => { :unclassified_problems => current_worksheet.unclassified_problems }    
