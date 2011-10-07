@@ -20,7 +20,22 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_response :success
     assert_current_asset_display_in_view
   end
+  
+  test "show displays problem type title and level number" do
+    type = Factory.build(:problem_type)
+    type_id = 92834
+    level1 = Factory.build(:problem_level, :level_number => 1, :problem_type => type)
 
+    type.stubs(:id).returns(type_id)
+    ProblemType.expects(:find_by_permalink).with(type.permalink).returns(type)
+    ProblemLevel.expects(:find_by_level_number_and_problem_type_id).with('1', type_id).returns(level1)
+
+    get :show, :problem_type_id => type.to_param, :id => level1.level_number.to_param
+        
+    assert_response :success
+    assert_select "#level-info", "#{type.title}: Level 1"
+  end
+  
   test "should new" do
     prob_type = problem_types(:dividing_monomials_problem_type)
     get :new, :problem_type_id => prob_type.permalink

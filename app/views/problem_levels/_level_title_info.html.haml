@@ -1,0 +1,3 @@
+#level-info
+  = "#{problem_level.problem_type_title}: Level #{problem_level.level_number}"
+= render :partial => "sibling_level_links", :locals => { :problem_type => problem_level.problem_type, :current_level => problem_level }

@@ -1,0 +1,3 @@
+#sibling-links
+  - problem_type.problem_levels.each do |level|
+    = level == current_level ? "Level #{level.level_number}" : link_to("Level #{level.level_number}", problem_type_problem_level_path(problem_type, level.level_number))

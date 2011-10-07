@@ -5,6 +5,7 @@
 #current-asset-current-resource
   = display_current_asset @current_asset
   #main-problem-levels.current-resource
+    = render :partial => "level_title_info", :locals => { :problem_level => @problem_level }
     = paginate @math_problems
     #problem-levels
       .row

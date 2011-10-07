@@ -2,16 +2,17 @@
   %title Problem Level
   = stylesheet_link_tag "math_display", "lessons"
 
-= paginate @math_problems
-
-#problem-levels
-  .row
-    = @problem_level.instruction_text
-  #level-problem-list
-    -@math_problems.each do |math_problem|
-      =render :partial => "math_problems/math_problem_full", :locals => { :math_problem => math_problem }
-  .row
-    =link_to "Back to Problem Type", problem_type_path(@problem_level.problem_type)
-    %br
-    =link_to "Add New Problem to this Level", new_problem_type_problem_level_math_problem_url(@problem_level.problem_type, @problem_level.level_number)
-    %br
+#main-problem-levels.current-resource
+  = render :partial => "level_title_info", :locals => { :problem_level => @problem_level }
+  = paginate @math_problems
+  #problem-levels
+    .row
+      = @problem_level.instruction_text
+    #level-problem-list
+      -@math_problems.each do |math_problem|
+        =render :partial => "math_problems/math_problem_full", :locals => { :math_problem => math_problem }
+    .row
+      =link_to "Back to Problem Type", problem_type_path(@problem_level.problem_type)
+      %br
+      =link_to "Add New Problem to this Level", new_problem_type_problem_level_math_problem_url(@problem_level.problem_type, @problem_level.level_number)
+      %br
