@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
-  # Replace this with your real tests.
-
   def setup
   end
 
@@ -10,6 +8,17 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     @problem_level = problem_levels(:dividing_monomials_level_01)
     get :show, :problem_type_id => @problem_level.problem_type.permalink, :id => @problem_level.level_number
     assert_response :success
+  end
+
+  test "show should display current worksheet and problem level if current_worksheet specified in session" do
+    @problem_level = problem_levels(:dividing_monomials_level_01)
+    worksheet = worksheets(:monomial_worksheet_01)
+
+    session['current_worksheet_id'] = worksheet.id
+    get :show, :problem_type_id => @problem_level.problem_type.permalink, :id => @problem_level.level_number
+
+    assert_response :success
+    assert_current_asset_display_in_view
   end
 
   test "should new" do
@@ -133,5 +142,5 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_select "textarea#question-markup-input", 1    
     assert_select "textarea#answer-markup-input", 1
   end
-
+  
 end

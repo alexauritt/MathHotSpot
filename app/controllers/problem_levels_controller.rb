@@ -7,6 +7,8 @@ class ProblemLevelsController < ApplicationController
     problem_type = ProblemType.find_by_permalink(params[:problem_type_id])
     @problem_level = ProblemLevel.find_by_level_number_and_problem_type_id(params[:id], problem_type.id)
     @math_problems = @problem_level.math_problems.page(params[:page])
+    
+    render "show_with_current_asset" if @current_asset
   end
   
   def new
