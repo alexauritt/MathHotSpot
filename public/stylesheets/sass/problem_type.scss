@@ -35,9 +35,12 @@
   }
 }
 
-#current-asset-problem-type {
-  .problem-type-full {
+#current-asset-current-resource {
+  .problem-type-full, .current-resource {
     width: 80%;
+  }
+  .current-resource {
+    float: left;
   }
 }
 
@@ -70,7 +73,7 @@
 }
 
 
-#current-asset-problem-type {
+#current-asset-current-resource {
   overflow: auto;
   .current-asset-wrapper {
     float: left;

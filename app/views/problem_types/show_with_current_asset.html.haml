@@ -2,6 +2,6 @@
   %title
     =@problem_type.title
   =stylesheet_link_tag "lessons", "problem_type", "math_display", "tags"  
-#current-asset-problem-type
+#current-asset-current-resource
   = display_current_asset @current_asset
   =render :partial => "problem_type_full", :locals => {:problem_type => @problem_type}

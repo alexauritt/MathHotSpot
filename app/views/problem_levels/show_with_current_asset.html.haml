@@ -2,9 +2,9 @@
   %title Problem Level
   = stylesheet_link_tag "math_display", "lessons", "problem_type"
 
-#current-asset-problem-type
+#current-asset-current-resource
   = display_current_asset @current_asset
-  #main-problem-levels.problem-type-full
+  #main-problem-levels.current-resource
     = paginate @math_problems
     #problem-levels
       .row
