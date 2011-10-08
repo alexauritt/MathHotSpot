@@ -9,8 +9,6 @@
             = msg
   .field
     = f.input :title
-  .field
-    = f.association :problem_types, :as => :check_boxes, :collection => @lesson.problem_types
     
   .actions
     = f.submit
