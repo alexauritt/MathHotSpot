@@ -28,7 +28,41 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     
     assert_current_asset_display_in_view
   end
+  
+  test "show should allow user to add problem type if current lesson specified" do
+    lesson, problem_type = stub_db_to_return_lesson_and_problem_type!
+    session['current_lesson_id'] = lesson.id
+    get :show, :id => @problem_type.permalink
+      
+    assert_select "input[value='Add Problem Type']"
+  end
+  
+  test "show should not allow user to add problem if specified current lesson already contains problem type" do
+    lesson, problem_type = stub_db_to_return_lesson_and_problem_type!
+    lesson.stubs(:problem_types).returns([problem_type])
+
+    session['current_lesson_id'] = lesson.id
+    get :show, :id => @problem_type.permalink
+      
+    assert_select "input[value='Add Problem Type']", false
+  end
     
+  test "show should not allow user to add problem if no current lesson specified" do
+    lesson, problem_type = stub_db_to_return_lesson_and_problem_type!
+    get :show, :id => @problem_type.permalink
+
+    assert_select "input[value='Add Problem Type']", false
+  end
+  
+  test "show should not allow user to add problem if current worksheet specified" do
+    worksheet, problem_type = stub_db_to_return_worksheet_and_problem_type!
+
+    session['current_worksheet_id'] = worksheet.id
+    get :show, :id => @problem_type.permalink
+
+    assert_select "input[value='Add Problem Type']", false
+  end  
+  
   test "new" do
     @problem_type = problem_type_with_category_level_and_problem
     get :new
@@ -154,6 +188,15 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     Lesson.stubs(:find).with(234234).returns(@lesson)
     ProblemType.stubs(:find_by_permalink).with(@problem_type.permalink).returns(@problem_type)
     [@lesson, @problem_type]
+  end
+  
+  def stub_db_to_return_worksheet_and_problem_type!
+    worksheet = Worksheet.new
+    worksheet_id = 982734
+    worksheet.stubs(:id).returns(worksheet_id)
+    Worksheet.stubs(:find).with(worksheet_id).returns(worksheet)
+    ProblemType.stubs(:find_by_permalink).with(@problem_type.permalink).returns(@problem_type)
+    [worksheet, @problem_type]
   end
   
   def stubbed_empty_problem_type
