@@ -3,8 +3,7 @@ class Clone::MathProblemCloneController < ApplicationController
     parent = MathProblem.find(params[:math_problem_id])
     @problem_type = parent.problem_type
     
-    new_prob_attrs = {:problem_level => parent.problem_level, :question_markup => parent.question_markup, :answer_markup => parent.answer_markup}
-    @math_problem = MathProblem.new new_prob_attrs
+    @math_problem = parent.dup
 
     @siblings = parent.siblings(10)
     render "math_problems/new"
