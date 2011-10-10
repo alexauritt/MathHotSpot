@@ -47,7 +47,7 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_select ".math-display" do
       assert_select '.math-problem-links' do |links|
         links.each_with_index do |link, index|
-          index == 1 ? assert_add_problem_to_worksheet_link_appears(link) : assert_add_problem_to_worksheet_link_does_not_appear(link)
+          index == 1 ? assert_add_problem_to_worksheet_button_appears(link) : assert_add_problem_to_worksheet_button_does_not_appear(link)
         end
       end
     end
@@ -60,7 +60,7 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     session['current_lesson_id'] = lesson.id
     get :show, :problem_type_id => problem_level.problem_type.permalink, :id => problem_level.level_number
 
-    assert_add_problem_to_worksheet_link_does_not_appear
+    assert_add_problem_to_worksheet_button_does_not_appear
   end
   
   test 'show displays no add math problem links if no current asset displayed' do
@@ -68,7 +68,7 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
 
     get :show, :problem_type_id => problem_level.problem_type.permalink, :id => problem_level.level_number
 
-    assert_add_problem_to_worksheet_link_does_not_appear
+    assert_add_problem_to_worksheet_button_does_not_appear
   end
   
   test "should new" do
@@ -193,15 +193,15 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_select "textarea#answer-markup-input", 1
   end
   
-  def assert_add_problem_to_worksheet_link_appears(element = nil)
-    assert_add_problem_to_worksheet_link element, true
+  def assert_add_problem_to_worksheet_button_appears(element = nil)
+    assert_add_problem_to_worksheet_button element, true
   end
   
-  def assert_add_problem_to_worksheet_link_does_not_appear(element = nil)
-    assert_add_problem_to_worksheet_link element, false
+  def assert_add_problem_to_worksheet_button_does_not_appear(element = nil)
+    assert_add_problem_to_worksheet_button element, false
   end
   
-  def assert_add_problem_to_worksheet_link(element = nil, present = true)
-    element.nil? ? assert_select('a.add-problem-to-worksheet', present) : assert_select(element, 'a.add-problem-to-worksheet', present)
+  def assert_add_problem_to_worksheet_button(element = nil, present = true)
+    element.nil? ? assert_select('form#new_worksheet_problem', present) : assert_select(element, 'form#new_worksheet_problem', present)
   end
 end

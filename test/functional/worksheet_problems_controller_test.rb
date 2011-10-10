@@ -14,7 +14,7 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
   test "create should redirect to worksheet containing new problem" do
     worksheet = stubbed_worksheet
     problem_level = stubbed_problem_level
-    new_math_problem = Factory.build(:math_problem, :problem_level_id => problem_level.id)
+    new_math_problem = Factory.build(:math_problem, :problem_level_id => problem_level.id, :owner_id => nil)
     new_worksheet_problem = Factory.build(:worksheet_problem, :worksheet_id => worksheet.id)
 
     assert_difference('WorksheetProblem.count') do

@@ -9,10 +9,9 @@ class WorksheetProblemsController < ApplicationController
   end
   
   def create
-    params[:worksheet_problem][:math_problem_attributes][:owner_id] = current_user.id
     worksheet = Worksheet.find params[:worksheet_problem][:worksheet_id]
-    
     @worksheet_problem = WorksheetProblem.new(params[:worksheet_problem])
+    @worksheet_problem.math_problem.owner_id ||= current_user.id
     @worksheet_problem.problem_number = worksheet.next_available_problem_number
     
     if @worksheet_problem.save
