@@ -113,7 +113,6 @@ class ProblemTypesControllerTest < AuthenticatingControllerTestCase
     end
     
     assert_redirected_to problem_type_path(problem_type)
-
   end
   
   test "does NOT create level if level info incomplete" do

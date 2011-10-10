@@ -4,4 +4,4 @@
 
 #current-asset-current-resource
   = display_current_asset @current_asset
-  = render :partial => "problem_levels/problem_level_main_resource", :locals => { :problem_level => @problem_level }
+  = render :partial => "problem_levels/problem_level_main_resource", :locals => { :problem_level => @problem_level, :paginated_math_problems => @math_problems }

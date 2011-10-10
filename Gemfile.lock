@@ -158,7 +158,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   guard-test
-  haml (= 3.1.2)
+  haml
   heroku
   jquery-rails (~> 1.0.12)
   kaminari

@@ -36,6 +36,41 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_select "#level-info", "#{type.title}: Level 1"
   end
   
+  test "show displays add math problem link only if current worksheet present for problem not yet on worksheet" do
+    worksheet = worksheets(:monomial_worksheet_01)
+    problem_level = problem_levels(:dividing_monomials_level_01)
+
+    session['current_worksheet_id'] = worksheet.id
+    get :show, :problem_type_id => problem_level.problem_type.permalink, :id => problem_level.level_number
+
+    # assumes fixture arrangement: all math problems on problem level are already on worksheet EXCEPT the 2nd math problem
+    assert_select ".math-display" do
+      assert_select '.math-problem-links' do |links|
+        links.each_with_index do |link, index|
+          index == 1 ? assert_add_problem_to_worksheet_link_appears(link) : assert_add_problem_to_worksheet_link_does_not_appear(link)
+        end
+      end
+    end
+  end
+  
+  test 'show displays no add math problem links if current lesson displayed' do
+    lesson = lessons(:dividing_monomials_lesson)
+    problem_level = problem_levels(:dividing_monomials_level_01)
+
+    session['current_lesson_id'] = lesson.id
+    get :show, :problem_type_id => problem_level.problem_type.permalink, :id => problem_level.level_number
+
+    assert_add_problem_to_worksheet_link_does_not_appear
+  end
+  
+  test 'show displays no add math problem links if no current asset displayed' do
+    problem_level = problem_levels(:dividing_monomials_level_01)
+
+    get :show, :problem_type_id => problem_level.problem_type.permalink, :id => problem_level.level_number
+
+    assert_add_problem_to_worksheet_link_does_not_appear
+  end
+  
   test "should new" do
     prob_type = problem_types(:dividing_monomials_problem_type)
     get :new, :problem_type_id => prob_type.permalink
@@ -158,4 +193,15 @@ class ProblemLevelsControllerTest < AuthenticatingControllerTestCase
     assert_select "textarea#answer-markup-input", 1
   end
   
+  def assert_add_problem_to_worksheet_link_appears(element = nil)
+    assert_add_problem_to_worksheet_link element, true
+  end
+  
+  def assert_add_problem_to_worksheet_link_does_not_appear(element = nil)
+    assert_add_problem_to_worksheet_link element, false
+  end
+  
+  def assert_add_problem_to_worksheet_link(element = nil, present = true)
+    element.nil? ? assert_select('a.add-problem-to-worksheet', present) : assert_select(element, 'a.add-problem-to-worksheet', present)
+  end
 end
