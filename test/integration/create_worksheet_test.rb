@@ -65,6 +65,12 @@ class CreateWorksheetTest < ActionDispatch::IntegrationTest
       assert worksheet_display.has_content?(math_problems.first.question_markup)
       assert worksheet_display.has_no_content?(math_problems[1].question_markup)
     end
+    
+    problem_display = page.all('#main-problem-levels .math-display')
+
+    assert_equal 2, problem_display.size
+    assert problem_display[0].find('.math-problem-links').has_no_button?('Add Problem to Worksheet')    
+    assert problem_display[1].find('.math-problem-links').has_button?('Add Problem to Worksheet')      
   end
   
 end
