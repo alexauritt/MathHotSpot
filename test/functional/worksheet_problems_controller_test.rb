@@ -22,8 +22,29 @@ class WorksheetProblemsControllerTest < AuthenticatingControllerTestCase
         post :create, :worksheet_problem => {:worksheet_id => worksheet.id, :math_problem_attributes => new_math_problem.attributes}
       end
     end
-    assert_current_user_is_owner assigns(:worksheet_problem).math_problem
     assert_redirected_to edit_worksheet_path(worksheet)
+  end
+
+  test "owner of nested math problems is set to current user" do
+    worksheet = stubbed_worksheet
+    problem_level = stubbed_problem_level
+    new_math_problem = Factory.build(:math_problem, :problem_level_id => problem_level.id, :owner_id => nil)
+    new_worksheet_problem = Factory.build(:worksheet_problem, :worksheet_id => worksheet.id)
+
+    post :create, :worksheet_problem => {:worksheet_id => worksheet.id, :math_problem_attributes => new_math_problem.attributes}
+    
+    assert_current_user_is_owner assigns(:worksheet_problem).math_problem
+  end
+  
+  test "previous owner of math problems retains ownership when different user adds the problem to a worksheet" do
+    worksheet = stubbed_worksheet
+    problem_level = stubbed_problem_level
+    other_user = Factory.create :user
+    new_math_problem = Factory.create(:math_problem, :problem_level_id => problem_level.id, :owner_id => other_user.id)
+
+    post :create, :worksheet_problem => {:worksheet_id => worksheet.id, :math_problem_id => new_math_problem.id}
+    
+    assert_equal other_user, assigns(:worksheet_problem).math_problem.owner
   end
   
   test "new worksheet problem" do
