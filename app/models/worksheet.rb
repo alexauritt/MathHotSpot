@@ -95,7 +95,7 @@
   end
   
   def remove_problem(number)
-    problem_exists?(number) ? remove_problem_number_and_reload!(number) : false     
+    problem_exists?(number) ? remove_problem_number_and_reload!(number) : false
   end
       
   def error_for_failed_replace
@@ -128,7 +128,6 @@
   
   def remove_problem_number_and_reload!(problem_number)
     worksheet_problem = problem problem_number
-    worksheet_problem.remove_from_list
     worksheet_problem.destroy
     reload
   end

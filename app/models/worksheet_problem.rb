@@ -83,9 +83,4 @@ class WorksheetProblem < ActiveRecord::Base
       errors.add(:math_problem_id, "not found in db")
     end    
   end
-  
-  def renumber_remaining_worksheet_problems!
-    worksheet.renumber_worksheet_problems!
-    worksheet.reload
-  end
 end
