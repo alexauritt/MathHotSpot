@@ -4,11 +4,11 @@ class WorksheetProblem < ActiveRecord::Base
   
   has_one :problem_level, :through => :math_problem
   
-  accepts_nested_attributes_for :math_problem
+  acts_as_list :scope => :worksheet
   
-  validates_uniqueness_of :problem_number, :scope => :worksheet_id
+  accepts_nested_attributes_for :math_problem
+      
   validate :worksheet_exists, :math_problem_exists
-  after_destroy :renumber_remaining_worksheet_problems!
   
   def sibling_count
     siblings.count
@@ -20,6 +20,14 @@ class WorksheetProblem < ActiveRecord::Base
   
   def problem_level
     math_problem.nil? ? nil : math_problem.problem_level
+  end
+  
+  def problem_number
+    position
+  end
+  
+  def problem_number=(number)
+    self.position = number
   end
   
   def problem_type_title

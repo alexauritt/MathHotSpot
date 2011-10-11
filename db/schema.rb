@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823151826) do
+ActiveRecord::Schema.define(:version => 20111011124622) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20110823151826) do
   create_table "worksheet_problems", :force => true do |t|
     t.integer  "worksheet_id"
     t.integer  "math_problem_id"
-    t.integer  "problem_number"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

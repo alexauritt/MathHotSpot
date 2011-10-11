@@ -37,7 +37,7 @@ class Clone::WorksheetProblemCloneControllerTest < AuthenticatingControllerTestC
     worksheet.id = worksheet_id
     @worksheet_problem.stubs(:worksheet).returns(worksheet)
     @worksheet_problem.stubs(:problem_number).returns(@problem_number)
-    WorksheetProblem.expects(:find_by_worksheet_id_and_problem_number).with(worksheet_id, problem_number).returns(@worksheet_problem)
+    WorksheetProblem.expects(:find_by_worksheet_id_and_position).with(worksheet_id, problem_number).returns(@worksheet_problem)
     @worksheet_problem
   end
   

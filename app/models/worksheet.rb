@@ -3,17 +3,16 @@
   include RightRabbitErrors
   
   belongs_to :owner, :class_name => "User"  
-  has_many :worksheet_problems, :order => :problem_number, :dependent => :destroy
+  has_many :worksheet_problems, :order => "position", :dependent => :destroy
   has_many :math_problems, :through => :worksheet_problems
   
-  accepts_nested_attributes_for :worksheet_problems, :reject_if => lambda { |wp| wp[:problem_number].blank? || wp[:math_problem_id].blank?}, :allow_destroy => true
-
-  before_validation :renumber_worksheet_problems!, :initialize_worksheet_problems
+  accepts_nested_attributes_for :worksheet_problems, :reject_if => lambda { |wp| wp[:math_problem_id].blank?}, :allow_destroy => true
 
   validates_presence_of :owner_id, :title
   validates_associated :owner
   validates_uniqueness_of :title, :score => :owner_id
-  validate :problems_must_be_sequentially_numbered
+  
+  before_validation :initialize_worksheet_problems
     
   def problem_count
     worksheet_problems.size
@@ -42,23 +41,7 @@
   def empty?
     problem_count == 0
   end
-  
-  def renumber_worksheet_problems!
-    return if worksheet_problems.empty?
-    worksheet_problems.reload unless self.new_record?
-    if worksheet_problems.last.problem_number != worksheet_problems.count
-      prev_index = 0
-      worksheet_problems.each do |wp|
-        next_index = prev_index + 1
-        unless wp.problem_number == next_index
-          wp.problem_number = next_index
-          wp.save unless self.new_record?
-        end
-        prev_index += 1
-      end
-    end
-  end
-  
+    
   def problem_groups
     groups = []
     worksheet_problems.chunk {|prob| prob.instruction }.each { |instruction, group| groups << group }
@@ -112,7 +95,7 @@
   end
   
   def remove_problem(number)
-    problem_exists?(number) ? remove_problem_number_and_reload!(number) : false
+    problem_exists?(number) ? remove_problem_number_and_reload!(number) : false     
   end
       
   def error_for_failed_replace
@@ -122,13 +105,7 @@
   def problem(number)
     worksheet_problems[number - 1]
   end  
-  
-  def problems_sequentially_numbered?
-    problem_numbers = worksheet_problems.map {|wp| wp.problem_number }
-    problem_numbers.sort!
-    worksheet_problems.empty? || (problem_numbers == Array(1..worksheet_problems.size))
-  end
-  
+    
   def similar_problems_on_worksheet(worksheet_problem)
     worksheet_problems.select {|wp| (wp.problem_level == worksheet_problem.problem_level && wp != worksheet_problem) } || []
   end  
@@ -137,10 +114,6 @@
 
   def initialize_worksheet_problems
     worksheet_problems.each { |wp| wp.worksheet = self }    
-  end
-
-  def problems_must_be_sequentially_numbered
-    errors.add(:worksheet_problems, "must be consecutive integers beginning with 1") unless problems_sequentially_numbered?
   end
       
   def find_math_problem_number(problem_number)
@@ -154,7 +127,9 @@
   end
   
   def remove_problem_number_and_reload!(problem_number)
-    (problem problem_number).destroy
+    worksheet_problem = problem problem_number
+    worksheet_problem.remove_from_list
+    worksheet_problem.destroy
     reload
   end
 end

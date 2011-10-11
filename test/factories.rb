@@ -70,7 +70,6 @@ Factory.define :worksheet do |w|
 end
 
 Factory.define :worksheet_problem do |wp|
-  wp.problem_number 1
   wp.math_problem { |mp| mp.association(:math_problem) }
   wp.worksheet { |w| w.association(:worksheet)}
 end

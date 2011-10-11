@@ -1,6 +1,6 @@
 module WorksheetsHelper
   def display_problem_number(worksheet_problem)
-    "#{worksheet_problem.problem_number})"
+    "#{worksheet_problem.position})"
   end
   
   def problem_links_if_editable(worksheet_problem, editable)
@@ -10,7 +10,7 @@ module WorksheetsHelper
   end
   
   def problem_group_instructions(problem_group)
-    problem_numbers = problem_group.map { |prob| prob.problem_number }
+    problem_numbers = problem_group.map { |prob| prob.position }
     first_word = problem_numbers.size == 1 ? 'Problem' : 'Problems'
     if is_range? problem_numbers
       numbers_list = range_string problem_numbers

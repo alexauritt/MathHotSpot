@@ -3,49 +3,49 @@
 monomial_worksheet_prob_01:
     worksheet: monomial_worksheet_01
     math_problem: simple_monomial_problem_01
-    problem_number: 1
+    position: 1
 
 monomial_worksheet_prob_02:
     worksheet: monomial_worksheet_01
     math_problem: simple_monomial_problem_03
-    problem_number: 2
+    position: 2
 
 monomial_worksheet_prob_03:
     worksheet: monomial_worksheet_01
     math_problem: simple_monomial_problem_04
-    problem_number: 3
+    position: 3
     
 monomial_worksheet_prob_04:
     worksheet: monomial_worksheet_01
     math_problem: medium_monomial_problem_01
-    problem_number: 4
+    position: 4
 
 monomial_worksheet_prob_05:
     worksheet: monomial_worksheet_01
     math_problem: medium_monomial_problem_02
-    problem_number: 5
+    position: 5
 
 monomial_worksheet_unique_problem:
     worksheet: monomial_worksheet_01
     math_problem: unique_monomial_problem
-    problem_number: 6
+    position: 6
     
 monomial_worksheet_gcf_problem:
     worksheet: monomial_worksheet_01
     math_problem: gcf_monomial_problem
-    problem_number: 7
+    position: 7
     
 monomial_simplify_no_zero_prob_01:
     worksheet: monomial_worksheet_01
     math_problem: monomial_simplify_no_zero_01
-    problem_number: 8
+    position: 8
     
 monomial_simplify_no_zero_prob_02:
     worksheet: monomial_worksheet_01
     math_problem: monomial_simplify_no_zero_02
-    problem_number: 9
+    position: 9
 
 monomial_worksheet_prob_10:
     worksheet: monomial_worksheet_01
     math_problem: difficult_monomial_problem_01
-    problem_number: 10
+    position: 10

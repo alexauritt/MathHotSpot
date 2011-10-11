@@ -123,46 +123,28 @@ class WorksheetTest < ActiveSupport::TestCase
 
     assert_equal [prob2, prob4], worksheet.send(:similar_problems_on_worksheet, prob1)
   end
-  
-  test "problems_numbered_correctly? returns true for worksheet without gaps" do
-    assert @fixture_worksheet.problems_sequentially_numbered?, "fixture worksheet should be correctly numbered"
-  end
-  
-  test "problems_numbered_correctly? identifies gaps in problem numbering" do
-    middle_prob = @fixture_worksheet.problem 7
-    middle_prob.problem_number = worksheet_problems.size + 10
-    middle_prob.save
-    msg = "Worksheet should NOT be sequentially numbered after middle problem incorrectly renumbered, if worksheet has not been renumbered."
-    assert !@fixture_worksheet.problems_sequentially_numbered?, msg
-  end
-  
-  test "renumber_worksheet_problems! fixes gap in middle" do
+    
+  test "acts_as_list fixes gap of one problem in middle" do
     worksheet = worksheets(:monomial_worksheet_01)
     
     assert_difference('worksheet.problem_count', -1) do
       middle_problem = worksheet.problem 4
       middle_problem.destroy
-      worksheet.renumber_worksheet_problems!
+      worksheet.reload
     end
     
-    msg = "Worksheet problems not properly renumbered after deletion of problem in middle of worksheet"
-    assert worksheet.problems_sequentially_numbered?, msg
+    assert_problems_are_sequentially_numbered worksheet
   end
   
-  test "renumber_worksheet_problems! fixes gap of two problems in middle" do
+  test "act_as_list fixes gap of two problems in middle after reload" do
     worksheet = worksheets(:monomial_worksheet_01)
-    
+
     assert_difference('worksheet.problem_count', -2) do
-      middle_problem = worksheet.problem 4
-      middle_problem.destroy
-      middle_problem = worksheet.problem 5
-      middle_problem.destroy
-    
-      worksheet.renumber_worksheet_problems!
+      worksheet.remove_problem 3
+      worksheet.remove_problem 4
     end
-    
-    msg = "Worksheet problems not properly renumbered after deletion of two problems in middle of worksheet"
-    assert worksheet.problems_sequentially_numbered?, msg
+
+    assert_problems_are_sequentially_numbered worksheet
   end
   
   test "remove_problem returns true if problem removed successfully" do
@@ -173,27 +155,11 @@ class WorksheetTest < ActiveSupport::TestCase
     bad_problem_number = @fixture_worksheet.problem_count + 1
     assert_equal false, @fixture_worksheet.remove_problem(bad_problem_number)
   end
-  
-  test "renumber_worksheet_problems! renumbers unpersisted worksheet problems" do
-    worksheet = Worksheet.new
-    4.times do |index|
-      prob = MathProblem.limit(1).offset(MathProblem.count).first
-      bad_prob_number = rand(1000)
-      worksheet.worksheet_problems.build(:math_problem => prob, :problem_number => bad_prob_number)      
-    end
-
-    worksheet.renumber_worksheet_problems!
     
-    4.times do |index|
-      assert_equal index+1, worksheet.worksheet_problems[index].problem_number
-    end
-  end
-  
   test "can create new worksheet with nested worksheet problems" do
     prob1 = math_problems(:medium_monomial_problem_02)
     prob2 = math_problems(:simple_monomial_problem_03)
-    worksheet_problems_attributes = {"0" => {:math_problem_id => prob1.id, 
-      :problem_number => 10}, "1" => {:math_problem_id => prob2.id, :problem_number => 2}}
+    worksheet_problems_attributes = {"0" => {:math_problem_id => prob1.id}, "1" => {:math_problem_id => prob2.id}}
     assert_difference('Worksheet.count') do
       assert_difference('WorksheetProblem.count', 2) do
         w = Worksheet.create(:title => "a new worksheet", :owner => User.first, 
@@ -351,6 +317,11 @@ class WorksheetTest < ActiveSupport::TestCase
     instructions.size == 1
   end
   
+  def assert_problems_are_sequentially_numbered(worksheet)
+    positions = worksheet.worksheet_problems.map {|wp| wp.position}
+    assert_equal Array(1..worksheet.problem_count), positions
+  end
+    
   def set_same_template_for_every_problem_on_worksheet_except_number(problem_number)
     template1, template2 = ProblemType.new, ProblemType.new
     @worksheet.worksheet_problems.each_with_index do |wp, index|

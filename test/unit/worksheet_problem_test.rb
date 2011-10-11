@@ -37,14 +37,6 @@ class WorksheetProblemTest < ActiveSupport::TestCase
     
     assert_equal new_math_problem, @worksheet_problem.math_problem
   end
-
-  test "destruction of worksheet problem should trigger renumeration of worksheet" do
-    @fixture_worksheet = worksheets(:monomial_worksheet_01)
-    middle_prob = @fixture_worksheet.problem 7
-    middle_prob.destroy
-    msg = "Worksheet should be automatically numbered after middle problem incorrectly renumbered."
-    assert @fixture_worksheet.problems_sequentially_numbered?, msg
-  end
   
   test "worksheet_problem accepts nested attributes for new math problem belonging to existing PT/PL" do
     worksheet = Factory.build(:worksheet)
@@ -133,6 +125,18 @@ class WorksheetProblemTest < ActiveSupport::TestCase
   test "problem_type_title returns Unclassified Math Problem msg if problem is unclassified" do
     @current_math_problem.problem_level = nil
     assert_equal UNCLASSFIED_PROBLEM, @worksheet_problem.problem_type_title 
-  end
+  end  
   
+  test "destruction of worksheet problem should trigger renumeration of worksheet" do
+    @fixture_worksheet = worksheets(:monomial_worksheet_01)
+
+    assert_difference("@fixture_worksheet.problem_count", -1) do
+      middle_prob = @fixture_worksheet.problem 7
+      middle_prob.destroy
+      @fixture_worksheet.reload
+    end
+
+    msg = "Worksheet should be automatically numbered after middle problem incorrectly renumbered."
+    assert_equal Array(1..@fixture_worksheet.problem_count), @fixture_worksheet.worksheet_problems.map {|wp| wp.position}
+  end  
 end
