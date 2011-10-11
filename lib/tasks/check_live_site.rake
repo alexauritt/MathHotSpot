@@ -3,6 +3,9 @@ namespace :check_live do
   task :auds do
     puts `heroku console --app rightrabbit 'User.find 3'`
   end
+  task :matt do
+    puts `heroku console --app rightrabbit 'User.find 5'`
+  end
   
   desc "check if live db schema is up to date"
   task :db do
