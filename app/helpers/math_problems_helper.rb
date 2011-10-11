@@ -40,4 +40,16 @@ module MathProblemsHelper
     end
   end
   
+  def add_to_current_worksheet_link_if_applicable(math_problem)
+    if current_worksheet?
+      begin
+        current_worksheet = Worksheet.find(session[:current_worksheet_id])
+        unless current_worksheet.math_problems.include? math_problem
+          render(:partial => "math_problems/add_math_problem_to_current_worksheet", :locals => {:worksheet_problem => WorksheetProblem.new(:math_problem => math_problem, :worksheet => current_worksheet, :problem_number => current_worksheet.next_available_problem_number)})
+        end
+      rescue ActiveRecord::RecordNotFound
+        clear_current_worksheet_in_session!
+      end
+    end
+  end  
 end

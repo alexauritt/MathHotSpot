@@ -21,8 +21,9 @@
       #cancel-title-update
         = simple_form_for edit_worksheet_path(@worksheet) do |c|
           = c.submit "cancel", :class => 'worksheet-button'
-  #add-new-problem
+  .add-new-problem-buttons
     = button_to "Create New Problem for Worksheet", new_worksheet_worksheet_problem_path(@worksheet), { :class => 'worksheet-button', :method => :get }
+    = button_to "Find Existing Problem for Worksheet", new_problem_types_search_path, { :class => 'worksheet-button', :method => :get }
   - @worksheet.problem_groups.each do |group|
     .problem_group
       .instructions

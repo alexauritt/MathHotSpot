@@ -1,5 +1,6 @@
 module ProblemTypesHelper
   include ActsAsTaggableOn::TagsHelper
+  include CurrentAssetManageable
 
   def level_count_msg(problem_type)
     count = problem_type.level_count
@@ -25,12 +26,14 @@ module ProblemTypesHelper
   end
 
   def add_to_current_lesson_link_if_applicable(problem_type)
-    if session[:current_lesson_id]
+    if current_lesson?
       begin
         current_lesson = Lesson.find(session[:current_lesson_id])
-        render(:partial => "problem_types/add_problem_type_to_current_lesson", :locals => {:problem_type => problem_type, :lesson => current_lesson})
+        unless current_lesson.problem_types.include? problem_type
+          render(:partial => "problem_types/add_problem_type_to_current_lesson", :locals => {:problem_type => problem_type, :lesson => current_lesson})
+        end
       rescue ActiveRecord::RecordNotFound
-        session[:current_lesson_id] = nil
+        clear_current_lesson_in_session!        
       end
     end
   end

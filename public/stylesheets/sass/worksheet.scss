@@ -35,8 +35,12 @@
   }
 }
 
-#add-new-problem {
+.add-new-problem-buttons {
   margin: 20px;
+  form {
+    float: left;
+    margin: 5px;
+  }
 }
 
 div.problem_group {

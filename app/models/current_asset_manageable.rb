@@ -21,6 +21,14 @@ module CurrentAssetManageable
     end
   end
   
+  def current_lesson?
+    !session[:current_lesson_id].nil? && session[:current_worksheet_id].nil?
+  end
+  
+  def current_worksheet?
+    session[:current_lesson_id].nil? && !session[:current_worksheet_id].nil?
+  end
+  
   def set_current_lesson_in_session! lesson_id
     session[:current_lesson_id] = lesson_id
     session[:current_worksheet_id] = nil
