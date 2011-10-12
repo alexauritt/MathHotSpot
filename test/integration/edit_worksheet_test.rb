@@ -86,8 +86,12 @@ class EditWorksheetTest < ActionDispatch::IntegrationTest
     
     assert_current_path edit_worksheet_path @worksheet
     
-    within '#problem_3' do
+    within '#problem_2' do
       assert find('.question').has_content? @replaceable_2_question_content
+    end
+    
+    within '#problem_3' do
+      assert find('.question').has_content? @non_replaceable_question_content
     end
   end
     

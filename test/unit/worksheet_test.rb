@@ -201,17 +201,20 @@ class WorksheetTest < ActiveSupport::TestCase
     end
   end
 
-  test "add_problem_like! adds new problem to back of worksheet" do
+  test "add_problem_like! adds new problem immediately after target problem" do
     worksheet = create_worksheet_with_all_problems_from_same_level! :problem_count => 3
+
+    original_math_problems = worksheet.worksheet_problems.map {|wp| wp.math_problem }
     new_prob = new_persisted_math_problem(worksheet.worksheet_problems.first.problem_level)
     
     worksheet.problem(1).math_problem.expects(:find_problem_from_same_level).returns(new_prob)
     worksheet.add_problem_like! 1
+    new_math_problems = worksheet.worksheet_problems.map {|wp| wp.math_problem }
     
-    last_worksheet_prob = worksheet.worksheet_problems.last
-
-    assert_equal new_prob, last_worksheet_prob.math_problem
-    assert_equal 4, last_worksheet_prob.problem_number
+    assert_equal original_math_problems[0], new_math_problems[0]
+    assert_equal new_prob, new_math_problems[1]
+    assert_equal original_math_problems[1], new_math_problems[2]
+    assert_equal original_math_problems[2], new_math_problems[3]        
   end
   
   test "add_problem_like! returns nil and sets error if problem is unique" do
@@ -300,10 +303,9 @@ class WorksheetTest < ActiveSupport::TestCase
   def create_worksheet_with_all_problems_from_same_level!(attr = {:problem_count => 1})
     worksheet = Factory.create(:worksheet)
     level = ProblemLevel.new
-    work_prob_attributes = []
-    attr[:problem_count].times {|i| work_prob_attributes << Factory.attributes_for(:worksheet_problem, 
-        :problem_number => i+1, :math_problem => new_persisted_math_problem(level))}
-    worksheet.worksheet_problems.build work_prob_attributes
+    work_problems = []
+    attr[:problem_count].times {|i| work_problems << Factory.build(:worksheet_problem, :math_problem => new_persisted_math_problem(level))}
+    worksheet.worksheet_problems << work_problems
     worksheet
   end
   
