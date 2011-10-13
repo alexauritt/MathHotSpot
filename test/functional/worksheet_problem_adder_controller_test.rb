@@ -10,6 +10,7 @@ class WorksheetProblemAdderControllerTest < AuthenticatingControllerTestCase
     @problem_number = 3    
     
   end
+
   test "create delegates to Worksheet add_problem_like" do
     
     @worksheet.expects(:add_problem_like!).with(@problem_number).returns(@new_worksheet_problem)
@@ -19,6 +20,15 @@ class WorksheetProblemAdderControllerTest < AuthenticatingControllerTestCase
 
     assert_redirected_to edit_worksheet_path(@worksheet)
     assert_no_error_message
+  end
+  
+  test "create saves target problem number for view" do
+    @worksheet.expects(:add_problem_like!).with(@problem_number).returns(@new_worksheet_problem)
+    Worksheet.expects(:find).with(@worksheet_id).returns(@worksheet)
+    
+    post :create, :worksheet_problem_adder => {:worksheet_id => @worksheet_id, :problem_number => @problem_number}
+
+    assert_equal @problem_number, assigns(:target_problem_number)
   end
   
   test "renders worksheet with error if add_problem_like! returns nil and adds base error to worksheet" do

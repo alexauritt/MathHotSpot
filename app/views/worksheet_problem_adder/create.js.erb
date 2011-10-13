@@ -1,0 +1,31 @@
+MHS.Worksheet.ProblemStateComparison = {
+  idsMatch: function(first, second) { return (first.attr('id') == second.attr('id'));}
+}
+
+var problemTarget = $('#problem_<%= @target_problem_number %>');
+var newProblem = "<%= escape_javascript(render(:partial => 'worksheet_problems/worksheet_problem', :locals => { :worksheet_problem => @new_worksheet_problem, :editable => true })) %>";
+
+// insert new problem
+$(newProblem).insertAfter(problemTarget);
+var newArrival = $('#problem_<%= @target_problem_number + 1 %>');
+MathJax.Hub.Queue(["Typeset",MathJax.Hub,newArrival.attr('id')]);
+
+// collect html for all worksheet_problems as should be displayed on worksheet
+var worksheetProblems = [];
+<% @worksheet.worksheet_problems.each do |wp| %>
+  // perhaps don't render, but instead produce placeholder blank string for problems of different problem type
+  var wp_html = "<%= escape_javascript(render(:partial => 'worksheet_problems/worksheet_problem', :locals => { :worksheet_problem => wp, :editable => true })) %>";
+  worksheetProblems.push($(wp_html));
+<% end %>
+
+// update actual problem number onscreen of all problems that follow new problem
+<% problem_number_list = problem_numbers_to_update(@worksheet, @target_problem_number).each do |number| %>
+  var number = <%= number %>;
+  var index = <%= number - 1 %>;
+  var currentWorksheetProblem = $('.worksheet-problem').eq(index);
+  currentWorksheetProblem.attr('id', "problem_" + number);
+  $('.problem_number', currentWorksheetProblem).text(number + ')');
+<% end %>
+
+
+// update problem links if necessary
