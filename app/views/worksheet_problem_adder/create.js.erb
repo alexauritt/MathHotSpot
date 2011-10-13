@@ -18,14 +18,28 @@ var worksheetProblems = [];
   worksheetProblems.push($(wp_html));
 <% end %>
 
-// update actual problem number onscreen of all problems that follow new problem
-<% problem_number_list = problem_numbers_to_update(@worksheet, @target_problem_number).each do |number| %>
+// update id, problem number display, and problem links for all problems that follow new problem
+<% displaced = displaced_problem_numbers(@worksheet, @target_problem_number).each do |number| %>
   var number = <%= number %>;
   var index = <%= number - 1 %>;
   var currentWorksheetProblem = $('.worksheet-problem').eq(index);
+  // update id
   currentWorksheetProblem.attr('id', "problem_" + number);
+
+  // update problem number display
   $('.problem_number', currentWorksheetProblem).text(number + ')');
+
+  // fetch and update problem links
+  var newProblemLinks = $('.problem-links', worksheetProblems[index]);
+  $('.problem-links', currentWorksheetProblem).replaceWith(newProblemLinks);
 <% end %>
 
+<% non_displaced_but_requiring_link_updates = problem_numbers_requiring_link_updates(@worksheet, @target_problem_number) - displaced %>
+<% non_displaced_but_requiring_link_updates.each do |number| %>
+  var number = <%= number %>;
+  var index = <%= number - 1 %>;
+  var currentWorksheetProblem = $('.worksheet-problem').eq(index);
+  var newProblemLinks = $('.problem-links', worksheetProblems[index]);
+  $('.problem-links', currentWorksheetProblem).replaceWith(newProblemLinks);
+<% end %>
 
-// update problem links if necessary

@@ -1,16 +1,16 @@
 require 'test_helper'
 
 class WorksheetProblemAdderHelperTest < ActionView::TestCase
-  test "problem_numbers_to_update returns empty array if we added the second problem" do
+  test "displaced_problem_numbers returns empty array if we added the second problem" do
     worksheet = Factory.build(:worksheet)
     worksheet.expects(:problem_count).returns(2)
-    assert_equal [], problem_numbers_to_update(worksheet, 1)
+    assert_equal [], displaced_problem_numbers(worksheet, 1)
   end
   
-  test "problem_numbers_to_update returns list of problem numbers after newly inserted problem" do
+  test "displaced_problem_numbers returns list of problem numbers after newly inserted problem" do
     worksheet = Factory.build(:worksheet)
     worksheet.expects(:problem_count).returns(10)
-    assert_equal (6..10).to_a, problem_numbers_to_update(worksheet, 4)    
+    assert_equal (6..10).to_a, displaced_problem_numbers(worksheet, 4)    
   end
   
   test "problem_numbers_requiring_link_updates returns empty array if target problem has additional replacements available" do
