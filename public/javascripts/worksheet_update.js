@@ -18,6 +18,7 @@ MHS.Worksheet.Updater = {
 }
 
 $(function() {
+  $('input.throbbing').throbber('click', {'image':"/images/throbber.gif"});  
   $('#title-update').hide();
   $('#title-edit-link').show();
   $('#cancel-title-update input').live('click', MHS.Worksheet.Updater.hideFormAndShowLink);

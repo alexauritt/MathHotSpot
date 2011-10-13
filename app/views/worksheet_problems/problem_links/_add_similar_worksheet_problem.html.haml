@@ -1,4 +1,4 @@
-= form_tag(worksheet_problem_adder_path, :method => :post, :remote => true, :class => "add_problem_form", :id => "add_problem_form_#{worksheet_problem.problem_number}") do
+= form_tag(worksheet_problem_adder_path, :method => :post, :class => "add_problem_form", :id => "add_problem_form_#{worksheet_problem.problem_number}") do
   %input{:type => "hidden", :name => 'worksheet_problem_adder[worksheet_id]', :value => worksheet_problem.worksheet.id}
   %input{:type => "hidden", :name => 'worksheet_problem_adder[problem_number]', :value => worksheet_problem.problem_number}
-  %input{:id => "add_problem_submit_#{worksheet_problem.problem_number}", :class =>"worksheet-button", :type => "submit", :value => "add similar" }
+  %input{:id => "add_problem_submit_#{worksheet_problem.problem_number}", :class =>"worksheet-button throbbing", :type => "submit", :value => "add similar" }
