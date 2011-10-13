@@ -3,6 +3,11 @@ require 'test_helper'
 class RoutingTest < ActionController::TestCase
 
 
+#my_worksheets
+  test "my_worksheets" do
+    assert_routing( {:path => '/my_worksheets', :method => :get}, {:controller => 'worksheets/my_worksheets', :action => 'index'})
+  end
+  
 #dashboard
   test "dashboard route" do
     assert_routing( { :path => '/dashboard', :method => :get}, { :controller => 'dashboards', :action => 'show' })
