@@ -6,8 +6,9 @@
   = stylesheet_link_tag "print/worksheet", {:media => "print" }
 
 .worksheet{:id => "worksheet_#{@worksheet.id}"}
-  #worksheet-links
-  = button_to "Save Worksheet", worksheet_path(@worksheet), { :class => 'worksheet-button', :method => :get }
+  - unless @worksheet.empty?
+    #worksheet-links
+    = button_to "Save Worksheet", worksheet_path(@worksheet), { :class => 'worksheet-button', :method => :get }
   #worksheet-title
     #current-title
       #title-display

@@ -30,6 +30,7 @@
 
 #worksheet-title {
   margin-top: 0.5em;
+  margin-bottom: 0.6em;
   text-align: center;
   div, form {
     display: inline;
@@ -40,7 +41,10 @@
 }
 
 .add-new-problem-buttons {
-  margin: 20px;
+  max-width: 400px;
+  margin: auto;
+  align: center;
+  overflow: auto;
   form {
     float: left;
     margin: 5px;
@@ -79,4 +83,11 @@ span.math_text {
 
 p.inline_math {
   text-align: center;
+}
+
+#new-worksheet-form {
+  text-align: center;
+  #submit {
+    margin-top: .5em;
+  }
 }

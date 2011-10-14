@@ -27,7 +27,7 @@ class CreateWorksheetTest < ActionDispatch::IntegrationTest
     
     assert_current_path new_worksheet_path
     
-    fill_in "Title", :with => title
+    fill_in "worksheet_title", :with => title
     
     click_button "Create Worksheet"
     

@@ -1,0 +1,19 @@
+#new-problem-title {
+  text-align: center;
+}
+form#new_worksheet_problem {
+  margin: auto;
+  max-width: 1000px;
+  text-align: center;
+  #math-markup-input-fields {
+    overflow: auto;
+    #question, #answer {
+      width: 47%;
+    }
+    #question_markup, #answer_markup {
+      label {
+        display: none;
+      }
+    }
+  }
+}

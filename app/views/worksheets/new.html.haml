@@ -1,11 +1,13 @@
 - content_for :head do
   %title 
     New Worksheet
-
+  = stylesheet_link_tag "worksheet"
+  
 #new-worksheet-form
   = simple_form_for(@worksheet) do |w|
+    Choose a name for the worksheet.
     #worksheet-title
-      = w.input :title
+      = w.input :title, :label => false
     #submit
       = w.submit 
 
