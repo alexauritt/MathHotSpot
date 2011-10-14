@@ -51,7 +51,7 @@ class WorksheetsControllerTest < AuthenticatingControllerTestCase
     assert_difference('Worksheet.count', -1) do
       delete :destroy, :id => @worksheet
     end
-    assert_redirected_to dashboard_path    
+    assert_redirected_to my_worksheets_path    
   end
   
   test "update worksheet" do

@@ -7,7 +7,7 @@
 
 .worksheet{:id => "worksheet_#{@worksheet.id}"}
   #worksheet-links
-  = link_to "Back", worksheet_path(@worksheet)
+  = button_to "Save Worksheet", worksheet_path(@worksheet), { :class => 'worksheet-button', :method => :get }
   #worksheet-title
     #current-title
       #title-display

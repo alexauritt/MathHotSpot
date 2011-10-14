@@ -60,7 +60,6 @@ module ActionController
           assert page.has_content?(problem_type.title)
         end
       end
-      
     end
   end
 end

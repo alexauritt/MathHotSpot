@@ -19,9 +19,6 @@ class SimpleLoginTest < ActionDispatch::IntegrationTest
     fill_in 'user_password', :with => user.password
     click_button('Sign in')
   
-    assert_equal root_path, current_path
-
-    assert_problem_type_search_forms_displayed
-    
+    assert_equal root_path, current_path    
   end
 end

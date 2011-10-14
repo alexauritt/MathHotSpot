@@ -1,0 +1,18 @@
+- content_for :head do
+  %title My Worksheets
+  = stylesheet_link_tag "worksheets/my_worksheets"
+
+#title My Worksheets
+#worksheets
+  #current-worksheets
+    .section-title
+      Current Worksheets  
+    - if @worksheets.empty?
+      .worksheet You don't have any worksheets!
+      .worksheet Make some worksheets!
+    - else
+      - @worksheets.each do |worksheet|
+        .worksheet
+          = link_to worksheet.title, worksheet_path(worksheet)
+  #create-new-worksheet
+    = link_to "Create a New Worksheet", new_worksheet_path

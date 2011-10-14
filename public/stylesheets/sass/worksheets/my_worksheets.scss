@@ -1,0 +1,39 @@
+#main-content {
+  max-width: 800px;
+  align: center;
+  margin: auto;
+}
+
+#title {
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: .6em;
+}
+.section-title {
+  font-size: 1.8em;
+  margin-bottom: .3em;
+}
+
+#worksheets {
+  clear: both;
+  overflow: auto;
+}
+#current-worksheets {
+  float: left;
+  width: 50%;
+  font-size: 1em;
+  margin-bottom: .7em;
+  .worksheet {
+    margin-left: 5em;
+  }
+}
+
+#create-new-worksheet {
+  float: left;
+  width: 50%;
+  text-align: center;
+  a {
+    font-size: 1.8em;
+    text-decoration: none;
+  }
+}

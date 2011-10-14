@@ -20,6 +20,7 @@ class WorksheetsController < ApplicationController
   def show
     @worksheet = Worksheet.find(params[:id])
     set_current_worksheet_in_session! @worksheet.id
+    redirect_to(edit_worksheet_path) if @worksheet.empty?
     @math_problems = @worksheet.worksheet_problems.map {|wp| wp.math_problem }
   end
   
@@ -31,7 +32,7 @@ class WorksheetsController < ApplicationController
   def destroy
      @worksheet = Worksheet.find(params[:id])
      @worksheet.destroy    
-    redirect_to dashboard_path
+    redirect_to my_worksheets_path
   end
 
   def update    
