@@ -2,14 +2,14 @@ var problemTarget = $('#problem_<%= @target_problem_number %>');
 var newProblem = "<%= escape_javascript(render(:partial => 'worksheet_problems/worksheet_problem', :locals => { :worksheet_problem => @new_worksheet_problem, :editable => true })) %>";
 
 // insert new problem
-$(newProblem).insertAfter(problemTarget);
+$(newProblem).insertAfter(problemTarget).hide().fadeIn('slow');
 var newArrival = $('#problem_<%= @target_problem_number + 1 %>');
 MathJax.Hub.Queue(["Typeset",MathJax.Hub,newArrival.attr('id')]);
 
 // collect html for all worksheet_problems as should be displayed on worksheet
+// note: we don't need all. should refactor and only render what we need
 var worksheetProblems = [];
 <% @worksheet.worksheet_problems.each do |wp| %>
-  // perhaps don't render, but instead produce placeholder blank string for problems of different problem type
   var wp_html = "<%= escape_javascript(render(:partial => 'worksheet_problems/worksheet_problem', :locals => { :worksheet_problem => wp, :editable => true })) %>";
   worksheetProblems.push($(wp_html));
 <% end %>
@@ -30,7 +30,7 @@ var worksheetProblems = [];
   $('.problem-links', currentWorksheetProblem).replaceWith(newProblemLinks);
 <% end %>
 
-// update links for non-displaced problems if needed ('e.g., if siblings supply has been exhausted)
+// update links for non-displaced problems if needed ('e.g., if siblings supply has been exhausted')
 <% non_displaced_but_requiring_link_updates = problem_numbers_requiring_link_updates(@worksheet, @target_problem_number) - displaced %>
 <% non_displaced_but_requiring_link_updates.each do |number| %>
   var number = <%= number %>;
