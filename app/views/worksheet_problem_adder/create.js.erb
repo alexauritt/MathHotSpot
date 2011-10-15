@@ -40,4 +40,4 @@ var worksheetProblems = [];
   $('.problem-links', currentWorksheetProblem).replaceWith(newProblemLinks);
 <% end %>
 
-$.throbberHide();
+$('input.add-similar-problem-submit', problemTarget).spinner('remove');

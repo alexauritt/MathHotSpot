@@ -10,5 +10,5 @@ var displayTarget = $('div.math-display', problemTarget);
   displayTarget.replaceWith(newMathDisplay);
 <% end %>
 
-$.throbberHide();
+$('input.replace-problem-submit', problemTarget).spinner('remove');
 MathJax.Hub.Queue(["Typeset",MathJax.Hub,problemTarget.attr('id')]);

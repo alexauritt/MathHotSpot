@@ -1,7 +1,7 @@
 - content_for :head do
   %title
     ="Worksheet #{@worksheet.id}"
-  = javascript_include_tag "worksheet_update"
+  = javascript_include_tag "worksheet_update", "jquery.spinner.js"
   = stylesheet_link_tag "worksheet", {:media => "print, screen"}
   = stylesheet_link_tag "print/worksheet", {:media => "print" }
 
