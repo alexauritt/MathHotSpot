@@ -30,6 +30,9 @@ var worksheetProblems = [];
   $('.problem-links', currentWorksheetProblem).replaceWith(newProblemLinks);
 <% end %>
 
+// must remove spinner BEFORE we update links for non-displaced items, in case target problem is one such item.
+$('input.add-similar-problem-submit', problemTarget).spinner('remove');
+
 // update links for non-displaced problems if needed ('e.g., if siblings supply has been exhausted')
 <% non_displaced_but_requiring_link_updates = problem_numbers_requiring_link_updates(@worksheet, @target_problem_number) - displaced %>
 <% non_displaced_but_requiring_link_updates.each do |number| %>
@@ -39,5 +42,3 @@ var worksheetProblems = [];
   var newProblemLinks = $('.problem-links', worksheetProblems[index]);
   $('.problem-links', currentWorksheetProblem).replaceWith(newProblemLinks);
 <% end %>
-
-$('input.add-similar-problem-submit', problemTarget).spinner('remove');
