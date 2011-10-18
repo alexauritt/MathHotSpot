@@ -19,10 +19,12 @@ gem 'devise'
 gem 'kaminari'
 
 group :development, :test do
+  gem 'rspec-rails'
+  gem 'ZenTest'
   gem 'capybara'
   gem 'mocha', :require => false
   gem 'rb-fsevent'
-  gem 'guard-test'
+  gem 'guard-rspec'
   gem 'ruby-prof'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
