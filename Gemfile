@@ -24,6 +24,7 @@ group :development, :test do
   gem 'capybara'
   gem 'mocha', :require => false
   gem 'rb-fsevent'
+  gem 'guard-test'
   gem 'guard-rspec'
   gem 'ruby-prof'
   gem 'factory_girl_rails'
