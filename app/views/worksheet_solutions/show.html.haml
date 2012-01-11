@@ -1,8 +1,6 @@
 - content_for :head do
   %title
     ="Worksheet #{@worksheet.id} Solutions"
-  = stylesheet_link_tag "worksheet", {:media => "print, screen"}
-  = stylesheet_link_tag "print/worksheet", {:media => "print" }
 
 .worksheet{:id => "worksheet_#{@worksheet.id}"}
   #worksheet_links

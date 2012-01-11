@@ -2,8 +2,6 @@
   %title
     ="Worksheet #{@worksheet.id}"
   = javascript_include_tag "worksheet_update", "jquery.spinner.js"
-  = stylesheet_link_tag "worksheet", {:media => "print, screen"}
-  = stylesheet_link_tag "print/worksheet", {:media => "print" }
 
 .worksheet{:id => "worksheet_#{@worksheet.id}"}
   - unless @worksheet.empty?
