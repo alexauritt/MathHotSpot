@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.3'
 gem 'rack'
 
 # Bundle edge Rails instead:
@@ -23,9 +23,11 @@ group :development, :test do
   gem 'ZenTest'
   gem 'capybara'
   gem 'mocha', :require => false
+  
   gem 'rb-fsevent'
   gem 'guard-test'
   gem 'guard-rspec'
+    
   gem 'ruby-prof'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
