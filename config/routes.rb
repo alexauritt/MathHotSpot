@@ -1,5 +1,6 @@
 Mathhotspot::Application.routes.draw do
-  
+
+  mathjax :mathjax
   devise_for :users
 
   root :to => "Worksheets::MyWorksheets#index"

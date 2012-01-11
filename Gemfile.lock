@@ -98,6 +98,8 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mathjax-rails (0.0.4)
+      railties (~> 3.0)
     metaclass (0.0.1)
     mime-types (1.17.2)
     mocha (0.10.0)
@@ -207,6 +209,7 @@ DEPENDENCIES
   heroku
   jquery-rails (~> 1.0.12)
   kaminari
+  mathjax-rails
   mocha
   pg
   rack

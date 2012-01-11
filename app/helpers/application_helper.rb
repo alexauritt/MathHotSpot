@@ -21,7 +21,7 @@ module ApplicationHelper
   end
   
   def include_mathjax
-    ::Rails.env == "production" ? cdn_mathjax_link : local_mathjax_link
+    ::Rails.env == "production" ? cdn_mathjax_link : mathjax_tag
   end
   
   def cdn_mathjax_link
@@ -29,7 +29,6 @@ module ApplicationHelper
   end
   
   def local_mathjax_link
-    javascript_include_tag("math_jax/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local")
   end
   
   def latex_generator_popup_url

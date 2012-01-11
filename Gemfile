@@ -39,6 +39,7 @@ group :development, :test do
   gem 'ruby-prof'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'mathjax-rails'
 end
 
 # Use unicorn as the web server
