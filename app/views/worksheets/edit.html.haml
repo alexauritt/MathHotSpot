@@ -1,7 +1,6 @@
 - content_for :head do
   %title
     ="Worksheet #{@worksheet.id}"
-  = javascript_include_tag "worksheet_update", "jquery.spinner.js"
 
 .worksheet{:id => "worksheet_#{@worksheet.id}"}
   - unless @worksheet.empty?
