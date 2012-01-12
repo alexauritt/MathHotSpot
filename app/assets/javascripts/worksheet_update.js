@@ -18,11 +18,6 @@ MHS.Worksheet.Updater = {
 }
 
 $(function() {
-  $('.worksheet').delegate('input.spinner', 'click', function(e) { 
-    var target = $(e.currentTarget);
-		var opts = { position: 'center', hide: true };
-		target.spinner(opts);
-	});
   $('#title-update').hide();
   $('#title-edit-link').show();
   $('#cancel-title-update input').live('click', MHS.Worksheet.Updater.hideFormAndShowLink);
