@@ -21,13 +21,17 @@ module ApplicationHelper
   end
   
   def include_mathjax
-    ::Rails.env == "production" ? cdn_mathjax_link : mathjax_tag(:config => 'Tex-AMS-MML_HTMLorMML.js')
+    ::Rails.env == "production" ? cdn_mathjax_link : local_mathjax_link
   end
   
   def cdn_mathjax_link
     javascript_include_tag('http://cdn.mathjax.org/mathjax/1.1-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
   end
-    
+  
+  def local_mathjax_link
+    javascript_include_tag("math_jax/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local")
+  end
+  
   def latex_generator_popup_url
     "http://latex.codecogs.com/editor3.js"    
   end
