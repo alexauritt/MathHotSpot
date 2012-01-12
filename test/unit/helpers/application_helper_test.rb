@@ -4,7 +4,6 @@ class ApplicationHelperTest < ActionView::TestCase
     
   def setup
     @cdn_script_link = "<script src=\"http://cdn.mathjax.org/mathjax/1.1-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\" type=\"text/javascript\"></script>"
-    @local_script_link = "<script src=\"/javascripts/math_jax/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local.js\" type=\"text/javascript\"></script>"
   end
 
   test "user_login_or_logout_link returns Sign In if no one is logged in" do
@@ -30,18 +29,15 @@ class ApplicationHelperTest < ActionView::TestCase
   test "add CDN math link" do
     assert_equal @cdn_script_link, cdn_mathjax_link
   end
-  
-  test "add local mathjax link" do
-    assert_equal @local_script_link, local_mathjax_link
-  end
-  
+    
   test "include mathjax uses cdn in production mode" do
     ::Rails.env = "production"
     assert_equal @cdn_script_link, include_mathjax
   end
   
-  test "include_math_jax" do
-    assert_equal @local_script_link, include_mathjax
+  test "include_math_jax is null in development mode" do
+    ::Rails.env = "development"
+    assert_nil include_mathjax
   end
 
   test "problem_count_msg multiple" do

@@ -15,7 +15,7 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
   test "Create a vanilla Algebra Lesson" do
     lesson_name = 'My First Lesson'
     
-    click_link('dashboard')
+    visit dashboard_path # should be click dashboard link? or is this test obsolete?
     click_link('Create a new Lesson')
 
     assert_current_path new_lesson_path
@@ -29,7 +29,8 @@ class CreateAndModifyLessonsTest < ActionDispatch::IntegrationTest
   test "delete a pre-existing lesson" do
     lesson_to_delete = @user.lessons.first
     dead_lesson_title = lesson_to_delete.title
-    click_link('dashboard')
+
+    visit dashboard_path #should be click dashboard link? or is this test obsolete?
 
     within('#my-lessons') do
       click_link(lesson_to_delete.title)

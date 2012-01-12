@@ -1,10 +1,6 @@
 #navigation-header
   #navigation-links
     = link_to :home, my_worksheets_path
-    |
-    = link_to :dashboard, dashboard_url
-    |
-    = link_to :'find problems', new_problem_types_search_path
   #user_login
     = display_email_if_signed_in
     = user_login_or_logout_link
