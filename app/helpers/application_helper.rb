@@ -21,7 +21,7 @@ module ApplicationHelper
   end
   
   def include_mathjax
-    cdn_mathjax_link if ::Rails.env == "production"
+    ::Rails.env == "production" ? cdn_mathjax_link : mathjax_tag(:config => 'Tex-AMS-MML_HTMLorMML.js')
   end
   
   def cdn_mathjax_link
