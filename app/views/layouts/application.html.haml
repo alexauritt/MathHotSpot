@@ -7,7 +7,9 @@
     = yield :head
   %body
     = render :partial => "layouts/navigation"
-    = render :partial => "layouts/flash_notice"
-    #main-content
-      = yield
-    = render :partial => "layouts/footer"
+    .container
+      .sixteen.columns
+        = render :partial => "layouts/flash_notice"
+        #main-content
+          = yield
+        = render :partial => "layouts/footer"
