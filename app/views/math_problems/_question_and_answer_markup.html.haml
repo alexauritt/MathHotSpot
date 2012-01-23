@@ -1,15 +1,18 @@
 #math-markup-input-fields
-  #question
-    #question-equation-editor
-      = equation_editor_link 'Launch Equation Editor for Question', 'question-markup-input'
-    .editor-explanation
-      (note: will add to existing markup)
-    #question_markup
-      = form.input :question_markup, :as => :text, :input_html => { :id => "question-markup-input" }
-  #answer
-    #answer-equation-editor
-      = equation_editor_link 'Launch Equation Editor for Answer', 'answer-markup-input'
-    .editor-explanation
-      (note: will add to existing markup)
-    #answer_markup
-      = form.input :answer_markup, :as => :text, :input_html => { :id => 'answer-markup-input' } 
+  .sixteen.columns
+    .eight.columns.alpha
+      #question
+        #question-equation-editor
+          = equation_editor_link 'Launch Equation Editor for Question', 'question-markup-input'
+        .editor-explanation
+          (note: will add to existing markup)
+        #question_markup
+          = form.input :question_markup, :as => :text, :input_html => { :id => "question-markup-input" }
+    .eight.columns.omega
+      #answer
+        #answer-equation-editor
+          = equation_editor_link 'Launch Equation Editor for Answer', 'answer-markup-input'
+        .editor-explanation
+          (note: will add to existing markup)
+        #answer_markup
+          = form.input :answer_markup, :as => :text, :input_html => { :id => 'answer-markup-input' } 

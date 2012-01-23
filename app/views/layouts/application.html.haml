@@ -8,8 +8,7 @@
   %body
     = render :partial => "layouts/navigation"
     .container
-      .sixteen.columns
-        = render :partial => "layouts/flash_notice"
-        #main-content
-          = yield
+      = render :partial => "layouts/flash_notice"
+      #main-content
+        = yield
         = render :partial => "layouts/footer"

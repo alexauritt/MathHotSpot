@@ -1,6 +1,7 @@
 #navigation-header
-  #navigation-links
-    = link_to :home, my_worksheets_path
-  #user_login
-    = display_email_if_signed_in
-    = user_login_or_logout_link
+  .container
+    .sixteen.columns
+    #navigation-links
+      = link_to :home, my_worksheets_path
+    #user_login
+      = user_login_or_logout_link

@@ -1,30 +1,35 @@
 - content_for :head do
   %title
     ="Worksheet #{@worksheet.id}"
-
-.worksheet{:id => "worksheet_#{@worksheet.id}"}
-  - unless @worksheet.empty?
-    #worksheet-links
-    = button_to "Save Worksheet", worksheet_path(@worksheet), { :class => 'worksheet-button', :method => :get }
-  #worksheet-title
-    #current-title
-      #title-display
-        =@worksheet.title
+.sixteen.columns
+  .worksheet{:id => "worksheet_#{@worksheet.id}"}
+    - unless @worksheet.empty?
+      #worksheet-links
+      = button_to "Save Worksheet", worksheet_path(@worksheet), { :class => 'worksheet-button', :method => :get }
+    .twelve.columns.alpha
+      #worksheet-title
+        #current-title
+          %h2
+            =@worksheet.title
+    .four.columns.omega
       #title-edit-link
         =button_to "change worksheet title", nil, :class => 'worksheet-button'
-    #title-update
-      = simple_form_for @worksheet, :id => "title-update-form", :remote => true do |w|
-        = w.input :title
-        = w.submit "update title", :id => "title-update-submit", :class => 'worksheet-button'
-      #cancel-title-update
-        = simple_form_for edit_worksheet_path(@worksheet) do |c|
-          = c.submit "cancel", :class => 'worksheet-button'
-  .add-new-problem-buttons
-    = button_to "Create New Problem for Worksheet", new_worksheet_worksheet_problem_path(@worksheet), { :class => 'worksheet-button', :method => :get }
-    = button_to "Find Existing Problem for Worksheet", new_problem_types_search_path, { :class => 'worksheet-button', :method => :get }
-  - @worksheet.problem_groups.each do |group|
-    .problem_group
-      .instructions
-        = group.first.instruction.description
-      - group.each do |worksheet_problem|
-        = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet_problem => worksheet_problem, :editable => true }
+      #title-update
+        = simple_form_for @worksheet, :id => "title-update-form", :remote => true do |w|
+          = w.input :title
+          = w.submit "update title", :id => "title-update-submit", :class => 'worksheet-button'
+        #cancel-title-update
+          = simple_form_for edit_worksheet_path(@worksheet) do |c|
+            = c.submit "cancel", :class => 'worksheet-button'
+    .eight.columns.alpha
+      .create_problem_box
+        = button_to "Create New Problem for Worksheet", new_worksheet_worksheet_problem_path(@worksheet), { :class => 'worksheet-button', :method => :get }
+    .eight.columns.omega
+      .create_problem_box
+        = button_to "Find Existing Problem for Worksheet", new_problem_types_search_path, { :class => 'worksheet-button', :method => :get }
+    - @worksheet.problem_groups.each do |group|
+      .problem_group
+        .instructions
+          = group.first.instruction.description
+        - group.each do |worksheet_problem|
+          = render :partial => "worksheet_problems/worksheet_problem", :locals => { :worksheet_problem => worksheet_problem, :editable => true }
