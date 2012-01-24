@@ -49,8 +49,18 @@ a {
   }
 }
 
-.columns {
-  //background-color:#f3f3f3;
+.worksheet_list {
+  //padding:10px;
+  padding:10px;
+  height:100px;
+  margin-bottom:20px;
+  background-color:$grey1;
+  @include rounded-corners;
+  a {
+    //color:$highlight1;
+    text-decoration:none;
+    font-weight:bold;
+  }
 }
 
 textarea {
@@ -60,11 +70,11 @@ textarea {
 
 .create_problem_box {
   background-color:$grey1;
-  border:1px solid $grey2;
+  //border:1px solid $grey2;
   @include rounded-corners;
   text-align:center;
-  padding-top:30px;
-  @include inset-shadow;
+  padding-top:10px;
+  //@include inset-shadow;
 }
 input[type=submit] {
   @include button;

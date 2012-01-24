@@ -6,14 +6,21 @@
   #worksheets
     #current-worksheets
       %h3
-        Current Worksheets  
-      - if @worksheets.empty?
-        .worksheet You don't have any worksheets!
-        .worksheet Make some worksheets!
-      - else
-        - @worksheets.each do |worksheet|
-          .worksheet
-            = link_to worksheet.title, worksheet_path(worksheet)
+        Current Worksheets
+
+- if @worksheets.empty?
+  .worksheet You don't have any worksheets!
+  .worksheet Make some worksheets!
+- else
+  - @worksheets.each do |worksheet|
+    .four.columns
+      .worksheet_list
+        = link_to worksheet.title, worksheet_path(worksheet)
+        %br/
+        Creation Date
+        %br/
+        Subject Matter
+
 .sixteen.columns
   #create-new-worksheet
     = link_to "Create a New Worksheet", new_worksheet_path
