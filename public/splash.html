@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+    <title>Right Rabbit</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+	<!-- Centering className both horizontally and vertically with jQuery: -->
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+							   
+		$(window).resize(function(){
+	
+			$('.center').css({
+				position:'absolute',
+				left: ($(window).width() - $('.center').outerWidth())/2,
+				top: ($(window).height() - $('.center').outerHeight())/2
+			});
+			
+		});
+		// To initially run the function:
+		$(window).resize();
+	
+	});
+	</script>
+  <style type="text/css">
+  @font-face{font-family:'MuseoSlab';src:url('vendor/1FD766_0_0.eot');src:url('vendor/1FD766_0_0.eot?#iefix') format('embedded-opentype'),url('vendor/1FD766_0_0.woff') format('woff'),url('vendor/1FD766_0_0.ttf') format('truetype');}
+  body{font-family:arial, helvetica, serif;font-size:14px;color:#555555;letter-spacing:1px;text-align:left;background-color:#fafafa;text-align:center;}
+  h1 { font-size:60px; margin:0; color:#32caca}
+  h2 {margin:0; font-weight:normal; color:#ff8f8f;}
+  a{color:#009999;text-decoration:none;}
+  a.curious{font-family:MuseoSlab,arial,sans-serif !important;color:#ffffff;border-bottom:1px dashed yellow;}
+  a.curious:hover{color:yellow;}
+  a.curious:focus{color:yellow!important;outline:none;}
+  a:hover{color:#f27273;}
+  a:focus{color:#42b548 !important;outline:none;}
+  .center{text-align:center;width:450px;}
+  .vollipop{color:#f3f3f3;background-color:#00cc00;padding:5px 0px;margin-top:30px;font-size:18px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;-moz-box-shadow:inset 0 1px 3px rgba(204, 204, 204, 0.3);-webkit-box-shadow:inset 0 1px 3px rgba(204, 204, 204, 0.3);box-shadow:inset 0 1px 3px rgba(204, 204, 204, 0.3);-moz-text-shadow:-1px -1px 0 rgba(191, 48, 48, 0.5);-webkit-text-shadow:-1px -1px 0 rgba(191, 48, 48, 0.5);text-shadow:-1px -1px 0 rgba(52, 52, 52, 0.3);}
+  </style>
+
+	</head>
+		
+<body>
+
+	<div class="center">
+		<h1>RIGHT RABBIT</h1>
+		<h2>Teach Math. Share Math.</h2>
+		<div class="vollipop">
+			<p>From the makers of <a class="curious" href="http://vollipop.com" target="_blank">Vollipop</a></p>
+		</div>
+	</div>		
+</body>
+</html>
